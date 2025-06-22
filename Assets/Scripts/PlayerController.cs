@@ -9,7 +9,7 @@ namespace TMOT
     public class PlayerController : Singleton<PlayerController>
     {
         [SerializeField]
-        float health = 100;
+        float health = 1000;
 
         [SerializeField]
         float pushRadius = 5f;
@@ -52,6 +52,13 @@ namespace TMOT
         {
             Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             cc.Move(move.normalized * moveSpeed * Time.deltaTime);
+
+            if (transform.position.y > 0)
+            {
+                var pos = transform.position;
+                pos.y = 0;
+                transform.position = pos;
+            }
         }
 
         public void ApplyDamage(float damage)
@@ -60,6 +67,7 @@ namespace TMOT
             if (health <= 0)
             {
                 Debug.Log("You are dead");
+                
             }
             else
             {
@@ -72,7 +80,7 @@ namespace TMOT
                     if (coll.CompareTag("Monster"))
                         coll.GetComponent<MonsterController>().ReportPushedBack();
                 }
-                
+
             }
         }
     }

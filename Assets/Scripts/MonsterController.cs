@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.Universal;
 
 namespace TMOT
 {
-    public enum MonsterState { Idle, Patrolling, Searching, Chasing, Fleeing, Attacking, Pushed }
+    public enum MonsterState { Idle, Patrolling, Chasing, Searching, Fleeing, Attacking, Pushed }
 
     public class MonsterController : MonoBehaviour
     {
@@ -26,9 +27,12 @@ namespace TMOT
         float proximityRange = 3f;
 
         [SerializeField]
-        float patrollingTime = 15;
+        float idleTime = 5f;
+
         [SerializeField]
-        float searchingTime = 25f;
+        float patrollingTime = 25;
+        [SerializeField]
+        float searchingTime = 5f;
 
         [SerializeField]
         float attackRange = 1.5f;
@@ -44,12 +48,15 @@ namespace TMOT
         float elapsed = 0;
 
         
-
-        float idleTime = 5f;
+        
 
         float time = 0;
 
         MonsterState state = MonsterState.Idle;
+        public MonsterState State
+        {
+            get{ return state; }
+        }
 
         NavMeshAgent agent;
 
@@ -60,13 +67,13 @@ namespace TMOT
 
         float destinationReachedDistance = 1f;
 
-        MonsterState onIdleExitNextState;
-
-        float keepSearchingAfterChasingTime = 12;
-
         MonsterState previousState = MonsterState.Idle;
 
         Rigidbody rb;
+
+        Vector3 lastPlayerSpot;
+
+     
 
 
         void Awake()
@@ -80,27 +87,32 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-            SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Searching); 
+            SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle); 
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            switch (state)
-            {
-                case MonsterState.Patrolling:
-                    UpdatePatrollingState();
-                    break;
-                case MonsterState.Searching:
-                    UpdateSearchingState();
-                    break;
-                case MonsterState.Idle:
-                    UpdateIdleState();
-                    break;
-                case MonsterState.Chasing:
-                    UpdateChasingState();
-                    break;
-            }
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.F))
+                ReportPushedBack();
+#endif
+                switch (state)
+                {
+                    case MonsterState.Patrolling:
+                        UpdatePatrollingState();
+                        break;
+                    case MonsterState.Searching:
+                        UpdateSearchingState();
+                        break;
+                    case MonsterState.Idle:
+                        UpdateIdleState();
+                        break;
+                    case MonsterState.Chasing:
+                        UpdateChasingState();
+                        break;
+                }
         }
 
 
@@ -111,18 +123,25 @@ namespace TMOT
             agent.isStopped = false;
             time = UnityEngine.Random.Range(patrollingTime*.7f, patrollingTime*1.3f);
             elapsed = 0;
-            onIdleExitNextState = MonsterState.Searching;
+            //onIdleExitNextState = MonsterState.Searching;
             agent.SetDestination(GetPatrolDestination());
         }
+
+        void EnterChasingState()
+        {
+            agent.isStopped = false;
+            destinationUpdateElapsed = 0;
+            agent.SetDestination(PlayerController.Instance.transform.position);
+        }
+
 
         void EnterSearchingState()
         {
             agent.isStopped = false;
             time = searchingTime;
             elapsed = 0;
-            onIdleExitNextState = MonsterState.Patrolling;
             destinationUpdateElapsed = 0;
-            agent.SetDestination(PlayerController.Instance.transform.position);
+            agent.SetDestination(lastPlayerSpot);
         }
 
         void EnterFleeingState()
@@ -139,23 +158,24 @@ namespace TMOT
             elapsed = 0;
         }
 
-        void EnterChasingState()
-        {
-            EnterSearchingState();
-        }
+        
 
         async void EnterAttackingState()
         {
+            OnHitPlayer?.Invoke(this);
             await Task.Delay(200);
+            PlayerController.Instance.ApplyDamage(damage);
+            // await Task.Delay(2000);
+            // SetState(MonsterState.Chasing);
+            // if (CanAttack(attackRange * 1.2f, attackAngle * 1.2f))
+            // {
 
-            if (CanAttack(attackRange * 1.2f, attackAngle * 1.2f))
-            {
-                PlayerController.Instance.ApplyDamage(damage);
-                OnHitPlayer?.Invoke(this);
-            }
-                
-
-            SetState(MonsterState.Chasing);
+            //     OnHitPlayer?.Invoke(this);
+            // }
+            // else
+            // {
+            //     SetState(MonsterState.Chasing);
+            // }    
 
         }
 
@@ -173,7 +193,7 @@ namespace TMOT
             rb.isKinematic = true;
             agent.isStopped = false;
 
-            SetState(previousState);
+            SetState(MonsterState.Idle);
         }
         #endregion
 
@@ -196,22 +216,15 @@ namespace TMOT
             elapsed += Time.deltaTime;
             if (elapsed > time)
             {
+                elapsed = 0;
                 // Switch to patrolling or searching
-                SetState(onIdleExitNextState);
-
+                SetState(MonsterState.Patrolling);
             }
             
 
         }
 
-        // /// <summary>
-        // /// This method simply prevents the monster from switching to the patroling state as long as the player is visible
-        // /// </summary>
-        void UpdateChasingState()
-        {
-            UpdateSearchingState();
-        }
-    
+        
         void UpdatePatrollingState()
         {
             if (PlayerController.Instance.State == PlayerState.Hunter)
@@ -248,7 +261,7 @@ namespace TMOT
 
 
         }
-        void UpdateSearchingState()
+        void UpdateChasingState()
         {
             if (PlayerController.Instance.State == PlayerState.Hunter)
             {
@@ -263,34 +276,18 @@ namespace TMOT
                 return;
             }
 
-            if (HasSpottedPlayer())
+            if (!HasSpottedPlayer())
             {
-                //state = MonsterState.Chasing; // We don't need to reset the state
-                SetState(MonsterState.Chasing);
-                //return;
-            }
-            else
-            {
+                // Set searching
+                lastPlayerSpot = PlayerController.Instance.transform.position;
                 SetState(MonsterState.Searching);
-                //state = MonsterState.Searching;
-            }
-
-            elapsed += Time.deltaTime;
-            if (elapsed > time)
-            {
-                elapsed = 0;
-                // Switch to searching state
-                if (state != MonsterState.Chasing) // Chasing and searching share enter and update methods
-                    SetState(MonsterState.Idle);
-                else
-                    time = UnityEngine.Random.Range(keepSearchingAfterChasingTime * .7f, keepSearchingAfterChasingTime * 1.3f);
-
                 return;
             }
 
+
             if (agent.pathPending) return;
 
-       
+
             // Update destination
             destinationUpdateElapsed += Time.deltaTime;
             if (destinationUpdateElapsed > destinationUpdateTime)
@@ -298,6 +295,46 @@ namespace TMOT
                 destinationUpdateElapsed -= destinationUpdateTime;
                 agent.SetDestination(PlayerController.Instance.transform.position);
             }
+
+      
+        }
+
+        void UpdateSearchingState()
+        {
+            if (PlayerController.Instance.State == PlayerState.Hunter)
+            {
+                // Switch to fleeing
+                SetState(MonsterState.Fleeing);
+                return;
+            }
+
+
+            if (HasSpottedPlayer())
+            {
+                // Set searching
+                SetState(MonsterState.Chasing);
+                return;
+            }
+
+
+         
+            if (DestinationReached())
+            {
+                SetState(MonsterState.Idle);
+                return;
+            }
+                
+
+            if (!agent.hasPath)
+            {
+                Debug.Log("TEST - No path");
+                agent.SetDestination(lastPlayerSpot);
+            }
+
+            if (agent.pathPending) return;
+
+            if (agent.pathStatus == NavMeshPathStatus.PathPartial || agent.pathStatus == NavMeshPathStatus.PathInvalid)
+                agent.SetDestination(lastPlayerSpot);
 
         }
         #endregion
@@ -320,8 +357,7 @@ namespace TMOT
 
 
             var ret = l[UnityEngine.Random.Range(0, l.Count)].position;
-            Debug.Log($"{gameObject.name} setting patrol destination: {ret}");
-
+           
             return ret;
             
         }
@@ -358,6 +394,12 @@ namespace TMOT
         public void ReportPushedBack()
         {
             SetState(MonsterState.Pushed);
+        }
+
+        public void UpdateSearchingDestination(Vector3 newDestination)
+        {
+            lastPlayerSpot = newDestination;
+            agent.SetDestination(lastPlayerSpot);
         }
 
         public void SetState(MonsterState newState)

@@ -17,7 +17,11 @@ namespace TMOT
         [SerializeField]
         List<Transform> spawnPoints;
 
-        List<GameObject> monsters = new List<GameObject>();
+        List<MonsterController> monsters = new List<MonsterController>();
+        public IList<MonsterController> Monsters
+        {
+            get{ return monsters; }
+        }
 
         float spawnDistance = 20;
 
@@ -42,7 +46,7 @@ namespace TMOT
 
         IEnumerator _Test()
         {
-            // TEST - Levvel controller should call SpawnRandomMonsters()
+            // TEST - Level controller should call SpawnRandomMonsters()
             while (true)
             {
                 yield return new WaitForSeconds(20);
@@ -52,6 +56,7 @@ namespace TMOT
 
         public void SpawnRandomMonsters(int count)
         {
+            Debug.Log("TEST - spawn new monsters");
             List<Transform> candidates = spawnPoints.FindAll(s => Vector3.Distance(PlayerController.Instance.transform.position, s.position) > spawnDistance);
             for (int i = 0; i < count; i++)
             {
@@ -64,9 +69,11 @@ namespace TMOT
                 // Spawn new monster
                 var m = Instantiate(mp, sp.position, sp.rotation);
                 // Add to the nonster list
-                monsters.Add(m);
+                monsters.Add(m.GetComponent<MonsterController>());
             }
         }
+        
+
 
     }
     
