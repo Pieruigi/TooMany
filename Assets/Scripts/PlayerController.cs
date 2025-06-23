@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TMOT
 {
-    public enum PlayerState { Prey, Hunter, Dead }
+    public enum PlayerState { None, Prey, Hunter, Dead }
 
     public class PlayerController : Singleton<PlayerController>
     {
@@ -18,15 +19,25 @@ namespace TMOT
         float pushForce = 10f;
         public float PushForce
         {
-            get{ return pushForce; }
+            get { return pushForce; }
         }
 
+        [SerializeField]
+        float monsterKillRange = 2f;
 
-        PlayerState state = PlayerState.Prey;
+        PlayerState state = PlayerState.None;
 
         CharacterController cc;
 
         float moveSpeed = 3;
+
+        float killMonsterTime = .5f;
+
+        float killMonsterElapsed = 0f;
+
+        
+
+
 
         public PlayerState State
         {
@@ -50,6 +61,21 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
+            switch (state)
+            {
+                case PlayerState.Prey:
+                    UpdatePreyState();
+                    break;
+                case PlayerState.Hunter:
+                    UpdateHunterState();
+                    break;
+            }
+
+            
+        }
+
+        void Move()
+        {
             Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             cc.Move(move.normalized * moveSpeed * Time.deltaTime);
 
@@ -61,13 +87,66 @@ namespace TMOT
             }
         }
 
+        #region update state
+        void UpdatePreyState()
+        {
+            Move();
+        }
+
+        void UpdateHunterState()
+        {
+            Move();
+
+            KillMonsters();
+        }
+
+        #endregion
+
+        #region enter state
+        void EnterPreyState()
+        {
+            
+        }
+
+        void EnterHunterState()
+        {
+            killMonsterElapsed = 0;
+
+        }
+
+        #endregion
+
+        void KillMonsters()
+        {
+            killMonsterElapsed += Time.deltaTime;
+            if (killMonsterElapsed > killMonsterTime)
+            {
+                killMonsterElapsed -= killMonsterTime;
+                // Overlapp sphere
+                Collider[] colls = Physics.OverlapSphere(transform.position, monsterKillRange);
+                Debug.Log($"TEST - Colls.Length:{colls.Length}");
+                if (colls == null || colls.Length == 0) return;
+
+                foreach (var coll in colls)
+                {
+                    Debug.Log($"TEST - Coll:{gameObject.name}");
+                    if (!coll.CompareTag("Monster")) continue;
+
+                    coll.GetComponent<MonsterController>().ReportHitByPlayer();
+                    
+                }
+            }
+
+            
+        }
+
         public void ApplyDamage(float damage)
         {
             health -= damage;
             if (health <= 0)
             {
                 Debug.Log("You are dead");
-                
+
             }
             else
             {
@@ -82,6 +161,23 @@ namespace TMOT
                 }
 
             }
+        }
+
+        public void SetState(PlayerState newState)
+        {
+            if (newState == state) return;
+
+            state = newState;
+            switch (state)
+            {
+                case PlayerState.Prey:
+                    EnterPreyState();
+                    break;
+                case PlayerState.Hunter:
+                    EnterHunterState();
+                    break;
+            }
+
         }
     }
     

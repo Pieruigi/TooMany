@@ -876,6 +876,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 730083821}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+--- !u!1 &50656616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 50656618}
+  - component: {fileID: 50656617}
+  m_Layer: 0
+  m_Name: LevelController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &50656617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50656616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073b84b6f6480f24d9a0d10816e5f2ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &50656618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50656616}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &70075444
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,24 +982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefabs:
   - {fileID: 5008595562412370377, guid: 635ecccccdaab92479263bcbd6df753a, type: 3}
-  initialNumber: 8
-  spawnPoints:
-  - {fileID: 987713145}
-  - {fileID: 1267902390}
-  - {fileID: 355075698}
-  - {fileID: 1698393165}
-  - {fileID: 731596004}
-  - {fileID: 97220021}
-  - {fileID: 999911198}
-  - {fileID: 2134260512}
-  - {fileID: 340219698}
-  - {fileID: 329623852}
-  - {fileID: 745341125}
-  - {fileID: 146568387}
-  - {fileID: 1986933096}
-  - {fileID: 1340998442}
-  - {fileID: 674338946}
-  - {fileID: 1590959888}
+  initialNumber: 1
 --- !u!4 &70782053
 Transform:
   m_ObjectHideFlags: 0
@@ -15602,51 +15629,6 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: af2d0a690188041479ed11318e7c8fc6, type: 2}
   m_BuildHeightMesh: 0
---- !u!1 &1252407399
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1252407401}
-  - component: {fileID: 1252407400}
-  m_Layer: 0
-  m_Name: MonsterAlarm
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1252407400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1252407399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0ee2b2b375744a459b8edc805aabe06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  callOtherDistance: 360
---- !u!4 &1252407401
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1252407399}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1260965086
 GameObject:
   m_ObjectHideFlags: 0
@@ -25872,6 +25854,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4654855766244751660, guid: 68a70824a2154864eabff2f5c841947a,
+        type: 3}
+      propertyPath: monsterKillRange
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8767102752601906788, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_SlopeLimit
@@ -25908,4 +25895,4 @@ SceneRoots:
   - {fileID: 730083821}
   - {fileID: 1490341751}
   - {fileID: 1965206722}
-  - {fileID: 1252407401}
+  - {fileID: 50656618}

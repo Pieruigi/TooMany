@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -12,10 +14,10 @@ namespace TMOT
         List<GameObject> monsterPrefabs;
 
         [SerializeField]
-        int initialNumber = 4;
+        int initialNumber = 8;
 
-        [SerializeField]
-        List<Transform> spawnPoints;
+        // [SerializeField]
+        // List<Transform> spawnPoints;
 
         List<MonsterController> monsters = new List<MonsterController>();
         public IList<MonsterController> Monsters
@@ -57,7 +59,8 @@ namespace TMOT
         public void SpawnRandomMonsters(int count)
         {
             Debug.Log("TEST - spawn new monsters");
-            List<Transform> candidates = spawnPoints.FindAll(s => Vector3.Distance(PlayerController.Instance.transform.position, s.position) > spawnDistance);
+            
+            List<Transform> candidates = WayPointManager.Instance.WayPoints.ToList().FindAll(s => Vector3.Distance(PlayerController.Instance.transform.position, s.position) > spawnDistance);
             for (int i = 0; i < count; i++)
             {
                 // Get a random spawn point
@@ -72,8 +75,12 @@ namespace TMOT
                 monsters.Add(m.GetComponent<MonsterController>());
             }
         }
-        
 
+        public void DestroyMonsterDelayed(MonsterController monster, float delay)
+        {
+            monsters.Remove(monster);
+            Destroy(monster.gameObject, delay);
+        }
 
     }
     
