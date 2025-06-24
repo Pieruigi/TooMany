@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 1
+  m_ReflectionIntensity: 0
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
@@ -907,8 +907,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameModePrefabs:
   - {fileID: 4715216348927760533, guid: 5ebe9600c1ca3584693f37aa352341bb, type: 3}
-  gameModeUIPrefabs:
-  - {fileID: 7794650086727917744, guid: a2de67165f77c8a4ca18e9e3e8abb704, type: 3}
 --- !u!4 &50656618
 Transform:
   m_ObjectHideFlags: 0
@@ -3775,24 +3773,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2045250098}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &330585543 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1440852047622987730, guid: 68a70824a2154864eabff2f5c841947a,
-    type: 3}
-  m_PrefabInstance: {fileID: 103338661739768680}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &330585548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bb6284e8b869094486341e7bb76aa47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &340219697
 GameObject:
   m_ObjectHideFlags: 0
@@ -4612,7 +4592,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &410087040
 Light:
   m_ObjectHideFlags: 0
@@ -4625,7 +4605,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 0.68
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4668,7 +4648,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5000
+  m_ColorTemperature: 3672
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -25707,7 +25687,7 @@ PrefabInstance:
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.97
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
@@ -25754,24 +25734,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4654855766244751660, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: turnSpeed
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 4654855766244751660, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: rotationSpeed
-      value: 720
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1440852047622987730, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 330585548}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68a70824a2154864eabff2f5c841947a, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

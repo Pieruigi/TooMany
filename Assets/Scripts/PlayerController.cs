@@ -9,6 +9,9 @@ namespace TMOT
 
     public class PlayerController : Singleton<PlayerController>
     {
+        public delegate void OnStateChangedDelegate(PlayerState oldState, PlayerState newState);
+        public static OnStateChangedDelegate OnStateChanged;
+
         [SerializeField]
         float health = 1000;
 
@@ -239,6 +242,7 @@ namespace TMOT
         public void SetState(PlayerState newState)
         {
             if (newState == state) return;
+            var oldState = state;
 
             state = newState;
             switch (state)
@@ -250,6 +254,8 @@ namespace TMOT
                     EnterHunterState();
                     break;
             }
+
+            OnStateChanged?.Invoke(oldState, newState);
 
         }
     }

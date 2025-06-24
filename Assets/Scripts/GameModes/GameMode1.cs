@@ -6,10 +6,11 @@ namespace TMOT
 {
     public class GameMode1 : GameMode
     {
-       
-        float playerChasedTime = 90;
 
-        float playerChasingTime = 20;
+
+        float playerChasedTime = 10;//90;
+
+        float playerChasingTime = 10;//20;
 
         float goalTarget = 6;
 
@@ -21,7 +22,7 @@ namespace TMOT
 
         bool playerChasing = false;
 
-               
+
 
         // Start is called before the first frame update
         void Start()
@@ -75,7 +76,7 @@ namespace TMOT
             else
                 MonsterSpawner.Instance.StartSpawner();
         }
-        
+
         public float GetGoalTimeRemaining()
         {
             var total = goalTarget * playerChasedTime;
@@ -86,7 +87,14 @@ namespace TMOT
 
             return total - passed;
 
-            
+
         }
+
+        public float GetSwitchTimeLeft()
+        {
+            return time - elapsed;
+        }
+        
+
     }
 }

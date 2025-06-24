@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace TMOT.UI
@@ -27,7 +28,7 @@ namespace TMOT.UI
         // Start is called before the first frame update
         void Start()
         {
-        
+            
         }
 
         // Update is called once per frame
@@ -39,6 +40,7 @@ namespace TMOT.UI
             {
                 case GameState.Playing:
                     UpdatePlayingState();
+                    UpdateSwitchTimer();
                     break;
                
             }
@@ -46,7 +48,7 @@ namespace TMOT.UI
 
         }
 
-      
+        
 
         protected override void HandleOnGameStateChanged(GameState oldState, GameState newState)
         {
@@ -56,8 +58,9 @@ namespace TMOT.UI
                 case GameState.Starting:
                     ShowChaseTimer(false);
                     UpdateGoalTimer();
+                    ShowSwitchTimer(false);
                     break;
-                
+
             }
         }
 
@@ -67,8 +70,21 @@ namespace TMOT.UI
             UpdateGoalTimer();
         }
 
-      
 
+        void UpdateSwitchTimer()
+        {
+            var timeLeft = (GameMode.Instance as GameMode1).GetSwitchTimeLeft();
+            if (timeLeft < 5)
+            {
+                ShowSwitchTimer(true);
+                switchField.text = Mathf.FloorToInt(timeLeft).ToString();
+            }
+            else
+            {
+                ShowSwitchTimer(false);
+            }
+
+        }
 
         void UpdateGoalTimer()
         {
@@ -85,7 +101,11 @@ namespace TMOT.UI
             chaseTimerField.gameObject.SetActive(value);
         }
 
-        
+        void ShowSwitchTimer(bool value)
+        {
+            if (switchField.gameObject.activeSelf == value) return;
+            switchField.gameObject.SetActive(value);
+        }
 
         
 

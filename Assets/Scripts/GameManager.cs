@@ -94,6 +94,9 @@ namespace TMOT
 
         async void EnterStartingState()
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
             LevelController.Instance.Initialize();
             await Task.Delay(TimeSpan.FromSeconds(StartingDelay));
 

@@ -173,8 +173,9 @@ namespace TMOT
         {
             agent.ResetPath();
             agent.isStopped = true;
-        
-            MonsterSpawner.Instance.DestroyMonsterDelayed(this, 1);
+
+            GetComponent<Collider>().enabled = false;
+            MonsterSpawner.Instance.DestroyMonsterDelayed(this, .01f);
 
         }
 
