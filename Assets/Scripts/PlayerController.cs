@@ -25,18 +25,47 @@ namespace TMOT
         [SerializeField]
         float monsterKillRange = 2f;
 
-        PlayerState state = PlayerState.None;
+        
 
-        CharacterController cc;
-
+        [SerializeField]
         float moveSpeed = 3;
+
+        [SerializeField]
+        float rotationSpeed = 720;
+
+        [SerializeField]
+        float turnSpeed = 1;
+
+        float yaw = 0, pitch = 0;
+        public float Pitch
+        {
+            get{ return pitch; }
+        }
+
+        float mouseSensitivity = 1;
+
+        Vector2 moveInput;
+        Vector2 aimInput;
+
+        float pitchDirection = -1;
+
+        float minPitch = -80;
+        float maxPitch = 80;
+
+        Vector3 currentVelocity = Vector3.zero;
+        public Vector3 Velocity
+        {
+            get{ return currentVelocity; }
+        }
 
         float killMonsterTime = .5f;
 
         float killMonsterElapsed = 0f;
 
         
+        PlayerState state = PlayerState.None;
 
+        CharacterController cc;
 
 
         public PlayerState State
@@ -74,29 +103,73 @@ namespace TMOT
             
         }
 
-        void Move()
+        void CheckInput()
         {
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            cc.Move(move.normalized * moveSpeed * Time.deltaTime);
+            moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            aimInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        }
 
-            if (transform.position.y > 0)
+        // void Move()
+        // {
+        //     Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        //     cc.Move(move.normalized * moveSpeed * Time.deltaTime);
+
+        //     if (transform.position.y > 0)
+        //     {
+        //         var pos = transform.position;
+        //         pos.y = 0;
+        //         transform.position = pos;
+        //     }
+        // }
+
+        private void Move()
+        {
+            var targetDirection = transform.TransformDirection(new Vector3(moveInput.x, 0, moveInput.y));
+            var targetVelocity = targetDirection.normalized * moveSpeed;
+
+
+            currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, turnSpeed * Time.deltaTime);
+
+            // var newPosition = transform.position + currentVelocity * Time.deltaTime;
+            // newPosition.y = 0;
+            //transform.position = newPosition;
+            cc.Move(currentVelocity * Time.deltaTime);
+
+            // Be sure player is grounded
+            var pos = transform.position;
+            if (pos.y != 0)
             {
-                var pos = transform.position;
                 pos.y = 0;
                 transform.position = pos;
             }
         }
 
+        private void Rotate()
+        {
+            yaw += aimInput.x * Time.deltaTime * rotationSpeed * mouseSensitivity;
+            yaw %= 360;
+
+            pitch += aimInput.y * Time.deltaTime * rotationSpeed * mouseSensitivity * pitchDirection;
+            pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
+
+
+            transform.eulerAngles = new Vector3(0, yaw, 0);
+   
+        }
+
         #region update state
         void UpdatePreyState()
         {
+            CheckInput();
+            Rotate();
             Move();
         }
 
         void UpdateHunterState()
         {
+            CheckInput();
+            Rotate();
             Move();
-
             KillMonsters();
         }
 

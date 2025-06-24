@@ -4,68 +4,47 @@ using UnityEngine;
 
 namespace TMOT
 {
-    public class LevelController : MonoBehaviour
+    public class LevelController : Singleton<LevelController>
     {
 
-        float playerChasedTime = 90;
+        [SerializeField]
+        List<GameObject> gameModePrefabs;
+      
+        public GameObject GameMode { get; private set; }
 
-        float playerChasingTime = 10;
-
-        float time;
-
-        float elapsed = 0;
-
-        bool playerChasing = false;
-
-
-
-        void Awake()
+      
+        protected override void Awake()
         {
-
+            base.Awake();
         }
+
 
         // Start is called before the first frame update
         void Start()
         {
-            Init();
+
         }
 
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                playerChasing = !playerChasing;
-                Init();
-                
-            }
-            return;
-#endif
-            elapsed += Time.deltaTime;
-            if (elapsed > time)
-            {
-                elapsed = 0;
-                playerChasing = !playerChasing;
-
-                Init();
-
-
-            }
-        }
-
-        void Init()
-        {
-            elapsed = 0;
-            if (!playerChasing)
-                time = playerChasedTime;
-            else
-                time = playerChasingTime;
-
-            PlayerController.Instance.SetState(!playerChasing ? PlayerState.Prey : PlayerState.Hunter);
-        }
-
         
+
+        }
+        
+        
+
+        public void Initialize()
+        {
+            // Instantiate the game mode objet
+            var prefab = gameModePrefabs[(int)GameManager.Instance.GameMode];
+            var gm = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+            GameMode = gm;
+
+
+
+        }
+
 
     }
 }

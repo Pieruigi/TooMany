@@ -22,12 +22,15 @@ namespace TMOT
         List<MonsterController> monsters = new List<MonsterController>();
         public IList<MonsterController> Monsters
         {
-            get{ return monsters; }
+            get { return monsters; }
         }
 
         float spawnDistance = 20;
 
+        bool spawnDisabled = false;
+        float spawnTime = 40;
 
+        float spawnElapsed = 0;
 
 
 
@@ -36,13 +39,20 @@ namespace TMOT
         {
             SpawnRandomMonsters(initialNumber);
 
-            StartCoroutine(_Test());
+            //StartCoroutine(_Test());
         }
 
         // Update is called once per frame
         void Update()
         {
-            
+            if (spawnDisabled) return;
+
+            spawnElapsed += Time.deltaTime;
+            if (spawnElapsed > spawnTime)
+            {
+                spawnElapsed -= spawnTime;
+                SpawnRandomMonsters(initialNumber);
+            }
 
         }
 
@@ -59,7 +69,7 @@ namespace TMOT
         public void SpawnRandomMonsters(int count)
         {
             Debug.Log("TEST - spawn new monsters");
-            
+
             List<Transform> candidates = WayPointManager.Instance.WayPoints.ToList().FindAll(s => Vector3.Distance(PlayerController.Instance.transform.position, s.position) > spawnDistance);
             for (int i = 0; i < count; i++)
             {
@@ -80,6 +90,17 @@ namespace TMOT
         {
             monsters.Remove(monster);
             Destroy(monster.gameObject, delay);
+        }
+
+        public void StopSpawner()
+        {
+            spawnDisabled = true;
+        }
+
+        public void StartSpawner()
+        {
+            spawnDisabled = false;
+            spawnElapsed = 0;
         }
 
     }
