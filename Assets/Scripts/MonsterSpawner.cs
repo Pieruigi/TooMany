@@ -10,6 +10,12 @@ namespace TMOT
 {
     public class MonsterSpawner : Singleton<MonsterSpawner>
     {
+        public delegate void OnMonsterAddedDelegate(GameObject monster);
+        public static OnMonsterAddedDelegate OnMonsterAdded;
+
+        public delegate void OnMonsterRemovedDelegate(GameObject monster);
+        public static OnMonsterRemovedDelegate OnMonsterRemoved;
+
         [SerializeField]
         List<GameObject> monsterPrefabs;
 
@@ -83,13 +89,18 @@ namespace TMOT
                 var m = Instantiate(mp, sp.position, sp.rotation);
                 // Add to the nonster list
                 monsters.Add(m.GetComponent<MonsterController>());
+
+                OnMonsterAdded?.Invoke(m);
             }
         }
 
         public void DestroyMonsterDelayed(MonsterController monster, float delay)
         {
             monsters.Remove(monster);
+            OnMonsterRemoved?.Invoke(monster.gameObject);
             Destroy(monster.gameObject, delay);
+
+            
         }
 
         public void StopSpawner()

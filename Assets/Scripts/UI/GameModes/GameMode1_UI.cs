@@ -20,10 +20,21 @@ namespace TMOT.UI
         TMP_Text chaseTimerField;
 
         [SerializeField]
-        TMP_Text switchField;
+        TMP_Text monsterCounterField;
 
         string timeStringFormat = "{0:00}:{1:00}";
 
+        Animator chaseTimerAnimator, goalTimerAnimator;
+
+        bool switching = false;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            chaseTimerAnimator = chaseTimerField.GetComponent<Animator>();
+            goalTimerAnimator = goalTimerField.GetComponent<Animator>();
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -40,7 +51,9 @@ namespace TMOT.UI
             {
                 case GameState.Playing:
                     UpdatePlayingState();
+                    UpdateChaseTimer();
                     UpdateSwitchTimer();
+                    UpdateMonsterCounter();
                     break;
                
             }
@@ -56,9 +69,11 @@ namespace TMOT.UI
             switch (newState)
             {
                 case GameState.Starting:
-                    ShowChaseTimer(false);
+                    ShowTimer(chaseTimerAnimator, false, init:true);
+                    ShowTimer(goalTimerAnimator, true, init:true);
                     UpdateGoalTimer();
-                    ShowSwitchTimer(false);
+                    UpdateChaseTimer();
+                    UpdateMonsterCounter();
                     break;
 
             }
@@ -74,16 +89,27 @@ namespace TMOT.UI
         void UpdateSwitchTimer()
         {
             var timeLeft = (GameMode.Instance as GameMode1).GetSwitchTimeLeft();
-            if (timeLeft < 5)
+            if (timeLeft < 3)
             {
-                ShowSwitchTimer(true);
-                switchField.text = Mathf.FloorToInt(timeLeft).ToString();
+                if (!switching)
+                {
+                    switching = true;
+                    ShowTimer(chaseTimerAnimator, PlayerController.Instance.State == PlayerState.Prey ? true : false);
+                    ShowTimer(goalTimerAnimator, PlayerController.Instance.State == PlayerState.Prey ? false : true);
+                }
+
             }
             else
             {
-                ShowSwitchTimer(false);
+                if (switching)
+                    switching = false;
             }
 
+        }
+
+        void UpdateMonsterCounter()
+        {
+            monsterCounterField.text = MonsterSpawner.Instance.Monsters.Count.ToString();
         }
 
         void UpdateGoalTimer()
@@ -95,17 +121,30 @@ namespace TMOT.UI
             goalTimerField.text = string.Format(timeStringFormat, minutes, seconds);
         }
 
-       
-        void ShowChaseTimer(bool value)
+        void UpdateChaseTimer()
         {
-            chaseTimerField.gameObject.SetActive(value);
+            var t = (GameMode.Instance as GameMode1).GetChasingTimeLeft();
+            int minutes = Mathf.FloorToInt(t / 60f);
+            int seconds = Mathf.FloorToInt(t % 60f);
+
+            chaseTimerField.text = string.Format(timeStringFormat, minutes, seconds);
         }
 
-        void ShowSwitchTimer(bool value)
+        void ShowTimer(Animator animator, bool value, bool init = false)
         {
-            if (switchField.gameObject.activeSelf == value) return;
-            switchField.gameObject.SetActive(value);
+            string state = value ? "On" : "Off";
+            if (init)
+            {
+                animator.Play(state, 0, 1.0f);
+                animator.Update(0);
+            }
+            else
+            {
+                animator.SetTrigger(state);
+            }
         }
+
+   
 
         
 

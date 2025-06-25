@@ -8,9 +8,9 @@ namespace TMOT
     {
 
 
-        float playerChasedTime = 10;//90;
+        float playerChasedTime = 90;
 
-        float playerChasingTime = 10;//20;
+        float playerChasingTime = 20;
 
         float goalTarget = 6;
 
@@ -21,6 +21,8 @@ namespace TMOT
         float elapsed = 0;
 
         bool playerChasing = false;
+
+        float extraChasingTime = 0;
 
 
 
@@ -65,9 +67,15 @@ namespace TMOT
         {
             elapsed = 0;
             if (!playerChasing)
+            {
+                extraChasingTime = 0;
                 time = playerChasedTime;
+            }
             else
-                time = playerChasingTime;
+            {
+                time = playerChasingTime + extraChasingTime;
+            }
+
 
 
             PlayerController.Instance.SetState(!playerChasing ? PlayerState.Prey : PlayerState.Hunter);
@@ -94,7 +102,14 @@ namespace TMOT
         {
             return time - elapsed;
         }
-        
+
+        public float GetChasingTimeLeft()
+        {
+            if (!playerChasing)
+                return playerChasingTime + extraChasingTime;
+            else
+                return playerChasingTime + extraChasingTime - elapsed;
+        }
 
     }
 }

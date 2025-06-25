@@ -200,12 +200,12 @@ namespace TMOT
                 killMonsterElapsed -= killMonsterTime;
                 // Overlapp sphere
                 Collider[] colls = Physics.OverlapSphere(transform.position, monsterKillRange);
-                Debug.Log($"TEST - Colls.Length:{colls.Length}");
+                
                 if (colls == null || colls.Length == 0) return;
 
                 foreach (var coll in colls)
                 {
-                    Debug.Log($"TEST - Coll:{gameObject.name}");
+                
                     if (!coll.CompareTag("Monster")) continue;
 
                     coll.GetComponent<MonsterController>().ReportHitByPlayer();

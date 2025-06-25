@@ -9,7 +9,15 @@ namespace TMOT
 
         [SerializeField]
         List<GameObject> gameModePrefabs;
-      
+
+        [SerializeField]
+        Vector2 mapSize;
+        public Vector2 MapSize
+        {
+            get{ return mapSize; }
+        }
+        
+
         public GameObject GameMode { get; private set; }
 
       
