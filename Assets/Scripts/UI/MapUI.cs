@@ -17,6 +17,9 @@ namespace TMOT.UI
         GameObject monsterPinPrefab;
 
         [SerializeField]
+        GameObject timeUpPinPrefab;
+
+        [SerializeField]
         Transform pinRoot;
 
         // [SerializeField]
@@ -24,7 +27,7 @@ namespace TMOT.UI
 
         // Key: pin
         // Value: monster
-        Dictionary<GameObject, GameObject> monsters = new Dictionary<GameObject, GameObject>();
+        Dictionary<GameObject, GameObject> pins = new Dictionary<GameObject, GameObject>();
 
         float elapsed = 0;
         float time = 0;
@@ -70,10 +73,8 @@ namespace TMOT.UI
                 UpdatePlayerPosition();
                 UpdatePlayerRotation();
 
-                // Monsters
-                // CheckForBrokenMonsters();
-                // CheckForNewMonsters();
-                UpdateMonsterPositions();
+                // Others
+                UpdatePinPositions();
             }
 
 
@@ -84,28 +85,40 @@ namespace TMOT.UI
         void OnEnable()
         {
             MonsterSpawner.OnMonsterAdded += HandleOnMonsterAdded;
-            MonsterSpawner.OnMonsterRemoved += HandleOnMonsterRemoved;
+            MonsterSpawner.OnMonsterRemoved += HandleOnObjectRemoved;
+            TimeUpSpawner.OnTimeUpSpawned += HandleOnTimeUpSpawned;
+            TimeUpSpawner.OnTimeUpUnspawned += HandleOnObjectRemoved;
         }
 
         void OnDisable()
         {
             MonsterSpawner.OnMonsterAdded -= HandleOnMonsterAdded;
-            MonsterSpawner.OnMonsterRemoved -= HandleOnMonsterRemoved;
+            MonsterSpawner.OnMonsterRemoved -= HandleOnObjectRemoved;
+            TimeUpSpawner.OnTimeUpSpawned -= HandleOnTimeUpSpawned;
+            TimeUpSpawner.OnTimeUpUnspawned -= HandleOnObjectRemoved;
         }
+
+        private void HandleOnTimeUpSpawned(GameObject timeUp)
+        {
+            var pin = Instantiate(timeUpPinPrefab, pinRoot);
+            pins.Add(pin, timeUp);
+        }
+
+        
 
         private void HandleOnMonsterAdded(GameObject monster)
         {
             var pin = Instantiate(monsterPinPrefab, pinRoot);
-            monsters.Add(pin, monster);
+            pins.Add(pin, monster);
         }
 
-        private void HandleOnMonsterRemoved(GameObject monster)
+        private void HandleOnObjectRemoved(GameObject obj)
         {
-            Debug.Log($"Removing monster:{monster}");
+            Debug.Log($"Removing object:{obj}");
             GameObject keyToRemove = null;
-            foreach (var key in monsters.Keys)
+            foreach (var key in pins.Keys)
             {
-                if (monsters[key] == monster)
+                if (pins[key] == obj)
                 {
                     keyToRemove = key;
                     break;
@@ -114,7 +127,7 @@ namespace TMOT.UI
             Debug.Log($"Key found:{keyToRemove}");
             if (keyToRemove)
             {
-                monsters.Remove(keyToRemove);
+                pins.Remove(keyToRemove);
                 Destroy(keyToRemove);
             }
                 
@@ -134,36 +147,12 @@ namespace TMOT.UI
             playerPin.transform.rotation = Quaternion.Euler(0,0,-PlayerController.Instance.transform.eulerAngles.y);
         }
 
-        // void CheckForBrokenMonsters()
-        // {
-        //     List<GameObject> toRemove = new List<GameObject>();
-        //     foreach (var key in monsters.Keys)
-        //     {
-        //         if (monsters[key] == null)
-        //             toRemove.Add(key);
-        //     }
-        //     foreach (var t in toRemove)
-        //         monsters.Remove(t);
-        // }
-
-        // void CheckForNewMonsters()
-        // {
-        //     foreach (var m in MonsterSpawner.Instance.Monsters)
-        //     {
-        //         if (!monsters.ContainsValue(m))
-        //         {
-        //             // Add pin for this monster
-        //             var pin = Instantiate(monsterPinPrefab, pinRoot);
-        //             monsters.Add(pin, m);
-        //         }
-        //     }
-        // }
-
-        void UpdateMonsterPositions()
+      
+        void UpdatePinPositions()
         {
-            foreach (var m in monsters.Keys)
+            foreach (var m in pins.Keys)
             {
-                var mc = monsters[m];
+                var mc = pins[m];
                 var pos = new Vector2(mc.transform.position.x, mc.transform.position.z);
                 pos.x *= sizeRatio.x;
                 pos.y *= sizeRatio.y;

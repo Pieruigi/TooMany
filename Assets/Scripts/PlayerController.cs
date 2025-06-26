@@ -12,9 +12,16 @@ namespace TMOT
         public delegate void OnStateChangedDelegate(PlayerState oldState, PlayerState newState);
         public static OnStateChangedDelegate OnStateChanged;
 
-        [SerializeField]
-        float health = 1000;
 
+
+        
+
+        [SerializeField]
+        float health = 100;
+
+        public float MaxHealth { get; private set; }
+        public float Health {get{ return health; }}
+       
         [SerializeField]
         float pushRadius = 5f;
 
@@ -79,7 +86,7 @@ namespace TMOT
         protected override void Awake()
         {
             base.Awake();
-
+            MaxHealth = health;
             cc = GetComponent<CharacterController>();
         }
 
@@ -219,10 +226,12 @@ namespace TMOT
         public void ApplyDamage(float damage)
         {
             health -= damage;
-            if (health <= 0)
+            if (health < 0) health = 0;
+            if (health == 0)
             {
                 Debug.Log("You are dead");
-
+                SetState(PlayerState.Dead);
+                GameManager.Instance.ReportPlayerIsLoser();
             }
             else
             {

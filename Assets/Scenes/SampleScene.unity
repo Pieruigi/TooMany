@@ -985,7 +985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefabs:
   - {fileID: 5008595562412370377, guid: 635ecccccdaab92479263bcbd6df753a, type: 3}
-  initialNumber: 2
+  initialNumber: 12
 --- !u!4 &70782053
 Transform:
   m_ObjectHideFlags: 0
@@ -13630,6 +13630,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPin: {fileID: 646208159}
   monsterPinPrefab: {fileID: 5393290606267494654, guid: e06e283ec9206364e88e6a128fc38652,
+    type: 3}
+  timeUpPinPrefab: {fileID: 5393290606267494654, guid: 1ccde02e7df5da04f833686fa25ced4e,
     type: 3}
   pinRoot: {fileID: 1048011682}
 --- !u!114 &1121692878

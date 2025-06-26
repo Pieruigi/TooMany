@@ -9,7 +9,7 @@ using UnityEngine.XR;
 
 namespace TMOT
 {
-    public enum GameState { None, Starting, Playing, Paused }
+    public enum GameState { None, Starting, Playing, Paused, Loser, Winner }
 
     public enum GameModeType { Mode1, Mode2 }
 
@@ -29,7 +29,7 @@ namespace TMOT
         GameModeType gameMode = GameModeType.Mode1;
         public GameModeType GameMode
         {
-            get{ return gameMode; }
+            get { return gameMode; }
         }
 
 
@@ -57,6 +57,7 @@ namespace TMOT
         void OnEnable()
         {
             SceneManager.sceneLoaded += HandleOnSceneLoaded;
+
         }
 
         void OnDisable()
@@ -87,6 +88,12 @@ namespace TMOT
                 case GameState.Starting:
                     EnterStartingState();
                     break;
+                case GameState.Loser:
+                    EnteringLoserState();
+                    break;
+                case GameState.Winner:
+                    EnteringWinnerState();
+                    break;
             }
 
             OnStateChanged?.Invoke(oldState, newState);
@@ -101,6 +108,32 @@ namespace TMOT
             await Task.Delay(TimeSpan.FromSeconds(StartingDelay));
 
             SetState(GameState.Playing);
+        }
+
+        void EnteringLoserState()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+        }
+
+        void EnteringWinnerState()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+        }
+
+        public async void ReportPlayerIsWinner()
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1f));
+            SetState(GameState.Winner);
+        }
+
+        public async void ReportPlayerIsLoser()
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1f));
+            SetState(GameState.Loser);
         }
     }
 }

@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace TMOT.UI
 {
@@ -20,6 +20,15 @@ namespace TMOT.UI
         [SerializeField]
         TMP_Text runAwayField;
 
+        [SerializeField]
+        Image healthImage;
+
+        [SerializeField]
+        GameObject loserPanel;
+
+        [SerializeField]
+        GameObject winnerPanel;
+
 
 
         float readyDelay = 0;
@@ -31,7 +40,9 @@ namespace TMOT.UI
         {
             killEveryoneField.gameObject.SetActive(false);
             runAwayField.gameObject.SetActive(false);
-        } 
+            loserPanel.gameObject.SetActive(false);
+            winnerPanel.gameObject.SetActive(false);
+        }
 
         // Update is called once per frame
         protected virtual void Update()
@@ -40,6 +51,9 @@ namespace TMOT.UI
             {
                 case GameState.Starting:
                     UpdateReady();
+                    break;
+                case GameState.Playing:
+                    UpdatePlaying();
                     break;
             }
         }
@@ -56,9 +70,9 @@ namespace TMOT.UI
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
         }
 
-        private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
+        protected virtual void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {
-            
+
             switch (newState)
             {
                 case PlayerState.Hunter:
@@ -67,6 +81,7 @@ namespace TMOT.UI
                 case PlayerState.Prey:
                     ShowRunAway();
                     break;
+               
             }
         }
 
@@ -80,6 +95,12 @@ namespace TMOT.UI
                     break;
                 case GameState.Playing:
                     ShowReady(false);
+                    break;
+                case GameState.Loser:
+                    loserPanel.gameObject.SetActive(true);
+                    break;
+                case GameState.Winner:
+                    winnerPanel.gameObject.SetActive(true);
                     break;
             }
         }
@@ -95,6 +116,11 @@ namespace TMOT.UI
             }
         }
 
+        void UpdatePlaying()
+        {
+            healthImage.fillAmount = PlayerController.Instance.Health / PlayerController.Instance.MaxHealth;
+        }
+
         void UpdateReady()
         {
             readyElapsed += Time.deltaTime;
@@ -108,7 +134,7 @@ namespace TMOT.UI
                 readyField.gameObject.SetActive(false);
                 ShowRunAway();
             }
-                
+
         }
 
         async void ShowKillEveryone()
@@ -134,5 +160,12 @@ namespace TMOT.UI
             await Task.Delay(TimeSpan.FromSeconds(2));
             runAwayField.gameObject.SetActive(false);
         }
+
+        public void RestartGame()
+        {
+             Time.timeScale = 1;
+            SceneManager.LoadScene(1);
+        }
+        
     }
 }

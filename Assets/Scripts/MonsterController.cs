@@ -9,7 +9,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace TMOT
 {
-    public enum MonsterState { Idle, Patrolling, Chasing, Searching, Fleeing, Attacking, Pushed, Dying }
+    public enum MonsterState { None, Idle, Patrolling, Chasing, Searching, Fleeing, Attacking, Pushed, Dying }
 
     public class MonsterController : MonoBehaviour
     {
@@ -52,7 +52,7 @@ namespace TMOT
 
         float time = 0;
 
-        MonsterState state = MonsterState.Idle;
+        MonsterState state = MonsterState.None;
         public MonsterState State
         {
             get{ return state; }
@@ -69,7 +69,7 @@ namespace TMOT
 
         float escapeDistance = 5f;
 
-        MonsterState previousState = MonsterState.Idle;
+        MonsterState previousState = MonsterState.None;
 
         Rigidbody rb;
 
@@ -92,7 +92,8 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-            SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle); 
+            if (GameManager.Instance.GameState == GameState.Playing)
+                SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle); 
 
         }
 
@@ -123,7 +124,29 @@ namespace TMOT
             }
         }
 
+        void OnEnable()
+        {
+            GameManager.OnStateChanged += HandleOnGameStateChanged;
+        }
 
+        void OnDisable()
+        {
+            GameManager.OnStateChanged -= HandleOnGameStateChanged;
+        }
+
+        private void HandleOnGameStateChanged(GameState oldState, GameState newState)
+        {
+            switch (newState)
+            {
+                case GameState.Starting:
+                    SetState(MonsterState.None);
+                    break;
+                case GameState.Playing:
+                    SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle); 
+                    break;
+
+            }
+        }
 
         #region entering state
         void EnterPatrollingState()

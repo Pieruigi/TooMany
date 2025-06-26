@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698b80811b5749f44ba344c0ca00a71f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 40
   pushRadius: 5
   pushForce: 120
   monsterKillRange: 1.5
