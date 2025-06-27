@@ -124,15 +124,13 @@ namespace TMOT
             Time.timeScale = 0;
         }
 
-        public async void ReportPlayerIsWinner()
+        public void ReportPlayerIsWinner()
         {
-            await Task.Delay(TimeSpan.FromSeconds(1f));
             SetState(GameState.Winner);
         }
 
-        public async void ReportPlayerIsLoser()
+        public void ReportPlayerIsLoser()
         {
-            await Task.Delay(TimeSpan.FromSeconds(1f));
             SetState(GameState.Loser);
         }
     }

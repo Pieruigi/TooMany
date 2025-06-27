@@ -15,9 +15,15 @@ namespace TMOT.UI
         [SerializeField]
         TMP_Text goalTimerField;
 
-     
+        [SerializeField]
+        TMP_Text goalLabel;
+
+
         [SerializeField]
         TMP_Text chaseTimerField;
+
+        [SerializeField]
+        TMP_Text chaseLabel;
 
         [SerializeField]
         TMP_Text monsterCounterField;
@@ -27,19 +33,20 @@ namespace TMOT.UI
 
         string timeStringFormat = "{0:00}:{1:00}";
 
-        Animator chaseTimerAnimator, goalTimerAnimator;
-
+       
         bool switching = false;
 
         string switchHunterTxt = "Switch to killer in {0:00}";
         string switchPreyTxt = "Switch to victim in {0:00}";
 
+        Color activatedColor = new Color(1, 1, 1, 1);
+        Color deactivatedColor = new Color(0.5f, 0.5f, .5f, .25f);
+
         protected override void Awake()
         {
             base.Awake();
 
-            chaseTimerAnimator = chaseTimerField.GetComponent<Animator>();
-            goalTimerAnimator = goalTimerField.GetComponent<Animator>();
+            
         }
 
         // Start is called before the first frame update
@@ -76,11 +83,20 @@ namespace TMOT.UI
             switch (newState)
             {
                 case GameState.Starting:
-                    ShowTimer(chaseTimerAnimator, false, init:true);
-                    ShowTimer(goalTimerAnimator, true, init:true);
+                    // ShowTimer(chaseTimerAnimator, false, init:true);
+                    // ShowTimer(goalTimerAnimator, true, init:true);
+                    chaseTimerField.color = deactivatedColor;
+                    chaseLabel.color = deactivatedColor;
+                    goalTimerField.color = activatedColor;
+                    goalLabel.color = activatedColor;
+                    switchField.gameObject.SetActive(false);
+                    //UpdateSwitchText();
                     UpdateGoalTimer();
                     UpdateChaseTimer();
                     UpdateMonsterCounter();
+                    break;
+                case GameState.Playing:
+                    switchField.gameObject.SetActive(true);
                     break;
 
             }
@@ -93,12 +109,23 @@ namespace TMOT.UI
             switch (newState)
             {
                 case PlayerState.Prey:
-                    ShowTimer(chaseTimerAnimator, false, init:true);
-                    ShowTimer(goalTimerAnimator, true, init:true);
+                    // ShowTimer(chaseTimerAnimator, false, init:true);
+                    // ShowTimer(goalTimerAnimator, true, init:true);
+                    chaseTimerField.color = deactivatedColor;
+                    chaseLabel.color = deactivatedColor;
+                    goalTimerField.color = activatedColor;
+                    goalLabel.color = activatedColor;
+                    if ((GameMode1.Instance as GameMode1).IsLastStep())
+                        switchField.gameObject.SetActive(false);
+                    else
+                        switchField.gameObject.SetActive(true);
                     break;
                 case PlayerState.Hunter:
-                    ShowTimer(chaseTimerAnimator, true, init:true);
-                    ShowTimer(goalTimerAnimator, false, init:true);
+                    chaseTimerField.color = activatedColor;
+                    chaseLabel.color = activatedColor;
+                    goalTimerField.color = deactivatedColor;
+                    goalLabel.color = deactivatedColor;
+                    switchField.gameObject.SetActive(false);
                     break;
             }
         }
@@ -111,9 +138,31 @@ namespace TMOT.UI
 
         void UpdateSwitchText()
         {
+            if ((GameMode1.Instance as GameMode1).IsLastStep()) return;
+
+            if (GameManager.Instance.GameState != GameState.Playing) return;
+           
             var timeLeft = (GameMode.Instance as GameMode1).GetSwitchTimeLeft();
             string s = PlayerController.Instance.State == PlayerState.Hunter ? string.Format(switchPreyTxt, timeLeft) : string.Format(switchHunterTxt, Mathf.CeilToInt(timeLeft));
             switchField.text = s;
+
+            if (timeLeft < 3)
+            {
+                if (!switching)
+                {
+                    switching = true;
+                    switchField.GetComponent<Animator>().SetTrigger("Pulse");
+                }
+            }
+            else
+            {
+                if (switchField)
+                {
+                    switching = false;
+                    switchField.GetComponent<Animator>().ResetTrigger("Pulse");
+                }
+                
+            }
         }
 
         // void UpdateSwitchTimer()

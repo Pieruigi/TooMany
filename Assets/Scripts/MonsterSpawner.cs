@@ -43,6 +43,7 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
+            
             SpawnRandomMonsters(initialNumber);
 
             //StartCoroutine(_Test());
@@ -76,7 +77,7 @@ namespace TMOT
         {
             Debug.Log("TEST - spawn new monsters");
 
-            List<Transform> candidates = WayPointManager.Instance.WayPoints.ToList().FindAll(s => Vector3.Distance(PlayerController.Instance.transform.position, s.position) > spawnDistance);
+            List<Transform> candidates = LevelController.Instance.Waypoints.ToList().FindAll(s => Vector3.Distance(PlayerController.Instance.transform.position, s.position) > spawnDistance);
             for (int i = 0; i < count; i++)
             {
                 // Get a random spawn point

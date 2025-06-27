@@ -47,7 +47,7 @@ namespace TMOT
 
             if (!spawning) return;
 
-            var candidates = WayPointManager.Instance.WayPoints.ToList().FindAll(w => Vector3.Distance(PlayerController.Instance.transform.position, w.position) > 18);
+            var candidates = LevelController.Instance.Waypoints.ToList().FindAll(w => Vector3.Distance(PlayerController.Instance.transform.position, w.position) > 18);
             var position = candidates[UnityEngine.Random.Range(0, candidates.Count)].position;
             timeUp = Instantiate(timeUpPrefab, position, Quaternion.identity);
 

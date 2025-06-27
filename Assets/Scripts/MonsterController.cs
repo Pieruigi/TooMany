@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
@@ -78,7 +79,8 @@ namespace TMOT
         float keepFleeingTime = 5;
         float keepFleeingElapsed = 0;
 
-     
+        float hunterScale = 1;
+        float preyScale = .6f;
 
 
         void Awake()
@@ -93,8 +95,9 @@ namespace TMOT
         void Start()
         {
             if (GameManager.Instance.GameState == GameState.Playing)
-                SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle); 
+                SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle);
 
+            UpdateScale();
         }
 
         // Update is called once per frame
@@ -127,11 +130,24 @@ namespace TMOT
         void OnEnable()
         {
             GameManager.OnStateChanged += HandleOnGameStateChanged;
+            PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
         }
 
         void OnDisable()
         {
             GameManager.OnStateChanged -= HandleOnGameStateChanged;
+            PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
+
+        private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
+        {
+            switch (newState)
+            {
+                case PlayerState.Hunter:
+                case PlayerState.Prey:
+                    UpdateScale();
+                    break;
+            }
         }
 
         private void HandleOnGameStateChanged(GameState oldState, GameState newState)
@@ -145,6 +161,26 @@ namespace TMOT
                     SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle); 
                     break;
 
+            }
+        }
+
+        void UpdateScale() {
+            if (PlayerController.Instance.State == PlayerState.Hunter)
+                StartCoroutine(ScaleMonster(preyScale));
+            else
+                StartCoroutine(ScaleMonster(hunterScale));
+                
+        }
+
+        IEnumerator ScaleMonster(float targetScale)
+        {
+            var speed = 10;
+            var scale = transform.localScale.x;
+            while (scale != targetScale)
+            {
+                scale = Mathf.MoveTowards(scale, targetScale, speed * Time.deltaTime);
+                transform.localScale = Vector3.one * scale;
+                yield return null;
             }
         }
 
@@ -448,7 +484,7 @@ namespace TMOT
         Vector3 GetEscapeDestination()
         {
             // Get points far enough from this agent
-            var l = WayPointManager.Instance.WayPoints.ToList().FindAll(w => Vector3.Distance(transform.position, w.position) > escapeDistance);
+            var l = LevelController.Instance.Waypoints.ToList().FindAll(w => Vector3.Distance(transform.position, w.position) > escapeDistance);
 
             // Filter for valid destinations
             var ldot = l.FindAll(w => IsOptimalEscapeDestination(w.transform.position));
@@ -469,7 +505,7 @@ namespace TMOT
         Vector3 GetPatrolDestination()
         {
             // Get all waypoints far enough from the player
-            var l = WayPointManager.Instance.WayPoints.ToList().FindAll(w =>
+            var l = LevelController.Instance.Waypoints.ToList().FindAll(w =>
                                                     //Vector3.Distance(PlayerController.Instance.transform.position, w.position) > patrolDistanceFromPlayer && 
                                                     Vector3.Distance(transform.position, w.position) > patrolMinDistance);
 

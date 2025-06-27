@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TMOT
 {
     public class GameMode1 : GameMode
     {
+       
+
         [SerializeField]
         GameObject timeUpSpawnerPrefab;
 
@@ -14,9 +17,9 @@ namespace TMOT
 
         float playerChasingTime = 20;
 
-        float goalTarget = 6;
+        int goalTarget = 11;//6;
 
-        float goalStep = 0;
+        int goalStep = 0;
 
         float time;
 
@@ -26,7 +29,7 @@ namespace TMOT
 
         float extraChasingTime = 0;
 
-        
+
 
         protected override void Awake()
         {
@@ -34,19 +37,19 @@ namespace TMOT
 
             // Instantiate the time up spawner
             Instantiate(timeUpSpawnerPrefab, Vector3.zero, Quaternion.identity);
-        
+
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            
+
         }
 
         // Update is called once per frame
         void Update()
         {
-          
+
 
             if (GameManager.Instance.GameState != GameState.Playing) return;
 
@@ -62,6 +65,11 @@ namespace TMOT
                     playerChasing = !playerChasing;
                     Init();
                 }
+                else
+                {
+                    if (PlayerController.Instance.State != PlayerState.Dead)
+                        GameManager.Instance.ReportPlayerIsWinner();
+                }
 
 
             }
@@ -74,10 +82,10 @@ namespace TMOT
 
         bool GoalReached()
         {
-            if (!playerChasing)
-                goalStep++;
+            //if (!playerChasing)
+            goalStep++;
 
-            return !(goalStep < goalTarget);
+            return (goalStep == goalTarget);
         }
 
 
@@ -104,18 +112,30 @@ namespace TMOT
             else
             {
                 MonsterSpawner.Instance.StartSpawner();
-                TimeUpSpawner.Instance.StartSpawner();
-            }
+                if (!IsLastStep())
+                    TimeUpSpawner.Instance.StartSpawner();
              
+
+            }
+
+        }
+
+
+        public bool IsLastStep()
+        {
+            return goalStep == goalTarget-1;
         }
 
         public float GetGoalTimeRemaining()
         {
-            var total = goalTarget * playerChasedTime;
+            var total = (goalTarget+1)/2 * playerChasedTime;
+            Debug.Log("TOTAL:" + total);
 
-            var passed = goalStep * playerChasedTime;
+            var passed = (goalStep+1)/2 * playerChasedTime;
+             Debug.Log("PASSED:" + passed);
             if (!playerChasing)
                 passed += elapsed;
+               
 
             return total - passed;
 
@@ -140,6 +160,8 @@ namespace TMOT
             if (playerChasing) return;
             extraChasingTime += amount;
         }
+
+        
 
     }
 }

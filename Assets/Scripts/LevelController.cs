@@ -16,14 +16,20 @@ namespace TMOT
         {
             get{ return mapSize; }
         }
+
+        [SerializeField]
+        LevelBuilder levelBuilder;
         
 
         public GameObject GameMode { get; private set; }
+        
+        public IList<Transform> Waypoints { get{ return levelBuilder.Waypoints; } }
 
-      
+
         protected override void Awake()
         {
             base.Awake();
+
         }
 
 
@@ -49,7 +55,8 @@ namespace TMOT
             var gm = Instantiate(prefab, Vector3.zero, Quaternion.identity);
             GameMode = gm;
 
-
+            // Build level
+            levelBuilder.Build();
 
         }
 

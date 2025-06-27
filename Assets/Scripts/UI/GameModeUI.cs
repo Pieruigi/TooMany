@@ -55,6 +55,10 @@ namespace TMOT.UI
                 case GameState.Playing:
                     UpdatePlaying();
                     break;
+                case GameState.Loser:
+                    UpdatePlaying();
+                    break;
+                
             }
         }
 
