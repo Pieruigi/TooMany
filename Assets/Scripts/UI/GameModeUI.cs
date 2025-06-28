@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering.Universal.Internal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -44,6 +47,14 @@ namespace TMOT.UI
             winnerPanel.gameObject.SetActive(false);
         }
 
+        protected virtual void Start()
+        {
+            // Setting overlay camera
+            var canvas = GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            canvas.worldCamera = Camera.main.GetUniversalAdditionalCameraData().cameraStack[0];
+        }
+
         // Update is called once per frame
         protected virtual void Update()
         {
@@ -58,7 +69,7 @@ namespace TMOT.UI
                 case GameState.Loser:
                     UpdatePlaying();
                     break;
-                
+
             }
         }
 

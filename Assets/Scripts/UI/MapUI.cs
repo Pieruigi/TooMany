@@ -144,7 +144,7 @@ namespace TMOT.UI
 
         void UpdatePlayerRotation()
         {
-            playerPin.transform.rotation = Quaternion.Euler(0,0,-PlayerController.Instance.transform.eulerAngles.y);
+            playerPin.transform.localRotation = Quaternion.Euler(0,0,-PlayerController.Instance.transform.eulerAngles.y);
         }
 
       

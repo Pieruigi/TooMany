@@ -67,7 +67,7 @@ namespace TMOT
 
         private void HandleOnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            if (scene.buildIndex == 0) // Menu
+            if (scene.buildIndex == 90) // Menu
             {
                 SetState(GameState.None);
             }
