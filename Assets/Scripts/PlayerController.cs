@@ -77,6 +77,24 @@ namespace TMOT
 
         CharacterController cc;
 
+       
+
+        [SerializeField]
+        float sprintMultiplier = 2f;
+
+        float stamina = 1;
+        public float Stamina
+        {
+            get{ return stamina; }
+        }
+
+        float staminaDepleteSpeed = 1;
+        float staminaChargeDelay = 5;
+        float staminaChargeSpeed = .25f;
+
+        bool sprinting = false;
+        float staminaLastUsed = 0;
+
 
         public PlayerState State
         {
@@ -88,6 +106,7 @@ namespace TMOT
             base.Awake();
             MaxHealth = health;
             cc = GetComponent<CharacterController>();
+           
         }
 
 
@@ -117,6 +136,15 @@ namespace TMOT
         {
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             aimInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+            var s = Input.GetKey(KeyCode.LeftShift) && stamina > 0;
+            if (s)
+            {
+                stamina -= Time.deltaTime * staminaDepleteSpeed;
+                if (stamina < 0) stamina = 0;
+                staminaLastUsed = 0;
+            }
+
+            sprinting = s;
         }
 
         // void Move()
@@ -135,7 +163,7 @@ namespace TMOT
         private void Move()
         {
             var targetDirection = transform.TransformDirection(new Vector3(moveInput.x, 0, moveInput.y));
-            var targetVelocity = targetDirection.normalized * moveSpeed;
+            var targetVelocity = targetDirection.normalized * moveSpeed * (sprinting ? sprintMultiplier : 1f);
 
 
             currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, turnSpeed * Time.deltaTime);
@@ -171,6 +199,7 @@ namespace TMOT
         void UpdatePreyState()
         {
             CheckInput();
+            UpdateStamina();
             Rotate();
             Move();
         }
@@ -178,9 +207,31 @@ namespace TMOT
         void UpdateHunterState()
         {
             CheckInput();
+            UpdateStamina();
             Rotate();
             Move();
             KillMonsters();
+        }
+
+        void UpdateStamina()
+        {
+            if (stamina == 1) return;
+
+            if (sprinting) return;
+
+            if (staminaLastUsed < staminaChargeDelay)
+            {
+                staminaLastUsed += Time.deltaTime;
+                return;
+            }
+
+            // Recharge
+            stamina += Time.deltaTime * staminaChargeSpeed;
+
+            if (stamina > 1)
+                stamina = 1;
+
+
         }
 
         #endregion

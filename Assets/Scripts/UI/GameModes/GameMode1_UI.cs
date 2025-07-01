@@ -10,20 +10,21 @@ namespace TMOT.UI
 {
     public class GameMode1_UI : GameModeUI
     {
-        
+        [SerializeField]
+        GameObject goalRoot;
+
+        [SerializeField]
+        GameObject chaseRoot;
+
+        [SerializeField]
+        GameObject switchRoot;
+
 
         [SerializeField]
         TMP_Text goalTimerField;
 
         [SerializeField]
-        TMP_Text goalLabel;
-
-
-        [SerializeField]
         TMP_Text chaseTimerField;
-
-        [SerializeField]
-        TMP_Text chaseLabel;
 
         [SerializeField]
         TMP_Text monsterCounterField;
@@ -36,17 +37,24 @@ namespace TMOT.UI
        
         bool switching = false;
 
-        string switchHunterTxt = "Switch to killer in {0:00}";
-        string switchPreyTxt = "Switch to victim in {0:00}";
+        string switchHunterTxt = "{0:00}";
+        string switchPreyTxt = "{0:00}";
 
         Color activatedColor = new Color(1, 1, 1, 1);
         Color deactivatedColor = new Color(0.5f, 0.5f, .5f, .25f);
 
+        Animator goalAnimator;
+        Animator chaseAnimator;
+
+        Animator switchAnimator;
+
         protected override void Awake()
         {
             base.Awake();
+            goalAnimator = goalRoot.GetComponent<Animator>();
+            chaseAnimator = chaseRoot.GetComponent<Animator>();
+            switchAnimator = switchRoot.GetComponent<Animator>();
 
-            
         }
 
         // Start is called before the first frame update
@@ -84,20 +92,19 @@ namespace TMOT.UI
             switch (newState)
             {
                 case GameState.Starting:
-                    // ShowTimer(chaseTimerAnimator, false, init:true);
-                    // ShowTimer(goalTimerAnimator, true, init:true);
-                    chaseTimerField.color = deactivatedColor;
-                    chaseLabel.color = deactivatedColor;
-                    goalTimerField.color = activatedColor;
-                    goalLabel.color = activatedColor;
-                    switchField.gameObject.SetActive(false);
-                    //UpdateSwitchText();
+                    chaseAnimator.SetTrigger("Off");
+
+                    UpdateSwitchText();
                     UpdateGoalTimer();
                     UpdateChaseTimer();
                     UpdateMonsterCounter();
                     break;
                 case GameState.Playing:
-                    switchField.gameObject.SetActive(true);
+                    // goalAnimator.ResetTrigger("On");
+                    // goalAnimator.ResetTrigger("Off");
+                    // chaseAnimator.ResetTrigger("On");
+                    // chaseAnimator.ResetTrigger("Off");
+
                     break;
 
             }
@@ -110,23 +117,28 @@ namespace TMOT.UI
             switch (newState)
             {
                 case PlayerState.Prey:
-                    // ShowTimer(chaseTimerAnimator, false, init:true);
-                    // ShowTimer(goalTimerAnimator, true, init:true);
-                    chaseTimerField.color = deactivatedColor;
-                    chaseLabel.color = deactivatedColor;
-                    goalTimerField.color = activatedColor;
-                    goalLabel.color = activatedColor;
-                    if ((GameMode1.Instance as GameMode1).IsLastStep())
-                        switchField.gameObject.SetActive(false);
+                    if(!goalAnimator.GetCurrentAnimatorStateInfo(0).IsName("On"))
+                        goalAnimator.SetTrigger("On");
+
+                    if (!(GameMode1.Instance as GameMode1).IsLastStep())
+                    {
+                        if (!chaseAnimator.GetCurrentAnimatorStateInfo(0).IsName("Off"))
+                            chaseAnimator.SetTrigger("Off");
+
+                        if (!switchAnimator.GetCurrentAnimatorStateInfo(0).IsName("On"))
+                            switchAnimator.SetTrigger("On");        
+                    }
                     else
-                        switchField.gameObject.SetActive(true);
+                    {
+                        chaseAnimator.SetTrigger("Hide");
+                    }
+                    
                     break;
                 case PlayerState.Hunter:
-                    chaseTimerField.color = activatedColor;
-                    chaseLabel.color = activatedColor;
-                    goalTimerField.color = deactivatedColor;
-                    goalLabel.color = deactivatedColor;
-                    switchField.gameObject.SetActive(false);
+                    
+                    goalAnimator.SetTrigger("Off");
+                    chaseAnimator.SetTrigger("On");
+                    switchAnimator.SetTrigger("Off");
                     break;
             }
         }
@@ -147,45 +159,10 @@ namespace TMOT.UI
             string s = PlayerController.Instance.State == PlayerState.Hunter ? string.Format(switchPreyTxt, timeLeft) : string.Format(switchHunterTxt, Mathf.CeilToInt(timeLeft));
             switchField.text = s;
 
-            if (timeLeft < 3)
-            {
-                if (!switching)
-                {
-                    switching = true;
-                    switchField.GetComponent<Animator>().SetTrigger("Pulse");
-                }
-            }
-            else
-            {
-                if (switchField)
-                {
-                    switching = false;
-                    switchField.GetComponent<Animator>().ResetTrigger("Pulse");
-                }
-                
-            }
+       
         }
 
-        // void UpdateSwitchTimer()
-        // {
-        //     var timeLeft = (GameMode.Instance as GameMode1).GetSwitchTimeLeft();
-        //     if (timeLeft < 3)
-        //     {
-        //         if (!switching)
-        //         {
-        //             switching = true;
-        //             ShowTimer(chaseTimerAnimator, PlayerController.Instance.State == PlayerState.Prey ? true : false);
-        //             ShowTimer(goalTimerAnimator, PlayerController.Instance.State == PlayerState.Prey ? false : true);
-        //         }
-
-        //     }
-        //     else
-        //     {
-        //         if (switching)
-        //             switching = false;
-        //     }
-
-        // }
+     
 
         void UpdateMonsterCounter()
         {
@@ -210,20 +187,7 @@ namespace TMOT.UI
             chaseTimerField.text = string.Format(timeStringFormat, minutes, seconds);
         }
 
-        void ShowTimer(Animator animator, bool value, bool init = false)
-        {
-            string state = value ? "On" : "Off";
-            if (init)
-            {
-                animator.Play(state, 0, 1.0f);
-                animator.Update(0);
-            }
-            else
-            {
-                animator.SetTrigger(state);
-            }
-        }
-
+     
    
 
         

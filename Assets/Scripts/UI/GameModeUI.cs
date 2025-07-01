@@ -27,6 +27,9 @@ namespace TMOT.UI
         Image healthImage;
 
         [SerializeField]
+        Image staminaImage;
+
+        [SerializeField]
         GameObject loserPanel;
 
         [SerializeField]
@@ -134,6 +137,7 @@ namespace TMOT.UI
         void UpdatePlaying()
         {
             healthImage.fillAmount = PlayerController.Instance.Health / PlayerController.Instance.MaxHealth;
+            staminaImage.fillAmount = PlayerController.Instance.Stamina / 1f;
         }
 
         void UpdateReady()

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.Universal;
@@ -64,7 +65,9 @@ namespace TMOT
         float destinationUpdateTime = .2f;
         float destinationUpdateElapsed = 0;
 
-        float patrolMinDistance = 16f;
+        float patrolMinDistance = 4f;
+
+        float patrolMaxDistance = 12f;
 
         float destinationReachedDistance = 1f;
 
@@ -89,6 +92,8 @@ namespace TMOT
             rb = GetComponent<Rigidbody>();
             rb.useGravity = false;
             rb.isKinematic = true;
+            patrolMaxDistance = LevelController.Instance.MapSize.x / 3f;
+            patrolMinDistance = patrolMaxDistance / 3f;
         }
 
         // Start is called before the first frame update
@@ -506,9 +511,11 @@ namespace TMOT
         {
             // Get all waypoints far enough from the player
             var l = LevelController.Instance.Waypoints.ToList().FindAll(w =>
-                                                    //Vector3.Distance(PlayerController.Instance.transform.position, w.position) > patrolDistanceFromPlayer && 
-                                                    Vector3.Distance(transform.position, w.position) > patrolMinDistance);
-
+            {
+                float dist = Vector3.Distance(transform.position, w.position);
+                return dist > patrolMinDistance && dist < patrolMaxDistance;
+            });
+                
 
             var ret = l[UnityEngine.Random.Range(0, l.Count)].position;
            
