@@ -13,6 +13,9 @@ namespace TMOT
         [SerializeField]
         GameObject text;
 
+        [SerializeField]
+        GameObject mesh;
+
         bool picked = false;
 
         TimeUpSpawner spawner;
@@ -45,6 +48,7 @@ namespace TMOT
             {
                 tmpText.color = Color.Lerp(new Color(1, 1, 1, 1), new Color(1, 1, 1, 0), dist / textDist);
                 text.transform.forward = Camera.main.transform.forward;    
+                mesh.transform.forward = Camera.main.transform.forward;    
             }
             
 

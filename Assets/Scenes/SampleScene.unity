@@ -986,7 +986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterPrefabs:
   - {fileID: 5008595562412370377, guid: 635ecccccdaab92479263bcbd6df753a, type: 3}
-  initialNumber: 12
+  initialNumber: 8
 --- !u!4 &70782053
 Transform:
   m_ObjectHideFlags: 0
