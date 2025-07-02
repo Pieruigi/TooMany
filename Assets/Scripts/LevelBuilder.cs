@@ -64,6 +64,7 @@ namespace TMOT
                 // Check for inversion
                 SetBlockInversion(block, x, z);
 
+                
                 // Add waypoints
                 waypoints.AddRange(block.GetComponent<Block>().Waypoints);
 
