@@ -61,6 +61,12 @@ namespace TMOT.UI
         // Update is called once per frame
         protected virtual void Update()
         {
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+
             switch (GameManager.Instance.GameState)
             {
                 case GameState.Starting:
@@ -99,7 +105,7 @@ namespace TMOT.UI
                 case PlayerState.Prey:
                     ShowRunAway();
                     break;
-               
+
             }
         }
 
@@ -182,8 +188,13 @@ namespace TMOT.UI
 
         public void RestartGame()
         {
-             Time.timeScale = 1;
+            Time.timeScale = 1;
             SceneManager.LoadScene(1);
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
         }
         
     }
