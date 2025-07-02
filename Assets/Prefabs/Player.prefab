@@ -138,6 +138,7 @@ MonoBehaviour:
   moveSpeed: 3
   rotationSpeed: 720
   turnSpeed: 50
+  sprintMultiplier: 2
 --- !u!143 &8767102752601906788
 CharacterController:
   m_ObjectHideFlags: 0
@@ -351,6 +352,7 @@ GameObject:
   - component: {fileID: 8866966765388422184}
   - component: {fileID: 65007788716267096}
   - component: {fileID: 6869075484013594268}
+  - component: {fileID: 6170205374150708447}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -397,7 +399,7 @@ Light:
     m_Strength: 0.646
     m_Bias: 0.05
     m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_NearPlane: 1.94
     m_CullingMatrixOverride:
       e00: 1
       e01: 0
@@ -458,6 +460,21 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &6170205374150708447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527570577385090854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce627ddf9721294fbea6aa380df01b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  preyColor: {r: 1, g: 0.39215687, b: 0.23137255, a: 100}
+  hunterColor: {r: 0.112273075, g: 0.8207547, b: 0.19702712, a: 100}
+  _light: {fileID: 65007788716267096}
 --- !u!1 &5127645941419717820
 GameObject:
   m_ObjectHideFlags: 0
