@@ -22,7 +22,7 @@ namespace TMOT
 
         bool spawning = false;
 
-        float spawnTime = 5;
+        float spawnTime = 2;
 
 
 

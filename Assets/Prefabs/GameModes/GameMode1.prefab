@@ -48,3 +48,5 @@ MonoBehaviour:
     type: 3}
   timeUpSpawnerPrefab: {fileID: 792355856939066489, guid: 9bf9129f9d87ca8428ed0c00e5d0bb1f,
     type: 3}
+  monsterSpawnerPrefab: {fileID: 3993171266660804438, guid: d2b8bce1dc145a04a9b35c1bf3fe7396,
+    type: 3}

@@ -13,11 +13,20 @@ namespace TMOT
         public delegate void OnMonsterRemovedDelegate(GameObject monster);
         public static OnMonsterRemovedDelegate OnMonsterRemoved;
 
+        public delegate void OnSpawnCompletedDelegate(int amount);
+        public static OnSpawnCompletedDelegate OnSpawnCompleted;
+
         [SerializeField]
         List<GameObject> monsterPrefabs;
 
         [SerializeField]
-        int initialNumber = 8;
+        int spawnAmount = 8;
+        public int SpawnAmount
+        {
+            get { return spawnAmount; }
+            set{ spawnAmount = value; }
+        }
+
 
         // [SerializeField]
         // List<Transform> spawnPoints;
@@ -32,6 +41,11 @@ namespace TMOT
 
         bool spawnDisabled = false;
         float spawnTime = 40;
+        public float SpawnTime
+        {
+            get { return spawnTime; }
+            set{ spawnTime = value; }
+        }
 
         float spawnElapsed = 0;
 
@@ -40,8 +54,8 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-            
-            SpawnRandomMonsters(initialNumber);
+            //initialNumber = 1;
+            SpawnRandomMonsters(spawnAmount);
 
             //StartCoroutine(_Test());
         }
@@ -55,7 +69,7 @@ namespace TMOT
             if (spawnElapsed > spawnTime)
             {
                 spawnElapsed -= spawnTime;
-                SpawnRandomMonsters(initialNumber);
+                SpawnRandomMonsters(spawnAmount);
             }
 
         }
@@ -66,7 +80,7 @@ namespace TMOT
             while (true)
             {
                 yield return new WaitForSeconds(20);
-                SpawnRandomMonsters(initialNumber);
+                SpawnRandomMonsters(spawnAmount);
             }
         }
 
@@ -90,6 +104,8 @@ namespace TMOT
 
                 OnMonsterAdded?.Invoke(m);
             }
+
+            OnSpawnCompleted?.Invoke(count);
         }
 
         public void DestroyMonsterDelayed(MonsterController monster, float delay)
@@ -98,7 +114,7 @@ namespace TMOT
             OnMonsterRemoved?.Invoke(monster.gameObject);
             Destroy(monster.gameObject, delay);
 
-            
+
         }
 
         public void StopSpawner()
@@ -111,6 +127,8 @@ namespace TMOT
             spawnDisabled = false;
             spawnElapsed = 0;
         }
+
+
 
     }
     

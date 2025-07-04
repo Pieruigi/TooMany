@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.Events;
 
 namespace TMOT
@@ -13,9 +15,12 @@ namespace TMOT
         [SerializeField]
         GameObject timeUpSpawnerPrefab;
 
-        float playerChasedTime = 90;
+        [SerializeField]
+        GameObject monsterSpawnerPrefab;
 
-        float playerChasingTime = 20;
+        float playerChasedTime = 50;//90;
+
+        float playerChasingTime = 15;//20;
 
         int goalTarget = 11;//6;
 
@@ -29,6 +34,11 @@ namespace TMOT
 
         float extraChasingTime = 0;
 
+        float monsterSpawnTime = 20;
+
+        int initialSpawnAmount = 8;
+
+        int normalSpawnAmount = 6;
 
 
         protected override void Awake()
@@ -37,7 +47,9 @@ namespace TMOT
 
             // Instantiate the time up spawner
             Instantiate(timeUpSpawnerPrefab, Vector3.zero, Quaternion.identity);
+            Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
 
+            MonsterSpawner.Instance.SpawnAmount = initialSpawnAmount;
         }
 
         // Start is called before the first frame update
@@ -70,9 +82,27 @@ namespace TMOT
                     if (PlayerController.Instance.State != PlayerState.Dead)
                         GameManager.Instance.ReportPlayerIsWinner();
                 }
-
-
             }
+
+       
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            MonsterSpawner.OnSpawnCompleted += HandleOnMonsterSpawnCompleted;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            MonsterSpawner.OnSpawnCompleted -= HandleOnMonsterSpawnCompleted;
+        }
+
+        private void HandleOnMonsterSpawnCompleted(int amount)
+        {
+            if (amount == initialSpawnAmount)
+                MonsterSpawner.Instance.SpawnAmount = normalSpawnAmount;
         }
 
         protected override void StartGameMode()
@@ -111,6 +141,7 @@ namespace TMOT
 
             else
             {
+                MonsterSpawner.Instance.SpawnTime = monsterSpawnTime;
                 MonsterSpawner.Instance.StartSpawner();
                 if (!IsLastStep())
                     TimeUpSpawner.Instance.StartSpawner();
@@ -129,10 +160,10 @@ namespace TMOT
         public float GetGoalTimeRemaining()
         {
             var total = (goalTarget+1)/2 * playerChasedTime;
-            Debug.Log("TOTAL:" + total);
+           
 
             var passed = (goalStep+1)/2 * playerChasedTime;
-             Debug.Log("PASSED:" + passed);
+           
             if (!playerChasing)
                 passed += elapsed;
                

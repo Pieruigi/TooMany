@@ -35,7 +35,7 @@ namespace TMOT
         [SerializeField]
         float monsterKillRange = 2f;
 
-        
+
 
         [SerializeField]
         float moveSpeed = 3;

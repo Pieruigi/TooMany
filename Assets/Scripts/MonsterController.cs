@@ -20,6 +20,12 @@ namespace TMOT
         public static OnHitPlayerDelegate OnHitPlayer;
 
         [SerializeField]
+        float killerSpeed = 4;
+
+        [SerializeField]
+        float preySpeed = 2.5f;
+
+        [SerializeField]
         float sightRange = 8f;
 
         [SerializeField]
@@ -44,6 +50,13 @@ namespace TMOT
 
         [SerializeField]
         float damage = 30;
+
+        [SerializeField]
+        bool invertedBehaviour = false;
+        public bool InvertedBehaviour
+        {
+            get{ return invertedBehaviour; }
+        }
 
         Vector3 destination;
 
@@ -85,6 +98,9 @@ namespace TMOT
         float hunterScale = 1;
         float preyScale = .6f;
 
+        [SerializeField]
+        Animator animator;
+
 
         void Awake()
         {
@@ -94,6 +110,7 @@ namespace TMOT
             rb.isKinematic = true;
             patrolMaxDistance = LevelController.Instance.MapSize.x / 3f;
             patrolMinDistance = patrolMaxDistance / 3f;
+            agent.speed = killerSpeed;
         }
 
         // Start is called before the first frame update
@@ -151,6 +168,7 @@ namespace TMOT
                 case PlayerState.Hunter:
                 case PlayerState.Prey:
                     UpdateScale();
+                    UpdateSpeed();
                     break;
             }
         }
@@ -167,6 +185,15 @@ namespace TMOT
                     break;
 
             }
+        }
+
+        void UpdateSpeed()
+        {
+            if (PlayerController.Instance.State == PlayerState.Hunter)
+                agent.speed = preySpeed;
+            else
+                agent.speed = killerSpeed;
+
         }
 
         void UpdateScale() {
@@ -193,17 +220,22 @@ namespace TMOT
         void EnterPatrollingState()
         {
             agent.isStopped = false;
-            time = UnityEngine.Random.Range(patrollingTime*.7f, patrollingTime*1.3f);
+            time = UnityEngine.Random.Range(patrollingTime * .7f, patrollingTime * 1.3f);
             elapsed = 0;
             //onIdleExitNextState = MonsterState.Searching;
             agent.SetDestination(GetPatrolDestination());
+            
+            animator.SetTrigger("Walk");
         }
 
         void EnterChasingState()
         {
+            
             agent.isStopped = false;
             destinationUpdateElapsed = 0;
             agent.SetDestination(PlayerController.Instance.transform.position);
+Debug.Log("TEST - AAAAAAAAAAAAA chasing");
+            animator.SetTrigger("Chase");
         }
 
 
@@ -214,6 +246,8 @@ namespace TMOT
             elapsed = 0;
             destinationUpdateElapsed = 0;
             agent.SetDestination(lastPlayerSpot);
+
+            animator.SetTrigger("Walk");
         }
 
         void EnterFleeingState()
@@ -231,6 +265,8 @@ namespace TMOT
             agent.isStopped = true;
             time = UnityEngine.Random.Range(idleTime * .7f, idleTime * 1.3f);
             elapsed = 0;
+
+            animator.SetTrigger("Idle");
         }
 
         void EnterDyingState()
@@ -278,6 +314,8 @@ namespace TMOT
             agent.isStopped = false;
 
             SetState(MonsterState.Idle);
+
+
         }
         #endregion
 

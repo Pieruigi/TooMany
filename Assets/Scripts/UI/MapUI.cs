@@ -44,7 +44,7 @@ namespace TMOT.UI
         {
             sizeRatio = new Vector2(size.x / LevelController.Instance.MapSize.x, size.y / LevelController.Instance.MapSize.y);
 
-            
+
         }
 
         // Update is called once per frame
@@ -55,7 +55,7 @@ namespace TMOT.UI
                 if (Time.timeScale == 1)
                     Time.timeScale = 0;
                 else
-                    Time.timeScale = 1;        
+                    Time.timeScale = 1;
             }
         }
 
@@ -85,6 +85,7 @@ namespace TMOT.UI
             MonsterSpawner.OnMonsterRemoved += HandleOnObjectRemoved;
             TimeUpSpawner.OnTimeUpSpawned += HandleOnTimeUpSpawned;
             TimeUpSpawner.OnTimeUpUnspawned += HandleOnObjectRemoved;
+            PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
         }
 
         void OnDisable()
@@ -93,6 +94,14 @@ namespace TMOT.UI
             MonsterSpawner.OnMonsterRemoved -= HandleOnObjectRemoved;
             TimeUpSpawner.OnTimeUpSpawned -= HandleOnTimeUpSpawned;
             TimeUpSpawner.OnTimeUpUnspawned -= HandleOnObjectRemoved;
+            PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
+
+        private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
+        {
+         
+            UpdateMonsterPinColors();
+            
         }
 
         private void HandleOnTimeUpSpawned(GameObject timeUp)
@@ -101,7 +110,7 @@ namespace TMOT.UI
             pins.Add(pin, timeUp);
         }
 
-        
+
 
         private void HandleOnMonsterAdded(GameObject monster)
         {
@@ -111,7 +120,7 @@ namespace TMOT.UI
 
         private void HandleOnObjectRemoved(GameObject obj)
         {
-            Debug.Log($"Removing object:{obj}");
+          
             GameObject keyToRemove = null;
             foreach (var key in pins.Keys)
             {
@@ -121,13 +130,13 @@ namespace TMOT.UI
                     break;
                 }
             }
-            Debug.Log($"Key found:{keyToRemove}");
+          
             if (keyToRemove)
             {
                 pins.Remove(keyToRemove);
                 Destroy(keyToRemove);
             }
-                
+
 
         }
 
@@ -141,10 +150,10 @@ namespace TMOT.UI
 
         void UpdatePlayerRotation()
         {
-            playerPin.transform.localRotation = Quaternion.Euler(0,0,-PlayerController.Instance.transform.eulerAngles.y);
+            playerPin.transform.localRotation = Quaternion.Euler(0, 0, -PlayerController.Instance.transform.eulerAngles.y);
         }
 
-      
+
         void UpdatePinPositions()
         {
             foreach (var m in pins.Keys)
@@ -154,6 +163,25 @@ namespace TMOT.UI
                 pos.x *= sizeRatio.x;
                 pos.y *= sizeRatio.y;
                 m.transform.localPosition = pos;
+            }
+        }
+
+        void UpdateMonsterPinColors()
+        {
+            
+            foreach (var key in pins.Keys)
+            {
+                if (pins[key].CompareTag("Monster"))
+                {
+                    var mc = pins[key].GetComponent<MonsterController>();
+                    int index;
+                    if (PlayerController.Instance.State == PlayerState.Prey)
+                        index = !mc.InvertedBehaviour ? 0 : 1;
+                    else
+                        index = !mc.InvertedBehaviour ? 1 : 0;
+
+                    key.GetComponent<MapPinColorSetter>().SetColor(index);
+                }
             }
         }
     }
