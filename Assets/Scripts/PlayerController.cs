@@ -17,7 +17,7 @@ namespace TMOT
         
 
         [SerializeField]
-        float health = 100;
+        float health = 4;
 
         public float MaxHealth { get; private set; }
         public float Health {get{ return health; }}

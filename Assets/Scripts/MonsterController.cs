@@ -49,7 +49,7 @@ namespace TMOT
         float attackAngle = 60f;
 
         [SerializeField]
-        float damage = 30;
+        float damage = 1;
 
         [SerializeField]
         bool invertedBehaviour = false;
