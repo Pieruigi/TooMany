@@ -33,7 +33,7 @@ namespace TMOT.UI
 
         public void SetColor(int index)
         {
-            Debug.Log("TEST  - AAAAAAAAAAAAAAAAAAAAAAAAAA index:" + index);
+         
             image.color = colors[index];
         }
     }

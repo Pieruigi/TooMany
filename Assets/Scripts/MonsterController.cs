@@ -147,6 +147,8 @@ namespace TMOT
                     UpdateFleeingState();
                     break;
             }
+
+            UpdateAnimations();
         }
 
         void OnEnable()
@@ -184,6 +186,35 @@ namespace TMOT
                     SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle); 
                     break;
 
+            }
+        }
+
+        void UpdateAnimations()
+        {
+            if (animator.IsInTransition(0)) return;
+            if (state == MonsterState.Chasing && !animator.GetCurrentAnimatorStateInfo(0).IsName("Chase"))
+            {
+                animator.SetFloat("Offset", UnityEngine.Random.Range(0f, 1f));
+                animator.SetTrigger("Chase");
+                return;
+            }
+            if (state == MonsterState.Patrolling && !animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+            {
+                animator.SetFloat("Offset", UnityEngine.Random.Range(0f, 1f));
+                animator.SetTrigger("Walk");
+                return;
+            }
+            if (state == MonsterState.Idle && !animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            {
+                animator.SetFloat("Offset", UnityEngine.Random.Range(0f, 1f));
+                animator.SetTrigger("Idle");
+                return;
+            }
+            if (state == MonsterState.Fleeing && !animator.GetCurrentAnimatorStateInfo(0).IsName("Flee"))
+            {
+                animator.SetFloat("Offset", UnityEngine.Random.Range(0f, 1f));
+                animator.SetTrigger("Flee");
+                return;
             }
         }
 
@@ -225,7 +256,7 @@ namespace TMOT
             //onIdleExitNextState = MonsterState.Searching;
             agent.SetDestination(GetPatrolDestination());
             
-            animator.SetTrigger("Walk");
+            //animator.SetTrigger("Walk");
         }
 
         void EnterChasingState()
@@ -234,8 +265,8 @@ namespace TMOT
             agent.isStopped = false;
             destinationUpdateElapsed = 0;
             agent.SetDestination(PlayerController.Instance.transform.position);
-Debug.Log("TEST - AAAAAAAAAAAAA chasing");
-            animator.SetTrigger("Chase");
+
+            //animator.SetTrigger("Chase");
         }
 
 
@@ -247,7 +278,7 @@ Debug.Log("TEST - AAAAAAAAAAAAA chasing");
             destinationUpdateElapsed = 0;
             agent.SetDestination(lastPlayerSpot);
 
-            animator.SetTrigger("Walk");
+            //animator.SetTrigger("Walk");
         }
 
         void EnterFleeingState()
@@ -256,6 +287,8 @@ Debug.Log("TEST - AAAAAAAAAAAAA chasing");
             destinationUpdateElapsed = 0;
 
             agent.SetDestination(GetEscapeDestination());
+
+            //animator.SetTrigger("Flee");
            
         }
 
@@ -266,7 +299,7 @@ Debug.Log("TEST - AAAAAAAAAAAAA chasing");
             time = UnityEngine.Random.Range(idleTime * .7f, idleTime * 1.3f);
             elapsed = 0;
 
-            animator.SetTrigger("Idle");
+            //animator.SetTrigger("Idle");
         }
 
         void EnterDyingState()

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6f34f2dfb93718546b72d7036eba80a7
+guid: 1e0363dadf1590f4d91d494fabb0fe00
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walk
+      name: Flee
       takeName: Scene
       internalID: -623603649343465320
-      firstFrame: 130
-      lastFrame: 189
+      firstFrame: 200
+      lastFrame: 219
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -60,7 +60,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 80
+      additiveReferencePoseFrame: 200
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -124,12 +124,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 66ad8362b0b65fb45840f3f796d63f40,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 2
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

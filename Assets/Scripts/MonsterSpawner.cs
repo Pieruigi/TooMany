@@ -54,10 +54,7 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-            //initialNumber = 1;
-            SpawnRandomMonsters(spawnAmount);
-
-            //StartCoroutine(_Test());
+            //SpawnRandomMonsters(spawnAmount);
         }
 
         // Update is called once per frame

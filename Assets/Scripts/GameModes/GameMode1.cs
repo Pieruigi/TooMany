@@ -49,13 +49,17 @@ namespace TMOT
             Instantiate(timeUpSpawnerPrefab, Vector3.zero, Quaternion.identity);
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
 
-            MonsterSpawner.Instance.SpawnAmount = initialSpawnAmount;
+
+            
         }
 
         // Start is called before the first frame update
         void Start()
         {
 
+
+            MonsterSpawner.Instance.SpawnRandomMonsters(initialSpawnAmount/initialSpawnAmount);
+            MonsterSpawner.Instance.SpawnAmount = normalSpawnAmount;
         }
 
         // Update is called once per frame
