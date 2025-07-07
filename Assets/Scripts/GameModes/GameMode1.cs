@@ -58,7 +58,7 @@ namespace TMOT
         {
 
 
-            MonsterSpawner.Instance.SpawnRandomMonsters(initialSpawnAmount/initialSpawnAmount);
+            MonsterSpawner.Instance.SpawnRandomMonsters(initialSpawnAmount);
             MonsterSpawner.Instance.SpawnAmount = normalSpawnAmount;
         }
 

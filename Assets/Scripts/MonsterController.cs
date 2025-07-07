@@ -58,6 +58,12 @@ namespace TMOT
             get{ return invertedBehaviour; }
         }
 
+        [SerializeField]
+        List<Rigidbody> parts;
+
+        [SerializeField]
+        ParticleSystem destroyParticlePrefab;
+
         Vector3 destination;
 
         float elapsed = 0;
@@ -127,26 +133,28 @@ namespace TMOT
         {
 #if UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.F))
-                ReportPushedBack();
+                SetState(MonsterState.Dying);
+                //ReportPushedBack();
+
 #endif
-            switch (state)
-            {
-                case MonsterState.Patrolling:
-                    UpdatePatrollingState();
-                    break;
-                case MonsterState.Searching:
-                    UpdateSearchingState();
-                    break;
-                case MonsterState.Idle:
-                    UpdateIdleState();
-                    break;
-                case MonsterState.Chasing:
-                    UpdateChasingState();
-                    break;
-                case MonsterState.Fleeing:
-                    UpdateFleeingState();
-                    break;
-            }
+                switch (state)
+                {
+                    case MonsterState.Patrolling:
+                        UpdatePatrollingState();
+                        break;
+                    case MonsterState.Searching:
+                        UpdateSearchingState();
+                        break;
+                    case MonsterState.Idle:
+                        UpdateIdleState();
+                        break;
+                    case MonsterState.Chasing:
+                        UpdateChasingState();
+                        break;
+                    case MonsterState.Fleeing:
+                        UpdateFleeingState();
+                        break;
+                }
 
             UpdateAnimations();
         }
@@ -247,6 +255,25 @@ namespace TMOT
             }
         }
 
+        void Explode()
+        {
+            // Create particle system
+            var pos = animator.transform.position + Vector3.up * .5f;
+            var ps = Instantiate(destroyParticlePrefab, pos, Quaternion.identity);
+            
+
+            foreach (var part in parts)
+            {
+                part.isKinematic = false;
+                var smr = part.GetComponent<SkinnedMeshRenderer>();
+                smr.rootBone = null;
+                smr.bones = new Transform[0];
+                var dir = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 1f, UnityEngine.Random.Range(-0.5f, 0.5f));
+                dir += PlayerController.Instance.transform.forward;
+                part.AddForce(dir.normalized * UnityEngine.Random.Range(130f, 180f), ForceMode.Impulse);
+            }
+        }
+
         #region entering state
         void EnterPatrollingState()
         {
@@ -308,7 +335,10 @@ namespace TMOT
             agent.isStopped = true;
 
             GetComponent<Collider>().enabled = false;
-            MonsterSpawner.Instance.DestroyMonsterDelayed(this, .01f);
+
+
+            Explode();
+            MonsterSpawner.Instance.DestroyMonsterDelayed(this, 3f);
 
         }
 

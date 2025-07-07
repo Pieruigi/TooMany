@@ -24,7 +24,7 @@ namespace TMOT
 
         void Awake()
         {
-            mc = GetComponent<MonsterController>();
+            mc = GetComponentInParent<MonsterController>();
             
         }
 

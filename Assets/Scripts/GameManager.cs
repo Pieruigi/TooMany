@@ -113,9 +113,7 @@ namespace TMOT
 
         void EnteringLoserState()
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            Time.timeScale = 0;
+        
         }
 
         void EnteringWinnerState()

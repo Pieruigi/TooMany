@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698b80811b5749f44ba344c0ca00a71f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
+  health: 4
   pushRadius: 5
   pushForce: 120
   monsterKillRange: 1.5
@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 1107456929894254608}
   - component: {fileID: 7771781904981619865}
   - component: {fileID: 4650611098741420921}
+  - component: {fileID: 4695307707048789221}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -341,6 +342,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb6284e8b869094486341e7bb76aa47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4695307707048789221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440852047622987730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9726981d74bf71542b9c92794300a046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2527570577385090854
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +399,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 0.39168188, b: 0.23113209, a: 1}
+  m_Color: {r: 1, g: 0.26437792, b: 0, a: 1}
   m_Intensity: 6
   m_Range: 20
   m_SpotAngle: 97.674866

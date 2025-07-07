@@ -12,9 +12,11 @@ namespace TMOT
         public delegate void OnStateChangedDelegate(PlayerState oldState, PlayerState newState);
         public static OnStateChangedDelegate OnStateChanged;
 
+        public delegate void OnPlayerDamagedDelegate(float previousHealth, float currentHealth);
+        public static OnPlayerDamagedDelegate OnPlayerDamaged;
 
+  
 
-        
 
         [SerializeField]
         float health = 4;
@@ -89,7 +91,7 @@ namespace TMOT
         }
 
         float staminaDepleteSpeed = 1;
-        float staminaChargeDelay = 5;
+        float staminaChargeDelay = 2.5f;
         float staminaChargeSpeed = .25f;
 
         bool sprinting = false;
@@ -258,24 +260,29 @@ namespace TMOT
                 killMonsterElapsed -= killMonsterTime;
                 // Overlapp sphere
                 Collider[] colls = Physics.OverlapSphere(transform.position, monsterKillRange);
-                
+
                 if (colls == null || colls.Length == 0) return;
 
                 foreach (var coll in colls)
                 {
-                
+
                     if (!coll.CompareTag("Monster")) continue;
 
                     coll.GetComponent<MonsterController>().ReportHitByPlayer();
+
+                    CameraShake.Instance.Shake(0.15f, 0.2f, 8, 60f);
                     
                 }
             }
 
             
+            
+            
         }
 
         public void ApplyDamage(float damage)
         {
+            var oldHealth = health;
             health -= damage;
             if (health < 0) health = 0;
             if (health == 0)
@@ -297,6 +304,10 @@ namespace TMOT
                 }
 
             }
+
+            CameraShake.Instance.Shake(0.4f, 0.5f, 15, 120f);
+
+            OnPlayerDamaged?.Invoke(oldHealth, health);
         }
 
         public void SetState(PlayerState newState)
