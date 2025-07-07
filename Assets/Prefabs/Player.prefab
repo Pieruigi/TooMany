@@ -134,7 +134,7 @@ MonoBehaviour:
   health: 4
   pushRadius: 5
   pushForce: 120
-  monsterKillRange: 1.5
+  monsterKillRange: 2
   moveSpeed: 3
   rotationSpeed: 720
   turnSpeed: 50
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 32
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
