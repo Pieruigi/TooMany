@@ -1,4 +1,6 @@
 using TMOT;
+using Unity.Mathematics;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 
@@ -11,12 +13,21 @@ public class DynamicLightRange : MonoBehaviour
     public float smoothSpeed = 5f;        // Velocità interpolazione range
 
     public Renderer volumetric;
+
+    Vector3 volumetricScaleDefault;
+    float volumetricFactor = 1;
+    
+
+
     private Light lightSource;
 
     void Awake()
     {
         lightSource = GetComponent<Light>();
         maxRange = lightSource.range;
+
+        if (volumetric)
+            volumetricScaleDefault = volumetric.transform.localScale;
     }
 
     void Start()
@@ -36,7 +47,15 @@ public class DynamicLightRange : MonoBehaviour
 
         // Interpola per un movimento fluido
         lightSource.range = Mathf.Lerp(lightSource.range, desiredRange, Time.deltaTime * smoothSpeed);
+        // if (volumetric)
+        //     volumetric.material.SetFloat("_Intensity", Mathf.Lerp(0.34f, 0, distance / maxDistance));
         if (volumetric)
-            volumetric.material.SetFloat("_Intensity", Mathf.Lerp(0.34f, 0, distance / maxDistance));
+        {
+            var desiredFactor = Mathf.Lerp(1, 0, distance / maxDistance);
+            desiredFactor = Mathf.Clamp(desiredFactor, 0, 1);
+
+            volumetricFactor = Mathf.Lerp(volumetricFactor, desiredFactor, Time.deltaTime * smoothSpeed);
+            volumetric.transform.localScale = volumetricScaleDefault * volumetricFactor;
+        }
     }
 }
