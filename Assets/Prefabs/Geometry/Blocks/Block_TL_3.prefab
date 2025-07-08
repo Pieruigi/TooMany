@@ -362,8 +362,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  maxRange: 10
-  minRange: 0
   maxDistance: 18
   smoothSpeed: 5
   volumetric: {fileID: 1947900573267511732}
@@ -1692,35 +1690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2380f1123d26e94ab7d733f9db95321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints:
-  - {fileID: 4148608082562595172}
-  - {fileID: 8927284799514787384}
-  - {fileID: 8124862812722654277}
-  - {fileID: 6061224009507334813}
-  - {fileID: 8668189660799697156}
-  - {fileID: 8577527475407877647}
-  - {fileID: 9026643462629746148}
-  - {fileID: 7401615557678081653}
-  - {fileID: 2459664417461612708}
-  - {fileID: 8956360164442548335}
-  - {fileID: 3064126021144899214}
-  - {fileID: 3549319692663702689}
-  - {fileID: 1619482044630036141}
-  - {fileID: 3076187935933245594}
-  - {fileID: 8504241245591344305}
-  - {fileID: 1125742198841099259}
-  - {fileID: 4634746860783658716}
-  - {fileID: 8805919460925431736}
-  - {fileID: 1285117797026463566}
-  - {fileID: 4022359962243526870}
-  - {fileID: 9162697939042594761}
-  - {fileID: 9028441068195083053}
-  - {fileID: 5926597576003996137}
-  - {fileID: 1750742929173267978}
-  - {fileID: 7808123901852670662}
-  - {fileID: 2165598632503366934}
-  - {fileID: 367205206131581280}
-  - {fileID: 1100379884896242565}
+  waypoints: []
 --- !u!1001 &101601889032395914
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -438,8 +438,10 @@ MonoBehaviour:
   - {fileID: 6236004413132955523, guid: 5cb114e0688f96546835d493e5d0224a, type: 3}
   - {fileID: 6236004413132955523, guid: 3029943cc90cd0447818bac26469f324, type: 3}
   - {fileID: 6236004413132955523, guid: 5a905eec0d5cca1479ac7f7698207c0b, type: 3}
+  - {fileID: 6236004413132955523, guid: 9a4efe1fb37435146837158d2e016d42, type: 3}
   middleBlockPrefabs:
-  - {fileID: 6701175410523820750, guid: a17889d1c42bc4240bd04f4bcb471f53, type: 3}
+  - {fileID: 1278791802702371017, guid: 8108d1e7a14cb1c42a951a792e7a2871, type: 3}
+  - {fileID: 1278791802702371017, guid: 480e73d5cd1da424cbae6252cb9d4418, type: 3}
 --- !u!4 &858223917
 Transform:
   m_ObjectHideFlags: 0

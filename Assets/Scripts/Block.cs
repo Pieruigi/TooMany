@@ -12,7 +12,7 @@ namespace TMOT
         public IList<Transform> Waypoints {get{ return waypoints.AsReadOnly(); }}
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             var wg = transform.Find("Waypoints");
             waypoints = new List<Transform>();
