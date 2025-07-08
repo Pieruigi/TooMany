@@ -1,3 +1,4 @@
+using System;
 using TMOT;
 using Unity.Mathematics;
 using UnityEditor.ShaderGraph.Internal;
@@ -7,12 +8,15 @@ using UnityEngine.Diagnostics;
 public class DynamicLightRange : MonoBehaviour
 {
     public Transform target;              // Il player o oggetto da seguire
-    public float maxRange = 10f;          // Range massimo luce quando vicino
-    public float minRange = 0f;           // Range minimo (luce spenta o quasi)
-    public float maxDistance = 15f;       // Distanza oltre cui la luce si spegne
+    float maxRange = 10f;          // Range massimo luce quando vicino
+    float minRange = 0f;           // Range minimo (luce spenta o quasi)
+    public float maxDistance = 20f;       // Distanza oltre cui la luce si spegne
+
     public float smoothSpeed = 5f;        // Velocità interpolazione range
 
-    public Renderer volumetric;
+    float maxIntensity = 0;
+
+    public GameObject volumetric;
 
     Vector3 volumetricScaleDefault;
     float volumetricFactor = 1;
@@ -25,6 +29,8 @@ public class DynamicLightRange : MonoBehaviour
     {
         lightSource = GetComponent<Light>();
         maxRange = lightSource.range;
+        maxIntensity = lightSource.intensity;
+
 
         if (volumetric)
             volumetricScaleDefault = volumetric.transform.localScale;
@@ -45,13 +51,17 @@ public class DynamicLightRange : MonoBehaviour
         float desiredRange = Mathf.Lerp(maxRange, minRange, distance / maxDistance);
         desiredRange = Mathf.Clamp(desiredRange, minRange, maxRange);
 
+        float desiredIntensity = Mathf.Lerp(maxIntensity, 0, distance / maxDistance);
+        desiredIntensity = Mathf.Clamp(desiredIntensity, 0, maxIntensity);
+
         // Interpola per un movimento fluido
         lightSource.range = Mathf.Lerp(lightSource.range, desiredRange, Time.deltaTime * smoothSpeed);
-        // if (volumetric)
-        //     volumetric.material.SetFloat("_Intensity", Mathf.Lerp(0.34f, 0, distance / maxDistance));
+        lightSource.intensity = Mathf.Lerp(lightSource.intensity, desiredIntensity, Time.deltaTime * smoothSpeed);
+       
         if (volumetric)
         {
-            var desiredFactor = Mathf.Lerp(1, 0, distance / maxDistance);
+            var volumetricDistance = maxDistance * .55f;
+            var desiredFactor = Mathf.Lerp(1, 0, distance / volumetricDistance);
             desiredFactor = Mathf.Clamp(desiredFactor, 0, 1);
 
             volumetricFactor = Mathf.Lerp(volumetricFactor, desiredFactor, Time.deltaTime * smoothSpeed);

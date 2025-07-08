@@ -14,7 +14,10 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-
+            var wg = transform.Find("Waypoints");
+            waypoints = new List<Transform>();
+            for (int i = 0; i < wg.childCount; i++)
+                waypoints.Add(wg.GetChild(i));
         }
 
         // Update is called once per frame

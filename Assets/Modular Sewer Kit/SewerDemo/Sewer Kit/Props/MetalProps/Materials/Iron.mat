@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _USE_AMBIENT_OVERRIDE
   - _USE_POINT_FILTER_ON
   m_InvalidKeywords:
   - _GLOSSYREFLECTIONS_OFF
@@ -85,7 +86,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints:
     - _ColorBitDepth: 64
-    - _ResolutionLimit: 256
+    - _ResolutionLimit: 128
     - _SnapsPerUnit: 64
     m_Floats:
     - _AffineTextureStrength: 0.163
