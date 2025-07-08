@@ -10,6 +10,7 @@ public class DynamicLightRange : MonoBehaviour
     public float maxDistance = 15f;       // Distanza oltre cui la luce si spegne
     public float smoothSpeed = 5f;        // Velocità interpolazione range
 
+    public Renderer volumetric;
     private Light lightSource;
 
     void Awake()
@@ -35,5 +36,7 @@ public class DynamicLightRange : MonoBehaviour
 
         // Interpola per un movimento fluido
         lightSource.range = Mathf.Lerp(lightSource.range, desiredRange, Time.deltaTime * smoothSpeed);
+        if (volumetric)
+            volumetric.material.SetFloat("_Intensity", Mathf.Lerp(0.34f, 0, distance / maxDistance));
     }
 }

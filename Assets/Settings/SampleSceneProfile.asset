@@ -164,13 +164,13 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: {r: 0, g: 0, b: 0, a: 1}
   scaleParameters:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
   verticalReferenceResolution:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1080
   forcePointFiltering:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   rgbTex:
     m_OverrideState: 1
@@ -188,12 +188,12 @@ MonoBehaviour:
     m_Value: 0.2
   scanlineSize:
     m_OverrideState: 1
-    m_Value: 6
+    m_Value: 2
   scrollSpeed:
     m_OverrideState: 1
     m_Value: 8
   pixelSize:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 6
   randomWear:
     m_OverrideState: 0
@@ -233,5 +233,5 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1.23
   enableInterlacing:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
