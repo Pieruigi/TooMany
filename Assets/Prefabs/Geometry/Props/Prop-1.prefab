@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7930526457695844216}
   m_Layer: 0
-  m_Name: Prop-Electric
+  m_Name: Prop-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
