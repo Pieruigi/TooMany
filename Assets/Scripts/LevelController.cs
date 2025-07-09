@@ -22,8 +22,11 @@ namespace TMOT
         
 
         public GameObject GameMode { get; private set; }
-        
-        public IList<Transform> Waypoints { get{ return levelBuilder.Waypoints; } }
+
+        //public IList<Transform> Waypoints { get{ return levelBuilder.Waypoints; } }
+        [SerializeField]
+        List<Transform> waypoints;
+        public IList<Transform> Waypoints { get { return waypoints; } }
 
 
         protected override void Awake()
@@ -56,7 +59,7 @@ namespace TMOT
             GameMode = gm;
 
             // Build level
-            levelBuilder.Build();
+            //levelBuilder.Build();
 
         }
 

@@ -27,7 +27,7 @@ namespace TMOT
 
         int index = 0;
 
-        float blockSize = 18;
+        float blockSize = 15;
 
 
         // Start is called before the first frame update

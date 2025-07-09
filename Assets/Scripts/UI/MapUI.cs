@@ -36,12 +36,14 @@ namespace TMOT.UI
 
         void Awake()
         {
-            size = new Vector2((pinRoot.transform as RectTransform).rect.width, (pinRoot.transform as RectTransform).rect.height);
+            //size = new Vector2((pinRoot.transform as RectTransform).rect.width, (pinRoot.transform as RectTransform).rect.height);
         }
 
         // Start is called before the first frame update
         void Start()
         {
+            size = new Vector2(LevelController.Instance.MapSize.x * 10f, LevelController.Instance.MapSize.y * 10f);
+            (pinRoot.parent as RectTransform).sizeDelta = size;
             sizeRatio = new Vector2(size.x / LevelController.Instance.MapSize.x, size.y / LevelController.Instance.MapSize.y);
 
 

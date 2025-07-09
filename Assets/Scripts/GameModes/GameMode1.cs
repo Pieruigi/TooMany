@@ -38,7 +38,7 @@ namespace TMOT
 
         int initialSpawnAmount = 8;
 
-        int normalSpawnAmount = 6;
+        int normalSpawnAmount = 8;
 
 
         protected override void Awake()

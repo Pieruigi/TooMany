@@ -1,0 +1,337 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4036167058371194285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7930526457695844216}
+  m_Layer: 0
+  m_Name: Prop-Electric
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7930526457695844216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4036167058371194285}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.007621646, y: -0.48482886, z: -0.41889048}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8330569838264726359}
+  - {fileID: 5929897405314270635}
+  - {fileID: 4519680115302853785}
+  - {fileID: 1172492808454397481}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2892031404722804121
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7930526457695844216}
+    m_Modifications:
+    - target: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.085
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.286
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.064
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6537947019594125107, guid: 4ba6e29d6649a4b82b555587629f293d,
+        type: 3}
+      propertyPath: m_Name
+      value: Prop_ElectricalBox_03
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5982150720896823643, guid: 4ba6e29d6649a4b82b555587629f293d, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ba6e29d6649a4b82b555587629f293d, type: 3}
+--- !u!4 &1172492808454397481 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4064226818718763952, guid: 4ba6e29d6649a4b82b555587629f293d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2892031404722804121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4238101863883633760
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7930526457695844216}
+    m_Modifications:
+    - target: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6222456409342902613, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+        type: 3}
+      propertyPath: m_Name
+      value: Prop_ElectricalBox_09
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5561194491474555753, guid: 72fb1f4b2ba434d2890820f4b96cb514, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 72fb1f4b2ba434d2890820f4b96cb514, type: 3}
+--- !u!4 &4519680115302853785 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 318033938279930105, guid: 72fb1f4b2ba434d2890820f4b96cb514,
+    type: 3}
+  m_PrefabInstance: {fileID: 4238101863883633760}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6590879954308544674
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7930526457695844216}
+    m_Modifications:
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.3600001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.30342263
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.075819016
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3225401110245628338, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_Name
+      value: Prop_ElectricalBox_01
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3113216661033943176, guid: a9eaf5a6204954089b57341335a33852, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a9eaf5a6204954089b57341335a33852, type: 3}
+--- !u!4 &8330569838264726359 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+    type: 3}
+  m_PrefabInstance: {fileID: 6590879954308544674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8836230706491493982
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7930526457695844216}
+    m_Modifications:
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.4209995
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.30342263
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.075819016
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3225401110245628338, guid: a9eaf5a6204954089b57341335a33852,
+        type: 3}
+      propertyPath: m_Name
+      value: Prop_ElectricalBox_01 (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3113216661033943176, guid: a9eaf5a6204954089b57341335a33852, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a9eaf5a6204954089b57341335a33852, type: 3}
+--- !u!4 &5929897405314270635 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2948629908321438709, guid: a9eaf5a6204954089b57341335a33852,
+    type: 3}
+  m_PrefabInstance: {fileID: 8836230706491493982}
+  m_PrefabAsset: {fileID: 0}

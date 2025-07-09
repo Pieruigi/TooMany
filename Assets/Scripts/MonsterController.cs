@@ -107,6 +107,8 @@ namespace TMOT
         [SerializeField]
         Animator animator;
 
+        float speedRandomMul = 1f;
+
 
         void Awake()
         {
@@ -116,7 +118,8 @@ namespace TMOT
             rb.isKinematic = true;
             patrolMaxDistance = LevelController.Instance.MapSize.x / 3f;
             patrolMinDistance = patrolMaxDistance / 3f;
-            agent.speed = killerSpeed;
+            speedRandomMul = UnityEngine.Random.Range(.9f, 1.1f);
+            agent.speed = killerSpeed * speedRandomMul;
         }
 
         // Start is called before the first frame update
@@ -229,9 +232,9 @@ namespace TMOT
         void UpdateSpeed()
         {
             if (PlayerController.Instance.State == PlayerState.Hunter)
-                agent.speed = preySpeed;
+                agent.speed = preySpeed * speedRandomMul;
             else
-                agent.speed = killerSpeed;
+                agent.speed = killerSpeed * speedRandomMul;
 
         }
 
