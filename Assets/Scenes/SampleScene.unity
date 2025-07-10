@@ -324,16 +324,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Maze-1
       objectReference: {fileID: 0}
-    - target: {fileID: 984129413838766028, guid: c982d45617724d44db8a6b88550ab18b,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5105839818354247083, guid: c982d45617724d44db8a6b88550ab18b,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5518472975243416602, guid: c982d45617724d44db8a6b88550ab18b,
         type: 3}
       propertyPath: m_LocalPosition.x
