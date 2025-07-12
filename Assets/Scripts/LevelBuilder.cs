@@ -1,7 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Security.Cryptography.X509Certificates;
+using JetBrains.Annotations;
 using Unity.AI.Navigation;
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,166 +13,335 @@ namespace TMOT
 {
     public class LevelBuilder : MonoBehaviour
     {
-        [SerializeField]
-        List<GameObject> topLeftBlockPrefabs;
+        public delegate void LevelBuiltDelegate(int width, int height, int[,] grid);
+        public static LevelBuiltDelegate OnLevelBuilt;
 
-        [SerializeField]
-        List<GameObject> topBlockPrefabs;
+        public delegate void LevelBuilderFailedDelegate(int width, int heiht, int[,] grid);
+        public static LevelBuilderFailedDelegate OnLevelBuilderFailed;
 
-        [SerializeField]
-        List<GameObject> middleBlockPrefabs;
+        int width = 20; // In tile size
+        int height = 20;
 
-        List<GameObject> blocks = new List<GameObject>();
+        float freeBlockRatioRatio = 1; // It's Empty/Full ratio
+        
 
-        List<Transform> waypoints = new List<Transform>();
-        public IList<Transform> Waypoints {get{ return waypoints.AsReadOnly(); }}
+        /// <summary>
+        /// -1: not used yet
+        /// 0: empty
+        /// 1: full
+        /// Starting from south-west
+        /// </summary>
+        int[,] grid; 
 
-        int size = 3; // In blocks
+        int tileSize = 2;
 
-        int index = 0;
+        List<int[,]> blockShapes = new List<int[,]>();
+        
+        
 
-        float blockSize = 15;
-
-
-        // Start is called before the first frame update
-        void Start()
+        public int[,] Grid
         {
-
+            get { return grid; }
         }
 
-        // Update is called once per frame
-        void Update()
-        {
 
+
+        void Start()
+        {
+           
         }
 
         public void Build()
         {
-            int count = size * size;
-            float x = 0;
-            float z = 0;
-            int s = (size - 1) / 2;
-            for (int i = 0; i < count; i++)
+            Init();
+
+            try
             {
-                x = (i % size - s) * blockSize;
-                z = (s - i / size) * blockSize;
+                Fill();
+                OnLevelBuilt?.Invoke(width, height, grid);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogException(e);
+                OnLevelBuilderFailed?.Invoke(width, height, grid);
+            
+            }
 
-                // Instantiate block
-                var block = Instantiate(GetBlockPrefab(x, z));
-                // Set position
-                SetBlockPosition(block, x, z);
+            DebugGrid();
+        }
 
-                // Check for axis inversion
-                SetBlockRotation(block, x, z);
+        void Init()
+        {
+            // Store level size
+            if (LevelController.Instance)
+            {
+                width = (int)LevelController.Instance.MapSize.x;    
+                height = (int)LevelController.Instance.MapSize.y;
+            }
+            
+            
 
-                // Check for inversion
-                SetBlockInversion(block, x, z);
+            // Init grid
+            grid = new int[width, height];
+            for (int x = 0; x < width; x++)
+                for(int z =0; z<height; z++)
+                    grid[x,z] = -1;
 
+
+            // Init shapes
+            int[] shape = new int[1];
+            shape[0] = 0; // Offset zero
+            //blockShapes.Add(shape);
+
+            
+
+        }
+
+        void Fill()
+        {
+            int freeCount = 0;
+            int blockCount = 0;
+
+            // Lets fill the four angle first
+            FillSouthWestBorder();
+            FillSouthEastBorder();
+            FillNorthWestBorder();
+            FillNorthEastBorder();
+
+
+            for (int x = 0; x < width; x++)
+            {
                 
-                // Add waypoints
-                waypoints.AddRange(block.GetComponent<Block>().Waypoints);
-
-                blocks.Add(block);
-            }
-
-            blocks[4].GetComponentInChildren<NavMeshSurface>().BuildNavMesh();
-        }
-
-        GameObject GetBlockPrefab(float x, float z)
-        {
-
-            if (x < 0 && z > 0)
-                return topLeftBlockPrefabs[UnityEngine.Random.Range(0, topLeftBlockPrefabs.Count)];
-
-            if (x == 0 && z > 0)
-                return topBlockPrefabs[UnityEngine.Random.Range(0, topBlockPrefabs.Count)];
-
-            if (x > 0 && z > 0)
-                return topLeftBlockPrefabs[UnityEngine.Random.Range(0, topLeftBlockPrefabs.Count)];
-
-            if (x < 0 && z == 0)
-                return topBlockPrefabs[UnityEngine.Random.Range(0, topBlockPrefabs.Count)];
-
-            if (x == 0 && z == 0)
-                return middleBlockPrefabs[UnityEngine.Random.Range(0, middleBlockPrefabs.Count)];
-
-            if (x > 0 && z == 0)
-                return topBlockPrefabs[UnityEngine.Random.Range(0, topBlockPrefabs.Count)];
-
-            if (x < 0 && z < 0)
-                return topLeftBlockPrefabs[UnityEngine.Random.Range(0, topLeftBlockPrefabs.Count)];
-
-            if (x == 0 && z < 0)
-                return topBlockPrefabs[UnityEngine.Random.Range(0, topBlockPrefabs.Count)];
-
-            //if (x > 0 && z < 0)
-            return topLeftBlockPrefabs[UnityEngine.Random.Range(0, topLeftBlockPrefabs.Count)];
-
-
-        }
-
-        void SetBlockPosition(GameObject block, float x, float z)
-        {
-            var pos = Vector3.zero;
-            pos.x = x;
-            pos.z = z;
-            block.transform.position = pos;
-        }
-
-        void SetBlockRotation(GameObject block, float x, float z)
-        {
-            if (z > 0) return;
-
-            if (z == 0)
-            {
-                if (x < 0)
+                for (int z = 0; z < height; z++)
                 {
-                    block.transform.rotation = Quaternion.Euler(0, -90f, 0);
-                    return;
-                }
-                if (x > 0)
-                {
-                    block.transform.rotation = Quaternion.Euler(0, 90f, 0);
-                    return;
+                    Debug.Log($"{x},{z}");
+                    if (grid[x, z] > -1) continue;
+
+                    Next(x, z, freeCount, blockCount);
                 }
             }
 
-            if (z < 0 && x == 0)
-                block.transform.rotation = Quaternion.Euler(0, 180f, 0);
+           
+          
+            
         }
 
-        void SetBlockInversion(GameObject block, float x, float z)
+        void FillSouthWestBorder()
         {
-            if (z > 0 && x < 0) return;
 
-            if (z > 0 && x > 0)
+            for (int i = 0; i < 4; i++)
             {
-                var s = block.transform.localScale;
-                s.x *= -1;
-                block.transform.localScale = s;
-                return;
+                int row = i;
+                int col = 0;
+                grid[col, row] = grid[col+1, row] = 0;
+                if (i < 2)
+                    grid[col+2, row] = grid[col+3, row] = 0;
+            }
+            
+        }
+
+        void FillSouthEastBorder()
+        {
+            for (int i = 0; i < 4; i++)
+                {
+                    int row = i;
+                    int col = width-1;
+                    grid[col, row] = grid[col-1, row] = 0;
+                    if (i < 2)
+                        grid[col-2, row] = grid[col-3, row] = 0;
+                }
+         
+            
+        }
+
+        void FillNorthWestBorder()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                int row = height - 1 - i;
+                int col = 0;
+                grid[col, row] = grid[col+1, row] = 0;
+                if (i < 2)
+                    grid[col+2, row] = grid[col+3, row] = 0;
+            }
+        }
+
+        void FillNorthEastBorder()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                int row = height - 1 - i;
+                int col = width - 1;
+                grid[col, row] = grid[col-1, row] = 0;
+                if (i < 2)
+                    grid[col-2, row] = grid[col-3, row] = 0;
+            }
+        }
+
+        void Next(int x, int z, int freeCount, int blockCount)
+        {
+            // bool freeAvailable = CanAddFreeTile(index);
+            // bool blockAvailable = CanAddBlockShape(index);
+            Debug.Log($"Processing ({x},{z}), freeCount:{freeCount}, blockCount:{blockCount}");
+
+            bool isBlock = false;
+            int tot = freeCount + blockCount;
+            if (tot < width * height / 10)
+            {
+                isBlock = UnityEngine.Random.Range(0, 2) == 1;
+            }
+            else
+            {
+                if (blockCount == 0)
+                    isBlock = true;
+                else
+                    isBlock = (freeCount / blockCount > freeBlockRatioRatio) ? true : false;
+
             }
 
-            if (z < 0 && x < 0)
+            if (isBlock)
             {
-                var s = block.transform.localScale;
-                s.z *= -1;
-                block.transform.localScale = s;
-                return;
+                // int[] shape = GetBlockShape(index);
+                // if (shape != null)
+                //     AddBlockShape(index, shape);
+                if (!TryeAddBlockShape(x,z))
+                    TryAddFreeTile(x,z);
+            }
+            else
+            {
+                if (!TryAddFreeTile(x,z))
+                    TryeAddBlockShape(x,z);
+            }
+            
+
+           
+        }
+
+        bool TryAddFreeTile(int x, int z)
+        {
+            Debug.Log($"Processing ({x},{z}) try adding free tile");
+
+            int westIndex = x-1;
+           
+            int southIndex = z-1;
+           
+            // if (southIndex < 0 && westIndex < 0)
+            // {
+            //     // It's the first tile, a square of tiles
+            //     int[] indices = new[] { 0, 1, width, width + 1 };
+            //     Debug.Log($"Processing  ({x},{z}), adding {indices.Length} tiles");
+            //     AddFreeTiles(indices);
+            //     return true;
+            // }
+
+            if (z-1 != -1 && x-1 != -1 && grid[x,z-1] == 0 && grid[x-1,z] == 0)
+            {
+                if (grid[x-1, z-1] == 0) return false;
+
+                // A square of 4 tiles
+                (int,int)[] tiles = new (int,int)[] { (x,z), (x+1,z), (x,z+1), (x+1,z+1) };
+                Debug.Log($"Processing ({x},{z}), adding {tiles.Length} tiles");
+                AddFreeTiles(tiles);
+                return true;
             }
 
-
-            if (z < 0 && x > 0)
+            if (x-1 != -1 && grid[x-1,z] == 0) 
             {
-                var s = block.transform.localScale;
-                s.x *= -1;
-                s.z *= -1;
-                block.transform.localScale = s;
-                return;
+                // No free tile from south, so we need at least another tile to north
+                if (z+1 == height) return false; // No north tile
+
+                // Fill from west
+                (int,int)[] tiles = new[] { (x,z), (x,z+1) };
+                Debug.Log($"Processing ({x},{z}), adding {tiles.Length} tiles");
+                AddFreeTiles(tiles);
+                return true;
             }
+
+            if (z-1 != -1 && grid[x, z-1] == 0)
+            {
+                // There is no free tile from west, so we need at least another tile to east
+                if (x+1 == width) return false;
+
+                (int,int)[] tiles = new (int,int)[] { (x,z),(x+1,z) };
+                Debug.Log($"Processing ({x},{z}), adding {tiles.Length} tiles");
+                AddFreeTiles(tiles);
+                return true;
+            }
+
+            return false;
+        }
+
+        bool TryeAddBlockShape(int x, int z)
+        {
+            return false;
+        }
+
+        // bool TryAddBlockShapes(int index)
+        // {
+        //     // Get available shapes
+        //     List<int[]> availables = new List<int[]>();
+        //     foreach (var shape in blockShapes)
+        //     {
+        //         if (IsBlockShapeAvailable(index, shape))
+        //         {
+        //             availables.Add(shape);            
+        //         }
+        //     }
+        // }
+
+        // bool IsBlockShapeAvailable(int index, int[] shape)
+        // {
+
+        // }
+        void AddFreeTiles((int,int)[] tiles)
+        {
+            
+            foreach ((int,int) tile in tiles)
+                grid[tile.Item1, tile.Item2] = 0;
 
         }
 
+
+        void AddBlockShape(int index, int[] shape)
+        {
+            
+        }
+
+       
+        (int, int) IndexToCoords(int index)
+        {
+            return (index % width, index / width);
+        }
+
+        int CoordsToIndex(int col, int row)
+        {
+            return (col + row * width);
+        }
+
+      
+
+     
+
+
+
+        void DebugGrid()
+        {
+            string row = "";
+
+            
+            
+            for (int z = 0; z < height; z++)   
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    row += $" {grid[x,z]}";
+                }
+                row += "\n";
+
+            }
+            
+            Debug.Log(row);
+        }
         
     }
 }

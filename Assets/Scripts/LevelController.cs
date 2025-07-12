@@ -59,7 +59,7 @@ namespace TMOT
             GameMode = gm;
 
             // Build level
-            //levelBuilder.Build();
+            levelBuilder.Build();
 
         }
 
