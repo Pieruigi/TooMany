@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.GameCenter;
+using UnityEngine.U2D;
 
 namespace TMOT
 {
@@ -28,8 +29,11 @@ namespace TMOT
         [System.Serializable]
         public class WallShape
         {
+            /// <summary>
+            /// Each index represent a rotation variant
+            /// </summary>
             [SerializeField]
-            public List<Tile> tiles;
+            public List<Tile>[] tiles = new List<Tile>[4]; 
 
             [SerializeField]
             public GameObject helper;
@@ -37,6 +41,17 @@ namespace TMOT
             [SerializeField]
             public int weight = 1;
 
+            [SerializeField]
+            public int max = -1;
+
+            [SerializeField]
+            public bool rotate90;
+
+            [SerializeField]
+            public bool rotate180;
+
+            [SerializeField]
+            public bool rotate270;
 
         }
 
@@ -48,9 +63,9 @@ namespace TMOT
         /// </summary>
         char[,] grid;
 
-        int width = 1000, height = 1000;
+        int width = 100, height = 100;
 
-        int maxTiles = 20 * 20;
+        int maxTiles = 40 * 40;
 
 
         int floorWallRatio = 1;
@@ -98,7 +113,7 @@ namespace TMOT
             DateTime startTime = DateTime.Now;
             
             Init();
-            
+
             try
             {
                 Create();
@@ -108,7 +123,7 @@ namespace TMOT
                 Debug.LogException(e);
             }
 
-            Debug.Log($"Buili in {(DateTime.Now - startTime).TotalSeconds} seconds");
+            Debug.Log($"Built in {(DateTime.Now - startTime).TotalSeconds} seconds");
 
             DebugTiles();
         }
@@ -130,17 +145,63 @@ namespace TMOT
         {
             foreach (var shape in wallShapes)
             {
-                shape.tiles.Clear();
-                for (int i = 0; i < shape.helper.transform.childCount; i++)
+                var helper = Instantiate(shape.helper);
+                // Clear all variants
+                for (int v = 0; v < 4; v++)
                 {
-                    var child = shape.helper.transform.GetChild(i);
-                    Tile t = new Tile();
-                    t.type = child.gameObject.name.Substring(0,1).ToLower()[0];
-                    t.coords = new Vector2(child.position.x * tileScale, child.position.z * tileScale);
-                    shape.tiles.Add(t);
+                    shape.tiles[v] = new List<Tile>();
+
+                    bool ok = false;
+
+                    if (v == 0)
+                    {
+                        ok = true;
+                    }
+                    else
+                    {
+                        if (v == 1 && shape.rotate90)
+                        {
+                            helper.transform.GetChild(0).localEulerAngles = Vector3.up * 90f;
+                            ok = true;
+                        }
+                        else if (v == 2 && shape.rotate180)
+                        {
+                            helper.transform.GetChild(0).localEulerAngles = Vector3.up * 180f;
+                            ok = true;
+                        }
+                        else if (v == 3 && shape.rotate270)
+                        {
+                            helper.transform.GetChild(0).localEulerAngles = Vector3.up * 270f;
+                            ok = true;
+                        }
+                    }
+
+
+                    if (ok)
+                    {
+                        for (int i = 0; i < helper.transform.GetChild(0).childCount; i++)
+                        {
+                            var child = helper.transform.GetChild(0).GetChild(i);
+                            Tile t = new Tile();
+                            t.type = child.gameObject.name.Substring(0, 1).ToLower()[0];
+                            t.coords = new Vector2(Mathf.Round(child.position.x) * tileScale, Mathf.Round(child.position.z) * tileScale);
+                            shape.tiles[v].Add(t);
+
+
+                        }
+
+                        
+                    }
                 }
+
+
+
+                Destroy(helper);
             }
+            
+
         }
+
 
         void Create()
         {
@@ -152,7 +213,7 @@ namespace TMOT
 
                 wallCount = CountWalls();
                 floorCount = CountFloors();
-                
+
                 iteration++;
             }
         }
@@ -185,61 +246,70 @@ namespace TMOT
             // Get available shapes
             List<WallShape> candidates = new List<WallShape>();
             foreach (var ws in wallShapes)
-                candidates.Add(ws);
+            {
+                var l = new List<WallShape>();
+                for (int i = 0; i < ws.weight; i++)
+                    l.Add(ws);
+                candidates.AddRange(l);
+            }
+                
             // Choose the next shape to add
             WallShape shape = candidates[UnityEngine.Random.Range(0, candidates.Count)];
-            shape = candidates[0];
+           
 
-            candidates.RemoveAll(s => s == shape);
+            int x, y;
 
-
-            if (wallCount == 0)
+            // Get all the edge tile in the preferred direction
+            List<(int, int)> edges = null;
+            int iterations = 0;
+            bool ok = false;
+            do
             {
-                // If no edge tiles start from center
-                Vector2 center = new Vector2(width / 2, height / 2);
-
-                // Add wall shape
-
-                if (!TryAddWallShape((int)center.x, (int)center.y, shape))
+                if (wallCount == 0)
                 {
-                    Debug.LogError("Can't even add the first wall :(");
-                    return;
+                    x = (int)width / 2;
+                    y = (int)height / 2;
+
                 }
-            }
-            else
-            {
-                // Get all the edge tile in the preferred direction
-                var edges = GetOrderedEdgeTiles();
-
-                var edge = edges[UnityEngine.Random.Range(0, edges.Count)];
-                edges.Remove(edge);
-                bool ok = TryAddWallShape(edge.Item1, edge.Item2, shape);
-
-                int iterations = 0;
-                while (!ok && iterations < 1000)
+                else
                 {
-                    // Get another edge
-                    if (edges.Count > 0)
+                    
+                    if (edges == null || edges.Count == 0)
                     {
-                        edge = edges[UnityEngine.Random.Range(0, edges.Count)];//edges.First();
-                        edges.Remove(edge);
-
-                        ok = TryAddWallShape(edge.Item1, edge.Item2, shape);
-                    }
-                    else // No more edge, lets try another shape
-                    {
-                        // Get a new shape
-                        shape = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+                        if (edges != null) 
+                        {
+                            // No more edge, lets try another shape
+                            shape = candidates[UnityEngine.Random.Range(0, candidates.Count)];    
+                        }
+                        
                         // Refill edge list
                         edges = GetOrderedEdgeTiles();
                     }
-                    
-                    iterations++;
+
+                    var edge = edges[0];// edges[UnityEngine.Random.Range(0, edges.Count)];
+                    edges.Remove(edge);
+
+                    x = edge.Item1;
+                    y = edge.Item2;
                 }
 
 
-            }
+                ok = TryAddWallShape(x, y, shape);
 
+                if (ok)
+                {
+                    if (shape.max > 0)
+                    {
+                        shape.max--;
+                        if (shape.max <= 0)
+                            shape.weight = 0;
+                        candidates.RemoveAll(s => s == shape);    
+                        
+                    }
+                        
+                }
+            }
+            while (!ok && iterations < 1000);
 
             preferredDirection = (preferredDirection + 1) % 4;
             
@@ -260,44 +330,63 @@ namespace TMOT
                     {
                         case 0: // N
                             if (j - 1 >= 0 && grid[i, j - 1] == 'f')
-                                ret.Add((i, j));
+                            {
+                                if(!ret.Contains((i,j))) ret.Add((i, j));
+                                if (grid[i - 1, j] == '-' && !ret.Contains((i - 1, j))) ret.Add((i - 1, j));
+                                if (grid[i + 1, j] == '-' && !ret.Contains((i + 1, j))) ret.Add((i + 1, j));
+                            }
+                            
                             break;
                         case 1: // E
                             if (i - 1 >= 0 && grid[i - 1, j] == 'f')
-                                ret.Add((i, j));
+                            {
+                                if(!ret.Contains((i,j))) ret.Add((i, j));
+                                if (grid[i, j + 1] == '-' && !ret.Contains((i, j + 1))) ret.Add((i, j + 1));
+                                if (grid[i, j - 1] == '-' && !ret.Contains((i, j - 1))) ret.Add((i, j - 1));
+                            }
+                                
                             break;
                         case 2: // S
                             if (j + 1 < width && grid[i, j + 1] == 'f')
-                                ret.Add((i, j));
+                            {
+                                if(!ret.Contains((i,j))) ret.Add((i, j));
+                                if (grid[i + 1, j] == '-' && !ret.Contains((i + 1, j))) ret.Add((i + 1, j));
+                                if (grid[i - 1, j] == '-' && !ret.Contains((i - 1, j))) ret.Add((i - 1, j));
+                            }
+                                
                             break;
                         case 3: // W
                             if (i + 1 < width && grid[i + 1, j] == 'f')
-                                ret.Add((i, j));
+                            {
+                                if(!ret.Contains((i,j))) ret.Add((i, j));
+                                if (grid[i, j + 1] == '-' && !ret.Contains((i, j + 1))) ret.Add((i, j + 1));
+                                if (grid[i, j - 1] == '-' && !ret.Contains((i, j - 1))) ret.Add((i, j - 1));
+                            }
+                                
                             break;
                     }
                 }
 
+            switch (preferredDirection)
+            {
+                case 0:
+                    ret = ret.OrderBy(t => t.Item2).ToList();
+                    break;
+                case 1:
+                    ret = ret.OrderBy(t => t.Item1).ToList();
+                    break;
+                case 2:
+                    ret = ret.OrderByDescending(t => t.Item2).ToList();
+                    break;
+                case 3:
+                    ret = ret.OrderByDescending(t => t.Item1).ToList();
+                    break;
+            }
+
             return ret;
 
             
-            // List<(int, int)> edgeTiles = new List<(int, int)>();
-            // for (int i = 0; i < width; i++)
-            //     for (int j = 0; j < height; j++)
-            //         edgeTiles.Add((i, j));
-                    
-            // switch (preferredDirection)
-            // {
-            //     case 0: // N
-            //         return edgeTiles.FindAll(t => (grid[t.Item1, t.Item2] == '-' || grid[t.Item1, t.Item2] == 'n') && t.Item2 - 1 >= 0 && grid[t.Item1, t.Item2 - 1] == 'f').OrderBy(t => t.Item2).ToList();
-            //     case 1: // E
-            //         return edgeTiles.FindAll(t => (grid[t.Item1, t.Item2] == '-' || grid[t.Item1, t.Item2] == 'n') && t.Item1 - 1 >= 0 && grid[t.Item1 - 1, t.Item2] == 'f').OrderBy(t => t.Item1).ToList();
-            //     case 2: // S
-            //         return edgeTiles.FindAll(t => (grid[t.Item1, t.Item2] == '-' || grid[t.Item1, t.Item2] == 'n') && t.Item2 + 1 < width && grid[t.Item1, t.Item2 + 1] == 'f').OrderByDescending(t => t.Item2).ToList();
-            //     case 3: // W
-            //         return edgeTiles.FindAll(t => (grid[t.Item1, t.Item2] == '-' || grid[t.Item1, t.Item2] == 'n') && t.Item1 + 1 < width && grid[t.Item1 + 1, t.Item2] == 'f').OrderByDescending(t => t.Item1).ToList();
-            // }
-
-            // return null;
+         
         }
 
         bool TryAddWallShape(int x, int y, WallShape wallShape)
@@ -306,12 +395,25 @@ namespace TMOT
             
             bool rollback = false;
 
-            foreach (var tile in wallShape.tiles)
+            List<int> variants = new List<int>();
+            variants.Add(0);
+            if (wallShape.rotate90) variants.Add(1);
+            if (wallShape.rotate180) variants.Add(2);
+            if (wallShape.rotate270) variants.Add(3);
+
+            int variant = variants[UnityEngine.Random.Range(0, variants.Count)];
+           
+           
+            int count = 0;
+            foreach (var tile in wallShape.tiles[variant])
             {
+                
                 int _x = x + (int)tile.coords.x;
                 int _y = y + (int)tile.coords.y;
 
                 char type = tile.type;
+
+                count++;
 
                 if (type == 'w')
                 {
@@ -322,7 +424,11 @@ namespace TMOT
                         // Update tile
                         grid[_x, _y] = type;
                     }
-                    else rollback = true;
+                    else
+                    {
+                        rollback = true;
+                        break;
+                    }
                 }
                 else if (type == 'f')
                 {
@@ -333,7 +439,11 @@ namespace TMOT
                         // Update tile
                         grid[_x, _y] = type;
                     }
-                    else rollback = true;
+                    else
+                    {
+                        rollback = true;
+                        break;
+                    }
 
                 }
                 else if (type == 'n')
@@ -345,7 +455,11 @@ namespace TMOT
                         // Update tile
                         grid[_x, _y] = type;
                     }
-                    else if (grid[_x, _y] == 'f') rollback = true;
+                    else if (grid[_x, _y] == 'f')
+                    {
+                        rollback = true;
+                        break;
+                    }
                 }
 
             }
@@ -365,327 +479,6 @@ namespace TMOT
             return true;
         }
 
-/*
-        bool _TryAddWallShape(int x, int y, WallShape wallShape)
-        {
-            char[,] tmpGrid = new char[width, height];
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
-                    tmpGrid[i, j] = grid[i, j];
-                    //grid.CopyTo(tmpGrid, 0);
-
-                    List<(int, int)> tmpEdge = new List<(int,int)>();
-
-            int tmpFloorCount = 0;
-            int tmpWallCount = 0;
-
-            // Set tiles
-            foreach (Vector2 tile in wallShape.tiles)
-            {
-                tmpGrid[x + (int)tile.x, y + (int)tile.y] = 'w';
-
-                tmpWallCount++; 
-            }
-
-            // Set walkable tiles all around the shape
-            foreach (Vector2 tile in wallShape.tiles)
-            {
-                int _x = x + (int)tile.x;
-                int _y = y + (int)tile.y;
-                // North
-                bool north = false;
-                if (tmpGrid[_x, _y + 1] == '-')
-                {
-                    north = true;
-                    tmpGrid[_x, _y + 1] = 'f';
-                    tmpFloorCount++;
-                    if (tmpGrid[_x, _y + 2] == '-')
-                    {
-                        tmpGrid[_x, _y + 2] = 'f';
-                        tmpFloorCount++;
-                    }
-                    else if (tmpGrid[_x, _y + 2] != 'f')
-                        return false;
-
-                    tmpEdge.Add((_x, _y + 2));
-                    
-                }
-                else if (tmpGrid[_x, _y + 1] != 'f')
-                    return false;
-                
-
-                // East
-                bool east = false;
-                if (tmpGrid[_x + 1, _y] == '-')
-                {
-                    east = true;
-                    tmpGrid[_x + 1, _y] = 'f';
-                    tmpFloorCount++;
-                    if (tmpGrid[_x + 2, _y] == '-')
-                    {
-                        tmpGrid[_x + 2, _y] = 'f';
-                        tmpFloorCount++;
-                    }
-                    else if (tmpGrid[_x + 2, _y] != 'f')
-                        return false;
-                    
-                    tmpEdge.Add((_x + 2, _y));
-                    
-                    if (north)
-                    {
-                        if (tmpGrid[_x + 1, _y + 1] == '-')
-                        {
-                            tmpGrid[_x + 1, _y + 1] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x + 1, _y + 1] != 'f')
-                            return false;
-
-                        if (tmpGrid[_x + 2, _y + 1] == '-')
-                        {
-                            tmpGrid[_x + 2, _y + 1] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x + 2, _y + 1] != 'f')
-                            return false;
-
-                        if (tmpGrid[_x + 1, _y + 2] == '-')
-                        {
-                            tmpGrid[_x + 1, _y + 2] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x + 1, _y + 2] != 'f')
-                            return false;
-
-                        if (tmpGrid[_x + 2, _y + 2] == '-')
-                        {
-                            tmpGrid[_x + 2, _y + 2] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x + 2, _y + 2] != 'f')
-                            return false;
-                        
-                        tmpEdge.Add((_x + 2, _y + 1));
-                        tmpEdge.Add((_x + 1, _y + 2));
-                        tmpEdge.Add((_x + 2, _y + 2));
-                    }
-                }
-                else if (tmpGrid[_x + 1, _y] != 'f')
-                {
-                    return false;
-                }
-
-                // South 
-                bool south = false;
-                if (tmpGrid[_x, _y - 1] == '-')
-                {
-                    south = true;
-                    tmpGrid[_x, _y - 1] = 'f';
-                    tmpFloorCount++;
-                    if (tmpGrid[_x, _y - 2] == '-')
-                    {
-                        tmpGrid[_x, _y - 2] = 'f';
-                        tmpFloorCount++;
-                    }
-                    else if (tmpGrid[_x, _y - 2] != 'f')
-                        return false;
-                    
-                    tmpEdge.Add((_x, _y - 2));
-                    
-                    if (east)
-                    {
-                        if (tmpGrid[_x + 1, _y - 1] == '-')
-                        {
-                            tmpGrid[_x + 1, _y - 1] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x + 1, _y - 1] != 'f')
-                            return false;
-                        
-                        if (tmpGrid[_x + 1, _y - 2] == '-')
-                        {
-                            tmpGrid[_x + 1, _y - 2] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x + 1, _y - 1] != 'f')
-                            return false;
-
-                        if (tmpGrid[_x + 2, _y - 1] == '-')
-                        {
-                            tmpGrid[_x + 2, _y - 1] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x + 1, _y - 1] != 'f')
-                            return false;
-
-                        if (tmpGrid[_x + 2, _y - 2] == '-')
-                        {
-                            tmpGrid[_x + 2, _y - 2] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x + 1, _y - 1] != 'f')
-                            return false;
-
-                        tmpEdge.Add((_x + 1, _y - 2));
-                        tmpEdge.Add((_x + 2, _y - 1));
-                        tmpEdge.Add((_x + 2, _y - 2));
-                    }
-                }
-                else if (tmpGrid[_x, _y - 1] != 'f')
-                {
-                    return false;
-                }
-
-                // West
-                if (tmpGrid[_x - 1, _y] == '-')
-                {
-                    tmpGrid[_x - 1, _y] = 'f';
-                    tmpFloorCount++;
-                    if (tmpGrid[_x - 2, _y] == '-')
-                    {
-                        tmpGrid[_x - 2, _y] = 'f';
-                        tmpFloorCount++;
-                    }
-                    else if (tmpGrid[_x - 2, _y] != 'f')
-                        return false;
-                    
-                    tmpEdge.Add((_x - 2, _y));
-                    if (south)
-                    {
-
-                        if (tmpGrid[_x - 1, _y - 1] == '-')
-                        {
-                            tmpGrid[_x - 1, _y - 1] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x - 1, _y - 1] != 'f')
-                            return false;
-
-                        if (tmpGrid[_x - 2, _y - 1] == '-')
-                        {
-                            tmpGrid[_x - 2, _y - 1] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x - 2, _y - 1] != 'f')
-                        return false;
-
-                        if (tmpGrid[_x - 1, _y - 2] == '-')
-                        {
-                            tmpGrid[_x - 1, _y - 2] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x - 1, _y - 2] != 'f')
-                            return false;
-
-                        if (tmpGrid[_x - 2, _y - 2] == '-')
-                        {
-                            tmpGrid[_x - 2, _y - 2] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x - 2, _y - 2] != 'f')
-                            return false;
-                        
-                        tmpEdge.Add((_x - 2, _y - 1));
-                        tmpEdge.Add((_x - 1, _y - 2));
-                        tmpEdge.Add((_x - 2, _y - 2));
-                    }
-                    if (north)
-                    {
-                        if (tmpGrid[_x - 1, _y + 1] == '-')
-                        {
-                            tmpGrid[_x - 1, _y + 1] = 'f';    
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x - 1, _y + 1] != 'f')
-                            return false;
-
-                        if (tmpGrid[_x - 2, _y + 1] == '-')
-                        {
-                            tmpGrid[_x - 2, _y + 1] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x - 2, _y + 1] != 'f')
-                            return false;
-
-                        if (tmpGrid[_x - 1, _y + 2] == '-')
-                        {
-                            tmpGrid[_x - 1, _y + 2] = 'f';    
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x - 1, _y + 2] != 'f')
-                            return false;
-
-                        if (tmpGrid[_x - 2, _y + 2] == '-')
-                        {
-                            tmpGrid[_x - 2, _y + 2] = 'f';
-                            tmpFloorCount++;
-                        }
-                        else if (tmpGrid[_x - 2, _y + 2] != 'f')
-                            return false;
-
-                        tmpEdge.Add((_x - 2, _y + 1));
-                        tmpEdge.Add((_x - 1, _y + 2));
-                        tmpEdge.Add((_x - 2, _y + 2));
-                    }
-                }
-                else if (tmpGrid[_x - 1, _y] != 'f')
-                {
-                    return false;
-                }
-            }
-
-            // Set not walkable tiles
-            foreach (Vector2 tile in wallShape.tiles)
-            {
-                int _x = x + (int)tile.x;
-                int _y = y + (int)tile.y;
-
-                // North
-                if (tmpGrid[_x, _y + 3] == '-')
-                    tmpGrid[_x, _y + 3] = 'n';
-                else if (tmpGrid[_x, _y + 3] == 'f')
-                {
-                    return false;
-                }
-
-                // East
-                if (tmpGrid[_x + 3, _y] == '-')
-                    tmpGrid[_x + 3, _y] = 'n';
-                else if (tmpGrid[_x + 3, _y] == 'f')
-                {
-                    return false;
-                }
-
-                // South
-                if (tmpGrid[_x, _y - 3] == '-')
-                    tmpGrid[_x, _y - 3] = 'n';
-                else if (tmpGrid[_x, _y - 3] == 'f')
-                {
-                    return false;
-                }
-
-                // West
-                if (tmpGrid[_x - 3, _y] == '-')
-                    tmpGrid[_x - 3, _y] = 'n';
-                else if (tmpGrid[_x - 3, _y] == 'f')
-                {
-                    return false;
-                }
-
-            }
-
-            // Update the edge tiles
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
-                    grid[i, j] = tmpGrid[i, j];
-            //tmpGrid.CopyTo(grid, 0);
-           
-            floorCount += tmpFloorCount;
-            wallCount += tmpWallCount;
-            return true;
-            
-        }
-        */
 
         void DebugGrid()
         {

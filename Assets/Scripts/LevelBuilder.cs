@@ -225,14 +225,7 @@ namespace TMOT
            
             int southIndex = z-1;
            
-            // if (southIndex < 0 && westIndex < 0)
-            // {
-            //     // It's the first tile, a square of tiles
-            //     int[] indices = new[] { 0, 1, width, width + 1 };
-            //     Debug.Log($"Processing  ({x},{z}), adding {indices.Length} tiles");
-            //     AddFreeTiles(indices);
-            //     return true;
-            // }
+          
 
             if (z-1 != -1 && x-1 != -1 && grid[x,z-1] == 0 && grid[x-1,z] == 0)
             {
