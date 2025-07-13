@@ -63,7 +63,7 @@ namespace TMOT
         /// </summary>
         char[,] grid;
 
-        int width = 100, height = 100;
+        int width = 40, height = 40;
 
         int maxTiles = 40 * 40;
 
@@ -99,6 +99,8 @@ namespace TMOT
 
         List<GameObject> debugTiles;
 
+
+        List<int> failedDirections = new List<int>();
 
         // Start is called before the first frame update
         void Start()
@@ -259,6 +261,8 @@ namespace TMOT
 
             int x, y;
 
+           
+
             // Get all the edge tile in the preferred direction
             List<(int, int)> edges = null;
             int iterations = 0;
@@ -273,15 +277,26 @@ namespace TMOT
                 }
                 else
                 {
-                    
+
                     if (edges == null || edges.Count == 0)
                     {
-                        if (edges != null) 
+                        if (edges != null)
                         {
+                            // No way with this shape
+                            candidates.RemoveAll(s => s == shape);
+
+                            if (candidates.Count == 0)
+                            {
+                                failedDirections.Add(preferredDirection);
+                                break;
+                            }
+
                             // No more edge, lets try another shape
-                            shape = candidates[UnityEngine.Random.Range(0, candidates.Count)];    
+                            shape = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+
+
                         }
-                        
+
                         // Refill edge list
                         edges = GetOrderedEdgeTiles();
                     }
@@ -303,13 +318,13 @@ namespace TMOT
                         shape.max--;
                         if (shape.max <= 0)
                             shape.weight = 0;
-                        candidates.RemoveAll(s => s == shape);    
-                        
+                        candidates.RemoveAll(s => s == shape);
+
                     }
-                        
+
                 }
             }
-            while (!ok && iterations < 1000);
+            while (!ok);// && iterations < 1000);
 
             preferredDirection = (preferredDirection + 1) % 4;
             
@@ -411,9 +426,21 @@ namespace TMOT
                 int _x = x + (int)tile.coords.x;
                 int _y = y + (int)tile.coords.y;
 
+                
                 char type = tile.type;
 
                 count++;
+
+                // Check boundaries
+                if (_x < 0 || _x > width - 1 || _y < 0 || _y > height - 1)
+                {
+                    if (type == 'f' || type == 'n') continue;
+                    else
+                    {
+                        rollback = true;
+                        break;        
+                    }
+                }
 
                 if (type == 'w')
                 {

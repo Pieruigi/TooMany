@@ -123,9 +123,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   killerSpeed: 4
   preySpeed: 2.5
-  sightRange: 12
-  sightAngle: 60
-  proximityRange: 6
+  sightRange: 8
+  sightAngle: 45
+  proximityRange: 4
   idleTime: 5
   patrollingTime: 30
   searchingTime: 10

@@ -193,7 +193,6 @@ MonoBehaviour:
   - {fileID: 147403077}
   - {fileID: 138033804}
   - {fileID: 80833123}
-  - {fileID: 1236432859}
   - {fileID: 2013196722}
   - {fileID: 1079613381}
   - {fileID: 301701813}
@@ -374,13 +373,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7119589815523916496, guid: c982d45617724d44db8a6b88550ab18b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b1ebfe2b46e21654fa2226c1ef7dc4cc, type: 2}
     - target: {fileID: 7604795082896863202, guid: c982d45617724d44db8a6b88550ab18b,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 5.0000267
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1535477073243735744, guid: c982d45617724d44db8a6b88550ab18b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c982d45617724d44db8a6b88550ab18b, type: 3}
@@ -1281,12 +1286,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &1236432859 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8950962409336702762, guid: c982d45617724d44db8a6b88550ab18b,
-    type: 3}
-  m_PrefabInstance: {fileID: 318338687}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1266844038 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4609368969913718445, guid: c982d45617724d44db8a6b88550ab18b,

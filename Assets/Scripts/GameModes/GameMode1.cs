@@ -34,11 +34,11 @@ namespace TMOT
 
         float extraChasingTime = 0;
 
-        float monsterSpawnTime = 20;
+        float monsterSpawnTime = 15;
 
-        int initialSpawnAmount = 8;
+        int initialSpawnAmount = 10;
 
-        int normalSpawnAmount = 8;
+        int normalSpawnAmount = 4;
 
 
         protected override void Awake()
