@@ -2093,8 +2093,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallShapes:
-  - tiles:
-    - {x: 0, y: 0}
+  - tiles: []
+    helper: {fileID: 5452430728426596129, guid: d4c255bbce8f89e47881bbc2b4fc9703,
+      type: 3}
     weight: 1
   floorTilePrefab: {fileID: 877514201553468814, guid: 5e93705daa74f3940887ef9eeeeb97de,
     type: 3}
