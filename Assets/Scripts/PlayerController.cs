@@ -97,6 +97,11 @@ namespace TMOT
         bool sprinting = false;
         float staminaLastUsed = 0;
 
+        public bool InputDisabled
+        {
+            get; set;
+        }
+
 
         public PlayerState State
         {
@@ -108,7 +113,7 @@ namespace TMOT
             base.Awake();
             MaxHealth = health;
             cc = GetComponent<CharacterController>();
-           
+            yaw = transform.eulerAngles.y;
         }
 
 
@@ -121,6 +126,18 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
+#if UNITY_EDITOR
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                
+                InputDisabled = !InputDisabled;
+            }
+#endif
+
+
+
+
             switch (state)
             {
                 case PlayerState.Prey:
@@ -136,6 +153,8 @@ namespace TMOT
 
         void CheckInput()
         {
+            if (InputDisabled) return;
+
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             aimInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
             var s = Input.GetKey(KeyCode.LeftShift) && stamina > 0;

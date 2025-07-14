@@ -7,10 +7,13 @@ using UnityEngine.Diagnostics;
 
 public class DynamicLightRange : MonoBehaviour
 {
-    public Transform target;              // Il player o oggetto da seguire
-    float maxRange = 10f;          // Range massimo luce quando vicino
-    float minRange = 0f;           // Range minimo (luce spenta o quasi)
-    public float maxDistance = 20f;       // Distanza oltre cui la luce si spegne
+    public Transform target;
+    float maxRange = 10f;  
+    float minRange = 0f;
+
+    public float minDistance = 7f;
+
+    public float maxDistance = 20f;      
 
     public float smoothSpeed = 5f;        // Velocità interpolazione range
 
@@ -48,10 +51,10 @@ public class DynamicLightRange : MonoBehaviour
         float distance = Vector3.Distance(transform.position, target.position);
 
         // Mappa distanza da 0-maxDistance in range da maxRange a minRange
-        float desiredRange = Mathf.Lerp(maxRange, minRange, distance / maxDistance);
+        float desiredRange = Mathf.Lerp(maxRange, minRange, 1f - (maxDistance - distance) / (maxDistance - minDistance));
         desiredRange = Mathf.Clamp(desiredRange, minRange, maxRange);
 
-        float desiredIntensity = Mathf.Lerp(maxIntensity, 0, distance / maxDistance);
+        float desiredIntensity = Mathf.Lerp(maxIntensity, 0, 1f - (maxDistance - distance ) / (maxDistance - minDistance));
         desiredIntensity = Mathf.Clamp(desiredIntensity, 0, maxIntensity);
 
         // Interpola per un movimento fluido
