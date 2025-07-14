@@ -46,7 +46,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 0.7299268, b: 0.5803922, a: 1}
+  m_Color: {r: 1, g: 0.5278743, b: 0.4764151, a: 1}
   m_Intensity: 7
   m_Range: 9
   m_SpotAngle: 109.32622
@@ -92,7 +92,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 4.5559e-41, y: 0, z: 0, w: -4.492406e-30}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 3248351781270667105}
   - component: {fileID: 4862057408591128935}
   - component: {fileID: 3527608237871835452}
+  - component: {fileID: 3962350639476477028}
   m_Layer: 0
   m_Name: LampGroup
   m_TagString: Untagged
@@ -196,7 +197,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5755746492093926821}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0162e7f2c4bacd4419c5bd289e0a3223, type: 3}
   m_Name: 
@@ -217,6 +218,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79ae76fe6f3a044cbf50ba54331821d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3962350639476477028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5755746492093926821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c4c1397587d6c47867c0c015ef2c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redMaterial: {fileID: 2100000, guid: e1df300a873a6ac4d9aee2f90bc8a461, type: 2}
+  greenMaterial: {fileID: 2100000, guid: 0079c1302eca4f74c99c8f6e20f5c32d, type: 2}
+  _renderer: {fileID: 4402142849285000014}
+  materialIndex: 1
+  _light: {fileID: 258039322239545528}
+  volumetric: {fileID: 6745852954219486553}
+  redLightColor: {r: 1, g: 0.40567848, b: 0.3066038, a: 1}
+  greenLightColor: {r: 0.4009434, g: 1, b: 0.4009434, a: 1}
 --- !u!1 &8950145481402928356
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +366,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3248351781270667105}
     m_Modifications:
+    - target: {fileID: 6266766127219285895, guid: 4f12eff925b642048bf882875b25c444,
+        type: 3}
+      propertyPath: LightsModule.color
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6266766127219285895, guid: 4f12eff925b642048bf882875b25c444,
+        type: 3}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 258039322239545528}
+    - target: {fileID: 6266766127219285895, guid: 4f12eff925b642048bf882875b25c444,
+        type: 3}
+      propertyPath: LightsModule.range
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6266766127219285895, guid: 4f12eff925b642048bf882875b25c444,
+        type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6266766127219285895, guid: 4f12eff925b642048bf882875b25c444,
+        type: 3}
+      propertyPath: LightsModule.intensity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6343656865555378279, guid: 4f12eff925b642048bf882875b25c444,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -408,6 +454,12 @@ PrefabInstance:
 --- !u!4 &6012060712832856761 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6343656865555378279, guid: 4f12eff925b642048bf882875b25c444,
+    type: 3}
+  m_PrefabInstance: {fileID: 821364951483319006}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6745852954219486553 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6266766127219285895, guid: 4f12eff925b642048bf882875b25c444,
     type: 3}
   m_PrefabInstance: {fileID: 821364951483319006}
   m_PrefabAsset: {fileID: 0}
@@ -482,6 +534,12 @@ PrefabInstance:
 --- !u!4 &3268664750010495009 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 27e0799c2ae2575459fccf865408e7c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3086681227106326474}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4402142849285000014 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 27e0799c2ae2575459fccf865408e7c6,
     type: 3}
   m_PrefabInstance: {fileID: 3086681227106326474}
   m_PrefabAsset: {fileID: 0}
