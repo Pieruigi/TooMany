@@ -8,22 +8,21 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LanternGlassEmi_Green
-  m_Shader: {fileID: 4800000, guid: 71a090e9b5b488349913abe716bb7bc6, type: 3}
+  m_Shader: {fileID: 4800000, guid: 44fcdb8bd0b79ce4394df616dae2fb51, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _USE_AMBIENT_OVERRIDE
   - _USE_POINT_FILTER_ON
   m_InvalidKeywords:
   - _SURFACE_TYPE_TRANSPARENT
+  - _USE_AMBIENT_OVERRIDE
   - _USE_AMBIENT_OVERRIDE_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
-  stringTagMap:
-    RenderType: Transparent
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses:
   - DepthOnly
   m_LockedProperties: 

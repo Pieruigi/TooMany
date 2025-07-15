@@ -68,6 +68,8 @@ namespace TMOT
 
         void SetEmissiveMaterial()
         {
+            if (!_renderer) return;
+
             Material mat;
             if (PlayerController.Instance.State == PlayerState.Prey)
                 mat = redMaterial;
@@ -88,7 +90,8 @@ namespace TMOT
             else
                 col = greenLightColor;
 
-            _light.color = col;
+            if(_light)
+                _light.color = col;
 
             if (volumetric)
             {

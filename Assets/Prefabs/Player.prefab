@@ -267,7 +267,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 86e65eb4bc457e34caaa07c2bddc45df, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: bb585c58a5d5b644e90d24df00c101b3, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -398,9 +398,9 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 0.26437792, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.72526824, b: 0.6273585, a: 1}
   m_Intensity: 6
-  m_Range: 20
+  m_Range: 25
   m_SpotAngle: 97.674866
   m_InnerSpotAngle: 62.406994
   m_CookieSize: 10
@@ -484,8 +484,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce627ddf9721294fbea6aa380df01b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preyColor: {r: 1, g: 0.39215687, b: 0.23137255, a: 100}
-  hunterColor: {r: 0.112273075, g: 0.8207547, b: 0.19702712, a: 100}
+  preyColor: {r: 1, g: 0.5635589, b: 0.4481132, a: 100}
+  hunterColor: {r: 0.43596473, g: 0.9150943, b: 0.49186313, a: 100}
   _light: {fileID: 65007788716267096}
 --- !u!1 &4738858900353103341
 GameObject:

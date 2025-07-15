@@ -2084,7 +2084,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: b05552c94f31c4e4f8031f80c62cadd1, type: 2}
+  m_Texture: {fileID: 8400000, guid: bb585c58a5d5b644e90d24df00c101b3, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2253,21 +2253,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 65007788716267096, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0.6273585
-      objectReference: {fileID: 0}
-    - target: {fileID: 65007788716267096, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.72526824
-      objectReference: {fileID: 0}
-    - target: {fileID: 65007788716267096, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 973862805693236106, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_Name
@@ -2276,7 +2261,7 @@ PrefabInstance:
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.648
+      value: -24.95
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
@@ -2286,12 +2271,12 @@ PrefabInstance:
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.746
+      value: -15.22
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99853194
+      value: 0.9997245
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
@@ -2301,7 +2286,7 @@ PrefabInstance:
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.054165956
+      value: 0.023472505
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
@@ -2316,48 +2301,13 @@ PrefabInstance:
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 6.21
+      value: 2.69
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: preyColor.b
-      value: 0.4481132
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: preyColor.g
-      value: 0.5635589
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: preyColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: hunterColor.b
-      value: 0.49186313
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: hunterColor.g
-      value: 0.9150943
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: hunterColor.r
-      value: 0.43596473
-      objectReference: {fileID: 0}
-    - target: {fileID: 8852942220270612557, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: m_TargetTexture
-      value: 
-      objectReference: {fileID: 8400000, guid: b05552c94f31c4e4f8031f80c62cadd1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

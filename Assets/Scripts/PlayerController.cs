@@ -90,8 +90,8 @@ namespace TMOT
             get{ return stamina; }
         }
 
-        float staminaDepleteSpeed = 1;
-        float staminaChargeDelay = 2.5f;
+        float staminaDepleteSpeed = 1f;
+        float staminaChargeDelay = 1.5f;
         float staminaChargeSpeed = .25f;
 
         bool sprinting = false;

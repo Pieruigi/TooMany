@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5552110145807319243}
   - component: {fileID: -7107113165007142713}
   m_Layer: 0
-  m_Name: Monster
+  m_Name: MonsterDrone
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
