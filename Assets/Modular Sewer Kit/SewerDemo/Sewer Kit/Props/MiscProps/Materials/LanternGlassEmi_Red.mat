@@ -12,7 +12,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHATEST_ON
   - _USE_POINT_FILTER_ON
   m_InvalidKeywords:
   - _SURFACE_TYPE_TRANSPARENT
@@ -95,7 +94,7 @@ Material:
     - _SnapsPerUnit: 64
     m_Floats:
     - _AffineTextureStrength: 1
-    - _AlphaClip: 1
+    - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Alpha_Clip_Threshold: 0.5
     - _AmbientLight: 0.02
@@ -109,7 +108,7 @@ Material:
     - _ColorBitDepthOffset: 0
     - _Color_Bit_Depth: 64
     - _Color_Bit_Depth_Offset: 0
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -144,7 +143,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _BaseColor: {r: 56.372692, g: 9.635064, b: 5.5840874, a: 0.5882353}
+    - _BaseColor: {r: 18.164822, g: 3.104681, b: 1.7993456, a: 0.5882353}
     - _Base_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}

@@ -7,12 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LanternGlassEmi_Green
+  m_Name: LanternGlassEmi_Blue
   m_Shader: {fileID: 4800000, guid: 44fcdb8bd0b79ce4394df616dae2fb51, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ALPHATEST_ON
   - _USE_POINT_FILTER_ON
   m_InvalidKeywords:
   - _SURFACE_TYPE_TRANSPARENT
@@ -30,7 +29,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: a0f15302699dc5a40be133d4b800bc43, type: 3}
+        m_Texture: {fileID: 2800000, guid: 433c13117f96db843a5f4752e5ec922c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_Texture:
@@ -95,7 +94,7 @@ Material:
     - _SnapsPerUnit: 64
     m_Floats:
     - _AffineTextureStrength: 1
-    - _AlphaClip: 1
+    - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Alpha_Clip_Threshold: 0.5
     - _AmbientLight: 0.02
@@ -109,7 +108,7 @@ Material:
     - _ColorBitDepthOffset: 0
     - _Color_Bit_Depth: 64
     - _Color_Bit_Depth_Offset: 0
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -144,7 +143,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _BaseColor: {r: 9.410915, g: 56.372692, b: 8.243176, a: 0.5882353}
+    - _BaseColor: {r: 0, g: 3.7321322, b: 3.169463, a: 0.5882353}
     - _Base_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}

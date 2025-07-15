@@ -36,7 +36,8 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-
+            preyColor = LevelController.Instance.PlayerPreyColor;
+            hunterColor = LevelController.Instance.PlayerHunterColor;
         }
 
         // Update is called once per frame

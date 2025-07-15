@@ -19,7 +19,21 @@ namespace TMOT
 
         [SerializeField]
         LevelBuilder levelBuilder;
-        
+
+        [SerializeField]
+        Color playerPreyColor;
+        public Color PlayerPreyColor
+        {
+            get{ return playerPreyColor; }
+        }
+
+        [SerializeField]
+        Color playerHunterColor;
+        public Color PlayerHunterColor
+        {
+            get{ return playerHunterColor; }
+        }
+
 
         public GameObject GameMode { get; private set; }
 

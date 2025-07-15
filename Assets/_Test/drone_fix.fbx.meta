@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 66ad8362b0b65fb45840f3f796d63f40
+guid: 68a6da5646c57504eba1e0a3b41c32f1
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -13,6 +13,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_drone.001
+    second: {fileID: 2100000, guid: 70136b947b173c545bd909ea3818a42e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_drone.002
     second: {fileID: 2100000, guid: 70136b947b173c545bd909ea3818a42e, type: 2}
   - first:
       type: UnityEngine:Material
@@ -114,7 +119,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

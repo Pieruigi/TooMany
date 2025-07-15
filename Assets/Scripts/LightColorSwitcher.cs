@@ -30,12 +30,16 @@ namespace TMOT
         [SerializeField]
         Color greenLightColor;
 
-        
+        void Awake()
+        {
+            
+        }
 
         // Start is called before the first frame update
         void Start()
         {
-
+            redLightColor = LevelController.Instance.PlayerPreyColor;
+            greenLightColor = LevelController.Instance.PlayerHunterColor;
         }
 
         // Update is called once per frame

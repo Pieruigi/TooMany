@@ -19,6 +19,10 @@ namespace TMOT
         public delegate void OnHitPlayerDelegate(MonsterController monsterController);
         public static OnHitPlayerDelegate OnHitPlayer;
 
+
+        static Dictionary<Transform, DateTime> lastPatrolPoints = new Dictionary<Transform, DateTime>();
+
+
         [SerializeField]
         float killerSpeed = 4;
 
@@ -613,19 +617,48 @@ namespace TMOT
 
         Vector3 GetPatrolDestination()
         {
+            // Clear old patrol points stored in the last patrol list
+            List<Transform> toRemove = new List<Transform>();
+            foreach (var p in lastPatrolPoints)
+            {
+                if ((DateTime.Now - p.Value).TotalSeconds > 10)
+                    toRemove.Add(p.Key);
+            }
+
+            foreach (var t in toRemove)
+            {
+                lastPatrolPoints.Remove(t);
+            }
+
             // Get all waypoints far enough from the player
             var l = LevelController.Instance.Waypoints.ToList().FindAll(w =>
             {
                 float dist = Vector3.Distance(transform.position, w.position);
-                return dist > patrolMinDistance && dist < patrolMaxDistance;
-            });
-                
 
-            var ret = l[UnityEngine.Random.Range(0, l.Count)].position;
-           
-            return ret;
+                return dist > patrolMinDistance && dist < patrolMaxDistance && !lastPatrolPoints.ContainsKey(w);
+            });
+
+            // Most of the time l won't be empty
+            if (l.Count == 0)
+            {
+                LevelController.Instance.Waypoints.ToList().FindAll(w =>
+                {
+                    float dist = Vector3.Distance(transform.position, w.position);
+
+                    return dist > patrolMinDistance && dist < patrolMaxDistance;
+                });
+            }
+
+            var ret = l[UnityEngine.Random.Range(0, l.Count)];
+            
+            // Add the new waypoint to the patrol list
+            lastPatrolPoints.Add(ret, DateTime.Now);
+
+            return ret.position;
             
         }
+
+
 
         bool HasSpottedPlayer()
         {
