@@ -267,7 +267,7 @@ namespace TMOT
             // Create particle system
             var pos = animator.transform.position + Vector3.up * .5f;
             var ps = Instantiate(destroyParticlePrefab, pos, Quaternion.identity);
-            
+
 
             foreach (var part in parts)
             {
@@ -278,6 +278,8 @@ namespace TMOT
                 var dir = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 1f, UnityEngine.Random.Range(-0.5f, 0.5f));
                 dir += PlayerController.Instance.transform.forward;
                 part.AddForce(dir.normalized * UnityEngine.Random.Range(130f, 180f), ForceMode.Impulse);
+                var torque = new Vector3(UnityEngine.Random.Range(-360f, 360f), UnityEngine.Random.Range(-360f, 360f), UnityEngine.Random.Range(-360f, 360f));
+                part.AddTorque(torque);
             }
         }
 

@@ -92,6 +92,7 @@ namespace TMOT.UI
             GameManager.OnStateChanged += HandleOnGameStateChanged;
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
             PlayerController.OnPlayerDamaged += HandleOnPlayerDamaged;
+            PlayerController.OnPlayerHealed += HandleOnPlayerHealed;
         }
 
         protected virtual void OnDisable()
@@ -99,6 +100,20 @@ namespace TMOT.UI
             GameManager.OnStateChanged -= HandleOnGameStateChanged;
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
             PlayerController.OnPlayerDamaged -= HandleOnPlayerDamaged;
+            PlayerController.OnPlayerHealed -= HandleOnPlayerHealed;
+        }
+
+        private async void HandleOnPlayerHealed(float previousHealth, float currentHealth)
+        {
+            Debug.Log($"Hearts healing, prev:{previousHealth}, curr:{currentHealth}");
+            int count = (int)(currentHealth - previousHealth);
+            int startIndex = (int)previousHealth - 1;
+            for (int i = 0; i < count; i++)
+            {
+                hearts[startIndex + i + 1].GetComponent<Animator>().SetTrigger("Heal");
+                //yield return new WaitForSeconds(.2f);
+                await Task.Delay(200);
+            }
         }
 
         private async void HandleOnPlayerDamaged(float previousHealth, float currentHealth)

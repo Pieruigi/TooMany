@@ -9,13 +9,14 @@ namespace TMOT
 
     public class PlayerController : Singleton<PlayerController>
     {
-        public delegate void OnStateChangedDelegate(PlayerState oldState, PlayerState newState);
-        public static OnStateChangedDelegate OnStateChanged;
+        public delegate void StateChangedDelegate(PlayerState oldState, PlayerState newState);
+        public static StateChangedDelegate OnStateChanged;
 
-        public delegate void OnPlayerDamagedDelegate(float previousHealth, float currentHealth);
-        public static OnPlayerDamagedDelegate OnPlayerDamaged;
+        public delegate void PlayerDamagedDelegate(float previousHealth, float currentHealth);
+        public static PlayerDamagedDelegate OnPlayerDamaged;
 
-  
+        public delegate void PlayerHealedDelegate(float previousHealth, float currentHealth);
+        public static PlayerHealedDelegate OnPlayerHealed;
 
 
         [SerializeField]
@@ -133,20 +134,23 @@ namespace TMOT
                 
                 InputDisabled = !InputDisabled;
             }
+
+            if (Input.GetKeyDown(KeyCode.H))
+                Heal();
 #endif
 
 
 
 
-            switch (state)
-            {
-                case PlayerState.Prey:
-                    UpdatePreyState();
-                    break;
-                case PlayerState.Hunter:
-                    UpdateHunterState();
-                    break;
-            }
+                switch (state)
+                {
+                    case PlayerState.Prey:
+                        UpdatePreyState();
+                        break;
+                    case PlayerState.Hunter:
+                        UpdateHunterState();
+                        break;
+                }
 
             
         }
@@ -327,6 +331,21 @@ namespace TMOT
             CameraShake.Instance.Shake(0.4f, 0.5f, 15, 120f);
 
             OnPlayerDamaged?.Invoke(oldHealth, health);
+        }
+
+        public bool IsWounded()
+        {
+            return health < MaxHealth;
+        }
+
+        public void Heal()
+        {
+            Debug.Log("Healing...");
+            if (health == MaxHealth) return;
+            health++;
+            if (health > MaxHealth) health = MaxHealth;
+
+            OnPlayerHealed?.Invoke(health - 1, health);
         }
 
         public void SetState(PlayerState newState)

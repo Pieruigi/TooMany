@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eaf43edacd9abf41831435105055c2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeUpPrefab: {fileID: 3303030906498797861, guid: 45d442e3669cee54491cfbadaa7486c7,
+  timeUpPrefab: {fileID: 8134363326061753833, guid: 9f19858bcd79aaa4db7ff2ada45e8219,
     type: 3}

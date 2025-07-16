@@ -64,7 +64,7 @@ namespace TMOT
             if (timeUp)
             {
                 OnTimeUpUnspawned?.Invoke(timeUp);
-                Destroy(timeUp);
+                Destroy(timeUp,2f);
                 
             }
                 

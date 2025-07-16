@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9170474410198634357}
   - component: {fileID: 7390246027620647487}
   m_Layer: 5
-  m_Name: TimeUpPin
+  m_Name: MedicalPin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

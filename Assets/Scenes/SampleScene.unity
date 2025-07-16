@@ -879,6 +879,51 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 318338687}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &445709725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 445709726}
+  - component: {fileID: 445709727}
+  m_Layer: 0
+  m_Name: MedicalSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &445709726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445709725}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &445709727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445709725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73df6212bd3436040a608beb40d53e23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5538431907733219182, guid: b8aeccb1ec1955f4a8bf5d0c9780b122, type: 3}
 --- !u!4 &464026450 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7292933305084084095, guid: c982d45617724d44db8a6b88550ab18b,
@@ -2820,7 +2865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1490341748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4081,84 +4126,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68a70824a2154864eabff2f5c841947a, type: 3}
---- !u!1001 &6749687603981593271
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5037108715799108402, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5538431907733219182, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_Name
-      value: MedicalDrone
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612178528211370011, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -25.04
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612178528211370011, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.365
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612178528211370011, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -17.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612178528211370011, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612178528211370011, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612178528211370011, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612178528211370011, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612178528211370011, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612178528211370011, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7612178528211370011, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8909768508285524109, guid: b8aeccb1ec1955f4a8bf5d0c9780b122,
-        type: 3}
-      propertyPath: m_Speed
-      value: 2.5
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b8aeccb1ec1955f4a8bf5d0c9780b122, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4177,4 +4144,4 @@ SceneRoots:
   - {fileID: 1077290115}
   - {fileID: 318338687}
   - {fileID: 1584569202}
-  - {fileID: 6749687603981593271}
+  - {fileID: 445709726}

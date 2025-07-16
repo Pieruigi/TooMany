@@ -16,6 +16,8 @@ namespace TMOT.UI
         [SerializeField]
         GameObject timeUpPinPrefab;
 
+          
+
         [SerializeField]
         Transform pinRoot;
 
@@ -82,6 +84,8 @@ namespace TMOT.UI
             TimeUpSpawner.OnTimeUpSpawned += HandleOnTimeUpSpawned;
             TimeUpSpawner.OnTimeUpUnspawned += HandleOnObjectRemoved;
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            MedicalSpawner.OnMedicalDroneSpawned += HandleOnTimeUpSpawned;
+            MedicalSpawner.OnMedicalDroneUnspawned += HandleOnObjectRemoved;
         }
 
         void OnDisable()
@@ -91,6 +95,8 @@ namespace TMOT.UI
             TimeUpSpawner.OnTimeUpSpawned -= HandleOnTimeUpSpawned;
             TimeUpSpawner.OnTimeUpUnspawned -= HandleOnObjectRemoved;
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+            MedicalSpawner.OnMedicalDroneSpawned -= HandleOnTimeUpSpawned;
+            MedicalSpawner.OnMedicalDroneUnspawned -= HandleOnObjectRemoved;
         }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
