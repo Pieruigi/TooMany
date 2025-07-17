@@ -30,6 +30,9 @@ namespace TMOT
         [SerializeField]
         Color greenLightColor;
 
+        [SerializeField]
+        bool inverseColor = false;
+
         void Awake()
         {
             
@@ -38,8 +41,12 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-            redLightColor = LevelController.Instance.PlayerPreyColor;
-            greenLightColor = LevelController.Instance.PlayerHunterColor;
+            redLightColor = !inverseColor ? LevelController.Instance.PlayerHunterColor : LevelController.Instance.PlayerPreyColor;
+            greenLightColor = !inverseColor ? LevelController.Instance.PlayerPreyColor : LevelController.Instance.PlayerHunterColor;
+
+
+            HandleOnPlayerStateChanged(PlayerState.None, (GameMode.Instance.StartInHuntingMode ? PlayerState.Hunter : PlayerState.Prey));
+            
         }
 
         // Update is called once per frame
@@ -60,22 +67,23 @@ namespace TMOT
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {
+            Debug.Log($"Setting light state:{newState}");
             // Set light emission
-            SetEmissiveMaterial();
+            SetEmissiveMaterial(newState);
 
             // Set light
-            SetLightColor();
+            SetLightColor(newState);
 
            
 
         }
 
-        void SetEmissiveMaterial()
+        void SetEmissiveMaterial(PlayerState playerState)
         {
             if (!_renderer) return;
 
             Material mat;
-            if (PlayerController.Instance.State == PlayerState.Prey)
+            if (playerState == PlayerState.Hunter)
                 mat = redMaterial;
             else
                 mat = greenMaterial;
@@ -86,10 +94,10 @@ namespace TMOT
             _renderer.materials = mats;
         }
 
-        void SetLightColor()
+        void SetLightColor(PlayerState playerState)
         {
             Color col;
-            if (PlayerController.Instance.State == PlayerState.Prey)
+            if (playerState == PlayerState.Hunter)
                 col = redLightColor;
             else
                 col = greenLightColor;

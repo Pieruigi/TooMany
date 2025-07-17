@@ -203,8 +203,8 @@ MonoBehaviour:
   - {fileID: 4715216348927760533, guid: 5ebe9600c1ca3584693f37aa352341bb, type: 3}
   mapSize: {x: 54, y: 48}
   levelBuilder: {fileID: 858223916}
-  playerPreyColor: {r: 1, g: 0.40392157, b: 0.30588236, a: 1}
-  playerHunterColor: {r: 0, g: 1, b: 1, a: 1}
+  playerPreyColor: {r: 0, g: 1, b: 1, a: 1}
+  playerHunterColor: {r: 1, g: 0.40392157, b: 0.30588236, a: 1}
   waypoints:
   - {fileID: 14154925}
   - {fileID: 1592439454}
@@ -3074,7 +3074,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1584569202}
   - component: {fileID: 1584569201}
-  - component: {fileID: 1584569200}
   - component: {fileID: 1584569199}
   m_Layer: 0
   m_Name: Display1Camera
@@ -3082,7 +3081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1584569199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3127,14 +3126,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &1584569200
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1584569198}
-  m_Enabled: 1
 --- !u!20 &1584569201
 Camera:
   m_ObjectHideFlags: 0
@@ -4074,7 +4065,7 @@ PrefabInstance:
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.51
+      value: -14.47
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
@@ -4084,12 +4075,12 @@ PrefabInstance:
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.7
+      value: -22.11
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7593281
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
@@ -4099,7 +4090,7 @@ PrefabInstance:
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.65070796
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
@@ -4114,7 +4105,7 @@ PrefabInstance:
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 81.19
       objectReference: {fileID: 0}
     - target: {fileID: 1826041205519930852, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}

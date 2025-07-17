@@ -44,8 +44,8 @@ namespace TMOT.UI
         // Start is called before the first frame update
         void Start()
         {
-            sizeRatio = LevelController.Instance.MapSize.x * 100f / (pinRoot.parent as RectTransform).sizeDelta.x;
-            mapRadius = (pinRoot.parent as RectTransform).sizeDelta.x;
+            sizeRatio = LevelController.Instance.MapSize.x * 50f / (pinRoot.parent as RectTransform).sizeDelta.x;
+            mapRadius = ((pinRoot.parent as RectTransform).sizeDelta.x - 4) / 2;
         }
 
         // Update is called once per frame

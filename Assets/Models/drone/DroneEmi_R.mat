@@ -21,11 +21,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: DroneEmi_R
-  m_Shader: {fileID: 4800000, guid: 71a090e9b5b488349913abe716bb7bc6, type: 3}
+  m_Shader: {fileID: 4800000, guid: 44fcdb8bd0b79ce4394df616dae2fb51, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _USE_AMBIENT_OVERRIDE
   - _USE_DITHERING
   - _USE_POINT_FILTER_ON
   m_InvalidKeywords:
@@ -108,6 +107,7 @@ Material:
     - _AmbientLight: 0.02
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _BlendOp: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -127,6 +127,7 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _SampleGI: 0
     - _Smoothness: 0.302
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -140,7 +141,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 22.627417, g: 2.241395, b: 2.241395, a: 1}
-    - _Color: {r: 7.377212, g: 7.377212, b: 7.377212, a: 1}
+    - _Color: {r: 22.62742, g: 2.241395, b: 2.241395, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

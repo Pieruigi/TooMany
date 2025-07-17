@@ -38,6 +38,8 @@ namespace TMOT
         {
             preyColor = LevelController.Instance.PlayerPreyColor;
             hunterColor = LevelController.Instance.PlayerHunterColor;
+
+            _light.color = GameMode.Instance.StartInHuntingMode ? hunterColor : preyColor;
         }
 
         // Update is called once per frame

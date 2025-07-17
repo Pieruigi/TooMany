@@ -206,6 +206,7 @@ MonoBehaviour:
   volumetric: {fileID: 8941729836228358767}
   redLightColor: {r: 1, g: 0.40567848, b: 0.3066038, a: 1}
   greenLightColor: {r: 0.4009434, g: 1, b: 0.4009434, a: 1}
+  inverseColor: 1
 --- !u!1 &5008595562412370377
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +742,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 874470110988125694}
+    - targetCorrespondingSourceObject: {fileID: -259972160606440404, guid: 66ad8362b0b65fb45840f3f796d63f40,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 877584618282132066}
     - targetCorrespondingSourceObject: {fileID: -7348555901452710524, guid: 66ad8362b0b65fb45840f3f796d63f40,
         type: 3}
       insertIndex: -1
@@ -753,6 +758,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3677495444705301412}
+    - targetCorrespondingSourceObject: {fileID: -7348555901452710524, guid: 66ad8362b0b65fb45840f3f796d63f40,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1444913038840082973}
     - targetCorrespondingSourceObject: {fileID: 3257792644167915994, guid: 66ad8362b0b65fb45840f3f796d63f40,
         type: 3}
       insertIndex: -1
@@ -765,6 +774,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8436049279427276406}
+    - targetCorrespondingSourceObject: {fileID: 3257792644167915994, guid: 66ad8362b0b65fb45840f3f796d63f40,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4170129058730208675}
   m_SourcePrefab: {fileID: 100100000, guid: 66ad8362b0b65fb45840f3f796d63f40, type: 3}
 --- !u!1 &630730557327168059 stripped
 GameObject:
@@ -836,6 +849,24 @@ MonoBehaviour:
   greenMaterial: {fileID: 2100000, guid: 70136b947b173c545bd909ea3818a42e, type: 2}
   _renderer: {fileID: 3652422042393809183}
   materialIndex: 1
+--- !u!114 &1444913038840082973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630730557327168059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b602c8e29071dde42aad31b25a507ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 3652422042393809183}
+  materialIndex: 1
+  target: {fileID: 0}
+  minDistance: 7
+  maxDistance: 20
+  smoothSpeed: 5
 --- !u!4 &1535402237961615444 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 66ad8362b0b65fb45840f3f796d63f40,
@@ -972,6 +1003,24 @@ MonoBehaviour:
   greenMaterial: {fileID: 2100000, guid: 70136b947b173c545bd909ea3818a42e, type: 2}
   _renderer: {fileID: 6190248008523744571}
   materialIndex: 1
+--- !u!114 &4170129058730208675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607851368818247269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b602c8e29071dde42aad31b25a507ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 6190248008523744571}
+  materialIndex: 1
+  target: {fileID: 0}
+  minDistance: 7
+  maxDistance: 20
+  smoothSpeed: 5
 --- !u!95 &4877104722960933422 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 66ad8362b0b65fb45840f3f796d63f40,
@@ -1060,6 +1109,24 @@ MonoBehaviour:
   greenMaterial: {fileID: 2100000, guid: 70136b947b173c545bd909ea3818a42e, type: 2}
   _renderer: {fileID: 5782512471084030448}
   materialIndex: 1
+--- !u!114 &877584618282132066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7971377923157928851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b602c8e29071dde42aad31b25a507ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 5782512471084030448}
+  materialIndex: 1
+  target: {fileID: 0}
+  minDistance: 7
+  maxDistance: 20
+  smoothSpeed: 5
 --- !u!4 &9189912253208230615 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7876023681238672744, guid: 66ad8362b0b65fb45840f3f796d63f40,

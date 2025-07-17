@@ -10,6 +10,13 @@ namespace TMOT
         [SerializeField]
         GameObject gameUIPrefab;
 
+        [SerializeField]
+        bool startInHuntingMode = false;
+        public bool StartInHuntingMode
+        {
+            get{ return startInHuntingMode; }
+        }
+
         
 
         protected abstract void StartGameMode();

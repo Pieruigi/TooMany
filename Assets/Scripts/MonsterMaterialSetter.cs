@@ -22,16 +22,19 @@ namespace TMOT
 
         MonsterController mc;
 
+        DynamicEmissionRange emissionRange;
+
         void Awake()
         {
             mc = GetComponentInParent<MonsterController>();
-            
+            emissionRange = GetComponent<DynamicEmissionRange>();
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            SetEmissiveMaterial();
+            
+            SetEmissiveMaterial(GameMode.Instance.StartInHuntingMode ? PlayerState.Hunter : PlayerState.Prey);
         }
 
         // Update is called once per frame
@@ -52,13 +55,13 @@ namespace TMOT
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {
-            SetEmissiveMaterial();
+            SetEmissiveMaterial(newState);
         }
 
-        void SetEmissiveMaterial()
+        void SetEmissiveMaterial(PlayerState playerState)
         {
             Material mat;
-            if (PlayerController.Instance.State == PlayerState.Prey)
+            if (playerState == PlayerState.Prey)
                 mat = !mc.InvertedBehaviour ? redMaterial : greenMaterial;
             else
                 mat = !mc.InvertedBehaviour ? greenMaterial : redMaterial;
@@ -67,6 +70,8 @@ namespace TMOT
             var mats = _renderer.materials;
             mats[materialIndex] = mat;
             _renderer.materials = mats;
+
+            emissionRange?.Init();
         }
     }
 }
