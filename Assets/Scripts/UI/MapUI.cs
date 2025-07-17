@@ -1,3 +1,4 @@
+#define PLAYER_FIXED
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,9 +32,8 @@ namespace TMOT.UI
         float elapsed = 0;
         float time = 0;
 
-        Vector2 size;
-
-        Vector2 sizeRatio;
+        float sizeRatio;
+        float mapRadius;
 
 
         void Awake()
@@ -44,11 +44,8 @@ namespace TMOT.UI
         // Start is called before the first frame update
         void Start()
         {
-            size = new Vector2(LevelController.Instance.MapSize.x * 10f, LevelController.Instance.MapSize.y * 10f);
-            (pinRoot.parent as RectTransform).sizeDelta = size;
-            sizeRatio = new Vector2(size.x / LevelController.Instance.MapSize.x, size.y / LevelController.Instance.MapSize.y);
-
-
+            sizeRatio = LevelController.Instance.MapSize.x * 100f / (pinRoot.parent as RectTransform).sizeDelta.x;
+            mapRadius = (pinRoot.parent as RectTransform).sizeDelta.x;
         }
 
         // Update is called once per frame
@@ -63,10 +60,6 @@ namespace TMOT.UI
             if (elapsed > time)
             {
                 elapsed -= time;
-
-                // Player
-                UpdatePlayerPosition();
-                UpdatePlayerRotation();
 
                 // Others
                 UpdatePinPositions();
@@ -142,18 +135,7 @@ namespace TMOT.UI
 
         }
 
-        void UpdatePlayerPosition()
-        {
-            var pos = new Vector2(PlayerController.Instance.transform.position.x, PlayerController.Instance.transform.position.z);
-            pos.x *= sizeRatio.x;
-            pos.y *= sizeRatio.y;
-            playerPin.transform.localPosition = pos;
-        }
-
-        void UpdatePlayerRotation()
-        {
-            playerPin.transform.localRotation = Quaternion.Euler(0, 0, -PlayerController.Instance.transform.eulerAngles.y);
-        }
+   
 
 
         void UpdatePinPositions()
@@ -161,10 +143,19 @@ namespace TMOT.UI
             foreach (var m in pins.Keys)
             {
                 var mc = pins[m];
-                var pos = new Vector2(mc.transform.position.x, mc.transform.position.z);
-                pos.x *= sizeRatio.x;
-                pos.y *= sizeRatio.y;
-                m.transform.localPosition = pos;
+                var relPos = mc.transform.position - PlayerController.Instance.transform.position;
+                relPos.y = 0;
+                relPos = Quaternion.Euler(0, -PlayerController.Instance.transform.eulerAngles.y, 0f) * relPos;
+                var radarPos = new Vector2(relPos.x, relPos.z) * sizeRatio;
+                if (radarPos.magnitude > mapRadius)
+                {
+                    radarPos = radarPos.normalized * mapRadius;
+                }
+
+                // 5️⃣ Aggiorna la posizione dell'icona del nemico
+                (m.transform as RectTransform).anchoredPosition = radarPos;
+
+
             }
         }
 
