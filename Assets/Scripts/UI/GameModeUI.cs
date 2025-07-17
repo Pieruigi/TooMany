@@ -25,21 +25,13 @@ namespace TMOT.UI
         [SerializeField]
         TMP_Text runAwayField;
 
-        [SerializeField]
-        Image healthImage;
 
-        [SerializeField]
-        Image staminaImage;
 
         [SerializeField]
         GameObject loserPanel;
 
         [SerializeField]
         GameObject winnerPanel;
-
-        [SerializeField]
-        List<GameObject> hearts;
-
 
 
         float readyDelay = 0;
@@ -78,10 +70,10 @@ namespace TMOT.UI
                     UpdateReady();
                     break;
                 case GameState.Playing:
-                    UpdatePlaying();
+                    
                     break;
                 case GameState.Loser:
-                    UpdatePlaying();
+                    
                     break;
 
             }
@@ -91,46 +83,15 @@ namespace TMOT.UI
         {
             GameManager.OnStateChanged += HandleOnGameStateChanged;
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
-            PlayerController.OnPlayerDamaged += HandleOnPlayerDamaged;
-            PlayerController.OnPlayerHealed += HandleOnPlayerHealed;
+
         }
 
         protected virtual void OnDisable()
         {
             GameManager.OnStateChanged -= HandleOnGameStateChanged;
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
-            PlayerController.OnPlayerDamaged -= HandleOnPlayerDamaged;
-            PlayerController.OnPlayerHealed -= HandleOnPlayerHealed;
+
         }
-
-        private async void HandleOnPlayerHealed(float previousHealth, float currentHealth)
-        {
-            Debug.Log($"Hearts healing, prev:{previousHealth}, curr:{currentHealth}");
-            int count = (int)(currentHealth - previousHealth);
-            int startIndex = (int)previousHealth - 1;
-            for (int i = 0; i < count; i++)
-            {
-                hearts[startIndex + i + 1].GetComponent<Animator>().SetTrigger("Heal");
-                //yield return new WaitForSeconds(.2f);
-                await Task.Delay(200);
-            }
-        }
-
-        private async void HandleOnPlayerDamaged(float previousHealth, float currentHealth)
-        {
-            Debug.Log($"Hearts damaged, prev:{previousHealth}, curr:{currentHealth}");
-            int count = (int)(previousHealth - currentHealth);
-            int startIndex = (int)previousHealth - 1;
-            for (int i = 0; i < count; i++)
-            {
-                hearts[startIndex - i].GetComponent<Animator>().SetTrigger("Damage");
-                //yield return new WaitForSeconds(.2f);
-                await Task.Delay(200);
-            }
-        }
-
-
-
 
         protected virtual void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {
@@ -200,16 +161,7 @@ namespace TMOT.UI
             winnerPanel.gameObject.SetActive(true);
         }
 
-        void UpdatePlaying()
-        {
-            healthImage.fillAmount = PlayerController.Instance.Health / PlayerController.Instance.MaxHealth;
-            //staminaImage.fillAmount =  PlayerController.Instance.Stamina / 1f;
-            var pos = (staminaImage.transform as RectTransform).anchoredPosition;
-            pos.x = Mathf.Lerp(-49f, 0f, PlayerController.Instance.Stamina / 1f);
-            (staminaImage.transform as RectTransform).anchoredPosition = pos;
-
-        }
-
+       
         void UpdateReady()
         {
             readyElapsed += Time.deltaTime;
