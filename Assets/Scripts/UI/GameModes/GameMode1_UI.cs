@@ -10,58 +10,37 @@ namespace TMOT.UI
 {
     public class GameMode1_UI : GameModeUI
     {
-        [SerializeField]
-        GameObject goalRoot;
 
         [SerializeField]
-        GameObject chaseRoot;
+        TMP_Text preyTime;
 
         [SerializeField]
-        GameObject switchRoot;
+        TMP_Text hunterTime;
 
 
-        [SerializeField]
-        TMP_Text goalTimerField;
-
-        [SerializeField]
-        TMP_Text chaseTimerField;
-
-        [SerializeField]
-        TMP_Text monsterCounterField;
-
-        [SerializeField]
-        TMP_Text switchField;
 
         string timeStringFormat = "{0:00}:{1:00}";
 
-       
-        bool switching = false;
-
-        string switchHunterTxt = "{0:00}";
-        string switchPreyTxt = "{0:00}";
+        CanvasGroup preyCanvasGroup, hunterCanvasGroup;       
 
         Color activatedColor = new Color(1, 1, 1, 1);
         Color deactivatedColor = new Color(0.5f, 0.5f, .5f, .25f);
 
-        Animator goalAnimator;
-        Animator chaseAnimator;
-
-        Animator switchAnimator;
 
         protected override void Awake()
         {
             base.Awake();
-            goalAnimator = goalRoot.GetComponent<Animator>();
-            chaseAnimator = chaseRoot.GetComponent<Animator>();
-            switchAnimator = switchRoot.GetComponent<Animator>();
-
+            preyCanvasGroup = preyTime.GetComponent<CanvasGroup>();
+            hunterCanvasGroup = hunterTime.GetComponent<CanvasGroup>();
+            hunterCanvasGroup.alpha = 0;
         }
 
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
-            UpdateSwitchText();
+
+            
         }
 
         // Update is called once per frame
@@ -69,104 +48,65 @@ namespace TMOT.UI
         {
             base.Update();
 
-            switch (GameManager.Instance.GameState)
-            {
-                case GameState.Playing:
-                    UpdatePlayingState();
-                    UpdateChaseTimer();
-                    //UpdateSwitchTimer();
-                    UpdateMonsterCounter();
-                    UpdateSwitchText();
-                    break;
-               
-            }
-
+            UpdateTimer();
 
         }
 
-        
-
-        protected override void HandleOnGameStateChanged(GameState oldState, GameState newState)
+        protected override void OnEnable()
         {
-            base.HandleOnGameStateChanged(oldState, newState);
-            switch (newState)
-            {
-                case GameState.Starting:
-                    chaseAnimator.SetTrigger("Off");
+            base.OnEnable();
 
-                    UpdateSwitchText();
-                    UpdateGoalTimer();
-                    UpdateChaseTimer();
-                    UpdateMonsterCounter();
-                    break;
-                case GameState.Playing:
-                    // goalAnimator.ResetTrigger("On");
-                    // goalAnimator.ResetTrigger("Off");
-                    // chaseAnimator.ResetTrigger("On");
-                    // chaseAnimator.ResetTrigger("Off");
-
-                    break;
-
-            }
+            PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
         }
 
-        protected override void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
+        protected override void OnDisable()
         {
-            base.HandleOnPlayerStateChanged(oldState, newState);
+            base.OnDisable();
+
+            PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
+
+        private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
+        {
+            if (oldState == PlayerState.None) return;
 
             switch (newState)
             {
                 case PlayerState.Prey:
-                    if(!goalAnimator.GetCurrentAnimatorStateInfo(0).IsName("On"))
-                        goalAnimator.SetTrigger("On");
-
-                    if (!(GameMode1.Instance as GameMode1).IsLastStep())
-                    {
-                        if (!chaseAnimator.GetCurrentAnimatorStateInfo(0).IsName("Off"))
-                            chaseAnimator.SetTrigger("Off");
-
-                        if (!switchAnimator.GetCurrentAnimatorStateInfo(0).IsName("On"))
-                            switchAnimator.SetTrigger("On");        
-                    }
-                    else
-                    {
-                        chaseAnimator.SetTrigger("Hide");
-                    }
-                    
+                    preyCanvasGroup.alpha = 1;
+                    hunterCanvasGroup.alpha = 0;
                     break;
                 case PlayerState.Hunter:
-                    
-                    goalAnimator.SetTrigger("Off");
-                    chaseAnimator.SetTrigger("On");
-                    switchAnimator.SetTrigger("Off");
+                    preyCanvasGroup.alpha = 0;
+                    hunterCanvasGroup.alpha = 1;
                     break;
             }
         }
 
-
-        void UpdatePlayingState()
+        protected override void HandleOnGameStateChanged(GameState oldState, GameState newState)
         {
-            UpdateGoalTimer();
+            base.HandleOnGameStateChanged(oldState, newState);
+
+            switch (newState)
+            {
+                case GameState.Playing:
+
+                    break;
+            }
         }
 
-        void UpdateSwitchText()
+        void UpdateTimer()
         {
-            if ((GameMode1.Instance as GameMode1).IsLastStep()) return;
+            var t = (GameMode.Instance as GameMode1).GetTimeRemaining();
 
-            if (GameManager.Instance.GameState != GameState.Playing) return;
-           
-            var timeLeft = (GameMode.Instance as GameMode1).GetSwitchTimeLeft();
-            string s = PlayerController.Instance.State == PlayerState.Hunter ? string.Format(switchPreyTxt, timeLeft) : string.Format(switchHunterTxt, Mathf.CeilToInt(timeLeft));
-            switchField.text = s;
+            int minutes = Mathf.FloorToInt(t / 60f);
+            int seconds = Mathf.FloorToInt(t % 60f);
 
-       
-        }
+            if (PlayerController.Instance.State == PlayerState.Prey)
+                preyTime.text = Mathf.CeilToInt(t).ToString();// string.Format(timeStringFormat, minutes, seconds);
+            else if (PlayerController.Instance.State == PlayerState.Hunter)
+                hunterTime.text = Mathf.CeilToInt(t).ToString(); //string.Format(timeStringFormat, minutes, seconds);
 
-     
-
-        void UpdateMonsterCounter()
-        {
-            monsterCounterField.text = MonsterSpawner.Instance.Monsters.Count.ToString();
         }
 
         void UpdateGoalTimer()
@@ -175,7 +115,7 @@ namespace TMOT.UI
             int minutes = Mathf.FloorToInt(t / 60f);
             int seconds = Mathf.FloorToInt(t % 60f);
 
-            goalTimerField.text = string.Format(timeStringFormat, minutes, seconds);
+            //goalTimerField.text = string.Format(timeStringFormat, minutes, seconds);
         }
 
         void UpdateChaseTimer()
@@ -184,7 +124,7 @@ namespace TMOT.UI
             int minutes = Mathf.FloorToInt(t / 60f);
             int seconds = Mathf.FloorToInt(t % 60f);
 
-            chaseTimerField.text = string.Format(timeStringFormat, minutes, seconds);
+            //chaseTimerField.text = string.Format(timeStringFormat, minutes, seconds);
         }
 
      

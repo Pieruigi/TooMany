@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33b8cdcf0a1b19458ef9983a0a1e3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameUIPrefab: {fileID: 7794650086727917744, guid: a2de67165f77c8a4ca18e9e3e8abb704,
+  gameUIPrefab: {fileID: 8031512962577619249, guid: 48d949f845eb3f142beca2ee4b01c14d,
     type: 3}
+  startInHuntingMode: 0
   timeUpSpawnerPrefab: {fileID: 792355856939066489, guid: 9bf9129f9d87ca8428ed0c00e5d0bb1f,
     type: 3}
   monsterSpawnerPrefab: {fileID: 3993171266660804438, guid: d2b8bce1dc145a04a9b35c1bf3fe7396,

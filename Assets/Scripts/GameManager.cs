@@ -18,7 +18,7 @@ namespace TMOT
         public delegate void OnStateChangedDelegate(GameState oldState, GameState newState);
         public static OnStateChangedDelegate OnStateChanged;
 
-        public const float StartingDelay = 5f;
+        public const float StartingDelay = 1.5f;
 
         GameState gameState = GameState.None;
         public GameState GameState

@@ -196,7 +196,10 @@ namespace TMOT
             extraChasingTime += amount;
         }
 
-        
+        public float GetTimeRemaining()
+        {
+            return Mathf.Max(0, time - elapsed);
+        }
 
     }
 }

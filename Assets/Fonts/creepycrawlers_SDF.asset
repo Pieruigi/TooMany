@@ -60,9 +60,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: creepycrawlers_SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 1227081849
   material: {fileID: 698839885025044199}
-  materialHashCode: 0
+  materialHashCode: 1761812025
   m_Version: 1.1.0
   m_SourceFontFileGUID: 343b1403f2a2b9040b6535046358c59d
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 343b1403f2a2b9040b6535046358c59d,
@@ -2735,7 +2735,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _FaceTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1f2f6c9525323423da306e8010840bf8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:

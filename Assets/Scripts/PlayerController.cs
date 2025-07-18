@@ -147,6 +147,9 @@ namespace TMOT
 
                 switch (state)
                 {
+                    case PlayerState.None:
+
+                        break;
                     case PlayerState.Prey:
                         UpdatePreyState();
                         break;
