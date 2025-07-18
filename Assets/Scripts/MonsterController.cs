@@ -187,6 +187,9 @@ namespace TMOT
                     UpdateScale();
                     UpdateSpeed();
                     break;
+                case PlayerState.Dead:
+                    SetState(MonsterState.Patrolling);
+                    break;
             }
         }
 
@@ -440,13 +443,6 @@ namespace TMOT
 
         void UpdateIdleState()
         {
-            // if (PlayerController.Instance.State == PlayerState.Hunter)
-            // {
-            //     // Switch to fleeing
-            //     SetState(MonsterState.Fleeing);
-            //     return;
-            // }
-
             if (HasSpottedPlayer())
             {
                 if(PlayerController.Instance.State == PlayerState.Prey)
@@ -664,6 +660,8 @@ namespace TMOT
 
         bool HasSpottedPlayer()
         {
+            if (PlayerController.Instance.State == PlayerState.Dead) return false;
+
             var dir = PlayerController.Instance.transform.position - transform.position;
             if (dir.magnitude > sightRange) return false;
 
@@ -682,6 +680,8 @@ namespace TMOT
 
         bool CanAttack(float attackRange, float attackAngle)
         {
+            if (PlayerController.Instance.State == PlayerState.Dead) return false;
+
             var dir = PlayerController.Instance.transform.position - transform.position;
             if (dir.magnitude > attackRange) return false;
 

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -136,7 +138,8 @@ namespace TMOT
             }
 
             if (Input.GetKeyDown(KeyCode.H))
-                Heal();
+                ApplyDamage(4);
+                //Heal();
 #endif
 
 
@@ -273,6 +276,15 @@ namespace TMOT
 
         }
 
+        async void EnterDeadState()
+        {
+            InputDisabled = true;
+
+            await Task.Delay(TimeSpan.FromSeconds(.5f));
+
+            CameraShake.Instance.Die();
+        }
+
         #endregion
 
         void KillMonsters()
@@ -297,10 +309,6 @@ namespace TMOT
                     
                 }
             }
-
-            
-            
-            
         }
 
         public void ApplyDamage(float damage)
@@ -361,6 +369,9 @@ namespace TMOT
                     break;
                 case PlayerState.Hunter:
                     EnterHunterState();
+                    break;
+                case PlayerState.Dead:
+                    EnterDeadState();
                     break;
             }
 

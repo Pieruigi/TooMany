@@ -200,23 +200,23 @@ MonoBehaviour:
     m_Value: 0.27
   aberrationStrength:
     m_OverrideState: 0
-    m_Value: 1.95
+    m_Value: 7.56
   trackingTexture:
     m_OverrideState: 0
     m_Value: {fileID: 2800000, guid: 719d505767bc95942a4ff41e91d52eba, type: 3}
     dimension: 1
   trackingSize:
     m_OverrideState: 0
-    m_Value: 0.3
+    m_Value: 0.333
   trackingStrength:
     m_OverrideState: 0
-    m_Value: 7.8
+    m_Value: 34.4
   trackingSpeed:
     m_OverrideState: 0
     m_Value: 0.1
   trackingJitter:
     m_OverrideState: 0
-    m_Value: 0.01
+    m_Value: 0.0657
   trackingColorDamage:
     m_OverrideState: 0
     m_Value: 0.1

@@ -141,7 +141,8 @@ namespace TMOT.UI
 
         async void ShowLoserPanel()
         {
-            await Task.Delay(TimeSpan.FromSeconds(.7f));
+            return;
+            await Task.Delay(TimeSpan.FromSeconds(10.7f));
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -152,7 +153,8 @@ namespace TMOT.UI
 
         async void ShowWinnerPanel()
         {
-            await Task.Delay(TimeSpan.FromSeconds(.7f));
+            return;
+            await Task.Delay(TimeSpan.FromSeconds(10.7f));
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

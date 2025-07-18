@@ -18,11 +18,11 @@ namespace TMOT
         [SerializeField]
         GameObject monsterSpawnerPrefab;
 
-        float playerChasedTime = 50;//90;
+        float playerChasedTime = 50;
 
-        float playerChasingTime = 15;//20;
+        float playerChasingTime = 15;
 
-        int goalTarget = 11;//6;
+        int goalTarget = 11;
 
         int goalStep = 0;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TMOT
@@ -49,6 +50,7 @@ namespace TMOT
 
         float spawnElapsed = 0;
 
+        
 
 
         // Start is called before the first frame update
@@ -71,19 +73,46 @@ namespace TMOT
 
         }
 
-        IEnumerator _Test()
+        void OnEnable()
         {
-            // TEST - Level controller should call SpawnRandomMonsters()
-            while (true)
-            {
-                yield return new WaitForSeconds(20);
-                SpawnRandomMonsters(spawnAmount);
-            }
+            GameManager.OnStateChanged += HandleOnStateChanged;
         }
+
+        void OnDisable()
+        {
+            GameManager.OnStateChanged -= HandleOnStateChanged;
+        }
+
+        private void HandleOnStateChanged(GameState oldState, GameState newState)
+        {
+            switch (newState)
+            {
+                case GameState.Winner:
+                    DestroyAllDrones();
+                    break;
+            }
+
+            
+        }
+
+        void DestroyAllDrones()
+        {
+            List<MonsterController> toDestroy = new List<MonsterController>();
+            // Destroy all drones
+            foreach (var monster in monsters)
+                toDestroy.Add(monster);
+
+            // Clear list
+            monsters.Clear();
+
+            foreach (var monster in toDestroy)
+                monster.SetState(MonsterState.Dying);
+        }
+
 
         public void SpawnRandomMonsters(int count)
         {
-           
+
             List<Transform> candidates = LevelController.Instance.Waypoints.ToList().FindAll(s => Vector3.Distance(PlayerController.Instance.transform.position, s.position) > spawnDistance);
             for (int i = 0; i < count; i++)
             {

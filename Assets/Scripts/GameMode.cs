@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMOT.UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TMOT
 {
     public abstract class GameMode : Singleton<GameMode>
     {
+
+
+
         [SerializeField]
         GameObject gameUIPrefab;
 
@@ -14,10 +18,10 @@ namespace TMOT
         bool startInHuntingMode = false;
         public bool StartInHuntingMode
         {
-            get{ return startInHuntingMode; }
+            get { return startInHuntingMode; }
         }
 
-        
+
 
         protected abstract void StartGameMode();
 
@@ -30,7 +34,7 @@ namespace TMOT
 
         }
 
-    
+
         protected virtual void OnEnable()
         {
             GameManager.OnStateChanged += HandleOnGameStateChanged;
@@ -46,11 +50,16 @@ namespace TMOT
             switch (newState)
             {
                 case GameState.Playing:
-                    StartGameMode(); 
+                    StartGameMode();
                     break;
+
+              
+
 
             }
         }
+
+    
 
     }
 }

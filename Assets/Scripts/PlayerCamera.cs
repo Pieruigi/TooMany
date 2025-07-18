@@ -22,6 +22,7 @@ namespace TMOT
 
         void LateUpdate()
         {
+            if (PlayerController.Instance.State == PlayerState.Dead) return;
             // Apply pitch
             var eulerAngles = transform.eulerAngles;
             eulerAngles.x = PlayerController.Instance.Pitch;
