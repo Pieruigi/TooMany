@@ -122,9 +122,14 @@ namespace TMOT
             foreach (var part in parts)
             {
                 part.isKinematic = false;
-                // var smr = part.GetComponent<SkinnedMeshRenderer>();
-                // smr.rootBone = null;
-                // smr.bones = new Transform[0];
+
+                var smr = part.GetComponent<SkinnedMeshRenderer>();
+                if (smr)
+                {
+                    smr.rootBone = null;
+                    smr.bones = new Transform[0];    
+                }
+                
                 var dir = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 1f, UnityEngine.Random.Range(-0.5f, 0.5f));
                 dir += PlayerController.Instance.transform.forward;
                 part.AddForce(dir.normalized * UnityEngine.Random.Range(130f, 180f), ForceMode.Impulse);
