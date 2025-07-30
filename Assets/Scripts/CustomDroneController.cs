@@ -64,6 +64,7 @@ namespace TMOT
             if (computePath)
             {
                 var waypoint = GetNextWaypoint();
+                Debug.Log("TEST - Waypoint to reach:" + waypoint.gameObject);
                 if (waypoint) agent.SetDestination(waypoint.position);
             }
         }
