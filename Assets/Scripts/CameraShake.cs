@@ -77,6 +77,8 @@ namespace TMOT
             }
 
             brokenGlassImage.enabled = true;
+
+            await Task.Delay(TimeSpan.FromSeconds(.1f));
             
 #pragma warning disable CS4014
             FadeUI.Instance.FadeIn(.05f);

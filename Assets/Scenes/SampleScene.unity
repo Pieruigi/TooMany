@@ -3768,6 +3768,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
+        type: 3}
+      propertyPath: preyColor.b
+      value: 0.8632076
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
+        type: 3}
+      propertyPath: preyColor.g
+      value: 0.89214444
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
+        type: 3}
+      propertyPath: preyColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
+        type: 3}
+      propertyPath: hunterColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
+        type: 3}
+      propertyPath: hunterColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
+        type: 3}
+      propertyPath: hunterColor.r
+      value: 0.7877358
+      objectReference: {fileID: 0}
     - target: {fileID: 6646576579365098079, guid: 68a70824a2154864eabff2f5c841947a,
         type: 3}
       propertyPath: m_AnchoredPosition.x

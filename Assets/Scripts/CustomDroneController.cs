@@ -147,7 +147,7 @@ namespace TMOT
             var waypoints = LevelController.Instance.Waypoints.ToList().FindAll(w => Vector3.Distance(transform.position, w.position) < waypointMaxDistance);
 
             // Remove all the waypoints that are behind the agent
-            var angle = 90f;
+            var angle = 100f;
 
             waypoints = waypoints.FindAll(w =>
             {
