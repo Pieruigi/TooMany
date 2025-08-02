@@ -486,8 +486,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce627ddf9721294fbea6aa380df01b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preyColor: {r: 1, g: 0.5635589, b: 0.4481132, a: 100}
-  hunterColor: {r: 0.43596473, g: 0.9150943, b: 0.49186313, a: 100}
+  preyColor: {r: 1, g: 0.89214444, b: 0.8632076, a: 100}
+  hunterColor: {r: 0.7877358, g: 1, b: 1, a: 100}
   _light: {fileID: 65007788716267096}
 --- !u!1 &3323790650156728724
 GameObject:
@@ -753,7 +753,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2777287442214666783

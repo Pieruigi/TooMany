@@ -86,6 +86,8 @@ namespace TMOT
             ReportPickedUp();
         }
 
+
+
         void DoAction()
         {
             switch (type)
@@ -128,9 +130,9 @@ namespace TMOT
                 if (smr)
                 {
                     smr.rootBone = null;
-                    smr.bones = new Transform[0];    
+                    smr.bones = new Transform[0];
                 }
-                
+
                 var dir = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 1f, UnityEngine.Random.Range(-0.5f, 0.5f));
                 dir += PlayerController.Instance.transform.forward;
                 part.AddForce(dir.normalized * UnityEngine.Random.Range(130f, 180f), ForceMode.Impulse);
@@ -182,6 +184,13 @@ namespace TMOT
 
             return true;
 
+        }
+
+        public void ForceDestroy()
+        {
+            picked = true;
+
+            Explode();
         }
     }
 }

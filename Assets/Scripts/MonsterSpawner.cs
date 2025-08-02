@@ -112,7 +112,7 @@ namespace TMOT
 
         public void SpawnRandomMonsters(int count)
         {
-            return;
+            //return;
             List<Transform> candidates = LevelController.Instance.Waypoints.ToList().FindAll(s => Vector3.Distance(PlayerController.Instance.transform.position, s.position) > spawnDistance);
             for (int i = 0; i < count; i++)
             {

@@ -63,8 +63,11 @@ namespace TMOT
             spawning = false;
             if (timeUp)
             {
-                OnTimeUpUnspawned?.Invoke(timeUp);
+                // We must forse explosion here, otherwise if we pick the power up the spawner will restart due to the ReportTimeUpPicked() call
+                timeUp.GetComponent<CustomDroneController>().ForceDestroy();
                 Destroy(timeUp,2f);
+                OnTimeUpUnspawned?.Invoke(timeUp);
+                
                 
             }
                 

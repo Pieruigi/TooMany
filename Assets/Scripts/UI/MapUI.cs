@@ -173,6 +173,8 @@ namespace TMOT.UI
                     else
                         index = !mc.InvertedBehaviour ? 1 : 0;
 
+                    index = 0;
+
                     key.GetComponent<MapPinColorSetter>().SetColor(index);
                 }
             }
