@@ -75,12 +75,6 @@ namespace TMOT.UI
 
             UpdateTimer();
 
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                PreyToHunter();
-            }
-#endif
         }
 
         protected override void OnEnable()

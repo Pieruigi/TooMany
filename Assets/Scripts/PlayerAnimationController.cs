@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,9 @@ namespace TMOT
         [SerializeField]
         Animator animator;
 
-        
+        bool useRightPunch = false;
+
+
 
         // Start is called before the first frame update
         void Start()
@@ -20,6 +23,11 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.O))
+                animator.SetTrigger("PunchLeft");
+#endif
+
             PlayerController player = PlayerController.Instance;
 
             if (player.State == PlayerState.Dead) return;
@@ -40,9 +48,24 @@ namespace TMOT
                 if (animator.GetBool("Move"))
                     animator.SetBool("Move", false);
             }
-                 
+
         }
 
-       
+        void OnEnable()
+        {
+            PlayerController.OnPunch += HandleOnPlayerPunch;
+        }
+
+        void OnDisable()
+        {
+            PlayerController.OnPunch -= HandleOnPlayerPunch;
+        }
+
+        private void HandleOnPlayerPunch()
+        {
+            string triggerName = useRightPunch ? "PunchRight" : "PunchLeft";
+            useRightPunch = !useRightPunch;
+            animator.SetTrigger(triggerName);
+        }
     }
 }

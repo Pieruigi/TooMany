@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TMOT
 {
@@ -19,6 +20,8 @@ namespace TMOT
 
         public delegate void PlayerHealedDelegate(float previousHealth, float currentHealth);
         public static PlayerHealedDelegate OnPlayerHealed;
+
+        public static UnityAction OnPunch;
 
 
         [SerializeField]
@@ -309,6 +312,8 @@ namespace TMOT
 
                 if (colls == null || colls.Length == 0) return;
 
+                bool atLeastOneKilled = false;
+
                 foreach (var coll in colls)
                 {
 
@@ -317,8 +322,12 @@ namespace TMOT
                     coll.GetComponent<MonsterController>().ReportHitByPlayer();
 
                     CameraShake.Instance.Shake(0.15f, 0.2f, 8, 60f);
-                    
+
+                    atLeastOneKilled = true;
                 }
+
+                if(atLeastOneKilled)
+                    OnPunch?.Invoke();
             }
         }
 
