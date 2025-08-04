@@ -86,6 +86,10 @@ namespace TMOT
 
         [SerializeField]
         float sprintMultiplier = 2f;
+        public float SprintMultiplier
+        {
+            get{ return sprintMultiplier; }
+        }
 
         float stamina = 1;
         public float Stamina
@@ -98,6 +102,10 @@ namespace TMOT
         float staminaChargeSpeed = .25f;
 
         bool sprinting = false;
+        public bool Sprinting
+        {
+            get{ return sprinting; }
+        }
         float staminaLastUsed = 0;
 
         public bool InputDisabled

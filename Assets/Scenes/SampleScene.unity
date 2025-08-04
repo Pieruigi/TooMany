@@ -3768,36 +3768,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: preyColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: preyColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: preyColor.r
-      value: 0.9198113
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: hunterColor.b
-      value: 0.9009434
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: hunterColor.g
-      value: 0.9009434
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170205374150708447, guid: 68a70824a2154864eabff2f5c841947a,
-        type: 3}
-      propertyPath: hunterColor.r
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4058,6 +4028,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FadeUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8539082373255756044, guid: 63f64c6535cb12d41b10fe824a414d1b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8577468100517493010, guid: 63f64c6535cb12d41b10fe824a414d1b,
         type: 3}
