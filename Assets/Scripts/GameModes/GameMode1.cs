@@ -10,7 +10,7 @@ namespace TMOT
 {
     public class GameMode1 : GameMode
     {
-       
+
 
         [SerializeField]
         GameObject timeUpSpawnerPrefab;
@@ -50,7 +50,7 @@ namespace TMOT
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
 
 
-            
+
         }
 
         // Start is called before the first frame update
@@ -88,7 +88,7 @@ namespace TMOT
                 }
             }
 
-       
+
         }
 
         protected override void OnEnable()
@@ -149,7 +149,7 @@ namespace TMOT
                 MonsterSpawner.Instance.StartSpawner();
                 if (!IsLastStep())
                     TimeUpSpawner.Instance.StartSpawner();
-             
+
 
             }
 
@@ -158,19 +158,19 @@ namespace TMOT
 
         public bool IsLastStep()
         {
-            return goalStep == goalTarget-1;
+            return goalStep == goalTarget - 1;
         }
 
         public float GetGoalTimeRemaining()
         {
-            var total = (goalTarget+1)/2 * playerChasedTime;
-           
+            var total = (goalTarget + 1) / 2 * playerChasedTime;
 
-            var passed = (goalStep+1)/2 * playerChasedTime;
-           
+
+            var passed = (goalStep + 1) / 2 * playerChasedTime;
+
             if (!playerChasing)
                 passed += elapsed;
-               
+
 
             return total - passed;
 
@@ -199,6 +199,27 @@ namespace TMOT
         public float GetTimeRemaining()
         {
             return Mathf.Max(0, time - elapsed);
+        }
+
+        public float GetNextPreyTime()
+        {
+            return playerChasedTime;
+        }
+
+        public float GetNextHunterTime()
+        {
+            if (IsLastStep()) return 0;
+            return playerChasingTime + extraChasingTime;
+        }
+
+        public int GetCurrentStep()
+        {
+            return goalStep;
+        }
+
+        public int GetStepMax()
+        {
+            return goalTarget;
         }
 
     }

@@ -21,10 +21,16 @@ namespace TMOT.UI
         [SerializeField]
         GameObject winnerPanel;
 
+        [SerializeField]
+        TMP_Text goalField;
+
         protected virtual void Awake()
         {
             loserPanel.gameObject.SetActive(false);
             winnerPanel.gameObject.SetActive(false);
+
+            loserPanel.GetComponentInChildren<Button>().onClick.AddListener(RestartGame);
+            winnerPanel.GetComponentInChildren<Button>().onClick.AddListener(RestartGame);
         }
 
         protected virtual void Start()
@@ -44,28 +50,28 @@ namespace TMOT.UI
                 Application.Quit();
             }
 
-         
+
         }
 
         protected virtual void OnEnable()
         {
             GameManager.OnStateChanged += HandleOnGameStateChanged;
-     
+
 
         }
 
         protected virtual void OnDisable()
         {
             GameManager.OnStateChanged -= HandleOnGameStateChanged;
-           
+
         }
 
-       
+
         protected virtual void HandleOnGameStateChanged(GameState oldState, GameState newState)
         {
             switch (newState)
             {
-              
+
                 case GameState.Loser:
                     ShowLoserPanel();
                     break;
@@ -75,7 +81,7 @@ namespace TMOT.UI
             }
         }
 
-        
+
 
         async void ShowLoserPanel()
         {
@@ -90,7 +96,7 @@ namespace TMOT.UI
 
         async void ShowWinnerPanel()
         {
-           
+
             await Task.Delay(TimeSpan.FromSeconds(4f));
 
             Cursor.lockState = CursorLockMode.None;
@@ -110,6 +116,11 @@ namespace TMOT.UI
         public void QuitGame()
         {
             Application.Quit();
+        }
+
+        public void UpdateGoal(string text)
+        {
+            goalField.text = text;
         }
         
     }
