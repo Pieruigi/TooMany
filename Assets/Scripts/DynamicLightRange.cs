@@ -1,9 +1,6 @@
 using System;
 using TMOT;
-using Unity.Mathematics;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 
 public class DynamicLightRange : MonoBehaviour
 {
