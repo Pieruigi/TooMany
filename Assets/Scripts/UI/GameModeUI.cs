@@ -22,15 +22,24 @@ namespace TMOT.UI
         GameObject winnerPanel;
 
         [SerializeField]
+        GameObject buttonPanel;
+
+        [SerializeField]
+        Button restartButton, quitButton;
+
+        
+
+        [SerializeField]
         TMP_Text goalField;
 
         protected virtual void Awake()
         {
             loserPanel.gameObject.SetActive(false);
             winnerPanel.gameObject.SetActive(false);
+            buttonPanel.SetActive(false);
 
-            loserPanel.GetComponentInChildren<Button>().onClick.AddListener(RestartGame);
-            winnerPanel.GetComponentInChildren<Button>().onClick.AddListener(RestartGame);
+            restartButton.onClick.AddListener(RestartGame);
+            quitButton.onClick.AddListener(QuitGame);
         }
 
         protected virtual void Start()
@@ -92,6 +101,8 @@ namespace TMOT.UI
             //Time.timeScale = 0;
 
             loserPanel.gameObject.SetActive(true);
+            buttonPanel.SetActive(true);
+            
         }
 
         async void ShowWinnerPanel()
@@ -104,18 +115,20 @@ namespace TMOT.UI
             //Time.timeScale = 0;
 
             winnerPanel.gameObject.SetActive(true);
+            buttonPanel.SetActive(true);
         }
 
 
         public void RestartGame()
         {
             Time.timeScale = 1;
-            SceneManager.LoadScene(1);
+            GameManager.Instance.PlayGame();
+            
         }
 
         public void QuitGame()
         {
-            Application.Quit();
+            GameManager.Instance.LoadMainScene();
         }
 
         public void UpdateGoal(string text)

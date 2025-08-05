@@ -64,7 +64,6 @@ namespace TMOT
             if (computePath)
             {
                 var waypoint = GetNextWaypoint();
-                Debug.Log("TEST - Waypoint to reach:" + waypoint.gameObject);
                 if (waypoint) agent.SetDestination(waypoint.position);
             }
         }
@@ -84,6 +83,8 @@ namespace TMOT
             //await Task.Delay(TimeSpan.FromSeconds(1f));
 
             ReportPickedUp();
+
+            PlayerController.OnPunch?.Invoke();
         }
 
 
@@ -112,6 +113,8 @@ namespace TMOT
                     TimeUpSpawner.Instance.ReportTimeUpPicked();
                     break;
             }
+
+            
         }
 
         void Explode()

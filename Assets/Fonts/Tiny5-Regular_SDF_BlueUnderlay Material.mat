@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tiny5-Regular_SDF_WhiteFace Material
+  m_Name: Tiny5-Regular_SDF_BlueUnderlay Material
   m_Shader: {fileID: 4800000, guid: dd89cf5b9246416f84610a006f916af7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FaceTex:
-        m_Texture: {fileID: 2800000, guid: 783cf091db81bc3488739b04de889114, type: 3}
+        m_Texture: {fileID: 2800000, guid: a2a63c7996b7283478838cdff31f3836, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -48,7 +48,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Ambient: 0.5
-    - _Bevel: 0.805
+    - _Bevel: 1
     - _BevelClamp: 0
     - _BevelOffset: 0.5
     - _BevelRoundness: 0
@@ -62,9 +62,9 @@ Material:
     - _FaceShininess: 0
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
-    - _GlowInner: 0.267
+    - _GlowInner: 0.05
     - _GlowOffset: 0.397
-    - _GlowOuter: 0.889
+    - _GlowOuter: 0.528
     - _GlowPower: 0.153
     - _GradientScale: 5
     - _LightAngle: 2
@@ -78,13 +78,13 @@ Material:
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.8
-    - _ScaleRatioB: 0.5443235
+    - _ScaleRatioB: 0.7
     - _ScaleRatioC: 0.7
     - _ScaleX: 1
     - _ScaleY: 1
-    - _ShaderFlags: 1
+    - _ShaderFlags: 0
     - _Sharpness: 0
-    - _SpecularPower: 0
+    - _SpecularPower: 2.69
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -111,5 +111,5 @@ Material:
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 1, g: 0.68121386, b: 0.4666667, a: 1}
+    - _UnderlayColor: {r: 0, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

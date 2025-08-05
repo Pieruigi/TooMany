@@ -15,6 +15,9 @@ namespace TMOT
         [SerializeField]
         Image brokenGlassImage;
 
+        [SerializeField]
+        GameObject playerArms;
+
         private Vector3 originalPos;
         private Tween currentShake;
 
@@ -77,6 +80,9 @@ namespace TMOT
             }
 
             brokenGlassImage.enabled = true;
+
+            // Hide player arms
+            playerArms.SetActive(false);
 
             await Task.Delay(TimeSpan.FromSeconds(.1f));
             

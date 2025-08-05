@@ -27,7 +27,7 @@ namespace TMOT.UI
         Color activatedColor = new Color(1, 1, 1, 1);
         Color deactivatedColor = new Color(0.5f, 0.5f, .5f, .25f);
 
-        float deactivatedPositionOffsetX = 50f;
+        float deactivatedPositionOffsetX = 75f;
         float deactivatedSize = .4f;
 
         float deactivatedAlpha = .2f;
@@ -48,9 +48,9 @@ namespace TMOT.UI
             position.x = deactivatedPositionOffsetX;
             (hunterCanvasGroup.transform as RectTransform).anchoredPosition = position;
             hunterCanvasGroup.transform.localScale = Vector3.one * deactivatedSize;
-            var color = preyTime.color;
-            color.a = deactivatedAlpha;
-            preyTime.color = color;
+            // var color = preyTime.color;
+            // color.a = deactivatedAlpha;
+            // preyTime.color = color;
             hunterTime.text = (GameMode.Instance as GameMode1).GetNextHunterTime().ToString();
             preyTime.text = (GameMode.Instance as GameMode1).GetNextPreyTime().ToString();
 
@@ -144,7 +144,7 @@ namespace TMOT.UI
             float duration = .2f;
             (hunterCanvasGroup.transform as RectTransform).DOAnchorPosX(deactivatedPositionOffsetX, duration).SetEase(Ease.OutElastic);
             (hunterCanvasGroup.transform as RectTransform).DOScale(deactivatedSize, duration).SetEase(Ease.OutElastic);
-            hunterCanvasGroup.DOFade(deactivatedAlpha, duration).SetEase(Ease.InOutQuad);
+            hunterCanvasGroup.DOFade((GameMode.Instance as GameMode1).IsLastStep() ? 0f : deactivatedAlpha, duration).SetEase(Ease.InOutQuad);
             //hunterTime.text = (GameMode.Instance as GameMode1).GetHunterTimeDefault().ToString();
 
             // Hunter

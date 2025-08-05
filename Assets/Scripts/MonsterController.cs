@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -246,24 +247,27 @@ namespace TMOT
         }
 
         void UpdateScale() {
+            float scaleTime = 1f;
             if (PlayerController.Instance.State == PlayerState.Hunter)
-                StartCoroutine(ScaleMonster(preyScale));
+                transform.DOScale(preyScale, scaleTime).SetEase(Ease.InOutElastic); //StartCoroutine(ScaleMonster(preyScale));
             else
-                StartCoroutine(ScaleMonster(hunterScale));
+                transform.DOScale(hunterScale, scaleTime).SetEase(Ease.InOutElastic);//StartCoroutine(ScaleMonster(hunterScale));
                 
         }
 
-        IEnumerator ScaleMonster(float targetScale)
-        {
-            var speed = 10;
-            var scale = transform.localScale.x;
-            while (scale != targetScale)
-            {
-                scale = Mathf.MoveTowards(scale, targetScale, speed * Time.deltaTime);
-                transform.localScale = Vector3.one * scale;
-                yield return null;
-            }
-        }
+        // IEnumerator ScaleMonster(float targetScale)
+        // {
+        //     var speed = 10;
+        //     var scale = transform.localScale.x;
+        //     while (scale != targetScale)
+        //     {
+        //         scale = Mathf.MoveTowards(scale, targetScale, speed * Time.deltaTime);
+        //         transform.localScale = Vector3.one * scale;
+        //         yield return null;
+        //     }
+        // }
+
+     
 
         void Explode()
         {

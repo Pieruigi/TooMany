@@ -36,6 +36,8 @@ namespace TMOT
 
         int gameSceneOffset = 1;
 
+        int mainSceneIndex = 0;
+
         protected override void Awake()
         {
             base.Awake();
@@ -70,6 +72,7 @@ namespace TMOT
 
         private void HandleOnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            Debug.Log("TEST - Loading scene " + scene.name);
             if (scene.buildIndex == 0) // Menu
             {
                 SetState(GameState.None);
@@ -138,7 +141,13 @@ namespace TMOT
 
         public void PlayGame()
         {
+            Debug.Log("TEST - PlatGame()");
             SceneManager.LoadScene(gameSceneOffset + mapId);
+        }
+
+        public void LoadMainScene()
+        {
+             SceneManager.LoadScene(mainSceneIndex);
         }
     }
 }

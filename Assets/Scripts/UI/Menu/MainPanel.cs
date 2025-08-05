@@ -7,9 +7,6 @@ namespace TMOT.UI
 {
     public class MainPanel : MonoBehaviour
     {
-        [SerializeField]
-        Button playButton;
-
         // Start is called before the first frame update
         void Start()
         {
@@ -24,7 +21,12 @@ namespace TMOT.UI
 
         public void PlayGame()
         {
-            GameManager.Instance.PlayGame();    
+            GameManager.Instance.PlayGame();
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
         }
     }
 }
