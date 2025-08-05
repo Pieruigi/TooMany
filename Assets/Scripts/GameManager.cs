@@ -32,6 +32,9 @@ namespace TMOT
             get { return gameMode; }
         }
 
+        int mapId = 0;
+
+        int gameSceneOffset = 1;
 
         protected override void Awake()
         {
@@ -70,7 +73,7 @@ namespace TMOT
             if (scene.buildIndex == 0) // Menu
             {
                 SetState(GameState.None);
-                SceneManager.LoadScene(1);
+                //SceneManager.LoadScene(1);
             }
             else // Game scene
             {
@@ -113,7 +116,7 @@ namespace TMOT
 
         void EnteringLoserState()
         {
-        
+
         }
 
         void EnteringWinnerState()
@@ -131,6 +134,11 @@ namespace TMOT
         public void ReportPlayerIsLoser()
         {
             SetState(GameState.Loser);
+        }
+
+        public void PlayGame()
+        {
+            SceneManager.LoadScene(gameSceneOffset + mapId);
         }
     }
 }
