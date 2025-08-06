@@ -65,6 +65,11 @@ namespace TMOT
         Vector2 moveInput;
         Vector2 aimInput;
 
+        public bool Rotating
+        {
+            get {return aimInput.x != 0; }
+        }
+
         float pitchDirection = -1;
 
         float minPitch = -80;
@@ -234,6 +239,8 @@ namespace TMOT
 
 
             transform.eulerAngles = new Vector3(0, yaw, 0);
+
+
    
         }
 
