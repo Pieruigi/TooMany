@@ -19,7 +19,7 @@ namespace TMOT
 
         GameObject medicalDrone;
 
-        int spawnChance = 20;
+        int spawnChance = 40;
 
         float spawnDelay = 1f;
 

@@ -54,11 +54,21 @@ namespace TMOT
         void OnEnable()
         {
             PlayerController.OnPunch += HandleOnPlayerPunch;
+            PlayerController.OnPlayerDamaged += HandleOnPlayerDamaged;
         }
 
         void OnDisable()
         {
             PlayerController.OnPunch -= HandleOnPlayerPunch;
+            PlayerController.OnPlayerDamaged -= HandleOnPlayerDamaged;
+        }
+
+        private void HandleOnPlayerDamaged(float previousHealth, float currentHealth)
+        {
+            if (PlayerController.Instance.State == PlayerState.Dead)
+                animator.SetBool("Dead", true);
+            animator.SetTrigger("Hit");
+            
         }
 
         private void HandleOnPlayerPunch()
