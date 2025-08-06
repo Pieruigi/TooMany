@@ -17,8 +17,11 @@ namespace TMOT
     public class MonsterController : MonoBehaviour
     {
 
-        public delegate void OnHitPlayerDelegate(MonsterController monsterController);
-        public static OnHitPlayerDelegate OnHitPlayer;
+        public delegate void HitPlayerDelegate(MonsterController monsterController);
+        public static HitPlayerDelegate OnHitPlayer;
+
+        public delegate void ExplodedDelegate(MonsterController monsterController);
+        public static ExplodedDelegate OnExploded;
 
 
         static Dictionary<Transform, DateTime> lastPatrolPoints = new Dictionary<Transform, DateTime>();
@@ -267,7 +270,7 @@ namespace TMOT
         //     }
         // }
 
-     
+
 
         void Explode()
         {
@@ -288,6 +291,8 @@ namespace TMOT
                 var torque = new Vector3(UnityEngine.Random.Range(-360f, 360f), UnityEngine.Random.Range(-360f, 360f), UnityEngine.Random.Range(-360f, 360f));
                 part.AddTorque(torque);
             }
+
+            OnExploded?.Invoke(this);
         }
 
         #region entering state

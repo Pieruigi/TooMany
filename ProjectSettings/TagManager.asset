@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Monster
   - FxTemporaire
+  - Mule
   layers:
   - Default
   - TransparentFX

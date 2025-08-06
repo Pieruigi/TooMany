@@ -63,6 +63,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: waitressDrone
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6047ef7a2c24f1e48a2767bdb3ef622b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Mule
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 6047ef7a2c24f1e48a2767bdb3ef622b,
         type: 3}
       propertyPath: m_Controller

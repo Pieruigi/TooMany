@@ -13,6 +13,9 @@ namespace TMOT
 
     public class CustomDroneController : MonoBehaviour
     {
+        public delegate void ExplodedDelegate(CustomDroneController drone);
+        public static ExplodedDelegate OnExploded;
+
 
         [SerializeField]
         CustomDroneType type;
@@ -140,6 +143,8 @@ namespace TMOT
                 var torque = new Vector3(UnityEngine.Random.Range(-360f, 360f), UnityEngine.Random.Range(-360f, 360f), UnityEngine.Random.Range(-360f, 360f));
                 part.AddTorque(torque);
             }
+
+            OnExploded?.Invoke(this);
         }
 
         Transform GetNextWaypoint()
