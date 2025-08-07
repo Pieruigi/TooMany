@@ -23,6 +23,9 @@ namespace TMOT
         public delegate void ExplodedDelegate(MonsterController monsterController);
         public static ExplodedDelegate OnExploded;
 
+        public delegate void StateChangedDelegate(MonsterController monsterController, MonsterState oldState, MonsterState newState);
+        public static StateChangedDelegate OnStateChanged;
+
 
         static Dictionary<Transform, DateTime> lastPatrolPoints = new Dictionary<Transform, DateTime>();
 
@@ -749,6 +752,8 @@ namespace TMOT
                     EnterDyingState();
                     break;
             }
+
+            OnStateChanged?.Invoke(this, previousState, newState);
         }
     }
 }

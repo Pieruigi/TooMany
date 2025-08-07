@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace TMOT
@@ -18,7 +20,11 @@ namespace TMOT
         AudioSource switchSource;
 
 
+        // bool playerHasBeenChasing = false;
 
+        // float chasingPitch = 1.25f;
+
+        // float pitchTime = 1f;
 
         // Start is called before the first frame update
         void Start()
@@ -32,6 +38,22 @@ namespace TMOT
 
         }
 
+        // void LateUpdate()
+        // {
+        //     var playerHasBeenChasingOld = playerHasBeenChasing;
+        //     playerHasBeenChasing = PlayerHasBeenChasing();
+        //     if (playerHasBeenChasing != playerHasBeenChasingOld)
+        //     {
+        //         DOTween.KillAll();
+        //         if (playerHasBeenChasing)
+        //             preySource.DOPitch(chasingPitch, pitchTime);
+        //         else
+        //             preySource.DOPitch(1, pitchTime);
+        //     }
+
+            
+        // }
+
         void OnEnable()
         {
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
@@ -40,6 +62,17 @@ namespace TMOT
         void OnDisable()
         {
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
+
+        bool PlayerHasBeenChasing()
+        {
+            foreach (var monster in MonsterSpawner.Instance.Monsters)
+            {
+                if (monster.State == MonsterState.Chasing)
+                    return true;
+            }
+
+            return false;
         }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
