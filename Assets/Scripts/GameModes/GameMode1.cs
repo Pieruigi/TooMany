@@ -148,7 +148,7 @@ namespace TMOT
                 MonsterSpawner.Instance.SpawnTime = monsterSpawnTime;
                 MonsterSpawner.Instance.StartSpawner();
                 if (!IsLastStep())
-                    TimeUpSpawner.Instance.StartSpawner();
+                    TimeUpSpawner.Instance.StartSpawner().Forget();
 
 
             }

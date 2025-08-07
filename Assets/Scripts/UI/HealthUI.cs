@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace TMOT
@@ -28,13 +30,25 @@ namespace TMOT
             PlayerController.OnPlayerHealed += HandleOnPlayerHealed;
         }
 
+        
+
         protected virtual void OnDisable()
         {
             PlayerController.OnPlayerDamaged -= HandleOnPlayerDamaged;
             PlayerController.OnPlayerHealed -= HandleOnPlayerHealed;
         }
 
-        private async void HandleOnPlayerHealed(float previousHealth, float currentHealth)
+        private void HandleOnPlayerHealed(float previousHealth, float currentHealth)
+        {
+            HealPlayer(previousHealth, currentHealth).Forget();
+        }
+
+        private void HandleOnPlayerDamaged(float previousHealth, float currentHealth)
+        {
+            DamagePlayer(previousHealth, currentHealth).Forget();
+        }
+
+        private async UniTaskVoid HealPlayer(float previousHealth, float currentHealth)
         {
             Debug.Log($"Hearts healing, prev:{previousHealth}, curr:{currentHealth}");
             int count = (int)(currentHealth - previousHealth);
@@ -43,11 +57,11 @@ namespace TMOT
             {
                 hearts[startIndex + i + 1].GetComponent<Animator>().SetTrigger("Heal");
                 //yield return new WaitForSeconds(.2f);
-                await Task.Delay(200);
+                await UniTask.Delay(200);
             }
         }
 
-        private async void HandleOnPlayerDamaged(float previousHealth, float currentHealth)
+        private async UniTaskVoid DamagePlayer(float previousHealth, float currentHealth)
         {
             Debug.Log($"Hearts damaged, prev:{previousHealth}, curr:{currentHealth}");
             int count = (int)(previousHealth - currentHealth);
@@ -56,7 +70,7 @@ namespace TMOT
             {
                 hearts[startIndex - i].GetComponent<Animator>().SetTrigger("Damage");
                 //yield return new WaitForSeconds(.2f);
-                await Task.Delay(200);
+                await UniTask.Delay(200);
             }
         }
 

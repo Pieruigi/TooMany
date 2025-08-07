@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,7 +16,7 @@ namespace TMOT.UI
         void Awake()
         {
             button = GetComponent<Button>();
-            button.onClick.AddListener(async () => { await Task.Delay(100); EventSystem.current.SetSelectedGameObject(null); });
+            button.onClick.AddListener(() => { RemoveFocus().Forget(); });
         }
 
         // Start is called before the first frame update
@@ -27,6 +29,12 @@ namespace TMOT.UI
         void Update()
         {
 
+        }
+
+        async UniTaskVoid RemoveFocus()
+        {
+            await UniTask.Delay(100);
+            EventSystem.current.SetSelectedGameObject(null);
         }
     }
 }

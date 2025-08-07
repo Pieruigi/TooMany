@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using TMOT;
 using UnityEngine;
 
@@ -36,11 +37,16 @@ public class TestHitUI : MonoBehaviour
         MonsterController.OnHitPlayer -= HandleOnHitPlayer;
     }
 
-    private async void HandleOnHitPlayer(MonsterController monsterController)
+    private void HandleOnHitPlayer(MonsterController monsterController)
+    {
+        ShowHitText(monsterController).Forget();
+    }
+
+    private async UniTaskVoid ShowHitText(MonsterController monsterController)
     {
         if (hitText.activeSelf) return;
         hitText.SetActive(true);
-        await Task.Delay(2000);
+        await UniTask.Delay(2000);
         hitText.SetActive(false);
     }
 }

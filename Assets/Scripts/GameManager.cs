@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.LowLevel;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR;
 
@@ -42,15 +44,13 @@ namespace TMOT
         {
             base.Awake();
 
+
+
 #if UNITY_EDITOR && UNITY_WEBGL
-           PlayerSettings.WebGL.threadsSupport = true; // When enabled, Unity generates a WebGL build with multithreading support enabled.
+            PlayerSettings.WebGL.threadsSupport = true; // When enabled, Unity generates a WebGL build with multithreading support enabled.
+
+            Application.targetFrameRate = -1;
 #endif
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
         }
 
         // Update is called once per frame
@@ -72,7 +72,7 @@ namespace TMOT
 
         private void HandleOnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log("TEST - Loading scene " + scene.name);
+          
             if (scene.buildIndex == 0) // Menu
             {
                 SetState(GameState.None);
@@ -93,7 +93,7 @@ namespace TMOT
             switch (gameState)
             {
                 case GameState.Starting:
-                    EnterStartingState();
+                    EnterStartingState().Forget();
                     break;
                 case GameState.Loser:
                     EnteringLoserState();
@@ -106,16 +106,18 @@ namespace TMOT
             OnStateChanged?.Invoke(oldState, newState);
         }
 
-        async void EnterStartingState()
+        async UniTaskVoid EnterStartingState()
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
             LevelController.Instance.Initialize();
-            Debug.Log("TEST - GameManager Delay before...");
-            await Task.Delay(TimeSpan.FromSeconds(StartingDelay));
-            Debug.Log("TEST - GameManager Delay after");
+          
+            await UniTask.Delay(TimeSpan.FromSeconds(StartingDelay));
+          
             SetState(GameState.Playing);
+
+           
         }
 
         void EnteringLoserState()

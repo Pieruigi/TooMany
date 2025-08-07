@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -80,27 +81,27 @@ namespace TMOT
             switch (newState)
             {
                 case PlayerState.Prey:
-                    SwitchToPrey();
+                    SwitchToPrey().Forget();
                     break;
                 case PlayerState.Hunter:
-                    SwitchToHunter();
+                    SwitchToHunter().Forget();
                     break;
             }
         }
 
-        async void SwitchToPrey()
+        async UniTaskVoid SwitchToPrey()
         {
             if (preySource.isPlaying) return;
             switchSource.Play();
-            await Task.Delay(TimeSpan.FromSeconds(.180f));
+            await UniTask.Delay(TimeSpan.FromSeconds(.180f));
             hunterSource.Stop();
             preySource.Play();
         }
 
-        async void SwitchToHunter()
+        async UniTaskVoid SwitchToHunter()
         {
             switchSource.Play();
-            await Task.Delay(TimeSpan.FromSeconds(.180f));
+            await UniTask.Delay(TimeSpan.FromSeconds(.180f));
             hunterSource.Play();
             preySource.Stop();
         }

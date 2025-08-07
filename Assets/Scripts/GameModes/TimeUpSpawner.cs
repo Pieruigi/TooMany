@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace TMOT
@@ -39,11 +40,11 @@ namespace TMOT
 
         }
 
-        public async void StartSpawner()
+        public async UniTaskVoid StartSpawner()
         {
             spawning = true;
 
-            await Task.Delay(TimeSpan.FromSeconds(spawnTime));
+            await UniTask.Delay(TimeSpan.FromSeconds(spawnTime));
 
             if (!spawning) return;
 
@@ -77,7 +78,7 @@ namespace TMOT
         public void ReportTimeUpPicked()
         {
             StopSpawner();
-            StartSpawner();
+            StartSpawner().Forget();
         }
     }
 }

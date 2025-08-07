@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -92,9 +93,9 @@ namespace TMOT.UI
 
 
 
-        async void ShowLoserPanel()
+        async UniTaskVoid ShowLoserPanel()
         {
-            await Task.Delay(TimeSpan.FromSeconds(4f));
+            await UniTask.Delay(TimeSpan.FromSeconds(4f));
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -105,10 +106,10 @@ namespace TMOT.UI
             
         }
 
-        async void ShowWinnerPanel()
+        async UniTaskVoid ShowWinnerPanel()
         {
 
-            await Task.Delay(TimeSpan.FromSeconds(4f));
+            await UniTask.Delay(TimeSpan.FromSeconds(4f));
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

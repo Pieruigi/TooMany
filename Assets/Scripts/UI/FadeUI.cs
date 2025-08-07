@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -48,13 +49,13 @@ namespace TMOT.UI
             }
         }
 
-        public async Task FadeIn(float duration = .5f)
+        public async UniTask FadeIn(float duration = .5f)
         {
             Debug.Log("TEST - Fade In");
             await panel.DOColor(new Color(0, 0, 0, 0), duration).AsyncWaitForCompletion();
         }
 
-        public async Task FadeOut(float duration = .5f)
+        public async UniTask FadeOut(float duration = .5f)
         {
             await panel.DOColor(new Color(0, 0, 0, 1), duration).AsyncWaitForCompletion();
         }

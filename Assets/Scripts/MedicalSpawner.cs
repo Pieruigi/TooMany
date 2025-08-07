@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace TMOT
@@ -57,7 +58,7 @@ namespace TMOT
 
                 if (spawn)
                 {
-                    SpawnMedicalDrone();
+                    SpawnMedicalDrone().Forget();
                 }
             }
             else
@@ -66,9 +67,9 @@ namespace TMOT
             }
         }
 
-        async void SpawnMedicalDrone()
+        async UniTaskVoid SpawnMedicalDrone()
         {
-            await Task.Delay(TimeSpan.FromSeconds(spawnDelay));
+            await UniTask.Delay(TimeSpan.FromSeconds(spawnDelay));
             // Get a random waypoint
             var waypoint = LevelController.Instance.Waypoints[UnityEngine.Random.Range(0, LevelController.Instance.Waypoints.Count)];
 

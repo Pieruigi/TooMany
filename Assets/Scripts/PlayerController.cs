@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -60,7 +61,7 @@ namespace TMOT
             get{ return pitch; }
         }
 
-        float mouseSensitivity = 1;
+        float mouseSensitivity = 5f;
 
         Vector2 moveInput;
         Vector2 aimInput;
@@ -231,10 +232,10 @@ namespace TMOT
 
         private void Rotate()
         {
-            yaw += aimInput.x * Time.deltaTime * rotationSpeed * mouseSensitivity;
+            yaw += aimInput.x /** Time.deltaTime */* rotationSpeed * mouseSensitivity * 0.001f;
             yaw %= 360;
 
-            pitch += aimInput.y * Time.deltaTime * rotationSpeed * mouseSensitivity * pitchDirection;
+            pitch += aimInput.y /** Time.deltaTime */* rotationSpeed * mouseSensitivity * 0.001f * pitchDirection;
             pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
 
@@ -297,13 +298,13 @@ namespace TMOT
 
         }
 
-        async void EnterDeadState()
+        async UniTaskVoid EnterDeadState()
         {
             InputDisabled = true;
 
-            await Task.Delay(TimeSpan.FromSeconds(.5f));
+            await UniTask.Delay(TimeSpan.FromSeconds(.5f));
 
-            CameraShake.Instance.Die();
+            CameraShake.Instance.Die().Forget();
         }
 
         #endregion
@@ -398,7 +399,7 @@ namespace TMOT
                     EnterHunterState();
                     break;
                 case PlayerState.Dead:
-                    EnterDeadState();
+                    EnterDeadState().Forget();
                     break;
             }
 

@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 using RetroShadersPro.URP;
 using TMOT.UI;
 using UnityEngine.UI;
+using Cysharp.Threading.Tasks;
 
 
 namespace TMOT
@@ -47,7 +48,7 @@ namespace TMOT
                                     .OnComplete(() => { transform.localPosition = originalPos; });
         }
 
-        public async void Die()
+        public async UniTaskVoid Die()
         {
             currentShake?.Kill();
 
@@ -59,7 +60,7 @@ namespace TMOT
             seq.Append(transform.DOLocalMoveY(.5f, 1f, false).SetEase(Ease.InOutElastic));
             seq.Join(transform.DOLocalRotate(new Vector3(0f, 0f, 90f), 1f, RotateMode.FastBeyond360).SetEase(Ease.InOutElastic));
 
-            await Task.Delay(TimeSpan.FromSeconds(.8f));
+            await UniTask.Delay(TimeSpan.FromSeconds(.8f));
 
             await FadeUI.Instance.FadeOut(.05f);
             // Activate vhs distortion
@@ -84,7 +85,7 @@ namespace TMOT
             // Hide player arms
             playerArms.SetActive(false);
 
-            await Task.Delay(TimeSpan.FromSeconds(.1f));
+            await UniTask.Delay(TimeSpan.FromSeconds(.1f));
             
 #pragma warning disable CS4014
             FadeUI.Instance.FadeIn(.05f);

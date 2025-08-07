@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -367,10 +368,10 @@ namespace TMOT
         }
 
 
-        async void EnterAttackingState()
+        async UniTaskVoid EnterAttackingState()
         {
             OnHitPlayer?.Invoke(this);
-            await Task.Delay(200);
+            await UniTask.Delay(200);
             PlayerController.Instance.ApplyDamage(damage);
             // await Task.Delay(2000);
             // SetState(MonsterState.Chasing);
@@ -386,7 +387,7 @@ namespace TMOT
 
         }
 
-        async void EnterPushedState()
+        async UniTaskVoid EnterPushedState()
         {
             agent.isStopped = true;
 
@@ -395,7 +396,7 @@ namespace TMOT
             rb.isKinematic = false;
             rb.AddForce(dir.normalized * PlayerController.Instance.PushForce, ForceMode.Impulse);
 
-            await Task.Delay(TimeSpan.FromSeconds(2));
+            await UniTask.Delay(TimeSpan.FromSeconds(2));
 
             rb.isKinematic = true;
             agent.isStopped = false;
@@ -743,10 +744,10 @@ namespace TMOT
                     EnterChasingState();
                     break;
                 case MonsterState.Attacking:
-                    EnterAttackingState();
+                    EnterAttackingState().Forget();
                     break;
                 case MonsterState.Pushed:
-                    EnterPushedState();
+                    EnterPushedState().Forget();
                     break;
                 case MonsterState.Dying:
                     EnterDyingState();
