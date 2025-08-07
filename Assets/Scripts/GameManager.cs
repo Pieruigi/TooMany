@@ -112,8 +112,9 @@ namespace TMOT
             Cursor.visible = false;
 
             LevelController.Instance.Initialize();
+            Debug.Log("TEST - GameManager Delay before...");
             await Task.Delay(TimeSpan.FromSeconds(StartingDelay));
-
+            Debug.Log("TEST - GameManager Delay after");
             SetState(GameState.Playing);
         }
 

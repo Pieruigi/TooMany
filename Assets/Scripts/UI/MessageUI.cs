@@ -49,6 +49,7 @@ namespace TMOT.UI
             seq.Append(canvasGroup.DOFade(0, fadeTime).SetDelay(1f));
             seq.onComplete += () => { busy = false; };
 
+            UIAudioManager.Instance.PlayFailed();
         }
     }
 }
