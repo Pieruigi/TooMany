@@ -7,6 +7,18 @@ namespace TMOT.UI
 {
     public class MainPanel : MonoBehaviour
     {
+#if UNITY_WEBGL
+        [SerializeField]
+        GameObject exitButton;
+#endif
+
+#if UNITY_WEBGL
+        void Awake()
+        {
+            Destroy(exitButton);
+        }
+#endif
+
         // Start is called before the first frame update
         void Start()
         {

@@ -16,12 +16,19 @@ namespace TMOT.UI
 
         float fadeTime = .25f;
 
+        CanvasGroup current;
+
         void Awake()
         {
-            HidePanelAll();
+            foreach (var p in panels)
+            {
+                p.alpha = 0;
+                p.blocksRaycasts = false;
+            }
+                
 
             if (!(panelDefault < 0))
-                ShowPanel(panelDefault);
+                    ShowPanel(panelDefault);
         }
 
         // Start is called before the first frame update
@@ -36,23 +43,30 @@ namespace TMOT.UI
 
         }
 
+        
+
         void HidePanelAll()
         {
+            current = null;
             foreach (var panel in panels)
                 HidePanel(panel);
         }
 
         private void HidePanel(CanvasGroup panel)
         {
+            panel.blocksRaycasts = false;
             panel.DOFade(0, fadeTime).SetEase(Ease.InOutQuad);
         }
 
-        void ShowPanel(CanvasGroup panel)
+        public void ShowPanel(CanvasGroup panel)
         {
+            if (current) HidePanel(current);
+            current = panel;
+            panel.blocksRaycasts = true;
             panel.DOFade(1, fadeTime).SetEase(Ease.InOutQuad);
         }
 
-        private void ShowPanel(int index)
+        public void ShowPanel(int index)
         {
             ShowPanel(panels[index]);
         }

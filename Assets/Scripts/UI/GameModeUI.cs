@@ -51,17 +51,7 @@ namespace TMOT.UI
             //canvas.worldCamera = Camera.main.GetUniversalAdditionalCameraData().cameraStack[0];
         }
 
-        // Update is called once per frame
-        protected virtual void Update()
-        {
-
-            // if (Input.GetKeyDown(KeyCode.Escape))
-            // {
-            //     Application.Quit();
-            // }
-
-
-        }
+        protected virtual void Update() { }
 
         protected virtual void OnEnable()
         {
@@ -83,10 +73,10 @@ namespace TMOT.UI
             {
 
                 case GameState.Loser:
-                    ShowLoserPanel();
+                    ShowLoserPanel().Forget();
                     break;
                 case GameState.Winner:
-                    ShowWinnerPanel();
+                    ShowWinnerPanel().Forget();
                     break;
             }
         }

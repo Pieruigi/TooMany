@@ -34,6 +34,7 @@ namespace TMOT
                 for (int i = 0; i < steps; i++)
                 {
                     float a = angle * (i + 1);
+                    a *= h.name.EndsWith("B") ? -1 : 1;
                     seq.Append(h.transform.DOLocalRotate(Vector3.forward * a, time, RotateMode.Fast).SetEase(Ease.OutBack));
                 }
 
@@ -50,6 +51,7 @@ namespace TMOT
                 for (int i = 0; i < steps; i++)
                 {
                     float a = angle * (i + 1);
+                    a *= h.name.EndsWith("B") ? -1 : 1;
                     seq.Append(h.transform.DOLocalRotate(Vector3.forward * a, time, RotateMode.Fast).SetEase(Ease.OutBack));
                 }
 
