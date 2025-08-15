@@ -24,6 +24,7 @@ namespace TMOT.UI
             {
                 p.alpha = 0;
                 p.blocksRaycasts = false;
+                p.gameObject.SetActive(false);
             }
                 
 
@@ -55,7 +56,7 @@ namespace TMOT.UI
         private void HidePanel(CanvasGroup panel)
         {
             panel.blocksRaycasts = false;
-            panel.DOFade(0, fadeTime).SetEase(Ease.InOutQuad);
+            panel.DOFade(0, fadeTime).SetEase(Ease.InOutQuad).onComplete += ()=> { panel.gameObject.SetActive(false); };
         }
 
         public void ShowPanel(CanvasGroup panel)
@@ -63,6 +64,7 @@ namespace TMOT.UI
             if (current) HidePanel(current);
             current = panel;
             panel.blocksRaycasts = true;
+            panel.gameObject.SetActive(true);
             panel.DOFade(1, fadeTime).SetEase(Ease.InOutQuad);
         }
 

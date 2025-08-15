@@ -32,6 +32,7 @@ namespace TMOT
         public GameModeType GameMode
         {
             get { return gameMode; }
+            set { gameMode = value; }       
         }
 
         int mapId = 0;

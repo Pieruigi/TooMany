@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
@@ -19,6 +21,14 @@ namespace TMOT.UI
         TMP_Text hunterTime;
 
 
+        [SerializeField]
+        TMP_Text preyText;
+
+        [SerializeField]
+        TMP_Text hunterText;
+
+
+
 
         string timeStringFormat = "{0:00}:{1:00}";
 
@@ -34,6 +44,8 @@ namespace TMOT.UI
 
         float goalTarget;
         int currentStep;
+
+        CanvasGroup preyMessageCanvasGroup, hunterMessageCanvasGroup;
 
         string goalFormatString = "{0}/{1}";
 
@@ -58,6 +70,11 @@ namespace TMOT.UI
             goalTarget = ((GameMode.Instance as GameMode1).GetStepMax() + 1) / 2;
 
             UpdateGoal(string.Format(goalFormatString, currentStep, goalTarget));
+
+            preyMessageCanvasGroup = preyText.GetComponent<CanvasGroup>();
+            hunterMessageCanvasGroup = hunterText.GetComponent<CanvasGroup>();
+            preyMessageCanvasGroup.alpha = 0;
+            hunterMessageCanvasGroup.alpha = 0;
         }
 
         // Start is called before the first frame update
@@ -82,6 +99,7 @@ namespace TMOT.UI
             base.OnEnable();
 
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+      
         }
 
         protected override void OnDisable()
@@ -89,7 +107,10 @@ namespace TMOT.UI
             base.OnDisable();
 
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+      
         }
+
+        
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {
@@ -101,11 +122,13 @@ namespace TMOT.UI
                     // preyCanvasGroup.alpha = 1;
                     // hunterCanvasGroup.alpha = 0;
                     HunterToPrey();
+                    ShowPreyMessage().Forget();
                     break;
                 case PlayerState.Hunter:
                     // preyCanvasGroup.alpha = 0;
                     // hunterCanvasGroup.alpha = 1;
                     PreyToHunter();
+                    ShowHunterMessage().Forget();
                     break;
             }
         }
@@ -117,7 +140,8 @@ namespace TMOT.UI
             switch (newState)
             {
                 case GameState.Playing:
-
+                    if(oldState == GameState.Starting)
+                        ShowPreyMessage().Forget();
                     break;
             }
         }
@@ -155,6 +179,22 @@ namespace TMOT.UI
             // Update goal
             currentStep = (GameMode.Instance as GameMode1).GetCurrentStep() / 2;
             UpdateGoal(string.Format(goalFormatString, currentStep, goalTarget));
+        }
+
+        async UniTask ShowPreyMessage()
+        {
+            float duration = .2f;
+            preyMessageCanvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad);
+            await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
+            preyMessageCanvasGroup.DOFade(0, duration).SetEase(Ease.InOutQuad);
+        }
+
+        async UniTask ShowHunterMessage()
+        {
+            float duration = .2f;
+            hunterMessageCanvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad);
+            await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
+            hunterMessageCanvasGroup.DOFade(0, duration).SetEase(Ease.InOutQuad);
         }
 
         void UpdateTimer()
