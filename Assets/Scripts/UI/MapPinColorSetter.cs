@@ -15,7 +15,7 @@ namespace TMOT.UI
 
         void Awake()
         {
-            image = GetComponent<Image>();
+            image = GetComponentInChildren<Image>();
             image.color = colors[0];
         }
 

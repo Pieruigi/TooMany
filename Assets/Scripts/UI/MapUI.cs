@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace TMOT.UI
@@ -34,6 +35,11 @@ namespace TMOT.UI
 
         float sizeRatio;
         float mapRadius;
+
+        float shakeDuration = .5f;
+        float shakeStrength = 10f;
+
+        float mapShakeStrength = 20;
 
 
         void Awake()
@@ -103,6 +109,8 @@ namespace TMOT.UI
         {
             var pin = Instantiate(timeUpPinPrefab, pinRoot);
             pins.Add(pin, timeUp);
+
+            ShakeIn(pin);
         }
 
 
@@ -111,6 +119,9 @@ namespace TMOT.UI
         {
             var pin = Instantiate(monsterPinPrefab, pinRoot);
             pins.Add(pin, monster);
+
+            // Do shake 
+            ShakeIn(pin);
         }
 
         private void HandleOnObjectRemoved(GameObject obj)
@@ -125,17 +136,40 @@ namespace TMOT.UI
                     break;
                 }
             }
-          
+
             if (keyToRemove)
             {
                 pins.Remove(keyToRemove);
-                Destroy(keyToRemove);
+                Destroy(keyToRemove, 1f);
+                // Do shake
+                ShakeOut(keyToRemove);
             }
 
 
         }
 
-   
+        void ShakeIn(GameObject pin)
+        {
+            // Shake pin
+            var t = pin.transform.GetChild(0) as RectTransform;
+            var s = t.localScale;
+            t.DOShakeAnchorPos(shakeDuration, shakeStrength).SetEase(Ease.InOutElastic);
+            t.DOScale(s.x, shakeDuration).SetEase(Ease.InOutElastic);
+
+            // Shake map
+            (transform.GetChild(0) as RectTransform).DOShakePosition(shakeDuration, mapShakeStrength).SetEase(Ease.InOutElastic);
+        }
+
+        void ShakeOut(GameObject pin)
+        {
+            // Shake pin
+            var t = pin.transform.GetChild(0) as RectTransform;
+            t.DOShakeAnchorPos(shakeDuration, shakeStrength).SetEase(Ease.InOutElastic);
+            t.DOScale(0, shakeDuration).SetEase(Ease.InOutElastic);
+
+            // Shake map
+            (transform.GetChild(0) as RectTransform).DOShakePosition(shakeDuration, mapShakeStrength).SetEase(Ease.InOutElastic);
+        }
 
 
         void UpdatePinPositions()

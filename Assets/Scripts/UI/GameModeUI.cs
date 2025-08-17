@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -32,6 +33,8 @@ namespace TMOT.UI
 
         [SerializeField]
         TMP_Text goalField;
+
+        
 
         protected virtual void Awake()
         {
@@ -125,6 +128,8 @@ namespace TMOT.UI
         public void UpdateGoal(string text)
         {
             goalField.text = text;
+
+            goalField.transform.DOShakePosition(.5f, 30f).SetEase(Ease.InOutElastic);
         }
         
     }
