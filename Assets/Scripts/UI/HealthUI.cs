@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 namespace TMOT
@@ -11,6 +12,16 @@ namespace TMOT
     {
         [SerializeField]
         List<GameObject> hearts;
+
+        RectTransform root;
+
+        float shakeDuration = .5f;
+        float shakeStrength = 20;
+
+        void Awake()
+        {
+            root = transform.GetChild(0) as RectTransform;
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -50,6 +61,9 @@ namespace TMOT
 
         private async UniTaskVoid HealPlayer(float previousHealth, float currentHealth)
         {
+            // Shake
+            root.DOShakePosition(shakeDuration, shakeStrength).SetEase(Ease.InOutElastic);
+
             Debug.Log($"Hearts healing, prev:{previousHealth}, curr:{currentHealth}");
             int count = (int)(currentHealth - previousHealth);
             int startIndex = (int)previousHealth - 1;
@@ -59,10 +73,15 @@ namespace TMOT
                 //yield return new WaitForSeconds(.2f);
                 await UniTask.Delay(200);
             }
+
+
         }
 
         private async UniTaskVoid DamagePlayer(float previousHealth, float currentHealth)
         {
+            // Shake
+            root.DOShakePosition(shakeDuration, shakeStrength).SetEase(Ease.InOutElastic);
+
             Debug.Log($"Hearts damaged, prev:{previousHealth}, curr:{currentHealth}");
             int count = (int)(previousHealth - currentHealth);
             int startIndex = (int)previousHealth - 1;
