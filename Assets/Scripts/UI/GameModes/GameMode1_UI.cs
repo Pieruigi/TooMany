@@ -49,6 +49,8 @@ namespace TMOT.UI
 
         string goalFormatString = "{0}/{1}";
 
+        bool preSwitching = false;
+
 
         protected override void Awake()
         {
@@ -148,47 +150,51 @@ namespace TMOT.UI
 
         void PreyToHunter()
         {
+            preSwitching = false;
+
             // Prey
             float duration = .5f;
-            float strength = 30;
+            //float strength = 30;
             var pSeq = DOTween.Sequence();
-            pSeq.Append((preyCanvasGroup.transform as RectTransform).DOAnchorPosX(-deactivatedPositionOffsetX, duration));
-            pSeq.Join((preyCanvasGroup.transform as RectTransform).DOScale(deactivatedSize, duration));
+            pSeq.Append((preyCanvasGroup.transform as RectTransform).DOAnchorPosX(-deactivatedPositionOffsetX, duration).SetEase(Ease.InOutElastic));
+            pSeq.Join((preyCanvasGroup.transform as RectTransform).DOScale(deactivatedSize, duration).SetEase(Ease.InOutElastic));
             
             float alpha = deactivatedAlpha;
             if ((GameMode.Instance as GameMode1).IsLastStep())
                 alpha = 0;
             
             pSeq.Join(preyCanvasGroup.DOFade(deactivatedAlpha, duration).SetEase(Ease.InOutQuad));
-            pSeq.Join((preyCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
+            //pSeq.Join((preyCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
 
             // Hunter
             var hSeq = DOTween.Sequence();
-            hSeq.Append((hunterCanvasGroup.transform as RectTransform).DOAnchorPosX(0, duration));
-            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOScale(1, duration));
+            hSeq.Append((hunterCanvasGroup.transform as RectTransform).DOAnchorPosX(0, duration).SetEase(Ease.InOutElastic));
+            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOScale(1, duration).SetEase(Ease.InOutElastic));
             hSeq.Join(hunterCanvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad));
-            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
+            //hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
             
         }
 
         void HunterToPrey()
         {
+            preSwitching = false;
+
             // Prey
             float duration = .2f;
-            float strength = 30f;
+            //float strength = 30f;
             var hSeq = DOTween.Sequence();
-            hSeq.Append((hunterCanvasGroup.transform as RectTransform).DOAnchorPosX(deactivatedPositionOffsetX, duration));
-            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOScale(deactivatedSize, duration));
+            hSeq.Append((hunterCanvasGroup.transform as RectTransform).DOAnchorPosX(deactivatedPositionOffsetX, duration).SetEase(Ease.InOutElastic));
+            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOScale(deactivatedSize, duration).SetEase(Ease.InOutElastic));
             hSeq.Join(hunterCanvasGroup.DOFade((GameMode.Instance as GameMode1).IsLastStep() ? 0f : deactivatedAlpha, duration).SetEase(Ease.InOutQuad));
-            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
+            //hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
             //hunterTime.text = (GameMode.Instance as GameMode1).GetHunterTimeDefault().ToString();
 
             // Hunter
             var pSeq = DOTween.Sequence();
-            pSeq.Append((preyCanvasGroup.transform as RectTransform).DOAnchorPosX(0, duration));
-            pSeq.Join((preyCanvasGroup.transform as RectTransform).DOScale(1, duration));
+            pSeq.Append((preyCanvasGroup.transform as RectTransform).DOAnchorPosX(0, duration).SetEase(Ease.InOutElastic));
+            pSeq.Join((preyCanvasGroup.transform as RectTransform).DOScale(1, duration).SetEase(Ease.InOutElastic));
             pSeq.Join(preyCanvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad));
-            pSeq.Join((preyCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
+            //pSeq.Join((preyCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
 
             // Update goal
             currentStep = (GameMode.Instance as GameMode1).GetCurrentStep() / 2;
@@ -238,8 +244,19 @@ namespace TMOT.UI
                 hunterTime.text = Mathf.CeilToInt(t).ToString(); //string.Format(timeStringFormat, minutes, seconds);
                 preyTime.text = (GameMode.Instance as GameMode1).GetNextPreyTime().ToString();
             }
-                
 
+            if (t < 3 && !preSwitching && (PlayerController.Instance.State == PlayerState.Prey || PlayerController.Instance.State == PlayerState.Hunter))
+            {
+                preSwitching = true;
+                float count = 12;
+                float size = 2f;
+                if (PlayerController.Instance.State == PlayerState.Prey)
+                    (preyCanvasGroup.transform as RectTransform).DOScale(size, t / count).SetLoops((int)count, LoopType.Yoyo);
+                else if (PlayerController.Instance.State == PlayerState.Hunter)
+                    (hunterCanvasGroup.transform as RectTransform).DOScale(size, t / count).SetLoops((int)count, LoopType.Yoyo);
+                    
+            
+            }
         }
 
         void UpdateGoalTimer()
