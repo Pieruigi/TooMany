@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.CompilerServices;
 using UnityEngine;
 
 namespace TMOT
@@ -9,16 +10,45 @@ namespace TMOT
     public class GameMode2 : GameMode
     {
 
+        public delegate void ProgressUpdatedDelegate(int progress, int goal);
+        public static ProgressUpdatedDelegate OnProgressUpdated;
+
         [SerializeField]
         DiamondSpawner diamondSpawnerPrefab;
 
         [SerializeField]
-        int goalCount = 30;
+        MonsterSpawner monsterSpawnerPrefab;
 
         [SerializeField]
+        TimeUpSpawner timeUpSpawnerPrefab;
+
+        [SerializeField]
+        GameObject medicalSpawnerPrefab;
+
+ 
+
+        //[SerializeField]
+        int goalCount = 30;
+
+
+        //[SerializeField]
         int stepCount = 5;
 
-        DiamondSpawner diamondSpawner;
+        int goalProgress = 0;
+
+
+        int monsterInitialSpawnCount = 12;
+        int monsterRegularSpawnCount = 4;
+
+        int monsterRegularSpawnTime = 20;
+
+        float hunterTimeDefault = 30;
+        float hunterTimeExtra = 0;
+
+        float hunterElapsed = 0;
+
+        bool isHunterMode = false;
+
 
 
         protected override void Awake()
@@ -26,8 +56,30 @@ namespace TMOT
             base.Awake();
 
             // Spawn diamond spawner
-            diamondSpawner = Instantiate(diamondSpawnerPrefab);
+            Instantiate(diamondSpawnerPrefab);
+            Instantiate(monsterSpawnerPrefab);
+            MonsterSpawner.Instance.SpawnAmount = monsterRegularSpawnCount;
+            MonsterSpawner.Instance.SpawnTime = monsterRegularSpawnTime;
+            Instantiate(timeUpSpawnerPrefab);
+            Instantiate(medicalSpawnerPrefab);
+        }
 
+        void Start()
+        {
+            OnProgressUpdated?.Invoke(goalProgress, goalCount);
+        }
+
+        void Update()
+        {
+            if (isHunterMode)
+            {
+                hunterElapsed += Time.deltaTime;
+
+                if (hunterElapsed > hunterTimeDefault + hunterTimeExtra)
+                {
+                    PlayerController.Instance.SetState(PlayerState.Prey);
+                }
+            }
         }
 
         protected override void OnEnable()
@@ -50,6 +102,17 @@ namespace TMOT
             {
                 case PlayerState.Prey:
                     SpawnDiamonds().Forget();
+                    MonsterSpawner.Instance.StartSpawner();
+                    TimeUpSpawner.Instance.StartSpawner().Forget();
+                    hunterTimeExtra = 0;
+                    hunterElapsed = 0;
+                    isHunterMode = false;
+                    break;
+                case PlayerState.Hunter:
+                    MonsterSpawner.Instance.StopSpawner();
+                    TimeUpSpawner.Instance.StopSpawner();
+                    hunterElapsed = 0;
+                    isHunterMode = true;
                     break;
             }
         }
@@ -57,20 +120,84 @@ namespace TMOT
         protected override void StartGameMode()
         {
             PlayerController.Instance.SetState(PlayerState.Prey);
+
+            MonsterSpawner.Instance.SpawnRandomMonsters(monsterInitialSpawnCount);
+            //MonsterSpawner.Instance.StartSpawner();
         }
 
         async UniTaskVoid SpawnDiamonds()
         {
-            int count = goalCount / stepCount;
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < stepCount; i++)
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(.25f));
 
-                diamondSpawner.SpawnDiamond();
+                DiamondSpawner.Instance.SpawnDiamond();
             }
         }
 
+        async UniTaskVoid CheckStepCount()
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+
+            if (goalProgress % stepCount == 0)
+                PlayerController.Instance.SetState(PlayerState.Hunter);
+        }
+
+     
+
+        public bool IsLastStep()
+        {
+            return goalProgress >= goalCount - stepCount;
+        }
+
+        public override void ReportCustomDronePicked(CustomDroneController customDrone)
+        {
+            base.ReportCustomDronePicked(customDrone);
+
+            switch (customDrone.Type)
+            {
+                case CustomDroneType.Diamond:
+                    // Do action
+                    goalProgress++;
+                    // Unspawn diamond
+                    DiamondSpawner.Instance.UnspawnDiamond(customDrone.gameObject);
+
+                    CheckStepCount().Forget();
+
+                    OnProgressUpdated?.Invoke(goalProgress, goalCount);
+
+                    break;
+
+                case CustomDroneType.TimeUp:
+                    hunterTimeExtra += 5f;
+                    TimeUpSpawner.Instance.ReportTimeUpPicked();
+                    break;
+                case CustomDroneType.Medical:
+                    PlayerController.Instance.Heal();
+                    MedicalSpawner.Instance.ReportMedicalPicked();
+                    break;
+            }
+        }
+
+
+
+
+        public float GetNextHunterTime()
+        {
+            if (IsLastStep()) return 0;
+            return hunterTimeDefault + hunterTimeExtra;
+        }
+
+        public float GetHunterTimeRemaining()
+        {
+            float ret = GetNextHunterTime() - hunterElapsed;
+            if (ret < 0) ret = 0;
+            return ret;
+
+
+        }
+        
 
     }
 }

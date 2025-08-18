@@ -29,12 +29,12 @@ namespace TMOT.UI
         [SerializeField]
         Button restartButton, quitButton;
 
-        
+
 
         [SerializeField]
         TMP_Text goalField;
 
-        
+
 
         protected virtual void Awake()
         {
@@ -96,7 +96,7 @@ namespace TMOT.UI
 
             loserPanel.gameObject.SetActive(true);
             buttonPanel.SetActive(true);
-            
+
         }
 
         async UniTaskVoid ShowWinnerPanel()
@@ -112,12 +112,25 @@ namespace TMOT.UI
             buttonPanel.SetActive(true);
         }
 
+        protected async UniTaskVoid ShowPlayerStateChangedMessage(CanvasGroup canvasGroup)
+        {
+            float duration = .2f;
+            float shakeDuration = .5f;
+            float strength = 20;
+            canvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad);
+            canvasGroup.transform.DOShakePosition(shakeDuration, strength).SetEase(Ease.InOutElastic);
+
+            await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
+            canvasGroup.DOFade(0, duration).SetEase(Ease.InOutQuad);
+            canvasGroup.transform.DOShakePosition(shakeDuration, strength).SetEase(Ease.InOutElastic);
+        
+        }
 
         public void RestartGame()
         {
             Time.timeScale = 1;
             GameManager.Instance.PlayGame();
-            
+
         }
 
         public void QuitGame()
@@ -131,6 +144,8 @@ namespace TMOT.UI
 
             goalField.transform.DOShakePosition(.5f, 30f).SetEase(Ease.InOutElastic);
         }
+
+        
         
     }
 }

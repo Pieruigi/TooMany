@@ -18,7 +18,10 @@ namespace TMOT
         [SerializeField]
         GameObject monsterSpawnerPrefab;
 
-        float playerChasedTime = 7;//50;
+        [SerializeField]
+        GameObject medicalSpawnerPrefab;
+
+        float playerChasedTime = 50;
 
         float playerChasingTime = 15;
 
@@ -48,7 +51,7 @@ namespace TMOT
             // Instantiate the time up spawner
             Instantiate(timeUpSpawnerPrefab, Vector3.zero, Quaternion.identity);
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
-
+            Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
 
 
         }
@@ -58,8 +61,7 @@ namespace TMOT
         {
 
 
-            MonsterSpawner.Instance.SpawnRandomMonsters(initialSpawnAmount);
-            MonsterSpawner.Instance.SpawnAmount = normalSpawnAmount;
+            
         }
 
         // Update is called once per frame
@@ -111,8 +113,12 @@ namespace TMOT
 
         protected override void StartGameMode()
         {
+            MonsterSpawner.Instance.SpawnRandomMonsters(initialSpawnAmount);
+            MonsterSpawner.Instance.SpawnAmount = normalSpawnAmount;
             Init();
         }
+
+
 
         bool GoalReached()
         {
@@ -221,6 +227,23 @@ namespace TMOT
         {
             return goalTarget;
         }
+        public override void ReportCustomDronePicked(CustomDroneController customDrone)
+        {
+            base.ReportCustomDronePicked(customDrone);
+
+            switch (customDrone.Type)
+            {
+                case CustomDroneType.TimeUp:
+                    IncreasePlayerChaseTime(5f);
+                    TimeUpSpawner.Instance.ReportTimeUpPicked();
+                    break;
+                case CustomDroneType.Medical:
+                    PlayerController.Instance.Heal();
+                    MedicalSpawner.Instance.ReportMedicalPicked();
+                    break;    
+            }
+        }
+
 
     }
 }

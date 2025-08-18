@@ -9,7 +9,7 @@ using UnityEngine.AI;
 
 namespace TMOT
 {
-    enum CustomDroneType {Medical, TimeUp, Diamond}
+    public enum CustomDroneType {Medical, TimeUp, Diamond}
 
     public class CustomDroneController : MonoBehaviour
     {
@@ -19,6 +19,10 @@ namespace TMOT
 
         [SerializeField]
         CustomDroneType type;
+        public CustomDroneType Type
+        {
+            get{ return type; }
+        }
 
         NavMeshAgent agent;
 
@@ -77,7 +81,7 @@ namespace TMOT
 
             picked = true;
 
-            DoAction();
+            //DoAction();
 
             Explode();
 
@@ -90,28 +94,33 @@ namespace TMOT
 
 
 
-        void DoAction()
-        {
-            switch (type)
-            {
-                case CustomDroneType.Medical:
-                    PlayerController.Instance.Heal();
-                    break;
-                case CustomDroneType.TimeUp:
-                    (GameMode1.Instance as GameMode1).IncreasePlayerChaseTime(5f);
-                    break;
-            }
-        }
+        // void DoAction()
+        // {
+        //     switch (type)
+        //     {
+        //         // case CustomDroneType.Medical:
+        //         //     PlayerController.Instance.Heal();
+        //         //     break;
+        //         // case CustomDroneType.TimeUp:
+        //         //     (GameMode1.Instance as GameMode1).IncreasePlayerChaseTime(5f);
+        //         //     break;
+        //     }
+        // }
 
         void ReportPickedUp()
         {
             switch (type)
             {
                 case CustomDroneType.Medical:
-                    MedicalSpawner.Instance.ReportMedicalPicked();
+                    //MedicalSpawner.Instance.ReportMedicalPicked();
+                    GameMode.Instance.ReportCustomDronePicked(this);
                     break;
                 case CustomDroneType.TimeUp:
-                    TimeUpSpawner.Instance.ReportTimeUpPicked();
+                    //TimeUpSpawner.Instance.ReportTimeUpPicked();
+                    GameMode.Instance.ReportCustomDronePicked(this);
+                    break;
+                case CustomDroneType.Diamond:
+                    GameMode.Instance.ReportCustomDronePicked(this);
                     break;
             }
 

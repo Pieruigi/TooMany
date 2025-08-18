@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1275647266828163555
+--- !u!1 &2071583053414274110
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6599394429878397801}
-  - component: {fileID: 7242110116083440437}
+  - component: {fileID: 2467281594848970244}
+  - component: {fileID: 3199116716766114274}
   m_Layer: 0
-  m_Name: GameMode2
+  m_Name: MedicalSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6599394429878397801
+--- !u!4 &2467281594848970244
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1275647266828163555}
+  m_GameObject: {fileID: 2071583053414274110}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,26 +32,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7242110116083440437
+--- !u!114 &3199116716766114274
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1275647266828163555}
+  m_GameObject: {fileID: 2071583053414274110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46fa01d5ea5e85349a2eee4883e6024e, type: 3}
+  m_Script: {fileID: 11500000, guid: 73df6212bd3436040a608beb40d53e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameUIPrefab: {fileID: 2016669351162070035, guid: dbc09e2e0f65ba649a4072c434ec1668,
-    type: 3}
-  startInHuntingMode: 0
-  diamondSpawnerPrefab: {fileID: 5698710700000270123, guid: 19d7c3ead91640042870464d50d89560,
-    type: 3}
-  monsterSpawnerPrefab: {fileID: 7100952852565690991, guid: d2b8bce1dc145a04a9b35c1bf3fe7396,
-    type: 3}
-  timeUpSpawnerPrefab: {fileID: 2695430915123302042, guid: 9bf9129f9d87ca8428ed0c00e5d0bb1f,
-    type: 3}
-  medicalSpawnerPrefab: {fileID: 2071583053414274110, guid: d181e85a5d9d19b489447dec01b29dc0,
-    type: 3}
+  prefab: {fileID: 5538431907733219182, guid: b8aeccb1ec1955f4a8bf5d0c9780b122, type: 3}

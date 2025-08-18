@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace TMOT
 {
-    public class DiamondSpawner : MonoBehaviour
+    public class DiamondSpawner : Singleton<DiamondSpawner>
     {
-    public delegate void DiamondSpawnedDelegate(GameObject diamond);
+        public delegate void DiamondSpawnedDelegate(GameObject diamond);
         public static DiamondSpawnedDelegate OnDiamondSpanwed;
 
         public delegate void DiamondUnspawnedDelegate(GameObject diamond);
@@ -20,7 +20,8 @@ namespace TMOT
 
         List<GameObject> diamonds = new List<GameObject>();
 
-        float minDistance = 8;
+        float diamondToPlayerMinDistance = 8;
+        float diamondToDiamondMinDistance = 16;
 
         // Start is called before the first frame update
         void Start()
@@ -37,13 +38,13 @@ namespace TMOT
         public void SpawnDiamond()
         {
             // Get a spawn point 
-            var candidates = LevelController.Instance.Waypoints.Where(w => Vector3.Distance(PlayerController.Instance.transform.position, w.position) < minDistance).ToList();
+            var candidates = LevelController.Instance.Waypoints.Where(w => Vector3.Distance(PlayerController.Instance.transform.position, w.position) > diamondToPlayerMinDistance).ToList();
 
             // Not too close to any existing diamond
             List<Transform> toRemoveList = new List<Transform>();
             foreach (var diamond in diamonds)
             {
-                toRemoveList.AddRange(candidates.Where(w => Vector3.Distance(w.position, diamond.transform.position) < minDistance));
+                toRemoveList.AddRange(candidates.Where(w => Vector3.Distance(w.position, diamond.transform.position) < diamondToDiamondMinDistance));
             }
 
             foreach (var r in toRemoveList)
@@ -67,7 +68,15 @@ namespace TMOT
             }
 
             diamonds.Clear();
-              
+
         }
+
+        public void UnspawnDiamond(GameObject diamond)
+        {
+            diamonds.Remove(diamond);
+            Destroy(diamond, 1f);
+            OnDiamondUnspanwed?.Invoke(diamond);
+        }
+        
     }
 }

@@ -18,6 +18,9 @@ namespace TMOT.UI
         [SerializeField]
         GameObject timeUpPinPrefab;
 
+        [SerializeField]
+        GameObject diamondPinPrefab;
+
           
 
         [SerializeField]
@@ -85,6 +88,8 @@ namespace TMOT.UI
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
             MedicalSpawner.OnMedicalDroneSpawned += HandleOnTimeUpSpawned;
             MedicalSpawner.OnMedicalDroneUnspawned += HandleOnObjectRemoved;
+            DiamondSpawner.OnDiamondSpanwed += HandleOnDiamondSpawned;
+            DiamondSpawner.OnDiamondUnspanwed += HandleOnObjectRemoved;
         }
 
         void OnDisable()
@@ -96,13 +101,25 @@ namespace TMOT.UI
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
             MedicalSpawner.OnMedicalDroneSpawned -= HandleOnTimeUpSpawned;
             MedicalSpawner.OnMedicalDroneUnspawned -= HandleOnObjectRemoved;
+            DiamondSpawner.OnDiamondSpanwed -= HandleOnDiamondSpawned;
+            DiamondSpawner.OnDiamondUnspanwed -= HandleOnObjectRemoved;
         }
+
+        
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {
          
             UpdateMonsterPinColors();
             
+        }
+
+        private void HandleOnDiamondSpawned(GameObject diamond)
+        {
+            var pin = Instantiate(diamondPinPrefab, pinRoot);
+            pins.Add(pin, diamond);
+
+            ShakeIn(pin);
         }
 
         private void HandleOnTimeUpSpawned(GameObject timeUp)

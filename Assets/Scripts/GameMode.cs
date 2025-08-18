@@ -53,13 +53,16 @@ namespace TMOT
                     StartGameMode();
                     break;
 
-              
+
 
 
             }
         }
 
-    
+        public virtual void ReportCustomDronePicked(CustomDroneController customDrone)
+        {
+            
+        }
 
     }
 }
