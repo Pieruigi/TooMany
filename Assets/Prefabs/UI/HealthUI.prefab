@@ -84,7 +84,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876463115435719671}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a723652bf0c7f2b428b84151dfda484b, type: 2}
   m_CullingMode: 0
@@ -245,7 +245,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2555427549956739646}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a723652bf0c7f2b428b84151dfda484b, type: 2}
   m_CullingMode: 0
@@ -342,7 +342,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3129953095912212907}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a723652bf0c7f2b428b84151dfda484b, type: 2}
   m_CullingMode: 0
@@ -488,6 +488,8 @@ MonoBehaviour:
   - {fileID: 876463115435719671}
   - {fileID: 2555427549956739646}
   - {fileID: 3129953095912212907}
+  fullHeartSprite: {fileID: -509759549, guid: 1e1868fd165c7f74f9c49c860540205a, type: 3}
+  emptyHeartSprite: {fileID: -170308268, guid: 1e1868fd165c7f74f9c49c860540205a, type: 3}
 --- !u!1 &7970484046250385214
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,7 +574,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7970484046250385214}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a723652bf0c7f2b428b84151dfda484b, type: 2}
   m_CullingMode: 0

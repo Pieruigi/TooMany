@@ -108,6 +108,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5010283623839471916, guid: 336295e3eec286a4b97be08c5a03d3e0,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6146772580392061020, guid: 336295e3eec286a4b97be08c5a03d3e0,
         type: 3}
       propertyPath: m_Name
@@ -121,6 +126,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8303873645356641016}
+    - targetCorrespondingSourceObject: {fileID: 6146772580392061020, guid: 336295e3eec286a4b97be08c5a03d3e0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4212881927681986556}
   m_SourcePrefab: {fileID: 100100000, guid: 336295e3eec286a4b97be08c5a03d3e0, type: 3}
 --- !u!114 &291044606107788355 stripped
 MonoBehaviour:
@@ -170,6 +179,18 @@ MonoBehaviour:
   restartButton: {fileID: 291044606107788355}
   quitButton: {fileID: 4449241073719392097}
   goalField: {fileID: 1195031246547203790}
+--- !u!225 &-4212881927681986556
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016669351162070035}
+  m_Enabled: 1
+  m_Alpha: 0.4
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2948102063758309932 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7374886532960188003, guid: 336295e3eec286a4b97be08c5a03d3e0,

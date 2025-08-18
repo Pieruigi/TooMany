@@ -733,6 +733,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: TMOT.UI.GameModeUI, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 5010283623839471916, guid: 336295e3eec286a4b97be08c5a03d3e0,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5198967691540312213, guid: 336295e3eec286a4b97be08c5a03d3e0,
         type: 3}
       propertyPath: preyTime
@@ -807,6 +812,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7965532524581914372}
+    - targetCorrespondingSourceObject: {fileID: 6146772580392061020, guid: 336295e3eec286a4b97be08c5a03d3e0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7112040014149470400}
   m_SourcePrefab: {fileID: 100100000, guid: 336295e3eec286a4b97be08c5a03d3e0, type: 3}
 --- !u!1 &5005862148936725614 stripped
 GameObject:
@@ -884,6 +893,18 @@ MonoBehaviour:
   hunterTime: {fileID: 5968866464058184558}
   preyText: {fileID: 106714369745239335}
   hunterText: {fileID: 1490380052351521696}
+--- !u!225 &7112040014149470400
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031512962577619249}
+  m_Enabled: 1
+  m_Alpha: 0.4
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &8106747530627627361 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5384300236234991628, guid: 336295e3eec286a4b97be08c5a03d3e0,

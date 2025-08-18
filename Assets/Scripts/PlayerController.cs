@@ -157,8 +157,9 @@ namespace TMOT
             }
 
             if (Input.GetKeyDown(KeyCode.H))
-                ApplyDamage(4);
-                //Heal();
+                ApplyDamage(1);
+            if (Input.GetKeyDown(KeyCode.J))
+                Heal();
 #endif
 
 

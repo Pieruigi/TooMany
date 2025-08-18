@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TMOT
 {
@@ -12,6 +13,10 @@ namespace TMOT
     {
         [SerializeField]
         List<GameObject> hearts;
+
+        [SerializeField]
+        Sprite fullHeartSprite, emptyHeartSprite;
+
 
         RectTransform root;
 
@@ -67,14 +72,26 @@ namespace TMOT
             Debug.Log($"Hearts healing, prev:{previousHealth}, curr:{currentHealth}");
             int count = (int)(currentHealth - previousHealth);
             int startIndex = (int)previousHealth - 1;
+            float duration = .2f;
+            float strength = 5f;
             for (int i = 0; i < count; i++)
             {
-                hearts[startIndex + i + 1].GetComponent<Animator>().SetTrigger("Heal");
+                //hearts[startIndex + i + 1].GetComponent<Animator>().SetTrigger("Heal");
+
+                hearts[startIndex + i + 1].transform.DOShakeScale(duration, strength);
+                SetHearthSprite(hearts[startIndex + i + 1], fullHeartSprite, duration * 2f / 3f).Forget();
+
                 //yield return new WaitForSeconds(.2f);
-                await UniTask.Delay(200);
+                await UniTask.Delay(TimeSpan.FromSeconds(duration));
             }
 
 
+        }
+
+        async UniTaskVoid SetHearthSprite(GameObject heart, Sprite sprite, float delay)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(delay));
+            heart.GetComponent<Image>().sprite = sprite;
         }
 
         private async UniTaskVoid DamagePlayer(float previousHealth, float currentHealth)
@@ -85,11 +102,15 @@ namespace TMOT
             Debug.Log($"Hearts damaged, prev:{previousHealth}, curr:{currentHealth}");
             int count = (int)(previousHealth - currentHealth);
             int startIndex = (int)previousHealth - 1;
+            float duration = .2f;
+            float strength = 5f;
             for (int i = 0; i < count; i++)
             {
-                hearts[startIndex - i].GetComponent<Animator>().SetTrigger("Damage");
+                //hearts[startIndex - i].GetComponent<Animator>().SetTrigger("Damage");
+                hearts[startIndex - i].transform.DOShakeScale(duration, strength);
+                SetHearthSprite(hearts[startIndex - i], emptyHeartSprite, duration * 2f / 3f).Forget();
                 //yield return new WaitForSeconds(.2f);
-                await UniTask.Delay(200);
+                await UniTask.Delay(TimeSpan.FromSeconds(duration));
             }
         }
 
