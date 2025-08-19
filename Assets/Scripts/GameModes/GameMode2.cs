@@ -25,14 +25,14 @@ namespace TMOT
         [SerializeField]
         GameObject medicalSpawnerPrefab;
 
- 
-
-        //[SerializeField]
-        int goalCount = 30;
 
 
         //[SerializeField]
-        int stepCount = 5;
+        int goalCount = 20;
+
+
+        //[SerializeField]
+        int stepCount = 4;
 
         int goalProgress = 0;
 
@@ -42,7 +42,7 @@ namespace TMOT
 
         int monsterRegularSpawnTime = 20;
 
-        float hunterTimeDefault = 30;
+        float hunterTimeDefault = 20;
         float hunterTimeExtra = 0;
 
         float hunterElapsed = 0;
@@ -191,7 +191,7 @@ namespace TMOT
 
         public float GetHunterTimeRemaining()
         {
-            float ret = GetNextHunterTime() - hunterElapsed;
+            float ret = hunterTimeDefault + hunterTimeExtra - hunterElapsed;
             if (ret < 0) ret = 0;
             return ret;
 

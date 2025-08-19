@@ -56,9 +56,13 @@ namespace TMOT
             PlayerPrefs.Save();
         }
 
+       
+
         public bool IsNewGameModeUnlocked()
         {
-            return PlayerPrefs.GetInt(NewGameModeUnlockedParam) > 0;
+            return PlayerPrefs.GetInt(NewGameModeUnlockedParam, 0) > 0;
         }
+
+       
     }
 }

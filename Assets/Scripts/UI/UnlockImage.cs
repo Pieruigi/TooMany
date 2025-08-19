@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,29 +11,55 @@ namespace TMOT.UI
 {
     public class UnlockImage : MonoBehaviour
     {
+        [SerializeField]
+        bool isInternalMenu;
+
         CanvasGroup canvasGroup;
 
-        Button button;
-
         Tweener shakeTween;
+
+
+        Toggle toggle;
+
 
         void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
-            button = GetComponentInParent<Button>();
-            button.onClick.AddListener(() => { SaveManager.Instance.ResetNewGameModeUnlocked(); canvasGroup.DOFade(0f, .2f).SetEase(Ease.InOutQuad).onComplete += ()=> { shakeTween?.Kill(); }; });
+            if (!isInternalMenu)
+            {
+                var button = GetComponentInParent<Button>();
+                button?.onClick.AddListener(() => { canvasGroup.DOFade(0f, .2f).SetEase(Ease.InOutQuad).onComplete += () => { shakeTween?.Kill(); }; });
+            }
+            else
+            {
+                // Check toggle
+                toggle = GetComponentInParent<Toggle>();
+
+                
+                toggle?.onValueChanged.AddListener((v) =>
+                {
+                    if (!v) return;
+                    var index = toggle.group.ActiveToggles().ToList().IndexOf(toggle);
+
+                    
+                });
+            }
+            
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            var hidden = !SaveManager.Instance.IsNewGameModeUnlocked();
+            var hidden = !SaveManager.Instance.IsNewGameModeUnlocked() || (isInternalMenu && !ShowMarkOnToggle());
 
             if (hidden)
                 canvasGroup.alpha = 0;
             else
                 StartTween();
+                
         }
+
+
 
         // Update is called once per frame
         void Update()
@@ -39,7 +67,18 @@ namespace TMOT.UI
 
         }
 
+        bool ShowMarkOnToggle()
+        {
+            if (!SaveManager.Instance.IsNewGameModeUnlocked()) return false;
+            
+            var index = toggle.group.transform.GetComponentsInChildren<Toggle>().ToList().IndexOf(toggle);
+            Debug.Log($"ToggleIndex:{index}");
 
+            if (index != SaveManager.Instance.GameProgress)
+                return false;
+
+            return true;
+        }
 
         void StartTween()
         {
