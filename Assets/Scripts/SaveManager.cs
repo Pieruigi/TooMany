@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.LookDev;
 
 namespace TMOT
 {
     public class SaveManager : SingletonPersistent<SaveManager>
     {
         public const string ProgressParam = "Progress";
-
+        public const string NewGameModeUnlockedParam = "GameModeUnlocked";
         public const int ProgressMax = 4;
 
         [SerializeField]
@@ -15,10 +16,10 @@ namespace TMOT
 
         public int GameProgress
         {
-            get{ return progress; }
+            get { return progress; }
         }
 
-        
+
 
         protected override void Awake()
         {
@@ -45,7 +46,19 @@ namespace TMOT
 
             progress++;
             PlayerPrefs.SetInt(ProgressParam, progress);
+            PlayerPrefs.SetInt(NewGameModeUnlockedParam, 1);
             PlayerPrefs.Save();
+        }
+
+        public void ResetNewGameModeUnlocked()
+        {
+            PlayerPrefs.SetInt(NewGameModeUnlockedParam, 0);
+            PlayerPrefs.Save();
+        }
+
+        public bool IsNewGameModeUnlocked()
+        {
+            return PlayerPrefs.GetInt(NewGameModeUnlockedParam) > 0;
         }
     }
 }

@@ -94,6 +94,11 @@ namespace TMOT.UI
 
             UpdateTimer();
 
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.I))
+                HandleOnHunterTimeIncreased(5f);
+#endif
+
         }
 
         protected override void OnEnable()
@@ -101,6 +106,7 @@ namespace TMOT.UI
             base.OnEnable();
 
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            GameMode1.OnHunterTimeIncreased += HandleOnHunterTimeIncreased;
       
         }
 
@@ -109,10 +115,15 @@ namespace TMOT.UI
             base.OnDisable();
 
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
-      
+            GameMode1.OnHunterTimeIncreased -= HandleOnHunterTimeIncreased;
         }
 
-        
+        private void HandleOnHunterTimeIncreased(float amount)
+        {
+            float duration = .2f;
+            float strength = 30;
+            (hunterCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength, vibrato:30, snapping: true);
+        }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {
@@ -208,11 +219,11 @@ namespace TMOT.UI
             float shakeDuration = .5f;
             float strength = 20;
             preyMessageCanvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad);
-            preyMessageCanvasGroup.transform.DOShakePosition(shakeDuration, strength).SetEase(Ease.InOutElastic);
+            preyMessageCanvasGroup.transform.DOShakePosition(shakeDuration, strength, vibrato:30, snapping:true);
 
             await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
             preyMessageCanvasGroup.DOFade(0, duration).SetEase(Ease.InOutQuad);
-            preyMessageCanvasGroup.transform.DOShakePosition(shakeDuration, strength).SetEase(Ease.InOutElastic);
+            preyMessageCanvasGroup.transform.DOShakePosition(shakeDuration, strength, vibrato:30, snapping:true);
         }
 
         async UniTask ShowHunterMessage()
@@ -221,10 +232,10 @@ namespace TMOT.UI
             float shakeDuration = .5f;
             float strength = 20;
             hunterMessageCanvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad);
-            hunterMessageCanvasGroup.transform.DOShakePosition(shakeDuration, strength).SetEase(Ease.InOutElastic);
+            hunterMessageCanvasGroup.transform.DOShakePosition(shakeDuration, strength, vibrato:30, snapping:true);
             await UniTask.Delay(TimeSpan.FromSeconds(1.5f));
             hunterMessageCanvasGroup.DOFade(0, duration).SetEase(Ease.InOutQuad);
-            hunterMessageCanvasGroup.transform.DOShakePosition(shakeDuration, strength).SetEase(Ease.InOutElastic);
+            hunterMessageCanvasGroup.transform.DOShakePosition(shakeDuration, strength, vibrato:30, snapping:true);
         }
 
         void UpdateTimer()

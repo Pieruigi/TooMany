@@ -10,7 +10,8 @@ namespace TMOT
 {
     public class GameMode1 : GameMode
     {
-
+        public delegate void HunterTimeIncreasedDelegate(float amount);
+        public static HunterTimeIncreasedDelegate OnHunterTimeIncreased;
 
         [SerializeField]
         GameObject timeUpSpawnerPrefab;
@@ -200,6 +201,8 @@ namespace TMOT
         {
             if (playerChasing) return;
             extraChasingTime += amount;
+
+            OnHunterTimeIncreased?.Invoke(amount);
         }
 
         public float GetTimeRemaining()

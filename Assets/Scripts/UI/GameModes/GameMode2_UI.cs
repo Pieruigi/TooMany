@@ -101,7 +101,7 @@ namespace TMOT.UI
             var hSeq = DOTween.Sequence();
             hSeq.Append((hunterCanvasGroup.transform as RectTransform).DOScale(1, duration).SetEase(Ease.InOutElastic));
             hSeq.Join(hunterCanvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad));
-            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
+            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength, vibrato:30, snapping:true));
 
         }
 
@@ -114,7 +114,7 @@ namespace TMOT.UI
             var hSeq = DOTween.Sequence();
             hSeq.Append((hunterCanvasGroup.transform as RectTransform).DOScale(deactivatedSize, duration).SetEase(Ease.InOutElastic));
             hSeq.Join(hunterCanvasGroup.DOFade((GameMode.Instance as GameMode2).IsLastStep() ? 0f : deactivatedAlpha, duration).SetEase(Ease.InOutQuad));
-            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
+            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength, vibrato:30, snapping:true));
 
         }
         
