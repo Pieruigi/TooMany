@@ -37,10 +37,12 @@ namespace TMOT.UI
 
         }
 
-        public void Show()
+        public void Show(string message = "Under development")
         {
             Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAA");
             if (busy) return;
+
+            textField.text = message;
 
             busy = true;
             Sequence seq = DOTween.Sequence();

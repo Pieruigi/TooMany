@@ -19,31 +19,33 @@ namespace TMOT.UI
         Tweener shakeTween;
 
 
-        Toggle toggle;
+        //Toggle toggle;
 
 
         void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
-            if (!isInternalMenu)
-            {
-                var button = GetComponentInParent<Button>();
-                button?.onClick.AddListener(() => { canvasGroup.DOFade(0f, .2f).SetEase(Ease.InOutQuad).onComplete += () => { shakeTween?.Kill(); }; });
-            }
-            else
-            {
-                // Check toggle
-                toggle = GetComponentInParent<Toggle>();
-
+            // if (!isInternalMenu)
+            // {
+            //     var button = GetComponentInParent<Button>();
+            //     button?.onClick.AddListener(() => { canvasGroup.DOFade(0f, .2f).SetEase(Ease.InOutQuad).onComplete += () => { shakeTween?.Kill(); }; });
+            // }
+            // else
+            // {
+            //     // Check toggle
+            //     toggle = GetComponentInParent<Toggle>();
                 
-                toggle?.onValueChanged.AddListener((v) =>
-                {
-                    if (!v) return;
-                    var index = toggle.group.ActiveToggles().ToList().IndexOf(toggle);
+            //     toggle?.onValueChanged.AddListener((v) =>
+            //     {
+            //         if (!v) return;
+            //         var index = toggle.group.transform.GetComponentsInChildren<Toggle>().ToList().IndexOf(toggle);
 
-                    
-                });
-            }
+            //         if (index == SaveManager.Instance.GameProgress)
+            //         {
+            //             canvasGroup.DOFade(0f, .2f).SetEase(Ease.InOutQuad).onComplete += () => { shakeTween?.Kill(); };
+            //         }  
+            //     });
+            // }
             
         }
 
@@ -55,7 +57,11 @@ namespace TMOT.UI
             if (hidden)
                 canvasGroup.alpha = 0;
             else
+            {
+                InitInput();
                 StartTween();
+            }
+                
                 
         }
 
@@ -67,10 +73,61 @@ namespace TMOT.UI
 
         }
 
+        void OnEnable()
+        {
+            if (!SaveManager.Instance) return;
+
+            if (!isInternalMenu)
+            {
+                if (!SaveManager.Instance.IsNewGameModeUnlocked())
+                {
+                    shakeTween?.Kill();
+                    canvasGroup.alpha = 0;
+                }
+                
+            }
+        }
+
+        void OnDisable()
+        {
+            
+        }
+
+        void InitInput()
+        {
+            if (!isInternalMenu)
+            {
+                // Menu button
+                var button = GetComponentInParent<Button>();
+                //button?.onClick.AddListener(() => { canvasGroup.DOFade(0f, .2f).SetEase(Ease.InOutQuad).onComplete += () => { shakeTween?.Kill(); }; });
+            }
+            else
+            {
+                // Toggles
+                var toggle = GetComponentInParent<Toggle>();
+                // Get current toggle index
+                var index = toggle.group.transform.GetComponentsInChildren<Toggle>().ToList().IndexOf(toggle);
+
+
+                if (index == SaveManager.Instance.GameProgress)
+                {
+                    Debug.Log("Setting listener on toggle");
+                    toggle?.onValueChanged.AddListener((v) =>
+                    {
+                        if (!v) return;
+
+                        canvasGroup.DOFade(0f, .2f).SetEase(Ease.InOutQuad).onComplete += () => { shakeTween?.Kill(); SaveManager.Instance.ResetNewGameModeUnlocked(); };
+                    });
+                }
+                
+            }
+        }
+
         bool ShowMarkOnToggle()
         {
             if (!SaveManager.Instance.IsNewGameModeUnlocked()) return false;
-            
+
+            var toggle = GetComponentInParent<Toggle>();
             var index = toggle.group.transform.GetComponentsInChildren<Toggle>().ToList().IndexOf(toggle);
             Debug.Log($"ToggleIndex:{index}");
 

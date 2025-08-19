@@ -80,6 +80,15 @@ namespace TMOT
                     PlayerController.Instance.SetState(PlayerState.Prey);
                 }
             }
+            else
+            {
+                if (goalCount == goalProgress)
+                {
+                    MonsterSpawner.Instance.StopSpawner();
+                    GameManager.Instance.ReportPlayerIsWinner();
+                }
+                    
+            }
         }
 
         protected override void OnEnable()
@@ -102,8 +111,8 @@ namespace TMOT
             {
                 case PlayerState.Prey:
                     SpawnDiamonds().Forget();
-                    MonsterSpawner.Instance.StartSpawner();
-                    TimeUpSpawner.Instance.StartSpawner().Forget();
+                    MonsterSpawner.Instance.StartSpawner();   
+                    if(!IsLastStep()) TimeUpSpawner.Instance.StartSpawner().Forget();
                     hunterTimeExtra = 0;
                     hunterElapsed = 0;
                     isHunterMode = false;
@@ -140,7 +149,7 @@ namespace TMOT
         {
             await UniTask.Delay(TimeSpan.FromSeconds(1f));
 
-            if (goalProgress % stepCount == 0)
+            if (goalProgress < goalCount && goalProgress % stepCount == 0)
                 PlayerController.Instance.SetState(PlayerState.Hunter);
         }
 

@@ -17,7 +17,8 @@ namespace TMOT.UI
         // Start is called before the first frame update
         void Start()
         {
-
+            for(int i=0; i<modes.Count; i++)
+                modes[i].interactable = i == 0 || i <= SaveManager.Instance.GameProgress;
         }
 
         // Update is called once per frame
@@ -30,6 +31,8 @@ namespace TMOT.UI
         {
             // Reset toggle all
             ResetAllToggles();
+
+            
 
             // Set current mode
             var mode = (int)GameManager.Instance.GameMode;
@@ -60,14 +63,7 @@ namespace TMOT.UI
             if (!value) return;
             int index = modes.IndexOf(toggle);
             GameManager.Instance.GameMode = (GameModeType)index;
-            // for (int i = 0; i < modes.Count; i++)
-            // {
-            //     if (modes[i].isOn)
-            //     {
-            //         GameManager.Instance.GameMode = (GameModeType)i;
-            //         return;
-            //     }
-            // }   
+     
             
         }
 
