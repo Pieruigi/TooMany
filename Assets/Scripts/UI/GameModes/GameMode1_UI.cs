@@ -153,8 +153,14 @@ namespace TMOT.UI
             switch (newState)
             {
                 case GameState.Playing:
-                    if(oldState == GameState.Starting)
+                    if (oldState == GameState.Starting)
                         ShowPreyMessage().Forget();
+                    break;
+                case GameState.Winner:
+                    UpdateGoal(string.Format(goalFormatString, goalTarget, goalTarget));
+                    float duration = .5f;
+                    (preyCanvasGroup.transform as RectTransform).DOScale(deactivatedSize, duration).SetEase(Ease.InOutElastic);
+                    preyCanvasGroup.DOFade(deactivatedAlpha, duration).SetEase(Ease.InOutQuad);
                     break;
             }
         }
@@ -169,11 +175,11 @@ namespace TMOT.UI
             var pSeq = DOTween.Sequence();
             pSeq.Append((preyCanvasGroup.transform as RectTransform).DOAnchorPosX(-deactivatedPositionOffsetX, duration).SetEase(Ease.InOutElastic));
             pSeq.Join((preyCanvasGroup.transform as RectTransform).DOScale(deactivatedSize, duration).SetEase(Ease.InOutElastic));
-            
+
             float alpha = deactivatedAlpha;
             if ((GameMode.Instance as GameMode1).IsLastStep())
                 alpha = 0;
-            
+
             pSeq.Join(preyCanvasGroup.DOFade(deactivatedAlpha, duration).SetEase(Ease.InOutQuad));
             //pSeq.Join((preyCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
 
@@ -184,6 +190,9 @@ namespace TMOT.UI
             hSeq.Join(hunterCanvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad));
             //hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
             
+            // Update goal
+            currentStep = (GameMode.Instance as GameMode1).GetCurrentStep() / 2;
+            UpdateGoal(string.Format(goalFormatString, currentStep+1, goalTarget));
         }
 
         void HunterToPrey()
@@ -207,9 +216,9 @@ namespace TMOT.UI
             pSeq.Join(preyCanvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad));
             //pSeq.Join((preyCanvasGroup.transform as RectTransform).DOShakePosition(duration, strength).SetEase(Ease.InOutElastic));
 
-            // Update goal
-            currentStep = (GameMode.Instance as GameMode1).GetCurrentStep() / 2;
-            UpdateGoal(string.Format(goalFormatString, currentStep, goalTarget));
+            // // Update goal
+            // currentStep = (GameMode.Instance as GameMode1).GetCurrentStep() / 2;
+            // UpdateGoal(string.Format(goalFormatString, currentStep, goalTarget));
                
         }
 

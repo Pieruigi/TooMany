@@ -29,9 +29,7 @@ namespace TMOT
         void Awake()
         {
             Init();
-            Debug.Log("Max intensity:" + _renderer.materials[materialIndex].GetVector("_BaseColor"));
-
-
+      
         }
 
         void Start()

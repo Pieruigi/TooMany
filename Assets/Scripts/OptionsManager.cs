@@ -21,7 +21,6 @@ namespace TMOT
             get
             {
                 var v = PlayerPrefs.GetInt("MouseSpeed", MouseSpeedOptionDefault);
-                Debug.Log($"TEST - MouseSpeed:{v}");
                 return Mathf.Lerp(1f, 10f, (float)v / (float)MouseSpeedOptionMax);
             }
         }

@@ -87,7 +87,11 @@ namespace TMOT
                 else
                 {
                     if (PlayerController.Instance.State != PlayerState.Dead)
+                    {
                         GameManager.Instance.ReportPlayerIsWinner();
+                        MonsterSpawner.Instance.StopSpawner();
+                    }
+                        
                 }
             }
 

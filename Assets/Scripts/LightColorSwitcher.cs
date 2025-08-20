@@ -67,7 +67,6 @@ namespace TMOT
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {
-            Debug.Log($"Setting light state:{newState}");
             // Set light emission
             SetEmissiveMaterial(newState);
 

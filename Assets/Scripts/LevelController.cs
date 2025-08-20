@@ -17,8 +17,8 @@ namespace TMOT
             get{ return mapSize; }
         }
 
-        [SerializeField]
-        LevelBuilder levelBuilder;
+        // [SerializeField]
+        // LevelBuilder levelBuilder;
 
         [SerializeField]
         Color playerPreyColor;
@@ -73,7 +73,7 @@ namespace TMOT
             GameMode = gm;
 
             // Build level
-            levelBuilder.Build();
+            //levelBuilder.Build();
 
         }
 

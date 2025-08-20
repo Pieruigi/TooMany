@@ -136,6 +136,10 @@ namespace TMOT.UI
         {
             var pin = Instantiate(monsterPinPrefab, pinRoot);
             pins.Add(pin, monster);
+            
+            // Set pin color
+            int index = !monster.GetComponent<MonsterController>().InvertedBehaviour ? 0 : 1;
+            pin.GetComponent<MapPinColorSetter>().SetColor(index);
 
             // Do shake 
             ShakeIn(pin);

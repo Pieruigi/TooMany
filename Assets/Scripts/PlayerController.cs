@@ -9,6 +9,10 @@ using UnityEngine.Events;
 
 namespace TMOT
 {
+    /// <summary>
+    /// Prey = Blue
+    /// Hunter = Red
+    /// </summary>
     public enum PlayerState { None, Prey, Hunter, Dead }
 
     public class PlayerController : Singleton<PlayerController>
@@ -349,7 +353,7 @@ namespace TMOT
             if (health < 0) health = 0;
             if (health == 0)
             {
-                Debug.Log("You are dead");
+                
                 SetState(PlayerState.Dead);
                 GameManager.Instance.ReportPlayerIsLoser();
             }

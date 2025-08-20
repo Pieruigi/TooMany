@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace TMOT
 {
+  
     public class MonsterSpawner : Singleton<MonsterSpawner>
     {
         public delegate void OnMonsterAddedDelegate(GameObject monster);
@@ -25,7 +26,7 @@ namespace TMOT
         public int SpawnAmount
         {
             get { return spawnAmount; }
-            set{ spawnAmount = value; }
+            set { spawnAmount = value; }
         }
 
 
@@ -45,12 +46,12 @@ namespace TMOT
         public float SpawnTime
         {
             get { return spawnTime; }
-            set{ spawnTime = value; }
+            set { spawnTime = value; }
         }
 
         float spawnElapsed = 0;
 
-        
+
 
 
         // Start is called before the first frame update
@@ -92,7 +93,7 @@ namespace TMOT
                     break;
             }
 
-            
+
         }
 
         void DestroyAllDrones()
@@ -110,7 +111,7 @@ namespace TMOT
         }
 
 
-        public void SpawnRandomMonsters(int count)
+        public void SpawnRandomMonsters(int count, bool isBlue = false)
         {
             //return;
             List<Transform> candidates = LevelController.Instance.Waypoints.ToList().FindAll(s => Vector3.Distance(PlayerController.Instance.transform.position, s.position) > spawnDistance);
@@ -126,6 +127,9 @@ namespace TMOT
                 var m = Instantiate(mp, sp.position, sp.rotation);
                 // Add to the nonster list
                 monsters.Add(m.GetComponent<MonsterController>());
+
+                // Set behaviour
+                m.GetComponent<MonsterController>().InvertedBehaviour = isBlue;
 
                 OnMonsterAdded?.Invoke(m);
             }

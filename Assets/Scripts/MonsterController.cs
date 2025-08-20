@@ -63,11 +63,15 @@ namespace TMOT
         [SerializeField]
         float damage = 1;
 
+        /// <summary>
+        /// Inverted behaviour means blue bot.
+        /// </summary>
         [SerializeField]
         bool invertedBehaviour = false;
         public bool InvertedBehaviour
         {
-            get{ return invertedBehaviour; }
+            get { return invertedBehaviour; }
+            set { invertedBehaviour = value; }
         }
 
         [SerializeField]
@@ -214,6 +218,8 @@ namespace TMOT
 
             }
         }
+
+     
 
         void UpdateAnimations()
         {
