@@ -290,7 +290,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6534170270372390830}
-  - component: {fileID: 246761437112360327}
+  - component: {fileID: 543292348260924278}
   m_Layer: 0
   m_Name: VFX
   m_TagString: Untagged
@@ -315,27 +315,22 @@ Transform:
   - {fileID: 8279396434933538191}
   m_Father: {fileID: 9189912253208230615}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &246761437112360327
+--- !u!114 &543292348260924278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4649311552293072201}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5c4c1397587d6c47867c0c015ef2c69, type: 3}
+  m_Script: {fileID: 11500000, guid: e135b663509167c4cafadc50546bcb94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redMaterial: {fileID: 0}
-  greenMaterial: {fileID: 0}
-  _renderer: {fileID: 0}
-  materialIndex: 0
   _light: {fileID: 761936690164092612}
   volumetric: {fileID: 8941729836228358767}
-  redLightColor: {r: 1, g: 0.40567848, b: 0.3066038, a: 1}
-  greenLightColor: {r: 0.4009434, g: 1, b: 0.4009434, a: 1}
-  inverseColor: 1
+  redLightColor: {r: 1, g: 0, b: 0, a: 1}
+  blueLightColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &5008595562412370377
 GameObject:
   m_ObjectHideFlags: 0

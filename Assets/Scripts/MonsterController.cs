@@ -145,6 +145,7 @@ namespace TMOT
                 SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle);
 
             UpdateScale();
+            UpdateSpeed();
         }
 
         // Update is called once per frame
@@ -252,19 +253,42 @@ namespace TMOT
 
         void UpdateSpeed()
         {
-            if (PlayerController.Instance.State == PlayerState.Hunter)
-                agent.speed = preySpeed * speedRandomMul;
-            else
-                agent.speed = killerSpeed * speedRandomMul;
+            if (PlayerController.Instance.State == PlayerState.Hunter) // Player is red
+            {
+                if (!invertedBehaviour)
+                    agent.speed = preySpeed * speedRandomMul;
+                else
+                    agent.speed = killerSpeed * speedRandomMul;
+            }
+            else // Player is blue
+            {
+                if (!invertedBehaviour)
+                    agent.speed = killerSpeed * speedRandomMul;
+                else
+                    agent.speed = preySpeed * speedRandomMul;
+            }
+                
 
         }
 
         void UpdateScale() {
             float scaleTime = 1f;
-            if (PlayerController.Instance.State == PlayerState.Hunter)
-                transform.DOScale(preyScale, scaleTime).SetEase(Ease.InOutElastic); //StartCoroutine(ScaleMonster(preyScale));
-            else
-                transform.DOScale(hunterScale, scaleTime).SetEase(Ease.InOutElastic);//StartCoroutine(ScaleMonster(hunterScale));
+            if (PlayerController.Instance.State == PlayerState.Hunter) // Player is red
+            {
+                if (!invertedBehaviour)
+                    transform.DOScale(preyScale, scaleTime).SetEase(Ease.InOutElastic); //StartCoroutine(ScaleMonster(preyScale));
+                else
+                    transform.DOScale(hunterScale, scaleTime).SetEase(Ease.InOutElastic);//StartCoroutine(ScaleMonster(hunterScale));    
+
+            }
+            else // Player is blue
+            {
+                if (!invertedBehaviour)
+                    transform.DOScale(hunterScale, scaleTime).SetEase(Ease.InOutElastic);//StartCoroutine(ScaleMonster(hunterScale));   
+                else
+                    transform.DOScale(preyScale, scaleTime).SetEase(Ease.InOutElastic); //StartCoroutine(ScaleMonster(preyScale));
+            }
+                
                 
         }
 
