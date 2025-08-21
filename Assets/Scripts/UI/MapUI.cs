@@ -85,7 +85,7 @@ namespace TMOT.UI
             MonsterSpawner.OnMonsterRemoved += HandleOnObjectRemoved;
             TimeUpSpawner.OnTimeUpSpawned += HandleOnTimeUpSpawned;
             TimeUpSpawner.OnTimeUpUnspawned += HandleOnObjectRemoved;
-            PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            //PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
             MedicalSpawner.OnMedicalDroneSpawned += HandleOnTimeUpSpawned;
             MedicalSpawner.OnMedicalDroneUnspawned += HandleOnObjectRemoved;
             DiamondSpawner.OnDiamondSpanwed += HandleOnDiamondSpawned;
@@ -98,7 +98,7 @@ namespace TMOT.UI
             MonsterSpawner.OnMonsterRemoved -= HandleOnObjectRemoved;
             TimeUpSpawner.OnTimeUpSpawned -= HandleOnTimeUpSpawned;
             TimeUpSpawner.OnTimeUpUnspawned -= HandleOnObjectRemoved;
-            PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+            //PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
             MedicalSpawner.OnMedicalDroneSpawned -= HandleOnTimeUpSpawned;
             MedicalSpawner.OnMedicalDroneUnspawned -= HandleOnObjectRemoved;
             DiamondSpawner.OnDiamondSpanwed -= HandleOnDiamondSpawned;
@@ -107,12 +107,12 @@ namespace TMOT.UI
 
         
 
-        private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
-        {
+        // private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
+        // {
          
-            UpdateMonsterPinColors();
+        //     UpdateMonsterPinColors();
             
-        }
+        // }
 
         private void HandleOnDiamondSpawned(GameObject diamond)
         {
@@ -214,25 +214,25 @@ namespace TMOT.UI
             }
         }
 
-        void UpdateMonsterPinColors()
-        {
+        // void UpdateMonsterPinColors()
+        // {
             
-            foreach (var key in pins.Keys)
-            {
-                if (pins[key].CompareTag("Monster"))
-                {
-                    var mc = pins[key].GetComponent<MonsterController>();
-                    int index;
-                    if (PlayerController.Instance.State == PlayerState.Prey)
-                        index = !mc.InvertedBehaviour ? 0 : 1;
-                    else
-                        index = !mc.InvertedBehaviour ? 1 : 0;
+        //     foreach (var key in pins.Keys)
+        //     {
+        //         if (pins[key].CompareTag("Monster"))
+        //         {
+        //             var mc = pins[key].GetComponent<MonsterController>();
+        //             int index;
+        //             if (PlayerController.Instance.State == PlayerState.Prey)
+        //                 index = !mc.InvertedBehaviour ? 0 : 1;
+        //             else
+        //                 index = !mc.InvertedBehaviour ? 1 : 0;
 
-                    index = 0;
+        //             index = 0;
 
-                    key.GetComponent<MapPinColorSetter>().SetColor(index);
-                }
-            }
-        }
+        //             key.GetComponent<MapPinColorSetter>().SetColor(index);
+        //         }
+        //     }
+        // }
     }
 }

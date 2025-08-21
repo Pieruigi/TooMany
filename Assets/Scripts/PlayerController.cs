@@ -259,6 +259,7 @@ namespace TMOT
             UpdateStamina();
             Rotate();
             Move();
+            KillMonsters();
         }
 
         void UpdateHunterState()
@@ -334,7 +335,12 @@ namespace TMOT
 
                     if (!coll.CompareTag("Monster")) continue;
 
-                    coll.GetComponent<MonsterController>().ReportHitByPlayer();
+                    var mc = coll.GetComponent<MonsterController>();
+
+                    // Remind play = blue, invertedBehaviour = blue
+                    if ((state == PlayerState.Prey && !mc.InvertedBehaviour) || (state == PlayerState.Hunter && mc.InvertedBehaviour)) continue;
+
+                    mc.ReportHitByPlayer();
 
                     CameraShake.Instance.Shake(0.15f, 0.2f, 8, 60f);
 

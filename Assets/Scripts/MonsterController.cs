@@ -292,19 +292,7 @@ namespace TMOT
                 
         }
 
-        // IEnumerator ScaleMonster(float targetScale)
-        // {
-        //     var speed = 10;
-        //     var scale = transform.localScale.x;
-        //     while (scale != targetScale)
-        //     {
-        //         scale = Mathf.MoveTowards(scale, targetScale, speed * Time.deltaTime);
-        //         transform.localScale = Vector3.one * scale;
-        //         yield return null;
-        //     }
-        // }
-
-
+      
 
         void Explode()
         {
@@ -403,18 +391,7 @@ namespace TMOT
             OnHitPlayer?.Invoke(this);
             await UniTask.Delay(200);
             PlayerController.Instance.ApplyDamage(damage);
-            // await Task.Delay(2000);
-            // SetState(MonsterState.Chasing);
-            // if (CanAttack(attackRange * 1.2f, attackAngle * 1.2f))
-            // {
-
-            //     OnHitPlayer?.Invoke(this);
-            // }
-            // else
-            // {
-            //     SetState(MonsterState.Chasing);
-            // }    
-
+           
         }
 
         async UniTaskVoid EnterPushedState()
@@ -440,10 +417,11 @@ namespace TMOT
         #region update state
         void UpdateFleeingState()
         {
-            if (PlayerController.Instance.State == PlayerState.Prey)
+            if ((PlayerController.Instance.State == PlayerState.Prey && !invertedBehaviour) || (PlayerController.Instance.State == PlayerState.Hunter && invertedBehaviour))
             {
                 // Stop fleeing
                 SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle);
+ 
                 return;
             }
 
@@ -488,7 +466,7 @@ namespace TMOT
         {
             if (HasSpottedPlayer())
             {
-                if(PlayerController.Instance.State == PlayerState.Prey)
+                if((PlayerController.Instance.State == PlayerState.Prey && !invertedBehaviour) || (PlayerController.Instance.State == PlayerState.Hunter && invertedBehaviour))
                     SetState(MonsterState.Chasing);
                 else
                     SetState(MonsterState.Fleeing);
@@ -519,7 +497,7 @@ namespace TMOT
             
             if (HasSpottedPlayer())
             {
-                if(PlayerController.Instance.State == PlayerState.Prey)
+                if((PlayerController.Instance.State == PlayerState.Prey && !invertedBehaviour) || (PlayerController.Instance.State == PlayerState.Hunter && invertedBehaviour))
                     SetState(MonsterState.Chasing);
                 else
                     SetState(MonsterState.Fleeing);
@@ -549,7 +527,7 @@ namespace TMOT
         }
         void UpdateChasingState()
         {
-            if (PlayerController.Instance.State == PlayerState.Hunter)
+            if ((PlayerController.Instance.State == PlayerState.Hunter && !invertedBehaviour)||(PlayerController.Instance.State == PlayerState.Prey && invertedBehaviour))
             {
                 // Switch to fleeing
                 SetState(MonsterState.Fleeing);
@@ -587,7 +565,7 @@ namespace TMOT
 
         void UpdateSearchingState()
         {
-            if (PlayerController.Instance.State == PlayerState.Hunter)
+            if ((PlayerController.Instance.State == PlayerState.Hunter && !invertedBehaviour) || (PlayerController.Instance.State == PlayerState.Prey && invertedBehaviour))
             {
                 // Switch to fleeing
                 SetState(UnityEngine.Random.Range(0, 2) == 0 ? MonsterState.Patrolling : MonsterState.Idle); 
@@ -613,7 +591,6 @@ namespace TMOT
 
             if (!agent.hasPath)
             {
-                Debug.Log("TEST - No path");
                 agent.SetDestination(lastPlayerSpot);
             }
 
