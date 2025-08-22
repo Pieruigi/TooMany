@@ -15,6 +15,11 @@ public class DynamicLightRange : MonoBehaviour
     public float smoothSpeed = 5f;        // Velocità interpolazione range
 
     float maxIntensity = 0;
+    public float MaxIntensity
+    {
+        get { return maxIntensity; }
+        set{ maxIntensity = value; }
+    }
 
     public GameObject volumetric;
 

@@ -23,7 +23,11 @@ namespace TMOT
 
         Color hdrColor;
 
-
+        public Color MaxHdrColor
+        {
+            get { return hdrColor; }
+            set { hdrColor = value; }
+        }
 
 
         void Awake()
