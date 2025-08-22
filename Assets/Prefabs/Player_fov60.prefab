@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preyColor: {r: 0, g: 1, b: 1, a: 1}
-  hunterColor: {r: 1, g: 0, b: 0, a: 1}
+  hunterColor: {r: 0, g: 1, b: 1, a: 1}
   preyColorIntensity: 0.6
   hunterColorIntensity: 0.6
   material: {fileID: 2100000, guid: 1f0963241368fb14da4349e374d5a258, type: 2}

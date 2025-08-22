@@ -43,15 +43,15 @@ namespace TMOT
 
         }
 
-        // void OnEnable()
-        // {
-        //     PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
-        // }
+        void OnEnable()
+        {
+            PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+        }
 
-        // void OnDisable()
-        // {
-        //     PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
-        // }
+        void OnDisable()
+        {
+            PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {

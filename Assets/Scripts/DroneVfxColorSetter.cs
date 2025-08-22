@@ -19,7 +19,7 @@ namespace TMOT
         [SerializeField]
         Color blueLightColor;
 
-        bool isBlue = false;
+        bool isInverted = false;
 
 
         // Start is called before the first frame update
@@ -27,7 +27,7 @@ namespace TMOT
         {
             var mc = GetComponentInParent<MonsterController>();
             if (mc)
-                isBlue = mc.InvertedBehaviour;
+                isInverted = mc.InvertedBehaviour;
 
             Init();
 
@@ -39,10 +39,33 @@ namespace TMOT
 
         }
 
+        void OnEnable()
+        {
+            PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+        }
+
+        void OnDisable()
+        {
+            PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
+
+        private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
+        {
+            switch (newState)
+            {
+                case PlayerState.Prey:
+                case PlayerState.Hunter:
+                    Init();
+                    break;
+
+            }
+            
+        }
+
         void Init()
         {
             Color col;
-            if (!isBlue)
+            if ((PlayerController.Instance.State == PlayerState.Prey && !isInverted) || (PlayerController.Instance.State == PlayerState.Hunter && isInverted))
                 col = redLightColor;
             else
                 col = blueLightColor;

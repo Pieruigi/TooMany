@@ -319,6 +319,10 @@ namespace TMOT
 
         void KillMonsters()
         {
+#if UNITY_EDITOR
+            return;            
+#endif
+
             killMonsterElapsed += Time.deltaTime;
             if (killMonsterElapsed > killMonsterTime)
             {

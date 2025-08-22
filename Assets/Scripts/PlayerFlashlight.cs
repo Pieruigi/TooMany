@@ -45,7 +45,10 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
-
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.F))
+                _light.DOIntensity(0, 0.05f).SetEase(Ease.Flash).SetLoops(6, LoopType.Yoyo);
+#endif
         }
 
         void OnEnable()
@@ -64,50 +67,31 @@ namespace TMOT
             {
                 case PlayerState.Prey:
                     //_light.color = preyColor;
-                    StartCoroutine(FlickerThenSwitch(preyColor));
+                    //StartCoroutine(FlickerThenSwitch(preyColor));
+                    _light.DOIntensity(0, 0.05f).SetEase(Ease.Flash).SetLoops(6, LoopType.Yoyo);
                     break;
                 case PlayerState.Hunter:
-                    StartCoroutine(FlickerThenSwitch(hunterColor));
-                    //_light.color = hunterColor;
+                    //StartCoroutine(FlickerThenSwitch(hunterColor));
+                    _light.DOIntensity(0, 0.05f).SetEase(Ease.Flash).SetLoops(6, LoopType.Yoyo);
                     break;
 
             }
         }
 
-       
-         System.Collections.IEnumerator FlickerThenSwitch(Color toColor)
+
+        System.Collections.IEnumerator FlickerThenSwitch(Color toColor)
         {
             if (_light.color == toColor) yield break;
 
-            yield return _light.DOIntensity(0, .180f).SetEase(Ease.Flash).WaitForCompletion();
+            _light.DOIntensity(0, 0.1f).SetEase(Ease.Flash).SetLoops(4, LoopType.Yoyo);
 
-            // float elapsed = 0f;
-            // while (elapsed < flickerDuration)
-            // {
-            //     float nextIntensity = UnityEngine.Random.Range(minIntensity, maxIntensity);
-            //     _light.DOIntensity(nextIntensity, flickerSpeed).SetEase(Ease.Flash);
-            //     yield return new WaitForSeconds(flickerSpeed);
-            //     elapsed += flickerSpeed;
-            // }
-
-            // // Fade out to 0 intensity
-            // yield return _light.DOIntensity(0f, 0.5f).WaitForCompletion();
+            //yield return _light.DOIntensity(0, .180f).SetEase(Ease.Flash).WaitForCompletion();
 
             // Change color
-            _light.color = toColor;
+            // _light.color = toColor;
 
-            // Fade in with new color and flicker back
-            // elapsed = 0f;
-            // while (elapsed < flickerDuration)
-            // {
-            //     float nextIntensity = UnityEngine.Random.Range(minIntensity, maxIntensity);
-            //     _light.DOIntensity(nextIntensity, flickerSpeed).SetEase(Ease.Flash);
-            //     yield return new WaitForSeconds(flickerSpeed);
-            //     elapsed += flickerSpeed;
-            // }
-
-            // Stabilize at final intensity
-            _light.DOIntensity(intensity, 0.180f).SetEase(Ease.Flash);
+            // // Stabilize at final intensity
+            // _light.DOIntensity(intensity, 0.180f).SetEase(Ease.Flash);
         }
     }
 }

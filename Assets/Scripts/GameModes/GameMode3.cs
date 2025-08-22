@@ -15,7 +15,7 @@ namespace TMOT
 
         int stage = 0;
 
-        float switchTime = 20;
+        float switchTime = 40;
 
         float switchElapsed = 0;
 
@@ -23,8 +23,13 @@ namespace TMOT
 
         bool isBlue = false;
 
-        int blueCountAtStart = 14;
-        int redCountAtStart = 14;
+        int blueCountAtStart = 2;//14;
+        int redCountAtStart = 2;//14;
+
+        float spawnTime = 9;
+
+        int spawnAmount = 4;
+        float spawnElapsed = 0;
 
 
 
@@ -34,12 +39,13 @@ namespace TMOT
 
             // Instantiate bot spawner
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
+            MonsterSpawner.Instance.StopSpawner();
         }
 
         // Start is called before the first frame update
         void Start()
         {
-           
+
         }
 
 
@@ -48,16 +54,9 @@ namespace TMOT
         {
             if (!loop) return;
 
-            switchElapsed += Time.deltaTime;
+            UpdateSwitchTime();
 
-            if (switchElapsed > switchTime)
-            {
-                switchElapsed -= switchTime;
-
-                // Switch
-                PlayerController.Instance.SetState(isBlue ? PlayerState.Hunter : PlayerState.Prey);
-                isBlue = !isBlue;
-            }          
+            UpdateSpawnTime();
         }
 
         protected override void StartGameMode()
@@ -72,6 +71,42 @@ namespace TMOT
 
             loop = true;
             isBlue = true;
+        }
+
+        void UpdateSwitchTime()
+        {
+            switchElapsed += Time.deltaTime;
+
+            if (switchElapsed > switchTime)
+            {
+                switchElapsed -= switchTime;
+
+                // Switch
+                PlayerController.Instance.SetState(isBlue ? PlayerState.Hunter : PlayerState.Prey);
+                isBlue = !isBlue;
+
+                spawnElapsed = 0;
+
+            }
+        }
+
+        void UpdateSpawnTime()
+        {
+            spawnElapsed += Time.deltaTime;
+
+            if (spawnElapsed > spawnTime)
+            {
+                spawnElapsed -= spawnTime;
+
+                MonsterSpawner.Instance.SpawnRandomMonsters(spawnAmount, isBlue);
+            }
+        }
+
+        public float GetTimeLeft()
+        {
+            float ret = switchTime - switchElapsed;
+            if (ret < 0) ret = 0;
+            return ret;
         }
     }
 }

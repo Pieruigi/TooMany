@@ -41,11 +41,12 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-            redLightColor = !inverseColor ? LevelController.Instance.PlayerHunterColor : LevelController.Instance.PlayerPreyColor;
-            greenLightColor = !inverseColor ? LevelController.Instance.PlayerPreyColor : LevelController.Instance.PlayerHunterColor;
+            // redLightColor = !inverseColor ? LevelController.Instance.PlayerHunterColor : LevelController.Instance.PlayerPreyColor;
+            // greenLightColor = !inverseColor ? LevelController.Instance.PlayerPreyColor : LevelController.Instance.PlayerHunterColor;
 
 
-            HandleOnPlayerStateChanged(PlayerState.None, (GameMode.Instance.StartInHuntingMode ? PlayerState.Hunter : PlayerState.Prey));
+            //HandleOnPlayerStateChanged(PlayerState.None, (GameMode.Instance.StartInHuntingMode ? PlayerState.Hunter : PlayerState.Prey));
+            HandleOnPlayerStateChanged(PlayerState.None, PlayerState.Prey);
             
         }
 
