@@ -44,6 +44,8 @@ namespace TMOT
 
         int normalSpawnAmount = 4;
 
+        bool initialized = false;
+
 
         protected override void Awake()
         {
@@ -164,6 +166,10 @@ namespace TMOT
 
             }
 
+            if (playerChasing && initialized)
+                OnProgressUpdated?.Invoke(GetCurrentStep() / 2 + 1, (GetStepMax() + 1) / 2);
+
+            initialized = true;
         }
 
 

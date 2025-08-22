@@ -383,6 +383,8 @@ namespace TMOT
             Explode();
             MonsterSpawner.Instance.DestroyMonsterDelayed(this, 3f);
 
+
+
         }
 
 
@@ -725,6 +727,7 @@ namespace TMOT
         public void ReportHitByPlayer()
         {
             Debug.Log($"TEST - {gameObject.name} hit by player");
+            GameMode.Instance.ReportMonsterDroneHitByPlayer(this);
             SetState(MonsterState.Dying);
         }
 

@@ -33,8 +33,10 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-            
-            SetEmissiveMaterial(GameMode.Instance.StartInHuntingMode ? PlayerState.Hunter : PlayerState.Prey);
+            PlayerState ps = PlayerController.Instance.State;
+            if (ps != PlayerState.Prey && ps != PlayerState.Hunter)
+                ps = GameMode.Instance.StartInHuntingMode ? PlayerState.Hunter : PlayerState.Prey;
+            SetEmissiveMaterial(ps);
         }
 
         // Update is called once per frame

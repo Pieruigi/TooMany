@@ -57,7 +57,7 @@ namespace TMOT.UI
         {
             base.OnEnable();
 
-            GameMode2.OnProgressUpdated += HandleOnProgressUpdated;
+           
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
         }
 
@@ -65,7 +65,7 @@ namespace TMOT.UI
         {
             base.OnDisable();
 
-            GameMode2.OnProgressUpdated -= HandleOnProgressUpdated;
+           
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
         }
 
@@ -84,12 +84,7 @@ namespace TMOT.UI
             }
         }
 
-        private void HandleOnProgressUpdated(int progress, int goal)
-        {
-            UpdateGoal(string.Format(goalFormatString, progress, goal));
-        }
-
-
+     
 
         void PreyToHunter()
         {

@@ -320,7 +320,7 @@ namespace TMOT
         void KillMonsters()
         {
 #if UNITY_EDITOR
-            return;            
+            //return;            
 #endif
 
             killMonsterElapsed += Time.deltaTime;

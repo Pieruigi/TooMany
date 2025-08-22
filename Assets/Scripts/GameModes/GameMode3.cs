@@ -9,13 +9,15 @@ namespace TMOT
         [SerializeField]
         GameObject monsterSpawnerPrefab;
 
-        int goal = 30;
+        int goal = 60;
 
         int progress = 0;
 
+        string progressStringFormat = "{0}/{1}";
+
         int stage = 0;
 
-        float switchTime = 40;
+        float switchTime = 30;
 
         float switchElapsed = 0;
 
@@ -23,12 +25,12 @@ namespace TMOT
 
         bool isBlue = false;
 
-        int blueCountAtStart = 2;//14;
-        int redCountAtStart = 2;//14;
+        int blueCountAtStart = 10;
+        int redCountAtStart = 10;
 
-        float spawnTime = 9;
+        float spawnTime = 8;
 
-        int spawnAmount = 4;
+        int spawnAmount = 3;
         float spawnElapsed = 0;
 
 
@@ -45,7 +47,7 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-
+            OnProgressUpdated?.Invoke(progress, goal);
         }
 
 
@@ -57,6 +59,16 @@ namespace TMOT
             UpdateSwitchTime();
 
             UpdateSpawnTime();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
         }
 
         protected override void StartGameMode()
@@ -71,6 +83,21 @@ namespace TMOT
 
             loop = true;
             isBlue = true;
+        }
+
+        public override void ReportMonsterDroneHitByPlayer(MonsterController monsterDrone)
+        {
+            base.ReportMonsterDroneHitByPlayer(monsterDrone);
+
+            progress++;
+
+            OnProgressUpdated?.Invoke(progress, goal);
+
+            if (progress >= goal)
+            {
+                loop = false;
+                GameManager.Instance.ReportPlayerIsWinner();
+            }
         }
 
         void UpdateSwitchTime()
@@ -101,6 +128,8 @@ namespace TMOT
                 MonsterSpawner.Instance.SpawnRandomMonsters(spawnAmount, isBlue);
             }
         }
+
+        
 
         public float GetTimeLeft()
         {

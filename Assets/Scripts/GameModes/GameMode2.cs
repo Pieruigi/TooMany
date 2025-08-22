@@ -10,8 +10,7 @@ namespace TMOT
     public class GameMode2 : GameMode
     {
 
-        public delegate void ProgressUpdatedDelegate(int progress, int goal);
-        public static ProgressUpdatedDelegate OnProgressUpdated;
+ 
 
         [SerializeField]
         DiamondSpawner diamondSpawnerPrefab;

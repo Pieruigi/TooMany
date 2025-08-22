@@ -8,7 +8,8 @@ namespace TMOT
 {
     public abstract class GameMode : Singleton<GameMode>
     {
-
+        public delegate void ProgressUpdatedDelegate(int progress, int goal);
+        public static ProgressUpdatedDelegate OnProgressUpdated;
 
 
         [SerializeField]
@@ -60,6 +61,11 @@ namespace TMOT
         }
 
         public virtual void ReportCustomDronePicked(CustomDroneController customDrone)
+        {
+
+        }
+
+        public virtual void ReportMonsterDroneHitByPlayer(MonsterController monsterDrone)
         {
             
         }

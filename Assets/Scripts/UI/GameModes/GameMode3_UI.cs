@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,10 @@ namespace TMOT.UI
     {
         [SerializeField]
         CanvasGroup switchTimeGroup;
+
+        [SerializeField]
+        CountdownPlayer countdownPlayer;
+        
 
         TMP_Text switchTimeText;
 
@@ -43,6 +48,7 @@ namespace TMOT.UI
             base.OnEnable();
 
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            
         }
 
         protected override void OnDisable()
@@ -74,9 +80,11 @@ namespace TMOT.UI
                 preSwitching = true;
                 float count = 12;
                 float size = 2f;
-                
+
                 (switchTimeGroup.transform as RectTransform).DOScale(size, t / count).SetLoops((int)count, LoopType.Yoyo);
-                    
+
+
+                countdownPlayer.Play().Forget();    
             
             }
         }

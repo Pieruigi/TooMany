@@ -59,16 +59,22 @@ namespace TMOT.UI
         protected virtual void OnEnable()
         {
             GameManager.OnStateChanged += HandleOnGameStateChanged;
-
+            GameMode.OnProgressUpdated += HandleOnProgressUpdated;
 
         }
+
+        
 
         protected virtual void OnDisable()
         {
             GameManager.OnStateChanged -= HandleOnGameStateChanged;
-
+            GameMode.OnProgressUpdated -= HandleOnProgressUpdated;
         }
 
+        private void HandleOnProgressUpdated(int progress, int goal)
+        {
+            UpdateGoal($"{progress}/{goal}");
+        }
 
         protected virtual void HandleOnGameStateChanged(GameState oldState, GameState newState)
         {
@@ -125,6 +131,7 @@ namespace TMOT.UI
             canvasGroup.transform.DOShakePosition(shakeDuration, strength).SetEase(Ease.InOutElastic);
         
         }
+
 
         public void RestartGame()
         {
