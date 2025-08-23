@@ -7,6 +7,7 @@ public class ScreenshotTaker : SingletonPersistent<ScreenshotTaker>
 
     private void Update()
     {
+#if UNITY_EDITOR
         if (Input.GetKeyDown(screenshotKey))
         {
             string folderPath = Application.dataPath + "/" + folderName;
@@ -22,5 +23,6 @@ public class ScreenshotTaker : SingletonPersistent<ScreenshotTaker>
             ScreenCapture.CaptureScreenshot(fullPath);
             Debug.Log("Screenshot salvato in: " + fullPath);
         }
+#endif
     }
 }
