@@ -27,6 +27,9 @@ namespace TMOT.UI
         [SerializeField]
         TMP_Text hunterText;
 
+        [SerializeField]
+        CountdownPlayer countdownPlayer;
+
 
 
 
@@ -37,7 +40,7 @@ namespace TMOT.UI
         Color activatedColor = new Color(1, 1, 1, 1);
         Color deactivatedColor = new Color(0.5f, 0.5f, .5f, .25f);
 
-        float deactivatedPositionOffsetX = 75f;
+        float deactivatedPositionOffsetX = 135f;
         float deactivatedSize = .4f;
 
         float deactivatedAlpha = .2f;
@@ -262,8 +265,8 @@ namespace TMOT.UI
                     (preyCanvasGroup.transform as RectTransform).DOScale(size, t / count).SetLoops((int)count, LoopType.Yoyo);
                 else if (PlayerController.Instance.State == PlayerState.Hunter)
                     (hunterCanvasGroup.transform as RectTransform).DOScale(size, t / count).SetLoops((int)count, LoopType.Yoyo);
-                    
-            
+
+                countdownPlayer.Play().Forget();
             }
         }
 

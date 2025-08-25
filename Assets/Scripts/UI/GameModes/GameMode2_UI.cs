@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,9 @@ namespace TMOT.UI
 
         [SerializeField]
         TMP_Text hunterText;
+
+        [SerializeField]
+        CountdownPlayer countdownPlayer;
 
         string goalFormatString = "{0}/{1}";
 
@@ -139,7 +143,7 @@ namespace TMOT.UI
                 
                 (hunterCanvasGroup.transform as RectTransform).DOScale(size, t / count).SetLoops((int)count, LoopType.Yoyo);
 
-
+                countdownPlayer.Play().Forget();
             }
         }
     }

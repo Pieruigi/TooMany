@@ -9,6 +9,9 @@ namespace TMOT
         [SerializeField]
         GameObject monsterSpawnerPrefab;
 
+        [SerializeField]
+        MedicalSpawner medicalSpawner;
+
         int goal = 60;
 
         int progress = 0;
@@ -42,6 +45,8 @@ namespace TMOT
             // Instantiate bot spawner
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
             MonsterSpawner.Instance.StopSpawner();
+            // Instantiate medical spawner
+            Instantiate(medicalSpawner, Vector3.zero, Quaternion.identity);
         }
 
         // Start is called before the first frame update

@@ -30,7 +30,7 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-            SwitchToPrey();
+            SwitchToPrey().Forget();
         }
 
         // Update is called once per frame
@@ -101,6 +101,7 @@ namespace TMOT
         async UniTaskVoid SwitchToHunter()
         {
             switchSource.Play();
+            if (GameManager.Instance.GameMode == GameModeType.Mode3) return;
             await UniTask.Delay(TimeSpan.FromSeconds(.180f));
             hunterSource.Play();
             preySource.Stop();
