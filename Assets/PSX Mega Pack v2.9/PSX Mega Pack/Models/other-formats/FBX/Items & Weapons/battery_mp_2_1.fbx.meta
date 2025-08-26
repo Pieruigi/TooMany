@@ -3,7 +3,12 @@ guid: c794529de0d3c88448a1563f70a89326
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: batteries_mp_1
+    second: {fileID: 2100000, guid: 02c39ed38ff9653468225ea10798913c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

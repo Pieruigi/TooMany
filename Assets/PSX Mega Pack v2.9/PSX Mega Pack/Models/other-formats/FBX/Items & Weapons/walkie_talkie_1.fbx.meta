@@ -3,7 +3,17 @@ guid: 608267ae3dab78647aa3642a94e23137
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plastic_4
+    second: {fileID: 2100000, guid: 52fcdc35f6752664c890bc3a92edf36f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: walkie_talkie_1
+    second: {fileID: 2100000, guid: f3834c2b7f6f92a43be3280d670700e3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

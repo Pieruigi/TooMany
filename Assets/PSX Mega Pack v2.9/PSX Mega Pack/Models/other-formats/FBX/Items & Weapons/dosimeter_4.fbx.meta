@@ -3,7 +3,12 @@ guid: 5de58ea9583858c42ad71989383a85bf
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: dosimeter_3
+    second: {fileID: 2100000, guid: 1cab59e5a5b448747b5fb199c17bc67c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

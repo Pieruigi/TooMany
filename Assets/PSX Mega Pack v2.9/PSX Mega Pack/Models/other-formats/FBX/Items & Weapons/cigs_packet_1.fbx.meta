@@ -3,7 +3,12 @@ guid: 886e283c51946844990ccf46305d152d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cigs_packet_1
+    second: {fileID: 2100000, guid: 146412b70eebcf44497b601a405e8b62, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
