@@ -3,7 +3,12 @@ guid: 25d18a5edccf74349a1ce680b69540f9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cash_1
+    second: {fileID: 2100000, guid: d1d888794beb8f54da242d91c162b0d1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

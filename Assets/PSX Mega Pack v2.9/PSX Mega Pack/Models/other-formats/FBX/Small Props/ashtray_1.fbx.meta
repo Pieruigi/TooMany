@@ -3,7 +3,22 @@ guid: 11b2a7a39986a21438712ae05014b6f5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ash_1
+    second: {fileID: 2100000, guid: 7fb93015244af8a4db15d38f2d7a160a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cigs_packet_1
+    second: {fileID: 2100000, guid: 146412b70eebcf44497b601a405e8b62, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plastic_4
+    second: {fileID: 2100000, guid: 52fcdc35f6752664c890bc3a92edf36f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

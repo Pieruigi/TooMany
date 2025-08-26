@@ -3,7 +3,12 @@ guid: e33dc390632f8c746bac5c2917cd9d57
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shotgun_1
+    second: {fileID: 2100000, guid: 09678d39822182546bf385a0d9333353, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
