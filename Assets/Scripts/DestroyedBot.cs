@@ -11,11 +11,14 @@ namespace TMOT
         DynamicEmissionRange dynamicEmissionRange;
         
         Light targetLight;
+
+        [SerializeField]
         float minIntensity = 0f;
         float maxIntensity = 2f;
         float minDelay = 0.05f;
         float maxDelay = 0.3f;
 
+        [SerializeField]
         Color minHdrColor = Color.black;
 
         DynamicLightRange dynamicLightRange;
@@ -33,7 +36,7 @@ namespace TMOT
             if (targetLight == null)
                 targetLight = GetComponent<Light>();
 
-            maxIntensity = dynamicLightRange.maxDistance;
+            maxIntensity = dynamicLightRange.MaxIntensity;
             maxHdrColor = dynamicEmissionRange.MaxHdrColor;
 
             StartFlicker();
