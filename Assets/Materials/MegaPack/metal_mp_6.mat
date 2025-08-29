@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pipe_mp_1
+  m_Name: metal_mp_6
   m_Shader: {fileID: 4800000, guid: 71a090e9b5b488349913abe716bb7bc6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -27,7 +27,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: dfe327f0563b54549a33da1316a55b7f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0d900178743b10642b7f77afd462e465, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -51,7 +51,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: dfe327f0563b54549a33da1316a55b7f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0d900178743b10642b7f77afd462e465, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -87,7 +87,7 @@ Material:
     - _ResolutionLimit: 128
     - _SnapsPerUnit: 64
     m_Floats:
-    - _AffineTextureStrength: 0.125
+    - _AffineTextureStrength: 0.058
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _AmbientLight: 0.02
@@ -131,7 +131,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &2044894665742119924
+--- !u!114 &8043025144342360991
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

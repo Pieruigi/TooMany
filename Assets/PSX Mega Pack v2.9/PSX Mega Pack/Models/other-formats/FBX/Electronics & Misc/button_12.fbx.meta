@@ -3,7 +3,22 @@ guid: 7e343111e39bc0942ac5de9ca0ed7d02
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: button_12
+    second: {fileID: 2100000, guid: a2f64ec0e17da08459931a921137c1cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cable_2
+    second: {fileID: 2100000, guid: d7fffc90838362e4089bd15e427a0da8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_mp_3
+    second: {fileID: 2100000, guid: 74b8ba46ca51eb14393cccf1790eed20, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
