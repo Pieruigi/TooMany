@@ -3,7 +3,12 @@ guid: c5d364db6cefc4c42a9e076d562fe854
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tv_remote_mp_1
+    second: {fileID: 2100000, guid: 851f36381b1fa994db0136d03aa3d5bc, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

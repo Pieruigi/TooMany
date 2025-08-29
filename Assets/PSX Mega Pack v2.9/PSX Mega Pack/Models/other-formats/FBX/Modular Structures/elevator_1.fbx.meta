@@ -3,7 +3,47 @@ guid: c9643484caf527145add296954b76989
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: concrete_4
+    second: {fileID: 2100000, guid: 936a36b577a7c374bb5095241a4b5f6a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: door_frame_mp_3
+    second: {fileID: 2100000, guid: ff80d98e58a9db74dac558815283447f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: elevator_buttons_1
+    second: {fileID: 2100000, guid: 8361365efd02a4d4cbf383cb1eb8c131, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: elevator_door_1
+    second: {fileID: 2100000, guid: 06af3bc428696cc4c89a8c69543a2be3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: elevator_screen_1
+    second: {fileID: 2100000, guid: 65baac60ba0dfc048b092897e455550e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: floor_elevator_1
+    second: {fileID: 2100000, guid: c64469297bf7b4548a614b4a2e6667a6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_mp_1
+    second: {fileID: 2100000, guid: 0c8b8b3c817a9c6488fd3939c3896867, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wood_4
+    second: {fileID: 2100000, guid: a8744c96efc75d14cadc4a0c216e01bc, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

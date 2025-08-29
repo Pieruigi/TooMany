@@ -18,7 +18,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: M_drone_Emit
-    second: {fileID: 2100000, guid: 70136b947b173c545bd909ea3818a42e, type: 2}
+    second: {fileID: 2100000, guid: 9a14ab71954055f4ebc24532a832b020, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

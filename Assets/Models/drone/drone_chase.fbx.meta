@@ -3,7 +3,17 @@ guid: 5541bea208d5ca1409313cd91256c47e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_drone
+    second: {fileID: 2100000, guid: 1f478e218b97f634ea76abfdcc5de863, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_drone.001
+    second: {fileID: 2100000, guid: 9a14ab71954055f4ebc24532a832b020, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
