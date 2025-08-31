@@ -3,7 +3,17 @@ guid: df8b467a483e129409a217bb0cd95d7f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_mp_5
+    second: {fileID: 2100000, guid: 61ea7671c64f0764eac0b8935d3a8acd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: old_mattress_mp_1
+    second: {fileID: 2100000, guid: 97e8dc12ce13eb547a9c9e094926a195, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
