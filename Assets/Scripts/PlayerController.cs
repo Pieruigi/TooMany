@@ -363,7 +363,6 @@ namespace TMOT
             if (health < 0) health = 0;
             if (health == 0)
             {
-                
                 SetState(PlayerState.Dead);
                 GameManager.Instance.ReportPlayerIsLoser();
             }

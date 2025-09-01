@@ -29101,6 +29101,46 @@ PrefabInstance:
       propertyPath: greenLightColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2133722774301912829, guid: 6a40de735bcaa514892c27acfeb32983,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2133722774301912829, guid: 6a40de735bcaa514892c27acfeb32983,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.003921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 2133722774301912829, guid: 6a40de735bcaa514892c27acfeb32983,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.6784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 2133722774301912829, guid: 6a40de735bcaa514892c27acfeb32983,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.95661676
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629321782601114167, guid: 6a40de735bcaa514892c27acfeb32983,
+        type: 3}
+      propertyPath: m_Range
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629321782601114167, guid: 6a40de735bcaa514892c27acfeb32983,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.6784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629321782601114167, guid: 6a40de735bcaa514892c27acfeb32983,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.92156863
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629321782601114167, guid: 6a40de735bcaa514892c27acfeb32983,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6787960349701860157, guid: 6a40de735bcaa514892c27acfeb32983,
         type: 3}
       propertyPath: m_Name
