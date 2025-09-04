@@ -18,27 +18,37 @@ namespace TMOT
         [SerializeField]
         GameObject monsterSpawnerPrefab;
 
-        float hunterTime = 5;
+        float hunterTime = 10;
         public float HunterTime
         {
             get{ return hunterTime; }
         }
 
-        int goal = 40;
+        int goal = 100;
+        public int Goal
+        {
+            get{ return goal; }
+        }
 
         int progress = 0;
 
-        float switchCooldown = 5;
+        float switchCooldown = 1;
+
+        float switchBackCooldown = 1;
 
         float switchCooldownTimer = 0;
 
         bool playing = false;
 
-        float monsterSpawnTime = 15;
+        float monsterSpawnTime = 10;
 
         int initialSpawnAmount = 10;
 
-        int normalSpawnAmount = 4;
+        int normalSpawnAmount = 2;
+
+        int backFromHunterAmount = 4;
+
+        bool firstSpawn = true;
 
         protected override void Awake()
         {
@@ -49,7 +59,7 @@ namespace TMOT
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
             // Stop spawners
             MonsterSpawner.Instance.StopSpawner();
-            TimeUpSpawner.Instance.StopSpawner();
+            TimeUpMultiSpawner.Instance.StopSpawner();
         }
 
 
@@ -67,6 +77,18 @@ namespace TMOT
             if (switchCooldownTimer > 0)
             {
                 switchCooldownTimer -= Time.deltaTime;
+            }
+
+            if (progress >= goal)
+            {
+                if (PlayerController.Instance.State != PlayerState.Dead)
+                {
+                    playing = false;
+                    GameManager.Instance.ReportPlayerIsWinner();
+                    
+                    return;    
+                }
+
             }
 
             // Check hunting time
@@ -89,7 +111,21 @@ namespace TMOT
         {
             base.OnDisable();
 
-            PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
+
+        protected override void HandleOnGameStateChanged(GameState oldState, GameState newState)
+        {
+            base.HandleOnGameStateChanged(oldState, newState);
+
+            switch (newState)
+            {
+                case GameState.Winner:
+                case GameState.Loser:
+                    MonsterSpawner.Instance.StopSpawner();
+                    TimeUpMultiSpawner.Instance.StopSpawner();
+                    break;
+            }
         }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
@@ -97,15 +133,25 @@ namespace TMOT
             switch (newState)
             {
                 case PlayerState.Prey:
+                    // Spawn the first bunch of monsters
+                    var amount = backFromHunterAmount;
+                    if (firstSpawn)
+                    {
+                        amount = initialSpawnAmount;
+                        firstSpawn = false;
+                    }
+
+                    MonsterSpawner.Instance.SpawnRandomMonsters(amount, false);
                     // Start spawners
                     MonsterSpawner.Instance.StartSpawner();
-                    TimeUpSpawner.Instance.StartSpawner().Forget();
+                    TimeUpMultiSpawner.Instance.StartSpawner().Forget();
                     break;
                 case PlayerState.Hunter:
                     // Stop spawners
                     MonsterSpawner.Instance.StopSpawner();
-                    TimeUpSpawner.Instance.StopSpawner();
+                    TimeUpMultiSpawner.Instance.StopSpawner();
                     break;
+
             }
         }
 
@@ -113,9 +159,6 @@ namespace TMOT
         {
             // Set prey state
             PlayerController.Instance.SetState(!StartInHuntingMode ? PlayerState.Prey : PlayerState.Hunter);
-
-            // Spawn the first bunch of monsters
-            MonsterSpawner.Instance.SpawnRandomMonsters(initialSpawnAmount, false);
 
             // Initialize spawner
             MonsterSpawner.Instance.SpawnAmount = normalSpawnAmount;
@@ -132,7 +175,7 @@ namespace TMOT
             {
                 case CustomDroneType.TimeUp:
                     hunterTime += 5;
-                    TimeUpSpawner.Instance.ReportTimeUpPicked();
+                    TimeUpMultiSpawner.Instance.ReportTimeUpPicked(customDrone.gameObject);
                     OnHunterTimeIncreased?.Invoke(hunterTime);
                     break;
             }
@@ -160,9 +203,13 @@ namespace TMOT
 
                 // Switch
                 PlayerController.Instance.SetState(PlayerState.Hunter);
+
+                switchCooldownTimer = switchBackCooldown;
             }
             else if (PlayerController.Instance.State == PlayerState.Hunter)
             {
+                if (switchCooldownTimer > 0) return;
+
                 // You can always switch from hunter to prey
                 PlayerController.Instance.SetState(PlayerState.Prey);
 
@@ -183,7 +230,9 @@ namespace TMOT
             if (hunterTime < 0)
             {
                 hunterTime = 0;
+                switchCooldownTimer = switchCooldown;
                 PlayerController.Instance.SetState(PlayerState.Prey);
+                
             }
 
             

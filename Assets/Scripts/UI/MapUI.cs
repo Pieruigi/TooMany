@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using DG.Tweening;
 using UnityEngine;
 
@@ -44,6 +45,8 @@ namespace TMOT.UI
 
         float mapShakeStrength = 20;
 
+        Vector3 rootLocalPositionDefault;
+
 
         void Awake()
         {
@@ -55,6 +58,7 @@ namespace TMOT.UI
         {
             sizeRatio = LevelController.Instance.MapSize.x * 50f / (pinRoot.parent as RectTransform).sizeDelta.x;
             mapRadius = ((pinRoot.parent as RectTransform).sizeDelta.x - 4) / 2;
+            rootLocalPositionDefault = transform.GetChild(0).localPosition;
         }
 
         // Update is called once per frame
@@ -85,19 +89,23 @@ namespace TMOT.UI
             MonsterSpawner.OnMonsterRemoved += HandleOnObjectRemoved;
             TimeUpSpawner.OnTimeUpSpawned += HandleOnTimeUpSpawned;
             TimeUpSpawner.OnTimeUpUnspawned += HandleOnObjectRemoved;
+            TimeUpMultiSpawner.OnTimeUpMultiSpawned += HandleOnTimeupMultiSpawned;
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
             MedicalSpawner.OnMedicalDroneSpawned += HandleOnTimeUpSpawned;
             MedicalSpawner.OnMedicalDroneUnspawned += HandleOnObjectRemoved;
             DiamondSpawner.OnDiamondSpanwed += HandleOnDiamondSpawned;
             DiamondSpawner.OnDiamondUnspanwed += HandleOnObjectRemoved;
+
         }
 
+        
         void OnDisable()
         {
             MonsterSpawner.OnMonsterAdded -= HandleOnMonsterAdded;
             MonsterSpawner.OnMonsterRemoved -= HandleOnObjectRemoved;
             TimeUpSpawner.OnTimeUpSpawned -= HandleOnTimeUpSpawned;
             TimeUpSpawner.OnTimeUpUnspawned -= HandleOnObjectRemoved;
+            TimeUpMultiSpawner.OnTimeUpMultiSpawned -= HandleOnTimeupMultiSpawned;
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
             MedicalSpawner.OnMedicalDroneSpawned -= HandleOnTimeUpSpawned;
             MedicalSpawner.OnMedicalDroneUnspawned -= HandleOnObjectRemoved;
@@ -128,6 +136,19 @@ namespace TMOT.UI
             pins.Add(pin, timeUp);
 
             ShakeIn(pin);
+        }
+
+        
+      
+
+        private void HandleOnTimeupMultiSpawned(List<GameObject> list)
+        {
+            foreach (GameObject g in list)
+            {
+                var pin = Instantiate(timeUpPinPrefab, pinRoot);
+                pins.Add(pin, g);
+                ShakeIn(pin);
+            }
         }
 
 
@@ -183,7 +204,7 @@ namespace TMOT.UI
             t.DOScale(s.x, shakeDuration).SetEase(Ease.InOutElastic);
 
             // Shake map
-            (transform.GetChild(0) as RectTransform).DOShakePosition(shakeDuration, mapShakeStrength).SetEase(Ease.InOutElastic);
+            (transform.GetChild(0) as RectTransform).DOShakePosition(shakeDuration, mapShakeStrength).SetEase(Ease.InOutElastic).onComplete += ()=> { transform.GetChild(0).localPosition = rootLocalPositionDefault; };
         }
 
         void ShakeOut(GameObject pin)
@@ -194,7 +215,7 @@ namespace TMOT.UI
             t.DOScale(0, shakeDuration).SetEase(Ease.InOutElastic);
 
             // Shake map
-            (transform.GetChild(0) as RectTransform).DOShakePosition(shakeDuration, mapShakeStrength).SetEase(Ease.InOutElastic);
+            (transform.GetChild(0) as RectTransform).DOShakePosition(shakeDuration, mapShakeStrength).SetEase(Ease.InOutElastic).onComplete += ()=> { transform.GetChild(0).localPosition = rootLocalPositionDefault; };
         }
 
 

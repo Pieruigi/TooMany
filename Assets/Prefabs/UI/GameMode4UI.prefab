@@ -1239,6 +1239,7 @@ MonoBehaviour:
   quitButton: {fileID: 2572566417255151172}
   goalField: {fileID: 1051850265691994091}
   hunterTimer: {fileID: 8081879783613874166}
+  countdownPlayer: {fileID: 7334700784742592586}
 --- !u!114 &1051850265691994091 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6783693831071054465, guid: 336295e3eec286a4b97be08c5a03d3e0,

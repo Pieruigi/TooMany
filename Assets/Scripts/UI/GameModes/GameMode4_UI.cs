@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,20 +14,44 @@ namespace TMOT.UI
         [SerializeField]
         GameObject hunterTimer;
 
+        [SerializeField]
+        CountdownPlayer countdownPlayer;
+
         TMP_Text hunterTimerField;
+
+        Color activatedColor = new Color(1, 1, 1, 1);
+        Color deactivatedColor = new Color(0.5f, 0.5f, .5f, .25f);
+
+        float deactivatedSize = .4f;
+
+        float deactivatedAlpha = .2f;
+
+        CanvasGroup hunterCanvasGroup;
+
+        bool preSwitching = false;
+
+        Vector3 hunterLocalPositionDefault;
 
         protected override void Awake()
         {
             base.Awake();
 
             hunterTimerField = hunterTimer.GetComponent<TMP_Text>();
+            hunterCanvasGroup = hunterTimerField.GetComponent<CanvasGroup>();
+
+            hunterCanvasGroup.transform.localScale = Vector3.one * deactivatedSize;
+            hunterCanvasGroup.alpha = deactivatedAlpha;
+            hunterLocalPositionDefault = hunterCanvasGroup.transform.localPosition;
 
             HandleOnHunterTimeIncreased((GameMode.Instance as GameMode4).HunterTime);
+            HandleOnProgressUpdated(0, (GameMode.Instance as GameMode4).Goal);
+
+
         }
 
         void LateUpdate()
         {
-            hunterTimerField.text = Mathf.CeilToInt((GameMode.Instance as GameMode4).HunterTime).ToString();
+            UpdateHunterTimer();
         }
 
         protected override void OnEnable()
@@ -34,6 +60,7 @@ namespace TMOT.UI
 
             GameMode.OnProgressUpdated += HandleOnProgressUpdated;
             GameMode4.OnHunterTimeIncreased += HandleOnHunterTimeIncreased;
+            PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
         }
 
         protected override void OnDisable()
@@ -41,6 +68,22 @@ namespace TMOT.UI
             base.OnDisable();
             GameMode.OnProgressUpdated -= HandleOnProgressUpdated;
             GameMode4.OnHunterTimeIncreased -= HandleOnHunterTimeIncreased;
+            PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
+
+        private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
+        {
+            switch (newState)
+            {
+                case PlayerState.Prey:
+                    HunterToPrey();
+
+                    break;
+
+                case PlayerState.Hunter:
+                    PreyToHunter();
+                    break;
+            }
         }
 
         private void HandleOnHunterTimeIncreased(float time)
@@ -52,5 +95,60 @@ namespace TMOT.UI
         {
             UpdateGoal($"{progress}/{goal}");
         }
+
+        void PreyToHunter()
+        {
+            preSwitching = false;
+
+            // Prey
+            float duration = .5f;
+
+            // Hunter
+            var hSeq = DOTween.Sequence();
+            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOScale(1, duration).SetEase(Ease.InOutElastic));
+            hSeq.Join(hunterCanvasGroup.DOFade(1, duration).SetEase(Ease.InOutQuad));
+            hSeq.Join(hunterCanvasGroup.transform.DOShakePosition(.5f, 30f).SetEase(Ease.InOutElastic));
+            hSeq.onComplete += () => { hunterCanvasGroup.transform.localPosition = hunterLocalPositionDefault; };
+        }
+
+        void HunterToPrey()
+        {
+            hunterCanvasGroup.transform.DOKill();
+            
+            preSwitching = false;
+
+            // Prey
+            float duration = .5f;
+
+            // Hunter
+            var hSeq = DOTween.Sequence();
+            hSeq.Join((hunterCanvasGroup.transform as RectTransform).DOScale(deactivatedSize, duration).SetEase(Ease.InOutElastic));
+            hSeq.Join(hunterCanvasGroup.DOFade(deactivatedAlpha, duration).SetEase(Ease.InOutQuad));
+            hSeq.Join(hunterCanvasGroup.transform.DOShakePosition(.5f, 30f).SetEase(Ease.InOutElastic));
+            hSeq.onComplete += () => { hunterCanvasGroup.transform.localPosition = hunterLocalPositionDefault; };
+
+            countdownPlayer.Stop();
+        }
+
+        void UpdateHunterTimer()
+        {
+            var t = (GameMode.Instance as GameMode4).HunterTime;
+
+            hunterTimerField.text = Mathf.CeilToInt(t).ToString();
+
+            if (PlayerController.Instance.State == PlayerState.Hunter)
+            {
+                if (t < 3 && t > 2 && !preSwitching)
+                {
+                    preSwitching = true;
+                     float count = 12;
+                    float size = 2f;
+                    (hunterCanvasGroup.transform as RectTransform).DOScale(size, t / count).SetLoops((int)count, LoopType.Yoyo);
+
+                    countdownPlayer.Play().Forget();
+                }
+            }
+        }
+
     }
 }

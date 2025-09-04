@@ -47,7 +47,7 @@ MonoBehaviour:
   gameUIPrefab: {fileID: 428352958936532278, guid: 2b5b8d69061e8214399a726a3eb5a504,
     type: 3}
   startInHuntingMode: 0
-  timeUpSpawnerPrefab: {fileID: 792355856939066489, guid: 9bf9129f9d87ca8428ed0c00e5d0bb1f,
+  timeUpSpawnerPrefab: {fileID: 4895777033199873330, guid: cfc85fc168fd11c47b3df1c389c55492,
     type: 3}
   monsterSpawnerPrefab: {fileID: 3993171266660804438, guid: d2b8bce1dc145a04a9b35c1bf3fe7396,
     type: 3}

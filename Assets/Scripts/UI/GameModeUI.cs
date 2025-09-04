@@ -34,6 +34,8 @@ namespace TMOT.UI
         [SerializeField]
         TMP_Text goalField;
 
+        Vector3 goalFieldLocalPositionDefault;
+
 
 
         protected virtual void Awake()
@@ -44,6 +46,8 @@ namespace TMOT.UI
 
             restartButton.onClick.AddListener(RestartGame);
             quitButton.onClick.AddListener(QuitGame);
+
+            goalFieldLocalPositionDefault = goalField.transform.localPosition;
         }
 
         protected virtual void Start()
@@ -149,7 +153,7 @@ namespace TMOT.UI
         {
             goalField.text = text;
 
-            goalField.transform.DOShakePosition(.5f, 30f).SetEase(Ease.InOutElastic);
+            goalField.transform.DOShakePosition(.5f, 30f).SetEase(Ease.InOutElastic).onComplete += ()=> { goalField.transform.localPosition = goalFieldLocalPositionDefault; };
         }
 
         

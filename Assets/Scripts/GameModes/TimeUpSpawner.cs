@@ -10,6 +10,8 @@ namespace TMOT
 {
     public class TimeUpSpawner : Singleton<TimeUpSpawner>
     {
+        public const float PlayerMinDistance = 18;
+
         public delegate void OnTimeUpSpawnedDelegate(GameObject timeUp);
         public static OnTimeUpSpawnedDelegate OnTimeUpSpawned;
         
@@ -48,7 +50,7 @@ namespace TMOT
 
             if (!spawning) return;
 
-            var candidates = LevelController.Instance.Waypoints.ToList().FindAll(w => Vector3.Distance(PlayerController.Instance.transform.position, w.position) > 18);
+            var candidates = LevelController.Instance.Waypoints.ToList().FindAll(w => Vector3.Distance(PlayerController.Instance.transform.position, w.position) > PlayerMinDistance);
             var position = candidates[UnityEngine.Random.Range(0, candidates.Count)].position;
             timeUp = Instantiate(timeUpPrefab, position, Quaternion.identity);
 
