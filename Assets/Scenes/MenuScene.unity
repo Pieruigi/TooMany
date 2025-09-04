@@ -2433,7 +2433,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1923069866}
   toggleTransition: 1
   graphic: {fileID: 1292161242}
@@ -6691,6 +6691,7 @@ MonoBehaviour:
   - {fileID: 1359987213}
   - {fileID: 1709332833}
   - {fileID: 294177422}
+  - {fileID: 764571458}
 --- !u!224 &1656409965
 RectTransform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ namespace TMOT
 {
     public enum GameState { None, Starting, Playing, Paused, Loser, Winner }
 
-    public enum GameModeType { Mode1, Mode2, Mode3 }
+    public enum GameModeType { Mode1, Mode2, Mode3, Mode4, Mode5 }
 
     public class GameManager : SingletonPersistent<GameManager>
     {
