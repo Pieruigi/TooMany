@@ -21,6 +21,9 @@ namespace TMOT
         [SerializeField]
         GameObject medicalSpawnerPrefab;
 
+        [SerializeField]
+        GameObject pillSpawnerPrefab;
+
         float hunterTime = 10;
         public float HunterTime
         {
@@ -64,6 +67,7 @@ namespace TMOT
             Instantiate(timeUpSpawnerPrefab, Vector3.zero, Quaternion.identity);
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
             Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
+            Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
             // Stop spawners
             MonsterSpawner.Instance.StopSpawner();
             TimeUpMultiSpawner.Instance.StopSpawner();
@@ -194,6 +198,10 @@ namespace TMOT
                     PlayerController.Instance.Heal();
                     MedicalSpawner.Instance.ReportMedicalPicked();
                     break;    
+                case CustomDroneType.Pill:
+                    SpeedPowerUp.Instance.BuffSpeed();
+                    PillSpawner.Instance.ReportPicked();
+                    break; 
             }
         }
 

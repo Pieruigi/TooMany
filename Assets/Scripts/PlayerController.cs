@@ -34,8 +34,8 @@ namespace TMOT
         float health = 4;
 
         public float MaxHealth { get; private set; }
-        public float Health {get{ return health; }}
-       
+        public float Health { get { return health; } }
+
         [SerializeField]
         float pushRadius = 5f;
 
@@ -54,6 +54,9 @@ namespace TMOT
         [SerializeField]
         float moveSpeed = 3;
 
+        float moveSpeedDefault;
+
+        
         [SerializeField]
         float rotationSpeed = 720;
 
@@ -63,7 +66,7 @@ namespace TMOT
         float yaw = 0, pitch = 0;
         public float Pitch
         {
-            get{ return pitch; }
+            get { return pitch; }
         }
 
         float mouseSensitivity = 5f;
@@ -73,7 +76,7 @@ namespace TMOT
 
         public bool Rotating
         {
-            get {return aimInput.x != 0; }
+            get { return aimInput.x != 0; }
         }
 
         float pitchDirection = -1;
@@ -84,31 +87,31 @@ namespace TMOT
         Vector3 currentVelocity = Vector3.zero;
         public Vector3 Velocity
         {
-            get{ return currentVelocity; }
+            get { return currentVelocity; }
         }
 
         float killMonsterTime = .5f;
 
         float killMonsterElapsed = 0f;
 
-        
+
         PlayerState state = PlayerState.None;
 
         CharacterController cc;
 
-       
+
 
         [SerializeField]
         float sprintMultiplier = 2f;
         public float SprintMultiplier
         {
-            get{ return sprintMultiplier; }
+            get { return sprintMultiplier; }
         }
 
         float stamina = 1;
         public float Stamina
         {
-            get{ return stamina; }
+            get { return stamina; }
         }
 
         float staminaDepleteSpeed = 1f;
@@ -118,7 +121,7 @@ namespace TMOT
         bool sprinting = false;
         public bool Sprinting
         {
-            get{ return sprinting; }
+            get { return sprinting; }
         }
         float staminaLastUsed = 0;
 
@@ -139,6 +142,7 @@ namespace TMOT
             MaxHealth = health;
             cc = GetComponent<CharacterController>();
             yaw = transform.eulerAngles.y;
+            moveSpeedDefault = moveSpeed;
         }
 
 
@@ -156,7 +160,7 @@ namespace TMOT
 
             if (Input.GetKeyDown(KeyCode.P))
             {
-                
+
                 InputDisabled = !InputDisabled;
             }
 
@@ -169,20 +173,20 @@ namespace TMOT
 
 
 
-                switch (state)
-                {
-                    case PlayerState.None:
+            switch (state)
+            {
+                case PlayerState.None:
 
-                        break;
-                    case PlayerState.Prey:
-                        UpdatePreyState();
-                        break;
-                    case PlayerState.Hunter:
-                        UpdateHunterState();
-                        break;
-                }
+                    break;
+                case PlayerState.Prey:
+                    UpdatePreyState();
+                    break;
+                case PlayerState.Hunter:
+                    UpdateHunterState();
+                    break;
+            }
 
-            
+
         }
 
         void CheckInput()
@@ -249,7 +253,7 @@ namespace TMOT
             transform.eulerAngles = new Vector3(0, yaw, 0);
 
 
-   
+
         }
 
         #region update state
@@ -297,7 +301,7 @@ namespace TMOT
         #region enter state
         void EnterPreyState()
         {
-            
+
         }
 
         void EnterHunterState()
@@ -351,7 +355,7 @@ namespace TMOT
                     atLeastOneKilled = true;
                 }
 
-                if(atLeastOneKilled)
+                if (atLeastOneKilled)
                     OnPunch?.Invoke();
             }
         }
@@ -400,6 +404,16 @@ namespace TMOT
             OnPlayerHealed?.Invoke(health - 1, health);
         }
 
+        public void BuffMaxSpeed(float factor)
+        {
+            moveSpeed = moveSpeedDefault * factor;
+        }
+
+        public void ResetMaxSpeed()
+        {
+            moveSpeed = moveSpeedDefault;
+        }
+
         public void SetState(PlayerState newState)
         {
             if (newState == state) return;
@@ -422,6 +436,8 @@ namespace TMOT
             OnStateChanged?.Invoke(oldState, newState);
 
         }
+        
+
     }
     
 }

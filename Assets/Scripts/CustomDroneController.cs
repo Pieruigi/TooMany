@@ -9,7 +9,7 @@ using UnityEngine.AI;
 
 namespace TMOT
 {
-    public enum CustomDroneType {Medical, TimeUp, Diamond}
+    public enum CustomDroneType {Medical, TimeUp, Diamond, Pill}
 
     public class CustomDroneController : MonoBehaviour
     {
@@ -109,20 +109,16 @@ namespace TMOT
 
         void ReportPickedUp()
         {
-            switch (type)
-            {
-                case CustomDroneType.Medical:
-                    //MedicalSpawner.Instance.ReportMedicalPicked();
-                    GameMode.Instance.ReportCustomDronePicked(this);
-                    break;
-                case CustomDroneType.TimeUp:
-                    //TimeUpSpawner.Instance.ReportTimeUpPicked();
-                    GameMode.Instance.ReportCustomDronePicked(this);
-                    break;
-                case CustomDroneType.Diamond:
-                    GameMode.Instance.ReportCustomDronePicked(this);
-                    break;
-            }
+            GameMode.Instance.ReportCustomDronePicked(this);
+            // switch (type)
+            // {
+            //     case CustomDroneType.Medical:
+            //     case CustomDroneType.TimeUp:
+            //     case CustomDroneType.Diamond:
+            //     case CustomDroneType.Pill:
+            //         GameMode.Instance.ReportCustomDronePicked(this);
+            //         break;
+            // }
 
             
         }

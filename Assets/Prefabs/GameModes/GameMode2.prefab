@@ -55,3 +55,5 @@ MonoBehaviour:
     type: 3}
   medicalSpawnerPrefab: {fileID: 2071583053414274110, guid: d181e85a5d9d19b489447dec01b29dc0,
     type: 3}
+  pillSpawnerPrefab: {fileID: 6389666595648419003, guid: b252fef9f6513b9468f5e9eb56ac9bff,
+    type: 3}

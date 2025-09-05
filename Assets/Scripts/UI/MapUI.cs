@@ -22,6 +22,9 @@ namespace TMOT.UI
         [SerializeField]
         GameObject diamondPinPrefab;
 
+        [SerializeField]
+        GameObject pillPinPrefab;
+
           
 
         [SerializeField]
@@ -95,10 +98,12 @@ namespace TMOT.UI
             MedicalSpawner.OnMedicalDroneUnspawned += HandleOnObjectRemoved;
             DiamondSpawner.OnDiamondSpanwed += HandleOnDiamondSpawned;
             DiamondSpawner.OnDiamondUnspanwed += HandleOnObjectRemoved;
+            PillSpawner.OnSpawned += HandleOnPillSpawned;
+            PillSpawner.OnUnspawned += HandleOnObjectRemoved;
 
         }
 
-        
+
         void OnDisable()
         {
             MonsterSpawner.OnMonsterAdded -= HandleOnMonsterAdded;
@@ -111,6 +116,8 @@ namespace TMOT.UI
             MedicalSpawner.OnMedicalDroneUnspawned -= HandleOnObjectRemoved;
             DiamondSpawner.OnDiamondSpanwed -= HandleOnDiamondSpawned;
             DiamondSpawner.OnDiamondUnspanwed -= HandleOnObjectRemoved;
+            PillSpawner.OnSpawned -= HandleOnPillSpawned;
+            PillSpawner.OnUnspawned -= HandleOnObjectRemoved;
         }
 
         
@@ -120,6 +127,14 @@ namespace TMOT.UI
          
             UpdateMonsterPinColors();
             
+        }
+
+        private void HandleOnPillSpawned(GameObject drone)
+        {
+            var pin = Instantiate(pillPinPrefab, pinRoot);
+            pins.Add(pin, drone);
+
+            ShakeIn(pin);
         }
 
         private void HandleOnDiamondSpawned(GameObject diamond)

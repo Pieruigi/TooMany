@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 3944491430176695040}
   - component: {fileID: 8995406137029927929}
   - component: {fileID: 8734504203799004510}
+  - component: {fileID: 5724610575345008422}
   m_Layer: 0
   m_Name: Player_fov60
   m_TagString: Player
@@ -383,6 +384,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0bc62ddd7518584419bcc7ebd168352a, type: 3}
   - {fileID: 8300000, guid: a1fb66f8ff54cbc44baced9d40627256, type: 3}
   moveAudioSource: {fileID: 6559364629339962996}
+--- !u!114 &5724610575345008422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973862805693236106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e5b9f18dac01264aba1bd24c8143577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1440852047622987730
 GameObject:
   m_ObjectHideFlags: 0

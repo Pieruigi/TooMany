@@ -62,7 +62,7 @@ namespace TMOT
 
         public virtual void ReportCustomDronePicked(CustomDroneController customDrone)
         {
-
+            
         }
 
         public virtual void ReportMonsterDroneHitByPlayer(MonsterController monsterDrone)
