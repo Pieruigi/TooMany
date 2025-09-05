@@ -51,3 +51,5 @@ MonoBehaviour:
     type: 3}
   monsterSpawnerPrefab: {fileID: 3993171266660804438, guid: d2b8bce1dc145a04a9b35c1bf3fe7396,
     type: 3}
+  medicalSpawnerPrefab: {fileID: 2071583053414274110, guid: d181e85a5d9d19b489447dec01b29dc0,
+    type: 3}

@@ -39,7 +39,7 @@ namespace TMOT
         {
             //SetMaterial(GameMode.Instance.StartInHuntingMode ? hunterMaterial : preyMaterial);
 
-            ForceHdrColor(GameMode.Instance.StartInHuntingMode ? (Vector4)hunterColor * hunterColorIntensity : (Vector4)preyColor * preyColorIntensity);
+            //ForceHdrColor(GameMode.Instance.StartInHuntingMode ? (Vector4)hunterColor * hunterColorIntensity : (Vector4)preyColor * preyColorIntensity);
 
             //DOTween.To(() => (Vector4)preyColor * preyColorIntensity, x => material.SetVector("_BaseColor", x), (Vector4)preyColor * preyColorIntensity / 4f, switchDuration).SetLoops(-1, LoopType.Yoyo);
         }
@@ -65,12 +65,10 @@ namespace TMOT
             switch (newState)
             {
                 case PlayerState.Prey:
-                    //SetMaterial(preyMaterial);
-                    SwitchHdrColor(preyColor * preyColorIntensity);
+                    //SwitchHdrColor(preyColor * preyColorIntensity);
                     break;
                 case PlayerState.Hunter:
-                    //SetMaterial(hunterMaterial);
-                    SwitchHdrColor(hunterColor * hunterColorIntensity);
+                    //SwitchHdrColor(hunterColor * hunterColorIntensity);
                     break;
             }
 

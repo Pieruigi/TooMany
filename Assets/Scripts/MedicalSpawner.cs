@@ -28,13 +28,18 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-            
+
         }
 
         // Update is called once per frame
         void Update()
         {
-
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                SpawnMedicalDrone().Forget();
+            }
+#endif
         }
 
         void OnEnable()
@@ -85,12 +90,14 @@ namespace TMOT
 
             OnMedicalDroneUnspawned?.Invoke(medicalDrone);
 
-            Destroy(medicalDrone,2f);
+            Destroy(medicalDrone, 2f);
         }
 
         public void ReportMedicalPicked()
         {
             UnspawnMedicalDrone();
         }
+
+      
     }
 }

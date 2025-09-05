@@ -18,16 +18,19 @@ namespace TMOT
         [SerializeField]
         GameObject monsterSpawnerPrefab;
 
+        [SerializeField]
+        GameObject medicalSpawnerPrefab;
+
         float hunterTime = 10;
         public float HunterTime
         {
-            get{ return hunterTime; }
+            get { return hunterTime; }
         }
 
         int goal = 100;
         public int Goal
         {
-            get{ return goal; }
+            get { return goal; }
         }
 
         int progress = 0;
@@ -40,15 +43,18 @@ namespace TMOT
 
         bool playing = false;
 
-        float monsterSpawnTime = 10;
+        float monsterSpawnTime = 15;
 
         int initialSpawnAmount = 10;
 
-        int normalSpawnAmount = 2;
+        int normalSpawnAmount = 4;
 
-        int backFromHunterAmount = 4;
+        int backFromHunterAmount = 6;
 
         bool firstSpawn = true;
+
+        float hunterTimeUpSpeed = 0.1f;
+        float hunterTimeUpElapsed = 0;
 
         protected override void Awake()
         {
@@ -57,9 +63,11 @@ namespace TMOT
             // Instantiate spawners
             Instantiate(timeUpSpawnerPrefab, Vector3.zero, Quaternion.identity);
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
+            Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
             // Stop spawners
             MonsterSpawner.Instance.StopSpawner();
             TimeUpMultiSpawner.Instance.StopSpawner();
+         
         }
 
 
@@ -85,11 +93,14 @@ namespace TMOT
                 {
                     playing = false;
                     GameManager.Instance.ReportPlayerIsWinner();
-                    
-                    return;    
+
+                    return;
                 }
 
             }
+
+            // Check hunter time up
+            CheckHunterTimeUp();
 
             // Check hunting time
             CheckHunterTime();
@@ -140,13 +151,14 @@ namespace TMOT
                         amount = initialSpawnAmount;
                         firstSpawn = false;
                     }
-
+                    hunterTimeUpElapsed = 0;
                     MonsterSpawner.Instance.SpawnRandomMonsters(amount, false);
                     // Start spawners
                     MonsterSpawner.Instance.StartSpawner();
                     TimeUpMultiSpawner.Instance.StartSpawner().Forget();
                     break;
                 case PlayerState.Hunter:
+                    hunterTimeUpElapsed = 0;
                     // Stop spawners
                     MonsterSpawner.Instance.StopSpawner();
                     TimeUpMultiSpawner.Instance.StopSpawner();
@@ -178,6 +190,10 @@ namespace TMOT
                     TimeUpMultiSpawner.Instance.ReportTimeUpPicked(customDrone.gameObject);
                     OnHunterTimeIncreased?.Invoke(hunterTime);
                     break;
+                case CustomDroneType.Medical:
+                    PlayerController.Instance.Heal();
+                    MedicalSpawner.Instance.ReportMedicalPicked();
+                    break;    
             }
         }
 
@@ -187,10 +203,8 @@ namespace TMOT
 
             progress++;
 
-            
-
             OnProgressUpdated?.Invoke(progress, goal);
-            
+
         }
 
 
@@ -232,10 +246,24 @@ namespace TMOT
                 hunterTime = 0;
                 switchCooldownTimer = switchCooldown;
                 PlayerController.Instance.SetState(PlayerState.Prey);
-                
+
             }
 
-            
+
+        }
+
+        void CheckHunterTimeUp()
+        {
+            if (PlayerController.Instance.State != PlayerState.Prey) return;
+
+            hunterTimeUpElapsed += Time.deltaTime * hunterTimeUpSpeed;
+
+            if (hunterTimeUpElapsed > 1)
+            {
+                hunterTimeUpElapsed -= 1;
+                hunterTime++;
+                OnHunterTimeIncreased?.Invoke(hunterTime);
+            }
         }
         
     }
