@@ -15,7 +15,9 @@ namespace TMOT
         [SerializeField]
         List<AudioClip> clips;
 
-        bool playing = false;
+        bool stopping = false;
+
+       
         // Start is called before the first frame update
         void Start()
         {
@@ -30,13 +32,15 @@ namespace TMOT
 
         public async UniTask Play()
         {
-            if (playing) return;
-
-            playing = true;
+            stopping = false;
 
             foreach (var clip in clips)
             {
-                if (!playing) return;
+                if (stopping)
+                {
+                    stopping = false;
+                    break;
+                }
 
                 source.clip = clip;
                 source.Play();
@@ -46,8 +50,7 @@ namespace TMOT
 
         public void Stop()
         {
-            if (!playing) return;
-            playing = false;
+            stopping = true;
             source.Stop();
         }
     }

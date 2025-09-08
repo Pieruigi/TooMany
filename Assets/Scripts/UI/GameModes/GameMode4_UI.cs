@@ -138,7 +138,7 @@ namespace TMOT.UI
 
             if (PlayerController.Instance.State == PlayerState.Hunter)
             {
-                if (t < 3 && t > 2 && !preSwitching)
+                if (t < 3 && t > 2.9f && !preSwitching)
                 {
                     preSwitching = true;
                      float count = 12;

@@ -715,7 +715,7 @@ GameObject:
   - component: {fileID: 294177421}
   - component: {fileID: 294177423}
   m_Layer: 5
-  m_Name: All Together
+  m_Name: Bomberman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -966,8 +966,8 @@ RectTransform:
   m_Children:
   - {fileID: 1359987212}
   - {fileID: 1709332832}
-  - {fileID: 294177420}
   - {fileID: 764571456}
+  - {fileID: 294177420}
   - {fileID: 1308803205}
   m_Father: {fileID: 1656409965}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6690,8 +6690,8 @@ MonoBehaviour:
   modes:
   - {fileID: 1359987213}
   - {fileID: 1709332833}
-  - {fileID: 294177422}
   - {fileID: 764571458}
+  - {fileID: 294177422}
 --- !u!224 &1656409965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8484,7 +8484,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: All Together
+  m_text: Bomberman
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1e4bb81ee515f04fab9f8da1b4a08f1, type: 2}
   m_sharedMaterial: {fileID: -2680850350597673258, guid: f1e4bb81ee515f04fab9f8da1b4a08f1,
