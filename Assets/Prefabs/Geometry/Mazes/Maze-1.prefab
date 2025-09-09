@@ -16304,6 +16304,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampGroup (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: ShapeModule.length
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17340,6 +17355,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampGroup
       objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: ShapeModule.length
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8950145481402928356, guid: 679431e666c56dd4f9da363de1f1211d,
         type: 3}
       propertyPath: m_IsActive
@@ -18164,6 +18194,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740226553883915436, guid: d59aeb5e9637ced4691585f38cc9014e,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26266,7 +26301,7 @@ PrefabInstance:
     - target: {fileID: 1927324437987212109, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.025
       objectReference: {fileID: 0}
     - target: {fileID: 1927324437987212109, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
@@ -26326,17 +26361,17 @@ PrefabInstance:
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: redLightColor.b
-      value: 0.759434
+      value: 0.7607843
       objectReference: {fileID: 0}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: redLightColor.g
-      value: 1
+      value: 0.9603235
       objectReference: {fileID: 0}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: redLightColor.r
-      value: 0.99342036
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
@@ -26345,8 +26380,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
+      propertyPath: greenLightColor.g
+      value: 0.9607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
       propertyPath: greenLightColor.r
-      value: 0.99607843
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: ShapeModule.length
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -26662,7 +26717,7 @@ PrefabInstance:
     - target: {fileID: 1927324437987212109, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.791
       objectReference: {fileID: 0}
     - target: {fileID: 1927324437987212109, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
@@ -26711,9 +26766,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
+      propertyPath: redMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: ab8700f4179590043916a13705f0ee96, type: 2}
+    - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
       propertyPath: greenMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: e1df300a873a6ac4d9aee2f90bc8a461, type: 2}
+      objectReference: {fileID: 2100000, guid: ab8700f4179590043916a13705f0ee96, type: 2}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: redLightColor.b
@@ -26722,7 +26782,7 @@ PrefabInstance:
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: redLightColor.g
-      value: 0.72049886
+      value: 0.94192266
       objectReference: {fileID: 0}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
@@ -26732,12 +26792,27 @@ PrefabInstance:
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: greenLightColor.g
-      value: 0.72156864
+      value: 0.94509804
       objectReference: {fileID: 0}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: greenLightColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: ShapeModule.length
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29084,7 +29159,7 @@ PrefabInstance:
     - target: {fileID: 446973522773298524, guid: 6a40de735bcaa514892c27acfeb32983,
         type: 3}
       propertyPath: redLightColor.g
-      value: 0.72156864
+      value: 0.92156863
       objectReference: {fileID: 0}
     - target: {fileID: 446973522773298524, guid: 6a40de735bcaa514892c27acfeb32983,
         type: 3}
@@ -29094,7 +29169,7 @@ PrefabInstance:
     - target: {fileID: 446973522773298524, guid: 6a40de735bcaa514892c27acfeb32983,
         type: 3}
       propertyPath: greenLightColor.g
-      value: 0.72156864
+      value: 0.92156863
       objectReference: {fileID: 0}
     - target: {fileID: 446973522773298524, guid: 6a40de735bcaa514892c27acfeb32983,
         type: 3}
@@ -29103,8 +29178,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2133722774301912829, guid: 6a40de735bcaa514892c27acfeb32983,
         type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2133722774301912829, guid: 6a40de735bcaa514892c27acfeb32983,
+        type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2133722774301912829, guid: 6a40de735bcaa514892c27acfeb32983,
         type: 3}
@@ -31916,6 +31996,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LampGroup (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: ShapeModule.length
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8950145481402928356, guid: 679431e666c56dd4f9da363de1f1211d,
         type: 3}
@@ -37270,7 +37365,7 @@ PrefabInstance:
     - target: {fileID: 1927324437987212109, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.568
       objectReference: {fileID: 0}
     - target: {fileID: 1927324437987212109, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
@@ -37351,6 +37446,21 @@ PrefabInstance:
         type: 3}
       propertyPath: greenLightColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: ShapeModule.length
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -41621,6 +41731,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: LampGroup2
       objectReference: {fileID: 0}
+    - target: {fileID: 7345610341417056899, guid: bd54bf5d03ab1b24cb95fdd390a1b761,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345610341417056899, guid: bd54bf5d03ab1b24cb95fdd390a1b761,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345610341417056899, guid: bd54bf5d03ab1b24cb95fdd390a1b761,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.003921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 7710705136513258851, guid: bd54bf5d03ab1b24cb95fdd390a1b761,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.56
+      objectReference: {fileID: 0}
     - target: {fileID: 8084172070749553373, guid: bd54bf5d03ab1b24cb95fdd390a1b761,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -43201,7 +43331,7 @@ PrefabInstance:
     - target: {fileID: 1927324437987212109, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.859
       objectReference: {fileID: 0}
     - target: {fileID: 1927324437987212109, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
@@ -43250,9 +43380,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
+      propertyPath: redMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: ab8700f4179590043916a13705f0ee96, type: 2}
+    - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
       propertyPath: greenMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: e1df300a873a6ac4d9aee2f90bc8a461, type: 2}
+      objectReference: {fileID: 2100000, guid: ab8700f4179590043916a13705f0ee96, type: 2}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: redLightColor.b
@@ -43261,7 +43396,7 @@ PrefabInstance:
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: redLightColor.g
-      value: 0.72156864
+      value: 0.93011206
       objectReference: {fileID: 0}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
@@ -43271,12 +43406,27 @@ PrefabInstance:
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: greenLightColor.g
-      value: 0.72156864
+      value: 0.93333334
       objectReference: {fileID: 0}
     - target: {fileID: 4037796425389991799, guid: 111e64271eb07f34f8de377ddb99013b,
         type: 3}
       propertyPath: greenLightColor.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: ShapeModule.length
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632263960652381500, guid: 111e64271eb07f34f8de377ddb99013b,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -46635,6 +46785,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8651111998188076817}
     m_Modifications:
+    - target: {fileID: 258039322239545528, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: m_Range
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3248351781270667105, guid: 679431e666c56dd4f9da363de1f1211d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -46643,7 +46798,7 @@ PrefabInstance:
     - target: {fileID: 3248351781270667105, guid: 679431e666c56dd4f9da363de1f1211d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.826
+      value: 4.075
       objectReference: {fileID: 0}
     - target: {fileID: 3248351781270667105, guid: 679431e666c56dd4f9da363de1f1211d,
         type: 3}
@@ -46727,8 +46882,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
         type: 3}
+      propertyPath: ShapeModule.length
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
       propertyPath: ColorModule.enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6745852954219486553, guid: 679431e666c56dd4f9da363de1f1211d,
         type: 3}
