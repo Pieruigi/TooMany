@@ -55,14 +55,16 @@ namespace TMOT
             scale = Mathf.Lerp(scale, desiredScale, Time.deltaTime * smoothSpeed);
             transform.localScale = Vector3.one * scale;
 
+            Debug.Log($"TEST - ps {gameObject.name} loop:{_particleSystem.main.loop}");
+
             if (scale > 0.001f)
             {
-                if (!_particleSystem.isPlaying)
+                if (!_particleSystem.isPlaying && _particleSystem.main.loop)
                     _particleSystem.Play();
             }
             else
             {
-                if (_particleSystem.isPlaying)
+                if (_particleSystem.isPlaying && _particleSystem.main.loop)
                     _particleSystem.Stop();
             }
 

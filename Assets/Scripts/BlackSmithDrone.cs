@@ -16,6 +16,9 @@ public class BlackSmithDrone : MonoBehaviour
     [SerializeField]
     AudioSource clinckSource;
 
+    [SerializeField]
+    ParticleSystem fx;
+
     void Start()
     {
         // Save the initial rotation of the GameObject
@@ -33,7 +36,8 @@ public class BlackSmithDrone : MonoBehaviour
             .SetDelay(delayBetweenLoops)  // Delay before repeating the loop
             .OnComplete(() => { Rotate(); });
 
-        clinckSource.PlayDelayed(delayBetweenLoops+0.6f);
+        clinckSource.PlayDelayed(delayBetweenLoops + 0.6f);
+        fx.Play();
     }
 
     
