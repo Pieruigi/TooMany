@@ -10,7 +10,7 @@ public class DynamicLightRange : MonoBehaviour
 
     public float minDistance = 7f;
 
-    public float maxDistance = 20f;      
+    float maxDistance = 20f;      
 
     public float smoothSpeed = 5f;        // Velocità interpolazione range
 

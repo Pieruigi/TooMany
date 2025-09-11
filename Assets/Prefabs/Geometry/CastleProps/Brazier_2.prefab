@@ -479,11 +479,44 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5867458296118015541, guid: efc84557972ea1944a61d4dd1a18f3d9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4805531615047560706}
   m_SourcePrefab: {fileID: 100100000, guid: efc84557972ea1944a61d4dd1a18f3d9, type: 3}
+--- !u!1 &4444304483600423314 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5867458296118015541, guid: efc84557972ea1944a61d4dd1a18f3d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7836317615049256871}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4805531615047560706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4444304483600423314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff7aee3467e21ca45991091200fba0b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  _particleSystem: {fileID: 6488545765527817777}
+  minDistance: 7
+  maxDistance: 32
+  smoothSpeed: 5
 --- !u!4 &6133329021146536963 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4169708068972344228, guid: efc84557972ea1944a61d4dd1a18f3d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7836317615049256871}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6488545765527817777 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3948461312266412438, guid: efc84557972ea1944a61d4dd1a18f3d9,
     type: 3}
   m_PrefabInstance: {fileID: 7836317615049256871}
   m_PrefabAsset: {fileID: 0}

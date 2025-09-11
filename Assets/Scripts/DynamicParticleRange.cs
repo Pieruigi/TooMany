@@ -19,8 +19,8 @@ namespace TMOT
         [SerializeField]
         float minDistance = 7f;
         
-        [SerializeField]
-        float maxDistance = 32f;       // Distanza oltre cui la luce si spegne
+        //[SerializeField]
+        float maxDistance = 20f;       // Distanza oltre cui la luce si spegne
 
         [SerializeField]
         float smoothSpeed = 5f;        // Velocità interpolazione range
