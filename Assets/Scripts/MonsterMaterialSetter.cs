@@ -48,11 +48,18 @@ namespace TMOT
         void OnEnable()
         {
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            MonsterController.OnForcedBehaviour += HandleOnMonsterForcedBehaviour;
         }
 
         void OnDisable()
         {
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+            MonsterController.OnForcedBehaviour -= HandleOnMonsterForcedBehaviour;
+        }
+
+        private void HandleOnMonsterForcedBehaviour(MonsterController monsterController)
+        {
+            SetEmissiveMaterial(PlayerController.Instance.State);
         }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)

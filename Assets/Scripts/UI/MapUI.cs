@@ -100,6 +100,7 @@ namespace TMOT.UI
             DiamondSpawner.OnDiamondUnspanwed += HandleOnObjectRemoved;
             PillSpawner.OnSpawned += HandleOnPillSpawned;
             PillSpawner.OnUnspawned += HandleOnObjectRemoved;
+            MonsterController.OnForcedBehaviour += HandleOnMonsterForcedBehaviour;
 
         }
 
@@ -118,9 +119,13 @@ namespace TMOT.UI
             DiamondSpawner.OnDiamondUnspanwed -= HandleOnObjectRemoved;
             PillSpawner.OnSpawned -= HandleOnPillSpawned;
             PillSpawner.OnUnspawned -= HandleOnObjectRemoved;
+            MonsterController.OnForcedBehaviour -= HandleOnMonsterForcedBehaviour;
         }
 
-        
+        private void HandleOnMonsterForcedBehaviour(MonsterController monsterController)
+        {
+            UpdateMonsterPinColors();
+        }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {

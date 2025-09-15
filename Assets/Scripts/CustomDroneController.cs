@@ -110,17 +110,6 @@ namespace TMOT
         void ReportPickedUp()
         {
             GameMode.Instance.ReportCustomDronePicked(this);
-            // switch (type)
-            // {
-            //     case CustomDroneType.Medical:
-            //     case CustomDroneType.TimeUp:
-            //     case CustomDroneType.Diamond:
-            //     case CustomDroneType.Pill:
-            //         GameMode.Instance.ReportCustomDronePicked(this);
-            //         break;
-            // }
-
-            
         }
 
         void Explode()

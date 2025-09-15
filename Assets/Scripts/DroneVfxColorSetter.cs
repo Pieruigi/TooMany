@@ -42,12 +42,20 @@ namespace TMOT
         void OnEnable()
         {
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            MonsterController.OnForcedBehaviour += HandleOnMonsterForcedBehaviour;
         }
 
         void OnDisable()
         {
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+            MonsterController.OnForcedBehaviour -= HandleOnMonsterForcedBehaviour;
         }
+
+        private void HandleOnMonsterForcedBehaviour(MonsterController monsterController)
+        {
+            Init();
+        }
+
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {
@@ -59,7 +67,7 @@ namespace TMOT
                     break;
 
             }
-            
+
         }
 
         void Init()

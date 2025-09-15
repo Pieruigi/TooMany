@@ -154,8 +154,8 @@ MonoBehaviour:
   gameModePrefabs:
   - {fileID: 4715216348927760533, guid: 5ebe9600c1ca3584693f37aa352341bb, type: 3}
   - {fileID: 1275647266828163555, guid: f269ba2304109ad4e934ca3f89f3b2f3, type: 3}
-  - {fileID: 4844949972125618365, guid: b462f4f65026b49418d6b128aa0f02a6, type: 3}
   - {fileID: 1839807880721645799, guid: c24f61baa3fea6647ba4684772d201fe, type: 3}
+  - {fileID: 4844949972125618365, guid: b462f4f65026b49418d6b128aa0f02a6, type: 3}
   mapSize: {x: 54, y: 48}
   playerPreyColor: {r: 0, g: 1, b: 1, a: 1}
   playerHunterColor: {r: 1, g: 0.40392157, b: 0.30588236, a: 1}

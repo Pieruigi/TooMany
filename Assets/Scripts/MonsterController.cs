@@ -27,6 +27,9 @@ namespace TMOT
         public delegate void StateChangedDelegate(MonsterController monsterController, MonsterState oldState, MonsterState newState);
         public static StateChangedDelegate OnStateChanged;
 
+        public delegate void ForcedBehaviourDelegate(MonsterController monsterController);
+        public static ForcedBehaviourDelegate OnForcedBehaviour;
+
 
         static Dictionary<Transform, DateTime> lastPatrolPoints = new Dictionary<Transform, DateTime>();
 
@@ -220,7 +223,7 @@ namespace TMOT
             }
         }
 
-     
+
 
         void UpdateAnimations()
         {
@@ -729,6 +732,20 @@ namespace TMOT
             Debug.Log($"TEST - {gameObject.name} hit by player");
             GameMode.Instance.ReportMonsterDroneHitByPlayer(this);
             SetState(MonsterState.Dying);
+        }
+
+        /// <summary>
+        /// This method is only called when player is already in hunter state and we want to switch a specific monster; ex. in game mode 3 
+        /// </summary>
+        public void ForceToPrey()
+        {
+            if (!invertedBehaviour) return;
+            invertedBehaviour = false;
+
+            UpdateScale();
+            UpdateSpeed();
+
+            OnForcedBehaviour?.Invoke(this);
         }
 
         public void SetState(MonsterState newState)

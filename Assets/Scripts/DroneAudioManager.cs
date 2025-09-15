@@ -78,7 +78,6 @@ namespace TMOT
 
         private void HandleOnCustomDroneDestroyed(CustomDroneController drone)
         {
-            Debug.Log($"TEST - Handling on exploded {drone.gameObject.name}");
             if (!CompareTag("Mule")) return;
             var dc = GetComponent<CustomDroneController>();
             if (dc == null || dc != drone) return;
@@ -98,7 +97,6 @@ namespace TMOT
 
         void PlayExplosion()
         {
-            Debug.Log($"TEST - Play explosion fx");
             explosionAudioSource.clip = explosionClips[UnityEngine.Random.Range(0, explosionClips.Count)];
             explosionAudioSource.Play();
         }

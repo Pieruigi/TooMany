@@ -35,6 +35,8 @@ namespace TMOT
 
         }
 
+        
+
         public void SpawnDiamond()
         {
             // Get a spawn point 
@@ -71,12 +73,14 @@ namespace TMOT
 
         }
 
+        
         public void UnspawnDiamond(GameObject diamond)
         {
             diamonds.Remove(diamond);
             Destroy(diamond, 1f);
             OnDiamondUnspanwed?.Invoke(diamond);
         }
+        
         
     }
 }
