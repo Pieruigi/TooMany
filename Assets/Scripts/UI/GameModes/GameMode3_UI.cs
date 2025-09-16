@@ -145,7 +145,7 @@ namespace TMOT.UI
 
             countdownPlayer.Stop();
             
-            switchTimeText.text = Mathf.CeilToInt((GameMode.Instance as GameMode3).HunterTime).ToString();
+            switchTimeText.text = Mathf.CeilToInt((GameMode.Instance as GameMode3).GetTimeLeft()).ToString();
         }
 
         void UpdateTimer()

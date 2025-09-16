@@ -30,7 +30,7 @@ namespace TMOT
             get { return hunterTime; }
         }
 
-        int goal = 100;
+        int goal = 50;
         public int Goal
         {
             get { return goal; }

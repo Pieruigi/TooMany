@@ -30,7 +30,7 @@ namespace TMOT
         [SerializeField]
         DiamondSpawner diamondSpawnerPrefab;
 
-        int goal = 100;
+        int goal = 50;
         public int Goal
         {
             get{ return goal; }
@@ -64,8 +64,9 @@ namespace TMOT
 
         float diamondDelay = 3;
 
+        float infectionRange = 7.5f;
+
      
-        
 
 
 
@@ -142,17 +143,6 @@ namespace TMOT
         {
             base.ReportMonsterDroneHitByPlayer(monsterDrone);
 
-            // Switch a new drone to victim
-            var newVictims = MonsterSpawner.Instance.Monsters.Where(m=>m.InvertedBehaviour).OrderBy(m => Vector3.Distance(PlayerController.Instance.transform.position, m.transform.position)).Take(1).ToList();
-            Debug.Log($"TEST - newVictims.Count:{newVictims.Count}");
-            foreach(var v in newVictims)
-                v.ForceToPrey();
-
-
-            hunterTimeExtra += extraTimeOnKill;
-
-            OnExtraTimeOnKillIncreased?.Invoke(extraTimeOnKill);
-
             progress++;
 
             OnProgressUpdated?.Invoke(progress, goal);
@@ -161,7 +151,44 @@ namespace TMOT
             {
                 loop = false;
                 GameManager.Instance.ReportPlayerIsWinner();
-            }   
+                return;
+            } 
+
+            // Switch a new drone to victim
+            var newVictims = MonsterSpawner.Instance.Monsters.Where(m=>m.InvertedBehaviour).OrderBy(m => Vector3.Distance(PlayerController.Instance.transform.position, m.transform.position)).Take(1).ToList();
+            if (newVictims.Count > 0)
+            {
+                var infectedList = MonsterSpawner.Instance.Monsters.Where(m => m.InvertedBehaviour && Vector3.Distance(newVictims[0].transform.position, m.transform.position) < infectionRange).ToList();
+                newVictims.AddRange(infectedList);    
+            }
+            
+            //var newVictims = MonsterSpawner.Instance.Monsters.Where(m => m.InvertedBehaviour && Vector3.Distance(m.transform.position, PlayerController.Instance.transform.position) < infectionRange).ToList();
+
+            Debug.Log($"TEST - newVictims.Count:{newVictims.Count}");
+
+            var oldVictims = MonsterSpawner.Instance.Monsters.Where(m => !m.InvertedBehaviour && m != monsterDrone).ToList();
+
+            // if (newVictims.Count == 0 && oldVictims.Count == 0)
+            // {
+            //     hunterTimeExtra = GetTimeLeft();
+
+            //     SwitchToPreyMode();
+            // }
+            // else
+            // {
+                foreach (var v in newVictims)
+                    v.ForceToPrey();
+
+                hunterTimeExtra += extraTimeOnKill;
+
+                OnExtraTimeOnKillIncreased?.Invoke(extraTimeOnKill);
+            //}
+
+            
+
+            
+
+           
         }
 
          public override void ReportCustomDronePicked(CustomDroneController customDrone)
@@ -195,6 +222,9 @@ namespace TMOT
             switch (newState)
             {
                 case PlayerState.Prey:
+                    // // Add the left time
+                    // hunterTimeExtra = hunterTimeLeft;
+                    // hunterTimeLeft = 0;
                     // Spawn diamond
                     SpawnDiamondDelayed(diamondDelay).Forget();
                     TimeUpSpawner.Instance.StartSpawner().Forget();
@@ -221,16 +251,16 @@ namespace TMOT
 
             //count = 1;
  
-            // Choose bots
-            var bots = MonsterSpawner.Instance.Monsters.ToList().OrderBy(x => Vector3.Distance(PlayerController.Instance.transform.position, x.transform.position)).Take(count).ToList();
+            var bots = MonsterSpawner.Instance.Monsters.OrderBy(m => Vector3.Distance(PlayerController.Instance.transform.position, m.transform.position)).Take(1).ToList();
+            if (bots.Count > 0)
+            {
+                var infectedList = MonsterSpawner.Instance.Monsters.Where(m =>Vector3.Distance(bots[0].transform.position, m.transform.position) < infectionRange).ToList();
+                bots.AddRange(infectedList);    
+            }
 
-            // if (bots.Count < count)
-            // {
-            //     // It means there are enough bots to switch to blue but most of them are away from player
-            //     var diff = count - bots.Count;
-            //     var diffL = MonsterSpawner.Instance.Monsters.ToList().Where(m => !bots.Contains(m)).OrderBy(x => UnityEngine.Random.value).Take(diff).ToList();
-            //     bots.AddRange(diffL);
-            // }
+            // Choose bots
+            //var bots = MonsterSpawner.Instance.Monsters.ToList().OrderBy(x => Vector3.Distance(PlayerController.Instance.transform.position, x.transform.position)).Take(count).ToList();
+
 
             // Change behaviour for all the bots in normal behaviour not int bot list we just took
             foreach (var m in MonsterSpawner.Instance.Monsters)
@@ -298,7 +328,7 @@ namespace TMOT
 
         public float GetTimeLeft()
         {
-            if (PlayerController.Instance.State != PlayerState.Hunter) return 0;
+            //if (PlayerController.Instance.State != PlayerState.Hunter) return 0;
             float ret = hunterTime + hunterTimeExtra - hunterTimeElapsed;
             if (ret < 0) ret = 0;
             return ret;
