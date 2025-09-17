@@ -3349,7 +3349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -57.299973, y: 30}
+  m_AnchoredPosition: {x: 64.1, y: 30}
   m_SizeDelta: {x: 30, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1069708562
@@ -3853,7 +3853,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Whenever
+  m_text: All Together
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1e4bb81ee515f04fab9f8da1b4a08f1, type: 2}
   m_sharedMaterial: {fileID: -2680850350597673258, guid: f1e4bb81ee515f04fab9f8da1b4a08f1,
@@ -4411,7 +4411,7 @@ GameObject:
   - component: {fileID: 1308803206}
   - component: {fileID: 1308803208}
   m_Layer: 5
-  m_Name: ThiefMode (3)
+  m_Name: All Together
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4490,7 +4490,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1187986800}
   toggleTransition: 1
   graphic: {fileID: 1471604761}
@@ -5024,7 +5024,7 @@ GameObject:
   - component: {fileID: 1359987213}
   - component: {fileID: 1359987214}
   m_Layer: 5
-  m_Name: GulliverMode
+  m_Name: Classic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6692,6 +6692,7 @@ MonoBehaviour:
   - {fileID: 1709332833}
   - {fileID: 764571458}
   - {fileID: 294177422}
+  - {fileID: 1308803207}
 --- !u!224 &1656409965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6957,7 +6958,7 @@ GameObject:
   - component: {fileID: 1709332834}
   - component: {fileID: 1709332835}
   m_Layer: 5
-  m_Name: ThiefMode
+  m_Name: Thief
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
