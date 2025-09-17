@@ -91,6 +91,7 @@ namespace TMOT
 
         async UniTaskVoid SwitchToPrey()
         {
+            
             if (preySource.isPlaying) return;
             switchSource.Play();
             await UniTask.Delay(TimeSpan.FromSeconds(.180f));
@@ -101,7 +102,7 @@ namespace TMOT
         async UniTaskVoid SwitchToHunter()
         {
             switchSource.Play();
-            if (GameManager.Instance.GameMode == GameModeType.Mode3) return;
+            //if (GameManager.Instance.GameMode == GameModeType.Mode3) return;
             await UniTask.Delay(TimeSpan.FromSeconds(.180f));
             hunterSource.Play();
             preySource.Stop();

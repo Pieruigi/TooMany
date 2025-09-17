@@ -66,7 +66,9 @@ namespace TMOT
         // Start is called before the first frame update
         void Start()
         {
-
+#if UNITY_EDITOR
+            Time.timeScale = 1f;
+#endif
 
             
         }
