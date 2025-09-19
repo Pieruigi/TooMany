@@ -6,11 +6,22 @@ namespace TMOT
 {
     public class SpeedPowerUp : Singleton<SpeedPowerUp>
     {
+
+        public delegate void BuffDelegate();
+        public static BuffDelegate OnBuff;
+
+        public delegate void DepletedDelegate();
+        public static DepletedDelegate OnDepleted;
+
         float speedBuff = 1.2f;
 
-        float timer = 30;
+        float timer = 90;
 
         float elapsed = 0;
+        public float Left
+        {
+            get{ return Mathf.Max(0f, timer - elapsed); }
+        }
 
         bool loop = false;
 
@@ -31,6 +42,8 @@ namespace TMOT
             {
                 loop = false;
                 PlayerController.Instance.ResetMaxSpeed();
+
+                OnDepleted?.Invoke();
             }
         }
 
@@ -39,7 +52,7 @@ namespace TMOT
             elapsed = 0;
             loop = true;
             PlayerController.Instance.BuffMaxSpeed(speedBuff);
-
+            OnBuff?.Invoke();
         }
     }
 }

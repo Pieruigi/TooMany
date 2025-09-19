@@ -17,6 +17,8 @@ namespace TMOT
         public static ExplodedDelegate OnExploded;
 
 
+
+
         [SerializeField]
         CustomDroneType type;
         public CustomDroneType Type
@@ -110,6 +112,8 @@ namespace TMOT
         void ReportPickedUp()
         {
             GameMode.Instance.ReportCustomDronePicked(this);
+
+          
         }
 
         void Explode()
