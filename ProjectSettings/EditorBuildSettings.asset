@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: 0a60480dd329e864b86824668217518c
   - enabled: 1
-    path: Assets/Scenes/Maze2Scene.unity
-    guid: 23fefb2cafba0fd4daf8a184148343a8
-  - enabled: 1
     path: Assets/Scenes/MazeScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Maze2Scene.unity
+    guid: 23fefb2cafba0fd4daf8a184148343a8
   - enabled: 1
     path: Assets/Scenes/Maze3Scene.unity
     guid: 3e132bfb1bf18e349abdb5931d9d9d74

@@ -30,7 +30,14 @@ namespace TMOT
         public delegate void OnStateChangedDelegate(GameState oldState, GameState newState);
         public static OnStateChangedDelegate OnStateChanged;
 
-        public const float StartingDelay = 3f;
+        public const float StartingDelay = 5f;
+
+        [SerializeField]
+        List<GameObject> gameModePrefabs;
+        public ICollection<GameObject> GameModePrefabs
+        {
+            get{ return gameModePrefabs.AsReadOnly(); }
+        }
 
         GameState gameState = GameState.None;
         public GameState GameState
@@ -46,17 +53,24 @@ namespace TMOT
         }
 
         int mapId = 0;
+        public int MapId
+        {
+            get { return mapId; }
+            set { mapId = value; }
+        }
 
         int gameSceneOffset = 1;
 
         int mainSceneIndex = 0;
 
-        float gameSpeed = 1.6f;
+        float gameSpeed = 1f;
         public float GameSpeed
         {
             get { return gameSpeed; }
             set { gameSpeed = value; }
         }
+
+        
 
         float speedUpStep = .1f;
 
@@ -109,6 +123,7 @@ namespace TMOT
             }
             else // Game scene
             {
+                Debug.Log("TEST - GameManager OnSceneLoaded");
                 SetState(GameState.Starting);
             }
         }

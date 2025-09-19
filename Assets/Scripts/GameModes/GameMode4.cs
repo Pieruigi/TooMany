@@ -50,7 +50,7 @@ namespace TMOT
 
         int initialSpawnAmount = 10;
 
-        int normalSpawnAmount = 4;
+        int normalSpawnAmount = 3;
 
         int backFromHunterAmount = 6;
 

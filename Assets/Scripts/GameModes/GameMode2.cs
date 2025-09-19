@@ -149,7 +149,7 @@ namespace TMOT
 
         async UniTaskVoid CheckStepCount()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+            await UniTask.Delay(TimeSpan.FromSeconds(.5f));
 
             if (goalProgress < goalCount && goalProgress % stepCount == 0)
                 PlayerController.Instance.SetState(PlayerState.Hunter);

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace TMOT
@@ -7,8 +8,8 @@ namespace TMOT
     public class LevelController : Singleton<LevelController>
     {
 
-        [SerializeField]
-        List<GameObject> gameModePrefabs;
+        // [SerializeField]
+        // List<GameObject> gameModePrefabs;
 
         [SerializeField]
         Vector2 mapSize;
@@ -34,11 +35,13 @@ namespace TMOT
             get{ return playerHunterColor; }
         }
 
+        [SerializeField]
+        Transform waypointRoot;
 
         public GameObject GameMode { get; private set; }
 
         //public IList<Transform> Waypoints { get{ return levelBuilder.Waypoints; } }
-        [SerializeField]
+        //[SerializeField]
         List<Transform> waypoints;
         public IList<Transform> Waypoints { get { return waypoints; } }
 
@@ -46,14 +49,14 @@ namespace TMOT
         protected override void Awake()
         {
             base.Awake();
-
+            Debug.Log("TEST - LevelController - Awake()");
         }
 
 
         // Start is called before the first frame update
         void Start()
         {
-
+            Debug.Log("LevelController - Start");
         }
 
         // Update is called once per frame
@@ -62,18 +65,24 @@ namespace TMOT
         
 
         }
-        
-        
+
+
 
         public void Initialize()
         {
+            waypoints = waypointRoot.GetComponentsInChildren<Transform>().Where(w => w != waypointRoot).ToList();
+
+            Debug.Log("TEST - LevelController - initialize");
             // Instantiate the game mode objet
-            var prefab = gameModePrefabs[(int)GameManager.Instance.GameMode];
+            var prefab = GameManager.Instance.GameModePrefabs.ToList()[(int)GameManager.Instance.GameMode];
             var gm = Instantiate(prefab, Vector3.zero, Quaternion.identity);
             GameMode = gm;
 
             // Build level
             //levelBuilder.Build();
+            // Move player to a random position
+            PlayerController.Instance.transform.position = waypoints[Random.Range(0, waypoints.Count)].position;
+            PlayerController.Instance.ForceRotation(Random.Range(0, 360));
 
         }
 

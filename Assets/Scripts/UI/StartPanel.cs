@@ -18,6 +18,10 @@ namespace TMOT.UI
 
         string msgFormatStr = "Experiment speed: {0}";
 
+        bool loop = false;
+
+        float timer = 0;
+
 
         // Start is called before the first frame update
         void Start()
@@ -28,7 +32,29 @@ namespace TMOT.UI
         // Update is called once per frame
         void Update()
         {
+            if (!loop) return;
 
+            timer -= Time.unscaledDeltaTime;
+            if (timer < 1)
+            {
+                startField.text = "GO!!!";
+            }
+            else if (timer < 2)
+            {
+                startField.text = "Ready.";
+            }
+            else if (timer < 3)
+            {
+                startField.text = "...";
+            }
+            else if (timer < 4)
+            {
+                startField.text = "..";
+            }
+               else if (timer < 5)
+            {
+                startField.text = ".";
+            }
         }
 
         void OnEnable()
@@ -50,9 +76,11 @@ namespace TMOT.UI
             {
                 case GameState.Starting:
                     msgField.text = string.Format(msgFormatStr, GameManager.Instance.GameSpeed);
-
+                    loop = true;
+                    timer = GameManager.StartingDelay;
                     break;
                 case GameState.Playing:
+                    loop = false;
                     transform.GetChild(0).gameObject.SetActive(false);   
                     break;
             }

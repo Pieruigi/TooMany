@@ -422,6 +422,15 @@ namespace TMOT
             moveSpeed = moveSpeedDefault;
         }
 
+        public void ForceRotation(float newYaw)
+        {
+       
+            yaw = newYaw;
+            yaw %= 360;
+
+            transform.eulerAngles = new Vector3(0, yaw, 0);
+        }
+
         public void SetState(PlayerState newState)
         {
             if (newState == state) return;

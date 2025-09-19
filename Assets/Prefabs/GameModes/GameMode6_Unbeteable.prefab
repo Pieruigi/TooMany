@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4571118122647898734}
-  - component: {fileID: 6959278204492516736}
+  - component: {fileID: 2181593121899921572}
   m_Layer: 0
-  m_Name: GameMode4
+  m_Name: GameMode6_Unbeteable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6959278204492516736
+--- !u!114 &2181593121899921572
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,17 +41,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1839807880721645799}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8166c261bd3f7344a67bd3240e90e10, type: 3}
+  m_Script: {fileID: 11500000, guid: 56246b2086fa0f7429924bdc074234b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameUIPrefab: {fileID: 428352958936532278, guid: 2b5b8d69061e8214399a726a3eb5a504,
+  gameUIPrefab: {fileID: 428352958936532278, guid: af962968b47d9e44596a377e4da0aef2,
     type: 3}
   startInHuntingMode: 0
-  timeUpSpawnerPrefab: {fileID: 4895777033199873330, guid: cfc85fc168fd11c47b3df1c389c55492,
-    type: 3}
-  monsterSpawnerPrefab: {fileID: 3993171266660804438, guid: d2b8bce1dc145a04a9b35c1bf3fe7396,
-    type: 3}
-  medicalSpawnerPrefab: {fileID: 2071583053414274110, guid: d181e85a5d9d19b489447dec01b29dc0,
-    type: 3}
-  pillSpawnerPrefab: {fileID: 6389666595648419003, guid: b252fef9f6513b9468f5e9eb56ac9bff,
-    type: 3}

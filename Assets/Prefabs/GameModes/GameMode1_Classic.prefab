@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4844949972125618365
+--- !u!1 &4715216348927760533
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4506525232819121166}
-  - component: {fileID: 4601651269529253324}
+  - component: {fileID: 3925985928855790167}
+  - component: {fileID: 8463335526796054617}
   m_Layer: 0
-  m_Name: GameMode3
+  m_Name: GameMode1_Classic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4506525232819121166
+--- !u!4 &3925985928855790167
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4844949972125618365}
+  m_GameObject: {fileID: 4715216348927760533}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,28 +32,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4601651269529253324
+--- !u!114 &8463335526796054617
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4844949972125618365}
+  m_GameObject: {fileID: 4715216348927760533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5634cc17e3c4d62418a9d0b0f1633e1a, type: 3}
+  m_Script: {fileID: 11500000, guid: e33b8cdcf0a1b19458ef9983a0a1e3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameUIPrefab: {fileID: 2016669351162070035, guid: f8bb5d8f9d4a9b245b80d08e3e572e5e,
+  gameUIPrefab: {fileID: 8031512962577619249, guid: 48d949f845eb3f142beca2ee4b01c14d,
     type: 3}
   startInHuntingMode: 0
+  timeUpSpawnerPrefab: {fileID: 792355856939066489, guid: 9bf9129f9d87ca8428ed0c00e5d0bb1f,
+    type: 3}
   monsterSpawnerPrefab: {fileID: 3993171266660804438, guid: d2b8bce1dc145a04a9b35c1bf3fe7396,
     type: 3}
-  medicalSpawnerPrefab: {fileID: 3199116716766114274, guid: d181e85a5d9d19b489447dec01b29dc0,
+  medicalSpawnerPrefab: {fileID: 2071583053414274110, guid: d181e85a5d9d19b489447dec01b29dc0,
     type: 3}
-  timeUpSpawnerPrefab: {fileID: 2695430915123302042, guid: 9bf9129f9d87ca8428ed0c00e5d0bb1f,
-    type: 3}
-  pillSpawnerPrefab: {fileID: 6602095962949698792, guid: b252fef9f6513b9468f5e9eb56ac9bff,
-    type: 3}
-  diamondSpawnerPrefab: {fileID: 5698710700000270123, guid: 19d7c3ead91640042870464d50d89560,
+  pillSpawnerPrefab: {fileID: 6389666595648419003, guid: b252fef9f6513b9468f5e9eb56ac9bff,
     type: 3}
