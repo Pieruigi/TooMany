@@ -25,6 +25,9 @@ namespace TMOT.UI
         [SerializeField]
         GameObject pillPinPrefab;
 
+        [SerializeField]
+        GameObject batteryPinPrefab;
+
           
 
         [SerializeField]
@@ -101,7 +104,8 @@ namespace TMOT.UI
             PillSpawner.OnSpawned += HandleOnPillSpawned;
             PillSpawner.OnUnspawned += HandleOnObjectRemoved;
             MonsterController.OnForcedBehaviour += HandleOnMonsterForcedBehaviour;
-
+            BatterySpawner.OnSpawned += HandleOnBatterySpawned;
+            BatterySpawner.OnUnspawned += HandleOnObjectRemoved;
         }
 
 
@@ -132,6 +136,14 @@ namespace TMOT.UI
          
             UpdateMonsterPinColors();
             
+        }
+
+        private void HandleOnBatterySpawned(GameObject drone)
+        {
+            var pin = Instantiate(batteryPinPrefab, pinRoot);
+            pins.Add(pin, drone);
+
+            ShakeIn(pin);
         }
 
         private void HandleOnPillSpawned(GameObject drone)

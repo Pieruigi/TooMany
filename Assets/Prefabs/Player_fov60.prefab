@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 8995406137029927929}
   - component: {fileID: 8734504203799004510}
   - component: {fileID: 5724610575345008422}
+  - component: {fileID: -4520964263158656342}
   m_Layer: 0
   m_Name: Player_fov60
   m_TagString: Player
@@ -394,6 +395,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e5b9f18dac01264aba1bd24c8143577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-4520964263158656342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973862805693236106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dc1b8a69eeeab34690a1aa93bfe1871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1440852047622987730

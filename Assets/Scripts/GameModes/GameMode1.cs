@@ -25,6 +25,8 @@ namespace TMOT
         [SerializeField]
         GameObject pillSpawnerPrefab;
 
+  
+
         float playerChasedTime = 50;
 
         float playerChasingTime = 15;
@@ -59,7 +61,7 @@ namespace TMOT
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
             Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
             Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
-
+           
 
         }
 

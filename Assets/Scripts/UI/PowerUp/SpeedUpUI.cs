@@ -13,5 +13,10 @@ namespace TMOT.UI
 
             SetText(Mathf.Ceil(SpeedPowerUp.Instance.Left).ToString());
         }
+
+        void Update()
+        {
+            SetText(Mathf.Ceil(SpeedPowerUp.Instance.Left).ToString());
+        }
     }
 }

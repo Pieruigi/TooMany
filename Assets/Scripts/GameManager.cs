@@ -30,7 +30,7 @@ namespace TMOT
         public delegate void OnStateChangedDelegate(GameState oldState, GameState newState);
         public static OnStateChangedDelegate OnStateChanged;
 
-        public const float StartingDelay = 5f;
+        public const float StartingDelay = 3f;
 
         [SerializeField]
         List<GameObject> gameModePrefabs;

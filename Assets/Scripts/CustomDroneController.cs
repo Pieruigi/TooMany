@@ -9,7 +9,7 @@ using UnityEngine.AI;
 
 namespace TMOT
 {
-    public enum CustomDroneType {Medical, TimeUp, Diamond, Pill}
+    public enum CustomDroneType {Medical, TimeUp, Diamond, Pill, Battery}
 
     public class CustomDroneController : MonoBehaviour
     {

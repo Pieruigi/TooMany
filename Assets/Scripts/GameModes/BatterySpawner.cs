@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
@@ -6,9 +5,9 @@ using UnityEngine;
 
 namespace TMOT
 {
-    public class PillSpawner : Singleton<PillSpawner>
+    public class BatterySpawner : Singleton<BatterySpawner>
     {
-        public delegate void SpawnedDelegate(GameObject drone);
+   public delegate void SpawnedDelegate(GameObject drone);
         public static SpawnedDelegate OnSpawned;
 
         public delegate void UnspawnedDelegate(GameObject drone);
@@ -33,12 +32,6 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.M))
-            {
-                SpawnDrone().Forget();
-            }
-#endif
         }
 
         void OnEnable()
@@ -55,7 +48,7 @@ namespace TMOT
         {
             if (newState == PlayerState.Prey)
             {
-                bool spawn = UnityEngine.Random.Range(0, 100) < spawnChance;
+                bool spawn = Random.Range(0, 100) < spawnChance;
 
                 if (spawn)
                 {
@@ -71,12 +64,12 @@ namespace TMOT
         async UniTaskVoid SpawnDrone()
         {
             Debug.Log("TEST - Spawn pill");
-            await UniTask.Delay(TimeSpan.FromSeconds(spawnDelay));
+            await UniTask.Delay(System.TimeSpan.FromSeconds(spawnDelay));
             // Get a random waypoint
             var waypoint = LevelController.Instance.Waypoints[UnityEngine.Random.Range(0, LevelController.Instance.Waypoints.Count)];
 
             // Spawn medical
-            drone = Instantiate(prefab, waypoint.position, Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 350f), 0f));
+            drone = Instantiate(prefab, waypoint.position, Quaternion.Euler(0f, Random.Range(0f, 350f), 0f));
 
             OnSpawned?.Invoke(drone);
         }
@@ -94,6 +87,5 @@ namespace TMOT
         {
             UnspawnDrone();
         }
-
     }
 }

@@ -13,9 +13,9 @@ namespace TMOT
         public delegate void DepletedDelegate();
         public static DepletedDelegate OnDepleted;
 
-        float speedBuff = 1.2f;
+        float speedBuff = 1.3f;
 
-        float timer = 90;
+        float timer = 60;
 
         float elapsed = 0;
         public float Left
@@ -34,6 +34,12 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
+
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.T))
+                BuffSpeed();
+#endif
+
             if (!loop) return;
 
             elapsed += Time.deltaTime;

@@ -23,6 +23,8 @@ namespace TMOT
         }
 
 
+        [SerializeField]
+        GameObject batterySpawnerPrefab;
 
         protected abstract void StartGameMode();
 
@@ -35,6 +37,10 @@ namespace TMOT
             Time.timeScale = GameManager.Instance.GameSpeed;
 
             Instantiate(gameUIPrefab);
+
+            if (batterySpawnerPrefab)
+                Instantiate(batterySpawnerPrefab, Vector3.zero, Quaternion.identity);
+
 
         }
 
@@ -65,7 +71,13 @@ namespace TMOT
 
         public virtual void ReportCustomDronePicked(CustomDroneController customDrone)
         {
-            
+            switch (customDrone.Type)
+            {
+                case CustomDroneType.Battery:
+                    StaminaPowerUp.Instance.BuffSpeed();
+                    BatterySpawner.Instance.ReportPicked();
+                    break;
+            }
         }
 
         public virtual void ReportMonsterDroneHitByPlayer(MonsterController monsterDrone)

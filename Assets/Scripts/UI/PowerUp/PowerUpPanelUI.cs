@@ -31,19 +31,45 @@ namespace TMOT.UI
         void OnEnable()
         {
             SpeedPowerUp.OnBuff += HandleOnSpeedBuff;
-            
+            SpeedPowerUp.OnDepleted += HandleOnSpeedDepleted;
         }
 
         void OnDisable()
         {
             SpeedPowerUp.OnBuff -= HandleOnSpeedBuff;
+            SpeedPowerUp.OnDepleted -= HandleOnSpeedDepleted;
         }
 
+        private void HandleOnSpeedDepleted()
+        {
+            PopOut(ref speed);
+        }
 
         private void HandleOnSpeedBuff()
         {
-            if (!speed)
-                speed = Instantiate(speedUpPrefab, root);
+            PopUpOrShake(ref speed);
+        }
+
+        private void PopOut(ref GameObject obj)
+        {
+            var tmp = obj;
+            obj = null;
+            tmp.GetComponent<PowerUpUI>().PopOut();
+            Destroy(tmp, 1);
+        }
+
+        private void PopUpOrShake(ref GameObject obj)
+        {
+            if (!obj)
+            {
+                obj = Instantiate(speedUpPrefab, root);
+                obj.GetComponent<PowerUpUI>().PopUp();
+            }
+            else
+            {
+                obj.GetComponent<PowerUpUI>().Shake();
+            }
+
         }
     }
 }

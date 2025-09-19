@@ -115,8 +115,11 @@ namespace TMOT
         }
 
         float staminaDepleteSpeed = 1f;
+        float staminaDepleteSpeedDefault;
         float staminaChargeDelay = 1.5f;
+        float staminaChargeDelayDefault;
         float staminaChargeSpeed = .25f;
+        float staminaChargeSpeedDefault;
 
         bool sprinting = false;
         public bool Sprinting
@@ -143,6 +146,9 @@ namespace TMOT
             cc = GetComponent<CharacterController>();
             yaw = transform.eulerAngles.y;
             moveSpeedDefault = moveSpeed;
+            staminaDepleteSpeedDefault = staminaDepleteSpeed;
+            staminaChargeDelayDefault = staminaChargeDelay;
+            staminaChargeSpeedDefault = staminaChargeSpeed;
         }
 
 
@@ -422,9 +428,25 @@ namespace TMOT
             moveSpeed = moveSpeedDefault;
         }
 
+        public void BuffStaminaStats(float depletedSpeedFactor, float chargeDelayFactor, float chargeSpeedFactor)
+        {
+            staminaDepleteSpeed *= depletedSpeedFactor;
+            staminaChargeDelay *= chargeDelayFactor;
+            staminaChargeSpeed *= chargeSpeedFactor;
+        }
+
+        public void ResetStaminaStats()
+        {
+            staminaDepleteSpeed = staminaDepleteSpeedDefault;
+            staminaChargeDelay = staminaChargeDelayDefault;
+            staminaChargeSpeed = staminaChargeSpeedDefault;
+        }
+
+
+
         public void ForceRotation(float newYaw)
         {
-       
+
             yaw = newYaw;
             yaw %= 360;
 

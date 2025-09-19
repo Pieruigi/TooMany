@@ -45,11 +45,11 @@ namespace TMOT.UI
             }
             else if (timer < 3)
             {
-                startField.text = "...";
+                startField.text = ""; //"...";
             }
             else if (timer < 4)
             {
-                startField.text = "..";
+                startField.text = ""; //"..";
             }
                else if (timer < 5)
             {

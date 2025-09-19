@@ -125,6 +125,8 @@ MonoBehaviour:
     type: 3}
   pillPinPrefab: {fileID: 5393290606267494654, guid: 1ccde02e7df5da04f833686fa25ced4e,
     type: 3}
+  batteryPinPrefab: {fileID: 5393290606267494654, guid: 1ccde02e7df5da04f833686fa25ced4e,
+    type: 3}
   pinRoot: {fileID: 7187782326794287485}
 --- !u!225 &2565300731500600969
 CanvasGroup:
