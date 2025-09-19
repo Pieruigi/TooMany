@@ -191,7 +191,13 @@ namespace TMOT
 
         void CheckInput()
         {
-            if (InputDisabled) return;
+            if (InputDisabled)
+            {
+                moveInput = Vector2.zero;
+                aimInput = Vector2.zero;
+                return;
+            }
+            
 
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             aimInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
@@ -221,6 +227,8 @@ namespace TMOT
 
         private void Move()
         {
+            
+
             var targetDirection = transform.TransformDirection(new Vector3(moveInput.x, 0, moveInput.y));
             var targetVelocity = targetDirection.normalized * moveSpeed * (sprinting ? sprintMultiplier : 1f);
 

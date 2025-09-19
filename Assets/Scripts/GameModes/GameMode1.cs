@@ -67,7 +67,7 @@ namespace TMOT
         void Start()
         {
 #if UNITY_EDITOR
-            Time.timeScale = 1f;
+            //Time.timeScale = 1.6f;
 #endif
 
             

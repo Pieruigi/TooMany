@@ -98,28 +98,28 @@ namespace TMOT.UI
 
         async UniTaskVoid ShowLoserPanel()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(4f));
+            await UniTask.Delay(TimeSpan.FromSeconds(4f*GameManager.Instance.GameSpeed));
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            // Cursor.lockState = CursorLockMode.None;
+            // Cursor.visible = true;
             //Time.timeScale = 0;
 
             loserPanel.gameObject.SetActive(true);
-            buttonPanel.SetActive(true);
+            //buttonPanel.SetActive(true);
 
         }
 
         async UniTaskVoid ShowWinnerPanel()
         {
 
-            await UniTask.Delay(TimeSpan.FromSeconds(4f));
+            await UniTask.Delay(TimeSpan.FromSeconds(4f*GameManager.Instance.GameSpeed));
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            // Cursor.lockState = CursorLockMode.None;
+            // Cursor.visible = true;
             //Time.timeScale = 0;
 
             winnerPanel.gameObject.SetActive(true);
-            buttonPanel.SetActive(true);
+            //buttonPanel.SetActive(true);
         }
 
         protected async UniTaskVoid ShowPlayerStateChangedMessage(CanvasGroup canvasGroup)

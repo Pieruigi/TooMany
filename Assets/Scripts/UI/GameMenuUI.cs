@@ -36,7 +36,7 @@ namespace TMOT.UI
             {
                 if (GameManager.Instance.GameState == GameState.Playing)
                 {
-                    // Time.timeScale = 0;
+                    //Time.timeScale = 0;
                     Cursor.visible = true;
                     Cursor.lockState = CursorLockMode.None;
                     ShowPanel();
@@ -44,7 +44,7 @@ namespace TMOT.UI
                 else
                 {
                     HidPanel();
-                    //Time.timeScale = 1;
+                    //Time.timeScale = GameManager.Instance.GameSpeed;
                     Cursor.visible = false;
                     Cursor.lockState = CursorLockMode.Locked;
 
@@ -55,13 +55,14 @@ namespace TMOT.UI
 
         void ShowPanel()
         {
-            panel.DOFade(1, fadeTime).SetEase(Ease.InOutQuad);
+            panel.DOFade(1, fadeTime).SetEase(Ease.InOutQuad).OnComplete(()=> { GameManager.Instance.PauseGame(); });
 
             panel.blocksRaycasts = true;
         }
 
         void HidPanel()
         {
+            GameManager.Instance.ResumeGame();
             panel.DOFade(0, fadeTime).SetEase(Ease.InOutQuad);
             panel.blocksRaycasts = false;
         }

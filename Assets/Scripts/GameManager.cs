@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.LowLevel;
@@ -17,10 +18,19 @@ namespace TMOT
 
     public class GameManager : SingletonPersistent<GameManager>
     {
+        public delegate void SceneLoadStartedDelegate(int sceneBuildIndex);
+        public static SceneLoadStartedDelegate OnSceneLoadStarted;
+
+        public delegate void SceneLoadCompletedDelegate();
+        public static SceneLoadCompletedDelegate OnSceneLoadCompleted;
+
+        public delegate void SceneLoadingProgressDelegate(float progress);
+        public static SceneLoadingProgressDelegate OnSceneLoadingProgress;
+
         public delegate void OnStateChangedDelegate(GameState oldState, GameState newState);
         public static OnStateChangedDelegate OnStateChanged;
 
-        public const float StartingDelay = 1.5f;
+        public const float StartingDelay = 3f;
 
         GameState gameState = GameState.None;
         public GameState GameState
@@ -32,7 +42,7 @@ namespace TMOT
         public GameModeType GameMode
         {
             get { return gameMode; }
-            set { gameMode = value; }       
+            set { gameMode = value; }
         }
 
         int mapId = 0;
@@ -40,6 +50,21 @@ namespace TMOT
         int gameSceneOffset = 1;
 
         int mainSceneIndex = 0;
+
+        float gameSpeed = 1.6f;
+        public float GameSpeed
+        {
+            get { return gameSpeed; }
+            set { gameSpeed = value; }
+        }
+
+        float speedUpStep = .1f;
+
+
+        float restartTime = 9;
+        
+
+        AsyncOperation loadingOperation;
 
         protected override void Awake()
         {
@@ -57,7 +82,10 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
-
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.R))
+                ReportPlayerIsWinner();
+#endif
         }
 
         void OnEnable()
@@ -73,7 +101,7 @@ namespace TMOT
 
         private void HandleOnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-          
+
             if (scene.buildIndex == 0) // Menu
             {
                 SetState(GameState.None);
@@ -97,10 +125,10 @@ namespace TMOT
                     EnterStartingState().Forget();
                     break;
                 case GameState.Loser:
-                    EnteringLoserState();
+                    EnteringLoserState().Forget();
                     break;
                 case GameState.Winner:
-                    EnteringWinnerState();
+                    EnteringWinnerState().Forget();
                     break;
             }
 
@@ -113,25 +141,37 @@ namespace TMOT
             Cursor.visible = false;
 
             LevelController.Instance.Initialize();
-          
-            await UniTask.Delay(TimeSpan.FromSeconds(StartingDelay));
-          
+
+            await UniTask.Delay(TimeSpan.FromSeconds(StartingDelay*gameSpeed));
+
             SetState(GameState.Playing);
 
-           
-        }
-
-        void EnteringLoserState()
-        {
 
         }
 
-        void EnteringWinnerState()
+        async UniTaskVoid EnteringLoserState()
         {
-            // Check if the player unlocked a new game mode
-            if (gameMode == (GameModeType) SaveManager.Instance.GameProgress)
-                SaveManager.Instance.UpdateGameProgress();
             
+            await UniTask.Delay(TimeSpan.FromSeconds(restartTime*gameSpeed));
+            gameSpeed = 1; // Reset game speed since you lose
+            PlayGame();
+
+        }
+
+        async UniTaskVoid EnteringWinnerState()
+        {
+            if (gameSpeed == 1)
+            {
+                // Check if the player unlocked a new game mode
+                if (gameMode == (GameModeType)SaveManager.Instance.GameProgress)
+                    SaveManager.Instance.UpdateGameProgress();
+            }
+
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(restartTime*gameSpeed));
+            gameSpeed += speedUpStep;
+            PlayGame();
+
         }
 
         public void ReportPlayerIsWinner()
@@ -147,12 +187,43 @@ namespace TMOT
         public void PlayGame()
         {
             Debug.Log("TEST - PlatGame()");
-            SceneManager.LoadScene(gameSceneOffset + mapId);
+            //SceneManager.LoadScene(gameSceneOffset + mapId);
+            StartCoroutine(LoadSceneAsync(gameSceneOffset + mapId));
+        }
+
+        IEnumerator LoadSceneAsync(int sceneBuildIndex)
+        {
+            OnSceneLoadStarted?.Invoke(sceneBuildIndex);
+
+            Time.timeScale = 1;
+            loadingOperation = SceneManager.LoadSceneAsync(sceneBuildIndex, LoadSceneMode.Single);
+
+            while (!loadingOperation.isDone)
+            {
+                Debug.Log($"TEST - Load progression:{loadingOperation.progress}");
+                OnSceneLoadingProgress?.Invoke(loadingOperation.progress);
+                yield return null;
+            }
+
+            OnSceneLoadCompleted?.Invoke();
         }
 
         public void LoadMainScene()
         {
-             SceneManager.LoadScene(mainSceneIndex);
+            //SceneManager.LoadScene(mainSceneIndex);
+            StartCoroutine(LoadSceneAsync(mainSceneIndex));
+        }
+
+        public void PauseGame()
+        {
+            Time.timeScale = 0;
+            PlayerController.Instance.InputDisabled = true;
+        }
+
+        public void ResumeGame()
+        {
+            Time.timeScale = gameSpeed;
+            PlayerController.Instance.InputDisabled = false;
         }
     }
 }

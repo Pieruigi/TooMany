@@ -31,6 +31,9 @@ namespace TMOT
         protected override void Awake()
         {
             base.Awake();
+
+            Time.timeScale = GameManager.Instance.GameSpeed;
+
             Instantiate(gameUIPrefab);
 
         }
