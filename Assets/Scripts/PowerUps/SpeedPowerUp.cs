@@ -15,7 +15,7 @@ namespace TMOT
 
         float speedBuff = 1.3f;
 
-        float timer = 60;
+        float timer = 90;
 
         float elapsed = 0;
         public float Left

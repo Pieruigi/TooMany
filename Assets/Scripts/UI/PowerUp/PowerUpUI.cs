@@ -42,7 +42,7 @@ namespace TMOT.UI
 
         public void Shake()
         {
-            transform.DOShakeScale(10, 50).OnComplete(() => { transform.localScale = Vector3.one; });
+            transform.DOShakeScale(1, 1).OnComplete(() => { transform.localScale = Vector3.one; });
         }
     }
 }

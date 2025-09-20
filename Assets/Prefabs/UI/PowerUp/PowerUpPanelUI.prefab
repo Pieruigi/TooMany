@@ -179,4 +179,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedUpPrefab: {fileID: 1872371734059728809, guid: 11a3d8e7ed4b0d94e98fcb81c0f731c4,
     type: 3}
+  staminaUpPrefab: {fileID: 1872371734059728809, guid: 58d6d998b55297c43a0292d29fdbf49d,
+    type: 3}
   root: {fileID: 3806011328236733649}

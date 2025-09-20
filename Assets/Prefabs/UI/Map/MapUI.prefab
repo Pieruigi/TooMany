@@ -123,9 +123,11 @@ MonoBehaviour:
     type: 3}
   diamondPinPrefab: {fileID: 5393290606267494654, guid: b70a9496c6f66bc43955d7ced3997660,
     type: 3}
-  pillPinPrefab: {fileID: 5393290606267494654, guid: 1ccde02e7df5da04f833686fa25ced4e,
+  pillPinPrefab: {fileID: 5393290606267494654, guid: 800b6c87482a52d4c9d310123f3e2df6,
     type: 3}
-  batteryPinPrefab: {fileID: 5393290606267494654, guid: 1ccde02e7df5da04f833686fa25ced4e,
+  batteryPinPrefab: {fileID: 5393290606267494654, guid: 800b6c87482a52d4c9d310123f3e2df6,
+    type: 3}
+  medicalPinPrefab: {fileID: 5393290606267494654, guid: 4d9246c1fb7c20e4eb45f60e702aaa89,
     type: 3}
   pinRoot: {fileID: 7187782326794287485}
 --- !u!225 &2565300731500600969

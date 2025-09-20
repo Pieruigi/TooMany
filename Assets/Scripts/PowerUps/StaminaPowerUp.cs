@@ -16,7 +16,7 @@ namespace TMOT
         float chargeDelayFactor = .7f;
         float chargeSpeedFactor = 1.3f;
 
-        float timer = 60;
+        float timer = 90;
 
         float elapsed = 0;
         public float Left

@@ -18,7 +18,7 @@ namespace TMOT
 
         GameObject drone;
 
-        int spawnChance = 40;
+        int spawnChance = 30;
 
         float spawnDelay = 1f;
 

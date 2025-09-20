@@ -28,6 +28,9 @@ namespace TMOT.UI
         [SerializeField]
         GameObject batteryPinPrefab;
 
+        [SerializeField]
+        GameObject medicalPinPrefab;
+
           
 
         [SerializeField]
@@ -97,7 +100,7 @@ namespace TMOT.UI
             TimeUpSpawner.OnTimeUpUnspawned += HandleOnObjectRemoved;
             TimeUpMultiSpawner.OnTimeUpMultiSpawned += HandleOnTimeupMultiSpawned;
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
-            MedicalSpawner.OnMedicalDroneSpawned += HandleOnTimeUpSpawned;
+            MedicalSpawner.OnMedicalDroneSpawned += HandleOnMedicalSpawned;
             MedicalSpawner.OnMedicalDroneUnspawned += HandleOnObjectRemoved;
             DiamondSpawner.OnDiamondSpanwed += HandleOnDiamondSpawned;
             DiamondSpawner.OnDiamondUnspanwed += HandleOnObjectRemoved;
@@ -136,6 +139,14 @@ namespace TMOT.UI
          
             UpdateMonsterPinColors();
             
+        }
+
+        private void HandleOnMedicalSpawned(GameObject drone)
+        {
+            var pin = Instantiate(medicalPinPrefab, pinRoot);
+            pins.Add(pin, drone);
+
+            ShakeIn(pin);
         }
 
         private void HandleOnBatterySpawned(GameObject drone)
@@ -233,7 +244,7 @@ namespace TMOT.UI
             var t = pin.transform.GetChild(0) as RectTransform;
             var s = t.localScale;
             t.DOShakeAnchorPos(shakeDuration, shakeStrength).SetEase(Ease.InOutElastic);
-            t.DOScale(s.x, shakeDuration).SetEase(Ease.InOutElastic);
+            t.DOScale(s.x, shakeDuration).SetEase(Ease.InOutElastic).OnComplete(()=> { t.localScale = s; });
 
             // Shake map
             (transform.GetChild(0) as RectTransform).DOShakePosition(shakeDuration, mapShakeStrength).SetEase(Ease.InOutElastic).onComplete += ()=> { transform.GetChild(0).localPosition = rootLocalPositionDefault; };
