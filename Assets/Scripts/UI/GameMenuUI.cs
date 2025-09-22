@@ -55,9 +55,9 @@ namespace TMOT.UI
 
         void ShowPanel()
         {
-            panel.DOFade(1, fadeTime).SetEase(Ease.InOutQuad).OnComplete(()=> { GameManager.Instance.PauseGame(); });
-
+            panel.DOFade(1, fadeTime).SetEase(Ease.InOutQuad).OnComplete(() => { GameManager.Instance.PauseGame(); });
             panel.blocksRaycasts = true;
+            
         }
 
         void HidPanel()

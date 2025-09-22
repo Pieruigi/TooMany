@@ -195,6 +195,21 @@ namespace TMOT
 
         }
 
+        void OnEnable()
+        {
+            OptionsManager.OnOptionsChanged += HandleOnOptionsChanged;
+        }
+
+        void OnDisable()
+        {
+            OptionsManager.OnOptionsChanged -= HandleOnOptionsChanged;
+        }
+
+        private void HandleOnOptionsChanged()
+        {
+            mouseSensitivity = OptionsManager.Instance.MouseSpeed;
+        }
+
         void CheckInput()
         {
             if (InputDisabled)

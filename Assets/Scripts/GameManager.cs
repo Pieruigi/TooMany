@@ -67,7 +67,7 @@ namespace TMOT
         public float GameSpeed
         {
             get { return gameSpeed; }
-            set { gameSpeed = value; }
+            //set { gameSpeed = value; }
         }
 
         
@@ -118,6 +118,7 @@ namespace TMOT
 
             if (scene.buildIndex == 0) // Menu
             {
+                gameSpeed = 1;
                 SetState(GameState.None);
                 //SceneManager.LoadScene(1);
             }
@@ -231,12 +232,14 @@ namespace TMOT
 
         public void PauseGame()
         {
+            gameState = GameState.Paused;
             Time.timeScale = 0;
             PlayerController.Instance.InputDisabled = true;
         }
 
         public void ResumeGame()
         {
+            gameState = GameState.Playing;
             Time.timeScale = gameSpeed;
             PlayerController.Instance.InputDisabled = false;
         }

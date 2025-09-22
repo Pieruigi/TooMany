@@ -88,6 +88,8 @@ namespace TMOT
         {
             if (!medicalDrone) return;
 
+            medicalDrone.GetComponent<CustomDroneController>().ForceDestroy();
+
             OnMedicalDroneUnspawned?.Invoke(medicalDrone);
 
             Destroy(medicalDrone, 2f);

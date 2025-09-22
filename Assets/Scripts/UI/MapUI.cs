@@ -127,6 +127,8 @@ namespace TMOT.UI
             PillSpawner.OnSpawned -= HandleOnPillSpawned;
             PillSpawner.OnUnspawned -= HandleOnObjectRemoved;
             MonsterController.OnForcedBehaviour -= HandleOnMonsterForcedBehaviour;
+            BatterySpawner.OnSpawned -= HandleOnBatterySpawned;
+            BatterySpawner.OnUnspawned -= HandleOnObjectRemoved;
         }
 
         private void HandleOnMonsterForcedBehaviour(MonsterController monsterController)

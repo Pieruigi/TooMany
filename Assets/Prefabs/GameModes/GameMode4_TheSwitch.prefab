@@ -47,6 +47,8 @@ MonoBehaviour:
   gameUIPrefab: {fileID: 428352958936532278, guid: 2b5b8d69061e8214399a726a3eb5a504,
     type: 3}
   startInHuntingMode: 0
+  batterySpawnerPrefab: {fileID: 7086488903635555356, guid: 2743ce499339db743b52c5caec3a06ad,
+    type: 3}
   timeUpSpawnerPrefab: {fileID: 4895777033199873330, guid: cfc85fc168fd11c47b3df1c389c55492,
     type: 3}
   monsterSpawnerPrefab: {fileID: 3993171266660804438, guid: d2b8bce1dc145a04a9b35c1bf3fe7396,

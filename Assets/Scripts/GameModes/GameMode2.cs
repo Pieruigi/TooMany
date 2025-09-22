@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.CompilerServices;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace TMOT
 
 
         //[SerializeField]
-        int goalCount = 20;
+        int goalCount = 50;//20;
 
 
         //[SerializeField]
@@ -50,7 +51,9 @@ namespace TMOT
 
         bool isHunterMode = false;
 
+        int diamonds = 0;
 
+        
 
         protected override void Awake()
         {
@@ -82,15 +85,15 @@ namespace TMOT
                     PlayerController.Instance.SetState(PlayerState.Prey);
                 }
             }
-            else
-            {
-                if (goalCount == goalProgress)
-                {
-                    MonsterSpawner.Instance.StopSpawner();
-                    GameManager.Instance.ReportPlayerIsWinner();
-                }
+            // else
+            // {
+            //     if (goalCount == goalProgress)
+            //     {
+            //         MonsterSpawner.Instance.StopSpawner();
+            //         GameManager.Instance.ReportPlayerIsWinner();
+            //     }
                     
-            }
+            // }
         }
 
         protected override void OnEnable()
@@ -138,7 +141,7 @@ namespace TMOT
 
         async UniTaskVoid SpawnDiamonds()
         {
-
+            diamonds = stepCount;
             for (int i = 0; i < stepCount; i++)
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(.25f));
@@ -151,7 +154,10 @@ namespace TMOT
         {
             await UniTask.Delay(TimeSpan.FromSeconds(.5f));
 
-            if (goalProgress < goalCount && goalProgress % stepCount == 0)
+            // if (goalProgress < goalCount && goalProgress % stepCount == 0)
+            //     PlayerController.Instance.SetState(PlayerState.Hunter);
+            //if (FindObjectsOfType<CustomDroneController>().Count(c => c.Type == CustomDroneType.Diamond) == 0)
+            if(diamonds == 0)
                 PlayerController.Instance.SetState(PlayerState.Hunter);
         }
 
@@ -162,6 +168,22 @@ namespace TMOT
             return goalProgress >= goalCount - stepCount;
         }
 
+        public override void ReportMonsterDroneHitByPlayer(MonsterController monsterDrone)
+        {
+            base.ReportMonsterDroneHitByPlayer(monsterDrone);
+
+            // Do action
+            goalProgress++;
+
+            OnProgressUpdated?.Invoke(goalProgress, goalCount);
+
+             if (goalCount <= goalProgress)
+            {
+                MonsterSpawner.Instance.StopSpawner();
+                GameManager.Instance.ReportPlayerIsWinner();
+            }
+        }
+
         public override void ReportCustomDronePicked(CustomDroneController customDrone)
         {
             base.ReportCustomDronePicked(customDrone);
@@ -170,13 +192,15 @@ namespace TMOT
             {
                 case CustomDroneType.Diamond:
                     // Do action
-                    goalProgress++;
+                    //goalProgress++;
+                    diamonds--;
+                    if (diamonds < 0) diamonds = 0;
                     // Unspawn diamond
                     DiamondSpawner.Instance.UnspawnDiamond(customDrone.gameObject);
 
                     CheckStepCount().Forget();
 
-                    OnProgressUpdated?.Invoke(goalProgress, goalCount);
+                    //OnProgressUpdated?.Invoke(goalProgress, goalCount);
 
                     break;
 
@@ -191,7 +215,7 @@ namespace TMOT
                 case CustomDroneType.Pill:
                     SpeedPowerUp.Instance.BuffSpeed();
                     PillSpawner.Instance.ReportPicked();
-                    break;    
+                    break;
             }
         }
 

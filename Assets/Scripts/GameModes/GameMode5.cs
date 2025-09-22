@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 namespace TMOT
