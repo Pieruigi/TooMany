@@ -120,7 +120,7 @@ namespace TMOT.UI
             TimeUpSpawner.OnTimeUpUnspawned -= HandleOnObjectRemoved;
             TimeUpMultiSpawner.OnTimeUpMultiSpawned -= HandleOnTimeupMultiSpawned;
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
-            MedicalSpawner.OnMedicalDroneSpawned -= HandleOnTimeUpSpawned;
+            MedicalSpawner.OnMedicalDroneSpawned -= HandleOnMedicalSpawned;
             MedicalSpawner.OnMedicalDroneUnspawned -= HandleOnObjectRemoved;
             DiamondSpawner.OnDiamondSpanwed -= HandleOnDiamondSpawned;
             DiamondSpawner.OnDiamondUnspanwed -= HandleOnObjectRemoved;

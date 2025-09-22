@@ -75,7 +75,7 @@ namespace TMOT
         float speedUpStep = .1f;
 
 
-        float restartTime = 9;
+        float restartTime = 5;
         
 
         AsyncOperation loadingOperation;

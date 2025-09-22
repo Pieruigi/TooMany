@@ -13,6 +13,9 @@ namespace TMOT.UI
         [SerializeField]
         List<Toggle> modes;
 
+        [SerializeField]
+        GameModeRulePanel rules;
+
        
         // Start is called before the first frame update
         void Start()
@@ -37,6 +40,8 @@ namespace TMOT.UI
             // Set current mode
             var mode = (int)GameManager.Instance.GameMode;
             modes[mode].isOn = true;
+            rules.ShowRule(mode);
+
 
             // Set listeners
             foreach (var m in modes)
@@ -63,7 +68,7 @@ namespace TMOT.UI
             if (!value) return;
             int index = modes.IndexOf(toggle);
             GameManager.Instance.GameMode = (GameModeType)index;
-     
+            rules.ShowRule(index);
             
         }
 

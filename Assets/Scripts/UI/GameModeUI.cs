@@ -112,7 +112,7 @@ namespace TMOT.UI
         async UniTaskVoid ShowWinnerPanel()
         {
 
-            await UniTask.Delay(TimeSpan.FromSeconds(4f*GameManager.Instance.GameSpeed));
+            await UniTask.Delay(TimeSpan.FromSeconds(2f*GameManager.Instance.GameSpeed));
 
             // Cursor.lockState = CursorLockMode.None;
             // Cursor.visible = true;

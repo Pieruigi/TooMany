@@ -192,6 +192,7 @@ namespace TMOT
 
         public void ForceDestroy()
         {
+            if (picked) return;
             picked = true;
 
             Explode();
