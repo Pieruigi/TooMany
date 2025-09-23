@@ -31,6 +31,7 @@ namespace TMOT
         public static OnStateChangedDelegate OnStateChanged;
 
         public const float StartingDelay = 3f;
+       
 
         [SerializeField]
         List<GameObject> gameModePrefabs;
@@ -124,7 +125,6 @@ namespace TMOT
             }
             else // Game scene
             {
-                Debug.Log("TEST - GameManager OnSceneLoaded");
                 SetState(GameState.Starting);
             }
         }
@@ -168,7 +168,7 @@ namespace TMOT
         async UniTaskVoid EnteringLoserState()
         {
             
-            await UniTask.Delay(TimeSpan.FromSeconds(restartTime*gameSpeed));
+            await UniTask.Delay(TimeSpan.FromSeconds((restartTime+2f)*gameSpeed));
             gameSpeed = 1; // Reset game speed since you lose
             PlayGame();
 
@@ -202,8 +202,6 @@ namespace TMOT
 
         public void PlayGame()
         {
-            Debug.Log("TEST - PlatGame()");
-            //SceneManager.LoadScene(gameSceneOffset + mapId);
             StartCoroutine(LoadSceneAsync(gameSceneOffset + mapId));
         }
 
@@ -216,7 +214,6 @@ namespace TMOT
 
             while (!loadingOperation.isDone)
             {
-                Debug.Log($"TEST - Load progression:{loadingOperation.progress}");
                 OnSceneLoadingProgress?.Invoke(loadingOperation.progress);
                 yield return null;
             }

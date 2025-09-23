@@ -21,7 +21,7 @@ namespace TMOT.UI
 
         bool loop = false;
 
-        float counter = 5;
+        float counter = 3;
 
         void Awake()
         {
@@ -47,7 +47,7 @@ namespace TMOT.UI
         void OnEnable()
         {
             loop = true;
-            counter = 5;
+            counter = 3;
             FillList();
             msgTextField.text = texts[UnityEngine.Random.Range(0, texts.Count)];
             actionTextField.text = string.Format(actionStrFormat, counter);

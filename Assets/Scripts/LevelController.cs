@@ -49,14 +49,12 @@ namespace TMOT
         protected override void Awake()
         {
             base.Awake();
-            Debug.Log("TEST - LevelController - Awake()");
         }
 
 
         // Start is called before the first frame update
         void Start()
         {
-            Debug.Log("LevelController - Start");
         }
 
         // Update is called once per frame
@@ -72,7 +70,6 @@ namespace TMOT
         {
             waypoints = waypointRoot.GetComponentsInChildren<Transform>().Where(w => w != waypointRoot).ToList();
 
-            Debug.Log("TEST - LevelController - initialize");
             // Instantiate the game mode objet
             var prefab = GameManager.Instance.GameModePrefabs.ToList()[(int)GameManager.Instance.GameMode];
             var gm = Instantiate(prefab, Vector3.zero, Quaternion.identity);

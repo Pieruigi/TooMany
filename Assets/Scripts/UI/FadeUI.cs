@@ -51,7 +51,6 @@ namespace TMOT.UI
 
         public async UniTask FadeIn(float duration = .5f)
         {
-            Debug.Log("TEST - Fade In");
             await panel.DOColor(new Color(0, 0, 0, 0), duration).AsyncWaitForCompletion();
         }
 

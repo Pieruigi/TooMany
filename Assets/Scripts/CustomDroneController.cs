@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Experimental.Rendering;
 
 namespace TMOT
 {
@@ -151,6 +152,9 @@ namespace TMOT
 
             // Get all waypoints near to the agent
             var waypoints = LevelController.Instance.Waypoints.ToList().FindAll(w => Vector3.Distance(transform.position, w.position) < waypointMaxDistance);
+
+            // Remove current waypoint
+            waypoints.RemoveAll(w => Vector3.Distance(transform.position, w.position) < agent.stoppingDistance * 1.1f);
 
             // Remove all the waypoints that are behind the agent
             var angle = 100f;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 
@@ -75,7 +76,7 @@ namespace TMOT.UI
             switch (newState)
             {
                 case GameState.Starting:
-                    msgField.text = string.Format(msgFormatStr, GameManager.Instance.GameSpeed);
+                    msgField.text = string.Format(msgFormatStr, GameManager.Instance.GameSpeed.ToString(CultureInfo.InvariantCulture));
                     loop = true;
                     timer = GameManager.StartingDelay;
                     break;

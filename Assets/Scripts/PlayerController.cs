@@ -156,7 +156,6 @@ namespace TMOT
         void Start()
         {
             mouseSensitivity = OptionsManager.Instance.MouseSpeed;
-            Debug.Log($"TEST - MouseSens:{mouseSensitivity}");
         }
 
         // Update is called once per frame

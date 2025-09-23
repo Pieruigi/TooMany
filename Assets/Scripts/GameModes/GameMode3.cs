@@ -125,7 +125,6 @@ namespace TMOT
 
         protected override void StartGameMode()
         {
-            Debug.Log("TEST - Starting game mode...");
             // Set player state
             PlayerController.Instance.SetState(PlayerState.Prey);
 
@@ -163,8 +162,6 @@ namespace TMOT
             }
             
             //var newVictims = MonsterSpawner.Instance.Monsters.Where(m => m.InvertedBehaviour && Vector3.Distance(m.transform.position, PlayerController.Instance.transform.position) < infectionRange).ToList();
-
-            Debug.Log($"TEST - newVictims.Count:{newVictims.Count}");
 
             var oldVictims = MonsterSpawner.Instance.Monsters.Where(m => !m.InvertedBehaviour && m != monsterDrone).ToList();
 

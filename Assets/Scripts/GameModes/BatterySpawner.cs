@@ -63,7 +63,6 @@ namespace TMOT
 
         async UniTaskVoid SpawnDrone()
         {
-            Debug.Log("TEST - Spawn pill");
             await UniTask.Delay(System.TimeSpan.FromSeconds(spawnDelay));
             // Get a random waypoint
             var waypoint = LevelController.Instance.Waypoints[UnityEngine.Random.Range(0, LevelController.Instance.Waypoints.Count)];
