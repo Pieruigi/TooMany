@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1275647266828163555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6599394429878397801}
+  - component: {fileID: 2369801930435995053}
+  m_Layer: 0
+  m_Name: GameMode7_PacMan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6599394429878397801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275647266828163555}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2369801930435995053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275647266828163555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf25441a4e3bc4648a5607b80ca72dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameUIPrefab: {fileID: 428352958936532278, guid: a0a5c6128918b3b4fa94cdbd6ccf1dd1,
+    type: 3}
+  startInHuntingMode: 0
+  medicalSpawnerPrefab: {fileID: 2071583053414274110, guid: d181e85a5d9d19b489447dec01b29dc0,
+    type: 3}
+  pillSpawnerPrefab: {fileID: 6389666595648419003, guid: b252fef9f6513b9468f5e9eb56ac9bff,
+    type: 3}
+  batterySpawnerPrefab: {fileID: 7086488903635555356, guid: 2743ce499339db743b52c5caec3a06ad,
+    type: 3}
+  diamondSpawnerPrefab: {fileID: 5698710700000270123, guid: 19d7c3ead91640042870464d50d89560,
+    type: 3}
+  monsterSpawnerPrefab: {fileID: 7100952852565690991, guid: d2b8bce1dc145a04a9b35c1bf3fe7396,
+    type: 3}
+  timeUpSpawnerPrefab: {fileID: 2695430915123302042, guid: 9bf9129f9d87ca8428ed0c00e5d0bb1f,
+    type: 3}

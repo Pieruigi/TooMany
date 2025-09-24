@@ -22,6 +22,11 @@ namespace TMOT
             get { return startInHuntingMode; }
         }
 
+        [SerializeField]
+        GameObject medicalSpawnerPrefab;
+
+        [SerializeField]
+        GameObject pillSpawnerPrefab;
 
         [SerializeField]
         GameObject batterySpawnerPrefab;
@@ -41,9 +46,12 @@ namespace TMOT
             if (batterySpawnerPrefab)
                 Instantiate(batterySpawnerPrefab, Vector3.zero, Quaternion.identity);
 
+            if (medicalSpawnerPrefab)
+                Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
 
+            if (pillSpawnerPrefab)
+                Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
         }
-
 
         protected virtual void OnEnable()
         {
@@ -76,6 +84,14 @@ namespace TMOT
                 case CustomDroneType.Battery:
                     StaminaPowerUp.Instance.BuffSpeed();
                     BatterySpawner.Instance.ReportPicked();
+                    break;
+                case CustomDroneType.Medical:
+                    PlayerController.Instance.Heal();
+                    MedicalSpawner.Instance.ReportMedicalPicked();
+                    break;
+                case CustomDroneType.Pill:
+                    SpeedPowerUp.Instance.BuffSpeed();
+                    PillSpawner.Instance.ReportPicked();
                     break;
             }
         }

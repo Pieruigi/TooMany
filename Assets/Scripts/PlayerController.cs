@@ -158,6 +158,9 @@ namespace TMOT
             mouseSensitivity = OptionsManager.Instance.MouseSpeed;
         }
 
+
+
+
         // Update is called once per frame
         void Update()
         {
@@ -173,6 +176,8 @@ namespace TMOT
                 ApplyDamage(1);
             if (Input.GetKeyDown(KeyCode.J))
                 Heal();
+            if (Input.GetKeyDown(KeyCode.V))
+                GameManager.Instance.ReportPlayerIsWinner();
 #endif
 
 

@@ -14,7 +14,8 @@ namespace TMOT.UI
         // Start is called before the first frame update
         void Start()
         {
-
+            if ("In Development".Equals(message))
+                GetComponent<Selectable>().interactable = false;
         }
 
         // Update is called once per frame

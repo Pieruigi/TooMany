@@ -111,7 +111,7 @@ namespace TMOT.UI
 
                 if (index == SaveManager.Instance.GameProgress)
                 {
-                    Debug.Log("Setting listener on toggle");
+                    Debug.Log($"TEST - Index:{index}, GameProgress:{SaveManager.Instance.GameProgress}");
                     toggle?.onValueChanged.AddListener((v) =>
                     {
                         if (!v) return;

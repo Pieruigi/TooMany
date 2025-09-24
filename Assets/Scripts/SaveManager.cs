@@ -9,7 +9,7 @@ namespace TMOT
     {
         public const string ProgressParam = "Progress";
         public const string NewGameModeUnlockedParam = "GameModeUnlocked";
-        public const int ProgressMax = 4;
+        public const int ProgressMax = 6;
 
         [SerializeField]
         int progress;
