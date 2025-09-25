@@ -43,12 +43,10 @@ namespace TMOT.UI
             hunterCanvasGroup.alpha = deactivatedAlpha;
             hunterLocalPositionDefault = hunterCanvasGroup.transform.localPosition;
 
-            if (GameMode.Instance.GetType() == typeof(GameMode4))
-            {
-                HandleOnHunterTimeIncreased((GameMode.Instance as GameMode4).HunterTime);
-                HandleOnProgressUpdated(0, (GameMode.Instance as GameMode4).Goal);    
-            }
-            
+           
+            HandleOnHunterTimeIncreased((GameMode.Instance as GameMode4).HunterTime);
+            HandleOnProgressUpdated(0, (GameMode.Instance as GameMode4).Goal);    
+           
 
 
         }
@@ -63,8 +61,8 @@ namespace TMOT.UI
             base.OnEnable();
 
             GameMode.OnProgressUpdated += HandleOnProgressUpdated;
-            if(GameMode.Instance.GetType() == typeof(GameMode4))
-                GameMode4.OnHunterTimeIncreased += HandleOnHunterTimeIncreased;
+           
+            GameMode4.OnHunterTimeIncreased += HandleOnHunterTimeIncreased;
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
         }
 
@@ -72,8 +70,8 @@ namespace TMOT.UI
         {
             base.OnDisable();
             GameMode.OnProgressUpdated -= HandleOnProgressUpdated;
-            if(GameMode.Instance.GetType() == typeof(GameMode4))
-                GameMode4.OnHunterTimeIncreased -= HandleOnHunterTimeIncreased;
+           
+            GameMode4.OnHunterTimeIncreased -= HandleOnHunterTimeIncreased;
             
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
         }
@@ -139,7 +137,7 @@ namespace TMOT.UI
 
         void UpdateHunterTimer()
         {
-            return;
+           
             var t = (GameMode.Instance as GameMode4).HunterTime;
 
             hunterTimerField.text = Mathf.CeilToInt(t).ToString();

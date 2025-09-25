@@ -10,6 +10,8 @@ namespace TMOT
 {
     public class GameMode7 : GameMode
     {
+        public delegate void HunterTimeIncreasedDelegate(float time);
+        public static HunterTimeIncreasedDelegate OnHunterTimeIncreased;
 
         [SerializeField]
         DiamondSpawner diamondSpawnerPrefab;
@@ -21,6 +23,10 @@ namespace TMOT
         TimeUpSpawner timeUpSpawnerPrefab;
 
         int goalCount = 50;//20;
+        public int Goal
+        {
+            get{ return goalCount; }
+        }
 
         //[SerializeField]
         int stepCount = 4;
@@ -41,9 +47,11 @@ namespace TMOT
 
         int diamondCount = 4;
 
-        float hunterTime = 15;
-
-        float hunterExtraTime = 0;
+        float hunterTime = 10;
+        public float HunterTime
+        {
+            get{ return hunterTime; }
+        }
 
         float switchCooldown = 1;
 
@@ -52,6 +60,9 @@ namespace TMOT
         float switchCooldownTimer = 0;
 
         float elapsed = 0;
+
+        float hunterTimeUpSpeed = 0.1f;
+        float hunterTimeUpElapsed = 0;
 
 
 
@@ -89,6 +100,8 @@ namespace TMOT
                 }
 
             }
+
+            CheckHunterTimeUp();
 
             CheckHunterTime();
 
@@ -134,11 +147,14 @@ namespace TMOT
 
                     SpawnDiamondDelayed(5f).Forget();
 
+                    OnProgressUpdated?.Invoke(goalProgress, goalCount);
+
                     break;
 
                 case CustomDroneType.TimeUp:
-                    hunterTimeExtra += 5f;
+                    hunterTime += 5f;
                     TimeUpSpawner.Instance.ReportTimeUpPicked();
+                    OnHunterTimeIncreased?.Invoke(hunterTime);
                     break;
                 case CustomDroneType.Medical:
                     PlayerController.Instance.Heal();
@@ -158,9 +174,11 @@ namespace TMOT
                 case PlayerState.Prey:
                     SpawnDiamonds().Forget();
                     MonsterSpawner.Instance.StartSpawner();
+                    TimeUpSpawner.Instance.StartSpawner().Forget();
                     hunterTimeExtra = 0;
                     hunterElapsed = 0;
                     isHunterMode = false;
+                    hunterTimeUpElapsed = 0;
                     break;
                 case PlayerState.Hunter:
                     MonsterSpawner.Instance.StopSpawner();
@@ -168,6 +186,7 @@ namespace TMOT
                     DiamondSpawner.Instance.UnspawnAllDiamonds();
                     hunterElapsed = 0;
                     isHunterMode = true;
+                    hunterTimeUpElapsed = 0;
                     break;
             }
         }
@@ -208,6 +227,20 @@ namespace TMOT
 
         }
         
+        void CheckHunterTimeUp()
+        {
+            if (PlayerController.Instance.State != PlayerState.Prey) return;
+
+            hunterTimeUpElapsed += Time.deltaTime * hunterTimeUpSpeed;
+
+            if (hunterTimeUpElapsed > 1)
+            {
+                hunterTimeUpElapsed -= 1;
+                hunterTime++;
+                OnHunterTimeIncreased?.Invoke(hunterTime);
+            }
+        }
+
         void Switch()
         {
             if (PlayerController.Instance.State == PlayerState.Prey)
