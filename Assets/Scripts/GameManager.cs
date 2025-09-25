@@ -176,18 +176,34 @@ namespace TMOT
 
         async UniTaskVoid EnteringWinnerState()
         {
-#if !DEMO            
+#if !DEMO
             if (gameSpeed == 1)
             {
                 // Check if the player unlocked a new game mode
                 if (gameMode == (GameModeType)SaveManager.Instance.GameProgress)
                     SaveManager.Instance.UpdateGameProgress();
             }
-#endif
-            
             await UniTask.Delay(TimeSpan.FromSeconds(restartTime*gameSpeed));
             gameSpeed += speedUpStep;
             PlayGame();
+#else
+            await UniTask.Delay(TimeSpan.FromSeconds(restartTime * gameSpeed));
+            if (gameSpeed == 1)
+            {
+                gameSpeed += speedUpStep;
+                PlayGame();
+            }
+            else // Cap
+            {
+                await DemoManager.Instance.Show(4,1);
+                gameSpeed = 1;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                LoadMainScene();
+            }
+#endif
+
+
 
         }
 

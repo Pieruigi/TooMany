@@ -12,6 +12,15 @@ public class DemoManager : SingletonPersistent<DemoManager>
     [SerializeField]
     GameObject panel;
 
+    [SerializeField]
+    List<GameObject> fields;
+
+    List<string> texts = new List<string>()
+    {
+        "Not available in demo mode",
+        "Speed is capped in demo mode"
+    };
+
     protected override void Awake()
     {
         base.Awake();
@@ -36,8 +45,18 @@ public class DemoManager : SingletonPersistent<DemoManager>
 
     }
 
-    public async UniTask Show(float time)
+    void HideFieldAll()
     {
+        foreach (var field in fields)
+            field.SetActive(false);
+    }
+
+    public async UniTask Show(float time, int textId)
+    {
+        //panel.GetComponentInChildren<TMP_Text>().text = texts[textId];
+        HideFieldAll();
+        fields[textId].SetActive(true);
+
         panel.SetActive(true);
 
         await UniTask.Delay(TimeSpan.FromSeconds(time));

@@ -54,7 +54,7 @@ namespace TMOT.UI
             if (maps.IndexOf(toggle) > 0)
             {
                 maps[0].isOn = true;
-                DemoManager.Instance.Show(2).Forget();
+                DemoManager.Instance.Show(2,0).Forget();
             }
 
 #else

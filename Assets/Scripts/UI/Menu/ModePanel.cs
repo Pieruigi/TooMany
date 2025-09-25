@@ -70,7 +70,7 @@ namespace TMOT.UI
             if (modes.IndexOf(toggle) > 0)
             {
                 modes[0].isOn = true;
-                DemoManager.Instance.Show(2).Forget();
+                DemoManager.Instance.Show(2,0).Forget();
             }
                 
 #else
