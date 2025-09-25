@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,9 +50,19 @@ namespace TMOT.UI
 
         private void HandleOnValueChanged(Toggle toggle, bool value)
         {
+#if DEMO
+            if (maps.IndexOf(toggle) > 0)
+            {
+                maps[0].isOn = true;
+                DemoManager.Instance.Show(2).Forget();
+            }
+
+#else
+
             if (!value) return;
             int index = maps.IndexOf(toggle);
             GameManager.Instance.MapId = index;
+#endif
      
             
         }

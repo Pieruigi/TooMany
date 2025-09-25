@@ -31,7 +31,7 @@ namespace TMOT
 
         float playerChasingTime = 15;
 
-        int goalTarget = 11;
+        int goalTarget = 9;
 
         int goalStep = 0;
 
@@ -47,7 +47,7 @@ namespace TMOT
 
         int initialSpawnAmount = 10;
 
-        int normalSpawnAmount = 4;
+        int normalSpawnAmount = 5;
 
         bool initialized = false;
 

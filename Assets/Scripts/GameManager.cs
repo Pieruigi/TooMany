@@ -176,13 +176,14 @@ namespace TMOT
 
         async UniTaskVoid EnteringWinnerState()
         {
+#if !DEMO            
             if (gameSpeed == 1)
             {
                 // Check if the player unlocked a new game mode
                 if (gameMode == (GameModeType)SaveManager.Instance.GameProgress)
                     SaveManager.Instance.UpdateGameProgress();
             }
-
+#endif
             
             await UniTask.Delay(TimeSpan.FromSeconds(restartTime*gameSpeed));
             gameSpeed += speedUpStep;

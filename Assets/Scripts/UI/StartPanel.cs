@@ -17,7 +17,7 @@ namespace TMOT.UI
 
         
 
-        string msgFormatStr = "Experiment speed: {0}";
+        string msgFormatStr = "Experiment speed: x{0}";
 
         bool loop = false;
 

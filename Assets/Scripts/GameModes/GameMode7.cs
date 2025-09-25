@@ -22,7 +22,7 @@ namespace TMOT
         [SerializeField]
         TimeUpSpawner timeUpSpawnerPrefab;
 
-        int goalCount = 50;//20;
+        int goalCount = 20;//20;
         public int Goal
         {
             get{ return goalCount; }
@@ -61,8 +61,14 @@ namespace TMOT
 
         float elapsed = 0;
 
-        float hunterTimeUpSpeed = 0.1f;
+        float hunterTimeUpSpeed = 0.2f;
         float hunterTimeUpElapsed = 0;
+
+        int backFromHunterAmount = 6;
+
+        bool firstSpawn = true;
+
+         int initialSpawnAmount = 10;
 
 
 
@@ -96,6 +102,8 @@ namespace TMOT
                 if (PlayerController.Instance.State != PlayerState.Dead)
                 {
                     GameManager.Instance.ReportPlayerIsWinner();
+                    MonsterSpawner.Instance.StopSpawner();
+                    TimeUpSpawner.Instance.StopSpawner();
                     return;
                 }
 
@@ -128,7 +136,7 @@ namespace TMOT
         {
             PlayerController.Instance.SetState(PlayerState.Prey);
 
-            MonsterSpawner.Instance.SpawnRandomMonsters(monsterInitialSpawnCount);
+            //MonsterSpawner.Instance.SpawnRandomMonsters(monsterInitialSpawnCount);
         }
 
         public override void ReportCustomDronePicked(CustomDroneController customDrone)
@@ -172,6 +180,13 @@ namespace TMOT
             switch (newState)
             {
                 case PlayerState.Prey:
+                    var amount = backFromHunterAmount;
+                    if (firstSpawn)
+                    {
+                        amount = initialSpawnAmount;
+                        firstSpawn = false;
+                    }
+                    MonsterSpawner.Instance.SpawnRandomMonsters(amount, false);
                     SpawnDiamonds().Forget();
                     MonsterSpawner.Instance.StartSpawner();
                     TimeUpSpawner.Instance.StartSpawner().Forget();

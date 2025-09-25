@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,11 +66,19 @@ namespace TMOT.UI
 
         private void HandleOnValueChanged(Toggle toggle, bool value)
         {
+#if DEMO
+            if (modes.IndexOf(toggle) > 0)
+            {
+                modes[0].isOn = true;
+                DemoManager.Instance.Show(2).Forget();
+            }
+                
+#else
             if (!value) return;
             int index = modes.IndexOf(toggle);
             GameManager.Instance.GameMode = (GameModeType)index;
             rules.ShowRule(index);
-            
+#endif            
         }
 
     }
