@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf25441a4e3bc4648a5607b80ca72dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameUIPrefab: {fileID: 428352958936532278, guid: a0a5c6128918b3b4fa94cdbd6ccf1dd1,
+  gameUIPrefab: {fileID: 1839807880721645799, guid: c24f61baa3fea6647ba4684772d201fe,
     type: 3}
   startInHuntingMode: 0
   medicalSpawnerPrefab: {fileID: 2071583053414274110, guid: d181e85a5d9d19b489447dec01b29dc0,

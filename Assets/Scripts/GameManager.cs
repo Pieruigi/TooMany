@@ -73,7 +73,7 @@ namespace TMOT
 
         
 
-        float speedUpStep = .1f;
+        float speedUpStep = .15f;
 
 
         float restartTime = 5;
