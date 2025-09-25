@@ -34,13 +34,13 @@ namespace TMOT
 
 
         //[SerializeField]
-        int stepCount = 4;
+        int stepCount = 3;
 
         int goalProgress = 0;
 
 
         int monsterInitialSpawnCount = 12;
-        int monsterRegularSpawnCount = 4;
+        int monsterRegularSpawnCount = 6;
 
         int monsterRegularSpawnTime = 20;
 

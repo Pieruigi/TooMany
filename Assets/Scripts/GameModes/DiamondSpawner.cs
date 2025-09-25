@@ -20,7 +20,7 @@ namespace TMOT
 
         List<GameObject> diamonds = new List<GameObject>();
 
-        float diamondToPlayerMinDistance = 8;
+        float diamondToPlayerMinDistance = 16;
         float diamondToDiamondMinDistance = 16;
 
         // Start is called before the first frame update

@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: READY!!!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f1e4bb81ee515f04fab9f8da1b4a08f1, type: 2}
-  m_sharedMaterial: {fileID: -2680850350597673258, guid: f1e4bb81ee515f04fab9f8da1b4a08f1,
+  m_fontAsset: {fileID: 11400000, guid: e2e1943a6033760418411bc19fe77422, type: 2}
+  m_sharedMaterial: {fileID: -6664287709633108910, guid: e2e1943a6033760418411bc19fe77422,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -202,8 +202,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: RESET IN 5.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f1e4bb81ee515f04fab9f8da1b4a08f1, type: 2}
-  m_sharedMaterial: {fileID: -2680850350597673258, guid: f1e4bb81ee515f04fab9f8da1b4a08f1,
+  m_fontAsset: {fileID: 11400000, guid: e2e1943a6033760418411bc19fe77422, type: 2}
+  m_sharedMaterial: {fileID: -6664287709633108910, guid: e2e1943a6033760418411bc19fe77422,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1590695163575779291
 RectTransform:
   m_ObjectHideFlags: 0
@@ -412,8 +412,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Your controller is fine, your skills... not so much.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f1e4bb81ee515f04fab9f8da1b4a08f1, type: 2}
-  m_sharedMaterial: {fileID: -2680850350597673258, guid: f1e4bb81ee515f04fab9f8da1b4a08f1,
+  m_fontAsset: {fileID: 11400000, guid: e2e1943a6033760418411bc19fe77422, type: 2}
+  m_sharedMaterial: {fileID: -6664287709633108910, guid: e2e1943a6033760418411bc19fe77422,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -438,7 +438,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.15
+  m_fontSize: 40.25
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -719,10 +719,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Experiment speed: {0}'
+  m_text: 'Experiment speed: x{0}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f1e4bb81ee515f04fab9f8da1b4a08f1, type: 2}
-  m_sharedMaterial: {fileID: -2680850350597673258, guid: f1e4bb81ee515f04fab9f8da1b4a08f1,
+  m_fontAsset: {fileID: 11400000, guid: e2e1943a6033760418411bc19fe77422, type: 2}
+  m_sharedMaterial: {fileID: -6664287709633108910, guid: e2e1943a6033760418411bc19fe77422,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -747,7 +747,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.3
+  m_fontSize: 60
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -857,7 +857,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8533200996457178859
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1336,8 +1336,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: RESET IN 5.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f1e4bb81ee515f04fab9f8da1b4a08f1, type: 2}
-  m_sharedMaterial: {fileID: -2680850350597673258, guid: f1e4bb81ee515f04fab9f8da1b4a08f1,
+  m_fontAsset: {fileID: 11400000, guid: e2e1943a6033760418411bc19fe77422, type: 2}
+  m_sharedMaterial: {fileID: -6664287709633108910, guid: e2e1943a6033760418411bc19fe77422,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1759,14 +1759,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16981131, g: 0.009966445, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 88e4955d34631e541b4c430d0330cd76, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2016,8 +2016,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Your controller is fine, your skills... not so much.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f1e4bb81ee515f04fab9f8da1b4a08f1, type: 2}
-  m_sharedMaterial: {fileID: -2680850350597673258, guid: f1e4bb81ee515f04fab9f8da1b4a08f1,
+  m_fontAsset: {fileID: 11400000, guid: e2e1943a6033760418411bc19fe77422, type: 2}
+  m_sharedMaterial: {fileID: -6664287709633108910, guid: e2e1943a6033760418411bc19fe77422,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2042,7 +2042,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.15
+  m_fontSize: 40.25
   m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2324,14 +2324,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16981131, g: 0.009966445, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 88e4955d34631e541b4c430d0330cd76, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
