@@ -7,7 +7,7 @@ namespace TMOT
 {
     public class BatterySpawner : Singleton<BatterySpawner>
     {
-   public delegate void SpawnedDelegate(GameObject drone);
+        public delegate void SpawnedDelegate(GameObject drone);
         public static SpawnedDelegate OnSpawned;
 
         public delegate void UnspawnedDelegate(GameObject drone);
@@ -37,11 +37,24 @@ namespace TMOT
         void OnEnable()
         {
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            GameManager.OnStateChanged += HandleOnGameStateChanged;
         }
 
         void OnDisable()
         {
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+            GameManager.OnStateChanged -= HandleOnGameStateChanged;
+        }
+
+        private void HandleOnGameStateChanged(GameState oldState, GameState newState)
+        {
+            switch (newState)
+            {
+                case GameState.Winner:
+                case GameState.Loser:
+                    UnspawnDrone();
+                    break;
+            }
         }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)

@@ -6522,7 +6522,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minDistance: 7
-  maxDistance: 32
   smoothSpeed: 5
   volumetric: {fileID: 2138615832}
 --- !u!114 &1108300072
@@ -6625,6 +6624,74 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1001 &1161338681
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5263457464800394456, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263457464800394456, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263457464800394456, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263457464800394456, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263457464800394456, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263457464800394456, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263457464800394456, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263457464800394456, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263457464800394456, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5263457464800394456, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217899289172651978, guid: 9b1aae68654b5944bb80542085e510e2,
+        type: 3}
+      propertyPath: m_Name
+      value: Shield
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9b1aae68654b5944bb80542085e510e2, type: 3}
 --- !u!1 &1193496173
 GameObject:
   m_ObjectHideFlags: 0
@@ -8704,7 +8771,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   minDistance: 7
-  maxDistance: 32
   smoothSpeed: 5
   volumetric: {fileID: 2028845225}
 --- !u!1660057539 &9223372036854775807
@@ -8726,3 +8792,4 @@ SceneRoots:
   - {fileID: 131843023}
   - {fileID: 948024421}
   - {fileID: 1069920498}
+  - {fileID: 1161338681}

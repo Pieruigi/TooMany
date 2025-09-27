@@ -44,11 +44,24 @@ namespace TMOT
         void OnEnable()
         {
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            GameManager.OnStateChanged += HandleOnGameStateChanged;
         }
 
         void OnDisable()
         {
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+            GameManager.OnStateChanged -= HandleOnGameStateChanged;
+        }
+
+        private void HandleOnGameStateChanged(GameState oldState, GameState newState)
+        {
+            switch (newState)
+            {
+                case GameState.Winner:
+                case GameState.Loser:
+                    UnspawnDrone();
+                    break;
+            }
         }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)

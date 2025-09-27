@@ -178,23 +178,26 @@ namespace TMOT
                 Heal();
             if (Input.GetKeyDown(KeyCode.V))
                 GameManager.Instance.ReportPlayerIsWinner();
+
+            if (Input.GetKeyDown(KeyCode.B))
+                ShieldPowerUp.Instance.Activate();
 #endif
 
 
 
 
-            switch (state)
-            {
-                case PlayerState.None:
+                switch (state)
+                {
+                    case PlayerState.None:
 
-                    break;
-                case PlayerState.Prey:
-                    UpdatePreyState();
-                    break;
-                case PlayerState.Hunter:
-                    UpdateHunterState();
-                    break;
-            }
+                        break;
+                    case PlayerState.Prey:
+                        UpdatePreyState();
+                        break;
+                    case PlayerState.Hunter:
+                        UpdateHunterState();
+                        break;
+                }
 
 
         }
@@ -396,6 +399,8 @@ namespace TMOT
         public void ApplyDamage(float damage)
         {
             var oldHealth = health;
+            //if (ShieldPowerUp.Instance)
+                damage = ShieldPowerUp.Instance.DeflectDamage((int)damage);
             health -= damage;
             if (health < 0) health = 0;
             if (health == 0)
@@ -417,9 +422,13 @@ namespace TMOT
 
             }
 
-            CameraShake.Instance.Shake(0.4f, 0.5f, 15, 120f);
+            if (damage > 0)
+            {
+                CameraShake.Instance.Shake(0.4f, 0.5f, 15, 120f);
 
-            OnPlayerDamaged?.Invoke(oldHealth, health);
+                OnPlayerDamaged?.Invoke(oldHealth, health);    
+            }
+            
         }
 
         public bool IsWounded()

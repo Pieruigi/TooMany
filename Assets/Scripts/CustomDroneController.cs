@@ -10,7 +10,7 @@ using UnityEngine.Experimental.Rendering;
 
 namespace TMOT
 {
-    public enum CustomDroneType {Medical, TimeUp, Diamond, Pill, Battery}
+    public enum CustomDroneType {Medical, TimeUp, Diamond, Pill, Battery, Shield}
 
     public class CustomDroneController : MonoBehaviour
     {

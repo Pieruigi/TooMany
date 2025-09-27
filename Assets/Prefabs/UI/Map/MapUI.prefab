@@ -62,7 +62,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &329675468675781917
 MonoBehaviour:
@@ -128,6 +128,8 @@ MonoBehaviour:
   batteryPinPrefab: {fileID: 5393290606267494654, guid: 800b6c87482a52d4c9d310123f3e2df6,
     type: 3}
   medicalPinPrefab: {fileID: 5393290606267494654, guid: 4d9246c1fb7c20e4eb45f60e702aaa89,
+    type: 3}
+  shieldPinPrefab: {fileID: 5393290606267494654, guid: 800b6c87482a52d4c9d310123f3e2df6,
     type: 3}
   pinRoot: {fileID: 7187782326794287485}
 --- !u!225 &2565300731500600969

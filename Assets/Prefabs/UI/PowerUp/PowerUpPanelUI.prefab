@@ -114,7 +114,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -180,5 +180,7 @@ MonoBehaviour:
   speedUpPrefab: {fileID: 1872371734059728809, guid: 11a3d8e7ed4b0d94e98fcb81c0f731c4,
     type: 3}
   staminaUpPrefab: {fileID: 1872371734059728809, guid: 58d6d998b55297c43a0292d29fdbf49d,
+    type: 3}
+  shieldPrefab: {fileID: 1872371734059728809, guid: ad8900ab030bec3449aadb66b1216df5,
     type: 3}
   root: {fileID: 3806011328236733649}

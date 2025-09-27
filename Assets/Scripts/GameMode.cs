@@ -31,6 +31,9 @@ namespace TMOT
         [SerializeField]
         GameObject batterySpawnerPrefab;
 
+        [SerializeField]
+        GameObject shieldSpawnerPrefab;
+
         protected abstract void StartGameMode();
 
         //GameObject gameUI;
@@ -51,6 +54,9 @@ namespace TMOT
 
             if (pillSpawnerPrefab)
                 Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
+
+            if (shieldSpawnerPrefab)
+                Instantiate(shieldSpawnerPrefab, Vector3.zero, Quaternion.identity);
         }
 
         protected virtual void OnEnable()
@@ -71,7 +77,9 @@ namespace TMOT
                     StartGameMode();
                     break;
 
-
+                case GameState.Winner:
+                case GameState.Loser:
+                    break;
 
 
             }
@@ -92,6 +100,10 @@ namespace TMOT
                 case CustomDroneType.Pill:
                     SpeedPowerUp.Instance.BuffSpeed();
                     PillSpawner.Instance.ReportPicked();
+                    break;
+                case CustomDroneType.Shield:
+                    ShieldPowerUp.Instance.Activate();
+                    ShieldSpawner.Instance.ReportPicked();
                     break;
             }
         }

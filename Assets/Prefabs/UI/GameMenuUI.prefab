@@ -65,6 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSpeedSlider: {fileID: 3500207117617032194}
+  volumeSlider: {fileID: 0}
 --- !u!1 &1327161509769169213
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,7 +771,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0

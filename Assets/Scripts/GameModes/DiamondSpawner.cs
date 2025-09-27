@@ -35,7 +35,28 @@ namespace TMOT
 
         }
 
-        
+        void OnEnable()
+        {
+            GameManager.OnStateChanged += HandleOnGameStateChanged;
+        }
+
+        void OnDisable()
+        {
+            GameManager.OnStateChanged -= HandleOnGameStateChanged;
+        }
+
+
+        private void HandleOnGameStateChanged(GameState oldState, GameState newState)
+        {
+            switch (newState)
+            {
+                case GameState.Winner:
+                case GameState.Loser:
+                    UnspawnAllDiamonds();
+                    break;
+            }
+        }
+
 
         public void SpawnDiamond()
         {

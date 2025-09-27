@@ -42,6 +42,29 @@ namespace TMOT
 
         }
 
+        void OnEnable()
+        {
+            GameManager.OnStateChanged += HandleOnGameStateChanged;
+        }
+
+        void OnDisable()
+        {
+            GameManager.OnStateChanged -= HandleOnGameStateChanged;
+        }
+
+
+        private void HandleOnGameStateChanged(GameState oldState, GameState newState)
+        {
+            switch (newState)
+            {
+                case GameState.Winner:
+                case GameState.Loser:
+                    StopSpawner();
+                    break;
+            }
+        }
+
+
         public async UniTaskVoid StartSpawner()
         {
             spawning = true;
@@ -55,7 +78,7 @@ namespace TMOT
             timeUp = Instantiate(timeUpPrefab, position, Quaternion.identity);
 
 
-            
+
             OnTimeUpSpawned?.Invoke(timeUp);
         }
 

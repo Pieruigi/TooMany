@@ -31,6 +31,9 @@ namespace TMOT.UI
         [SerializeField]
         GameObject medicalPinPrefab;
 
+        [SerializeField]
+        GameObject shieldPinPrefab;
+
           
 
         [SerializeField]
@@ -109,6 +112,8 @@ namespace TMOT.UI
             MonsterController.OnForcedBehaviour += HandleOnMonsterForcedBehaviour;
             BatterySpawner.OnSpawned += HandleOnBatterySpawned;
             BatterySpawner.OnUnspawned += HandleOnObjectRemoved;
+            ShieldSpawner.OnSpawned += HandleOnShieldSpawned;
+            ShieldSpawner.OnUnspawned += HandleOnObjectRemoved;
         }
 
 
@@ -129,7 +134,11 @@ namespace TMOT.UI
             MonsterController.OnForcedBehaviour -= HandleOnMonsterForcedBehaviour;
             BatterySpawner.OnSpawned -= HandleOnBatterySpawned;
             BatterySpawner.OnUnspawned -= HandleOnObjectRemoved;
+            ShieldSpawner.OnSpawned -= HandleOnShieldSpawned;
+            ShieldSpawner.OnUnspawned -= HandleOnObjectRemoved;
         }
+
+        
 
         private void HandleOnMonsterForcedBehaviour(MonsterController monsterController)
         {
@@ -141,6 +150,14 @@ namespace TMOT.UI
          
             UpdateMonsterPinColors();
             
+        }
+
+        private void HandleOnShieldSpawned(GameObject drone)
+        {
+             var pin = Instantiate(shieldPinPrefab, pinRoot);
+            pins.Add(pin, drone);
+
+            ShakeIn(pin);
         }
 
         private void HandleOnMedicalSpawned(GameObject drone)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,6 +15,9 @@ namespace TMOT.UI
         [SerializeField]
         GameObject staminaUpPrefab;
 
+        [SerializeField]
+        GameObject shieldPrefab;
+
 
 
         [SerializeField]
@@ -21,6 +25,7 @@ namespace TMOT.UI
 
         GameObject speed;
         GameObject stamina;
+        GameObject shield;
 
         // Start is called before the first frame update
         void Start()
@@ -40,6 +45,8 @@ namespace TMOT.UI
             SpeedPowerUp.OnDepleted += HandleOnSpeedDepleted;
             StaminaPowerUp.OnBuff += HandleOnStaminaBuff;
             StaminaPowerUp.OnDepleted += HandleOnStaminaDepleted;
+            // ShieldPowerUp.OnActivated += HandleOnShieldActivated;
+            // ShieldPowerUp.OnDeactivated += HandleOnShieldDeactivated;
         }
 
         void OnDisable()
@@ -48,6 +55,18 @@ namespace TMOT.UI
             SpeedPowerUp.OnDepleted -= HandleOnSpeedDepleted;
             StaminaPowerUp.OnBuff -= HandleOnStaminaBuff;
             StaminaPowerUp.OnDepleted -= HandleOnStaminaDepleted;
+            // ShieldPowerUp.OnActivated -= HandleOnShieldActivated;
+            // ShieldPowerUp.OnDeactivated -= HandleOnShieldDeactivated;
+        }
+
+        private void HandleOnShieldActivated()
+        {
+            PopUpOrShake(ref shield, shieldPrefab);
+        }
+
+        private void HandleOnShieldDeactivated()
+        {
+            PopOut(ref shield);
         }
 
         private void HandleOnStaminaDepleted()

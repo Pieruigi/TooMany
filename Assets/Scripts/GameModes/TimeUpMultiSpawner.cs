@@ -27,6 +27,30 @@ namespace TMOT
 
         int maxTimeUps = 5;
 
+
+        void OnEnable()
+        {
+            GameManager.OnStateChanged += HandleOnGameStateChanged;
+        }
+
+        void OnDisable()
+        {
+            GameManager.OnStateChanged -= HandleOnGameStateChanged;
+        }
+
+
+        private void HandleOnGameStateChanged(GameState oldState, GameState newState)
+        {
+            switch (newState)
+            {
+                case GameState.Winner:
+                case GameState.Loser:
+                    StopSpawner();
+                    break;
+            }
+        }
+
+
         async UniTaskVoid ReplaceTimeUp()
         {
             await UniTask.Delay(TimeSpan.FromSeconds(spawnTime));
