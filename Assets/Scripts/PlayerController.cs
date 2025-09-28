@@ -286,6 +286,7 @@ namespace TMOT
             pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
 
+            //transform.eulerAngles = Vector3.MoveTowards(new Vector3(0, transform.eulerAngles.y, 0), new Vector3(0, yaw, 0), 720 * Time.deltaTime);
             transform.eulerAngles = new Vector3(0, yaw, 0);
 
 
