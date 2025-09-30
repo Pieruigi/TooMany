@@ -17,7 +17,7 @@ namespace TMOT.UI
 
         
 
-        string msgFormatStr = "Experiment speed: x{0}";
+        string msgFormatStr = "STAGE {0}";
 
         bool loop = false;
 
@@ -76,7 +76,7 @@ namespace TMOT.UI
             switch (newState)
             {
                 case GameState.Starting:
-                    msgField.text = string.Format(msgFormatStr, GameManager.Instance.GameSpeed.ToString(CultureInfo.InvariantCulture));
+                    msgField.text = string.Format(msgFormatStr, GameManager.Instance.GameStage+1);
                     loop = true;
                     timer = GameManager.StartingDelay;
                     break;

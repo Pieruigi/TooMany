@@ -34,11 +34,23 @@ namespace TMOT
         static Dictionary<Transform, DateTime> lastPatrolPoints = new Dictionary<Transform, DateTime>();
 
 
-        [SerializeField]
-        float killerSpeed = 4;
+        //[SerializeField]
+        float killerSpeed = 3.2f;
 
-        [SerializeField]
-        float preySpeed = 2.5f;
+        //[SerializeField]
+        float killerAcc = 9.6f;
+
+        //[SerializeField]
+        float killerAngSpeed = 576f;
+
+        //[SerializeField]
+        float preySpeed = 2f;
+
+        //[SerializeField]
+        float preyAcc = 6f;
+
+        //[SerializeField]
+        float preyAngSpeed = 360;
 
         [SerializeField]
         float sightRange = 8f;
@@ -137,8 +149,19 @@ namespace TMOT
             rb.isKinematic = true;
             patrolMaxDistance = LevelController.Instance.MapSize.x / 3f;
             patrolMinDistance = patrolMaxDistance / 3f;
-            speedRandomMul = UnityEngine.Random.Range(.9f, 1.1f);
-            agent.speed = killerSpeed * speedRandomMul;
+
+            killerSpeed *= StageManager.GetRedBotMul(GameManager.Instance.GameStage);
+            killerAcc *= StageManager.GetRedBotMul(GameManager.Instance.GameStage);
+            killerAngSpeed *= StageManager.GetRedBotMul(GameManager.Instance.GameStage);
+
+            preySpeed *= StageManager.GetBlueBotMul(GameManager.Instance.GameStage);
+            preyAcc *= StageManager.GetBlueBotMul(GameManager.Instance.GameStage);
+            preyAngSpeed *= StageManager.GetBlueBotMul(GameManager.Instance.GameStage);
+
+            //speedRandomMul = UnityEngine.Random.Range(.9f, 1.1f);
+            speedRandomMul = 1;
+            //agent.speed = killerSpeed * speedRandomMul;
+            SetRedStats();
         }
 
         // Start is called before the first frame update
@@ -192,6 +215,20 @@ namespace TMOT
         {
             GameManager.OnStateChanged -= HandleOnGameStateChanged;
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
+
+        void SetRedStats()
+        {
+            agent.speed = killerSpeed;
+            agent.acceleration = killerAcc;
+            agent.angularSpeed = killerAngSpeed;
+        }
+
+        void SetBlueStats()
+        {
+            agent.speed = preySpeed;
+            agent.acceleration = preyAcc;
+            agent.angularSpeed = preyAngSpeed;
         }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
@@ -259,16 +296,16 @@ namespace TMOT
             if (PlayerController.Instance.State == PlayerState.Hunter) // Player is red
             {
                 if (!invertedBehaviour)
-                    agent.speed = preySpeed * speedRandomMul;
+                    SetBlueStats();//agent.speed = preySpeed * speedRandomMul;
                 else
-                    agent.speed = killerSpeed * speedRandomMul;
+                    SetRedStats();//agent.speed = killerSpeed * speedRandomMul;
             }
             else // Player is blue
             {
                 if (!invertedBehaviour)
-                    agent.speed = killerSpeed * speedRandomMul;
+                    SetRedStats();// agent.speed = killerSpeed * speedRandomMul;
                 else
-                    agent.speed = preySpeed * speedRandomMul;
+                    SetBlueStats();// agent.speed = preySpeed * speedRandomMul;
             }
                 
 

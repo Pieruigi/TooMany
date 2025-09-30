@@ -27,6 +27,10 @@ namespace TMOT
             get{ return type; }
         }
 
+        float speed = 1.2f;
+        float acc = 3.6f;
+        float angSpeed = 216;
+
         NavMeshAgent agent;
 
         float waypointMaxDistance = 10f;
@@ -46,6 +50,9 @@ namespace TMOT
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
+            agent.speed = speed * StageManager.GetSupplyBotMul(GameManager.Instance.GameStage);
+            agent.acceleration = acc * StageManager.GetSupplyBotMul(GameManager.Instance.GameStage);
+            agent.angularSpeed = angSpeed * StageManager.GetSupplyBotMul(GameManager.Instance.GameStage);
         }
 
         // Start is called before the first frame update

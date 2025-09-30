@@ -12,6 +12,12 @@ namespace TMOT
         [SerializeField]
         CanvasGroup canvasGroup;
 
+        [SerializeField]
+        AudioSource activationSource;
+
+        [SerializeField]
+        AudioSource deactivationSource;
+
         float minAlpha = .04f;
         float maxAlpha = .07f;
 
@@ -30,7 +36,7 @@ namespace TMOT
             canvasGroup.DOKill();
 
             var s = DOTween.Sequence();
-            s.Append(canvasGroup.DOFade(.6f, duration).SetEase(Ease.OutQuad));
+            s.Append(canvasGroup.DOFade(.8f, duration).SetEase(Ease.OutQuad));
             s.Append(canvasGroup.DOFade(minAlpha, duration).SetEase(Ease.OutQuad));
             s.Append(canvasGroup.DOFade(.2f, duration).SetEase(Ease.OutQuad));
             s.Append(canvasGroup.DOFade(minAlpha, duration).SetEase(Ease.OutQuad));
@@ -38,25 +44,29 @@ namespace TMOT
             s.Append(canvasGroup.DOFade(minAlpha, duration).SetEase(Ease.OutQuad));
             s.OnComplete(()=>Pulse(1));
 
-            
 
+            activationSource.Play();
 
         }
 
         public void Deactivate()
         {
+
+
             canvasGroup.DOKill();
 
             var s = DOTween.Sequence();
-            s.Append(canvasGroup.DOFade(.6f, duration).SetEase(Ease.OutQuad));
+            s.Append(canvasGroup.DOFade(.8f, duration).SetEase(Ease.OutQuad));
             s.Append(canvasGroup.DOFade(minAlpha, duration).SetEase(Ease.OutQuad));
             s.Append(canvasGroup.DOFade(.2f, duration).SetEase(Ease.OutQuad));
             s.Append(canvasGroup.DOFade(minAlpha, duration).SetEase(Ease.OutQuad));
             s.Append(canvasGroup.DOFade(.08f, duration).SetEase(Ease.OutQuad));
             s.Append(canvasGroup.DOFade(0, duration).SetEase(Ease.OutQuad));
 
+
+            deactivationSource.Play();
             //canvasGroup.DOFade(.7f, .1f).SetEase(Ease.InQuad).OnComplete(()=> { canvasGroup.DOFade(0f, .1f).SetEase(Ease.InQuad); });
-            
+
         }
 
         void Pulse(int dir)

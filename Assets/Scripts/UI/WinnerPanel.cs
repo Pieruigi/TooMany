@@ -16,7 +16,7 @@ namespace TMOT.UI
 
         List<string> texts;
 
-        string actionStrFormat = "Next run in {0}.";
+        string actionStrFormat = "Next stage in {0}.";
 
         bool loop = false;
 

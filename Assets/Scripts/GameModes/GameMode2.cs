@@ -22,11 +22,11 @@ namespace TMOT
         [SerializeField]
         TimeUpSpawner timeUpSpawnerPrefab;
 
-        [SerializeField]
-        GameObject medicalSpawnerPrefab;
+        // [SerializeField]
+        // GameObject medicalSpawnerPrefab;
 
-        [SerializeField]
-        GameObject pillSpawnerPrefab;
+        // [SerializeField]
+        // GameObject pillSpawnerPrefab;
 
 
         //[SerializeField]
@@ -65,8 +65,8 @@ namespace TMOT
             MonsterSpawner.Instance.SpawnAmount = monsterRegularSpawnCount;
             MonsterSpawner.Instance.SpawnTime = monsterRegularSpawnTime;
             Instantiate(timeUpSpawnerPrefab);
-            Instantiate(medicalSpawnerPrefab);
-            Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
+            // Instantiate(medicalSpawnerPrefab);
+            // Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
         }
 
         void Start()
@@ -76,6 +76,8 @@ namespace TMOT
 
         void Update()
         {
+            if (GameManager.Instance.GameState != GameState.Playing) return;
+
             if (isHunterMode)
             {
                 hunterElapsed += Time.deltaTime;
@@ -85,15 +87,7 @@ namespace TMOT
                     PlayerController.Instance.SetState(PlayerState.Prey);
                 }
             }
-            // else
-            // {
-            //     if (goalCount == goalProgress)
-            //     {
-            //         MonsterSpawner.Instance.StopSpawner();
-            //         GameManager.Instance.ReportPlayerIsWinner();
-            //     }
-                    
-            // }
+           
         }
 
         protected override void OnEnable()
@@ -208,14 +202,14 @@ namespace TMOT
                     hunterTimeExtra += 5f;
                     TimeUpSpawner.Instance.ReportTimeUpPicked();
                     break;
-                case CustomDroneType.Medical:
-                    PlayerController.Instance.Heal();
-                    MedicalSpawner.Instance.ReportMedicalPicked();
-                    break;
-                case CustomDroneType.Pill:
-                    SpeedPowerUp.Instance.BuffSpeed();
-                    PillSpawner.Instance.ReportPicked();
-                    break;
+                // case CustomDroneType.Medical:
+                //     PlayerController.Instance.Heal();
+                //     MedicalSpawner.Instance.ReportMedicalPicked();
+                //     break;
+                // case CustomDroneType.Pill:
+                //     SpeedPowerUp.Instance.BuffSpeed();
+                //     PillSpawner.Instance.ReportPicked();
+                //     break;
             }
         }
 

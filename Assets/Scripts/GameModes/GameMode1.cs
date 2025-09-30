@@ -19,11 +19,11 @@ namespace TMOT
         [SerializeField]
         GameObject monsterSpawnerPrefab;
 
-        [SerializeField]
-        GameObject medicalSpawnerPrefab;
+        // [SerializeField]
+        // GameObject medicalSpawnerPrefab;
 
-        [SerializeField]
-        GameObject pillSpawnerPrefab;
+        // [SerializeField]
+        // GameObject pillSpawnerPrefab;
 
   
 
@@ -59,8 +59,8 @@ namespace TMOT
             // Instantiate the time up spawner
             Instantiate(timeUpSpawnerPrefab, Vector3.zero, Quaternion.identity);
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
-            Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
-            Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
+            // Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
+            // Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
            
 
         }
@@ -258,14 +258,14 @@ namespace TMOT
                     IncreasePlayerChaseTime(5f);
                     TimeUpSpawner.Instance.ReportTimeUpPicked();
                     break;
-                case CustomDroneType.Medical:
-                    PlayerController.Instance.Heal();
-                    MedicalSpawner.Instance.ReportMedicalPicked();
-                    break;    
-                case CustomDroneType.Pill:
-                    SpeedPowerUp.Instance.BuffSpeed();
-                    PillSpawner.Instance.ReportPicked();
-                    break;    
+                // case CustomDroneType.Medical:
+                //     PlayerController.Instance.Heal();
+                //     MedicalSpawner.Instance.ReportMedicalPicked();
+                //     break;    
+                // case CustomDroneType.Pill:
+                //     SpeedPowerUp.Instance.BuffSpeed();
+                //     PillSpawner.Instance.ReportPicked();
+                //     break;    
             }
         }
 

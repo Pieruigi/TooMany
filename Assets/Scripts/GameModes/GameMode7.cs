@@ -164,14 +164,7 @@ namespace TMOT
                     TimeUpSpawner.Instance.ReportTimeUpPicked();
                     OnHunterTimeIncreased?.Invoke(hunterTime);
                     break;
-                case CustomDroneType.Medical:
-                    PlayerController.Instance.Heal();
-                    MedicalSpawner.Instance.ReportMedicalPicked();
-                    break;
-                case CustomDroneType.Pill:
-                    SpeedPowerUp.Instance.BuffSpeed();
-                    PillSpawner.Instance.ReportPicked();
-                    break;
+              
             }
         }
 

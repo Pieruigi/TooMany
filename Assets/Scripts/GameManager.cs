@@ -75,6 +75,12 @@ namespace TMOT
 
         float speedUpStep = .15f;
 
+        int gameStage = 0;
+        public int GameStage
+        {
+            get{ return gameStage; }
+        }
+
 
         float restartTime = 5;
         
@@ -120,6 +126,11 @@ namespace TMOT
             if (scene.buildIndex == 0) // Menu
             {
                 gameSpeed = 1;
+                gameStage = 0;
+
+#if UNITY_EDITOR
+                //gameStage = 1;
+#endif
                 SetState(GameState.None);
                 //SceneManager.LoadScene(1);
             }
@@ -170,6 +181,7 @@ namespace TMOT
             
             await UniTask.Delay(TimeSpan.FromSeconds((restartTime+2f)*gameSpeed));
             gameSpeed = 1; // Reset game speed since you lose
+            gameStage = 0;
             PlayGame();
 
         }
@@ -177,14 +189,16 @@ namespace TMOT
         async UniTaskVoid EnteringWinnerState()
         {
 #if !DEMO
-            if (gameSpeed == 1)
+            //if (gameSpeed == 1)
+            if(gameStage == 0)
             {
                 // Check if the player unlocked a new game mode
                 if (gameMode == (GameModeType)SaveManager.Instance.GameProgress)
                     SaveManager.Instance.UpdateGameProgress();
             }
             await UniTask.Delay(TimeSpan.FromSeconds(restartTime*gameSpeed));
-            gameSpeed += speedUpStep;
+            //gameSpeed += speedUpStep;
+            gameStage++;
             PlayGame();
 #else
             await UniTask.Delay(TimeSpan.FromSeconds(restartTime * gameSpeed));

@@ -12,6 +12,9 @@ namespace TMOT.UI
         [SerializeField]
         CanvasGroup panel;
 
+        [SerializeField]
+        GameObject actionKey;
+
 
         float fadeTime = .25f;
 
@@ -19,6 +22,8 @@ namespace TMOT.UI
         {
             panel.alpha = 0;
             panel.blocksRaycasts = false;
+
+            UpdateActionKey();
         }
 
         // Start is called before the first frame update
@@ -51,6 +56,12 @@ namespace TMOT.UI
                 }
             }
 
+        }
+
+        void UpdateActionKey()
+        {
+            if (GameManager.Instance.GameMode != GameModeType.Mode3 && GameManager.Instance.GameMode != GameModeType.Mode5)
+                actionKey.SetActive(false);
         }
 
         void ShowPanel()

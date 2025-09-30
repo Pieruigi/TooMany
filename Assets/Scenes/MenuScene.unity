@@ -1257,7 +1257,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Collect diamonds    to spread <color=#00ffff>INFECTION</color>.
+  m_text: Pick up diamonds    to spread <color=#00ffff>INFECTION</color>.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e2e1943a6033760418411bc19fe77422, type: 2}
   m_sharedMaterial: {fileID: -6664287709633108910, guid: e2e1943a6033760418411bc19fe77422,
@@ -11841,7 +11841,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Survive 5 stages as <color=red>PREY</color>!
+  m_text: 'Survive 5 turns as <color=red>PREY</color>!
 
 '
   m_isRightToLeft: 0

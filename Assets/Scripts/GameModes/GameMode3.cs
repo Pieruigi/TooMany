@@ -18,14 +18,14 @@ namespace TMOT
         [SerializeField]
         GameObject monsterSpawnerPrefab;
 
-        [SerializeField]
-        MedicalSpawner medicalSpawnerPrefab;
+        // [SerializeField]
+        // MedicalSpawner medicalSpawnerPrefab;
 
         [SerializeField]
         TimeUpSpawner timeUpSpawnerPrefab;
 
-        [SerializeReference]
-        PillSpawner pillSpawnerPrefab;
+        // [SerializeReference]
+        // PillSpawner pillSpawnerPrefab;
 
         [SerializeField]
         DiamondSpawner diamondSpawnerPrefab;
@@ -85,10 +85,10 @@ namespace TMOT
             // Instatiate diamond spawner
             Instantiate(diamondSpawnerPrefab, Vector3.zero, Quaternion.identity);
 
-            // Instantiate medical spawner
-            Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
-            // Instantiate pills spawner
-            Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
+            // // Instantiate medical spawner
+            // Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
+            // // Instantiate pills spawner
+            // Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
 
         }
 
@@ -102,6 +102,7 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
+            
             if (!loop) return;
 
             UpdateSwitchTime();
@@ -198,14 +199,14 @@ namespace TMOT
                     IncreasePlayerChaseTime(hunterTimeClockAmount);
                     TimeUpSpawner.Instance.ReportTimeUpPicked();
                     break;
-                case CustomDroneType.Medical:
-                    PlayerController.Instance.Heal();
-                    MedicalSpawner.Instance.ReportMedicalPicked();
-                    break;
-                case CustomDroneType.Pill:
-                    SpeedPowerUp.Instance.BuffSpeed();
-                    PillSpawner.Instance.ReportPicked();
-                    break;
+                // case CustomDroneType.Medical:
+                //     PlayerController.Instance.Heal();
+                //     MedicalSpawner.Instance.ReportMedicalPicked();
+                //     break;
+                // case CustomDroneType.Pill:
+                //     SpeedPowerUp.Instance.BuffSpeed();
+                //     PillSpawner.Instance.ReportPicked();
+                //     break;
                 case CustomDroneType.Diamond:
                     DiamondSpawner.Instance.UnspawnDiamond(customDrone.gameObject);
                     SwitchToHunterMode();
