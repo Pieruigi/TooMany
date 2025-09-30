@@ -164,7 +164,7 @@ namespace TMOT
             waypoints.RemoveAll(w => Vector3.Distance(transform.position, w.position) < agent.stoppingDistance * 1.1f);
 
             // Remove all the waypoints that are behind the agent
-            var angle = 100f;
+            var angle = 140f;
 
             waypoints = waypoints.FindAll(w =>
             {
