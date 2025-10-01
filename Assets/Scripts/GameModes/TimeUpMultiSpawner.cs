@@ -25,7 +25,7 @@ namespace TMOT
 
         float spawnTime = 2;
 
-        int maxTimeUps = 5;
+        int maxTimeUps = 1;
 
 
         void OnEnable()

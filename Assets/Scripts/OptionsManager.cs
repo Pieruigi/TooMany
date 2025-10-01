@@ -67,7 +67,6 @@ namespace TMOT
 
         void UpdateMixerVolume()
         {
-            Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:"+Volume);
             mixer.SetFloat("Volume", Volume);
         }
 

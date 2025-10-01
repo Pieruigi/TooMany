@@ -27,15 +27,15 @@ namespace TMOT.UI
                 p.gameObject.SetActive(false);
             }
                 
-
-            if (!(panelDefault < 0))
-                    ShowPanel(panelDefault);
+          
+            
         }
 
         // Start is called before the first frame update
         void Start()
         {
-
+             if (!(panelDefault < 0))
+                ShowPanel(panelDefault);
         }
 
         // Update is called once per frame
@@ -61,6 +61,7 @@ namespace TMOT.UI
 
         public void ShowPanel(CanvasGroup panel)
         {
+            Debug.Log("Calling show panel");
             if (current) HidePanel(current);
             current = panel;
             panel.blocksRaycasts = true;
@@ -70,6 +71,7 @@ namespace TMOT.UI
 
         public void ShowPanel(int index)
         {
+            
             ShowPanel(panels[index]);
         }
     }

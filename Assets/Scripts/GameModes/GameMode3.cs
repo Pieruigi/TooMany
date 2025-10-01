@@ -30,7 +30,7 @@ namespace TMOT
         [SerializeField]
         DiamondSpawner diamondSpawnerPrefab;
 
-        int goal = 50;
+        int goal = 20;
         public int Goal
         {
             get{ return goal; }
@@ -57,7 +57,7 @@ namespace TMOT
 
         int initialSpawnCount = 10;
 
-        int normalSpawnCount = 4;
+        int normalSpawnCount = 2;
         float spawnElapsed = 0;
 
         float hunterTimeElapsed = 0;
@@ -114,15 +114,17 @@ namespace TMOT
         {
             base.OnEnable();
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            PlayerController.OnPlayerDamaged += HandleOnPlayerDamaged;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+            PlayerController.OnPlayerDamaged -= HandleOnPlayerDamaged;
         }
 
-        
+       
 
         protected override void StartGameMode()
         {
@@ -137,57 +139,47 @@ namespace TMOT
             
         }
 
-
-
-        public override void ReportMonsterDroneHitByPlayer(MonsterController monsterDrone)
+        private void HandleOnPlayerDamaged(float previousHealth, float currentHealth)
         {
-            base.ReportMonsterDroneHitByPlayer(monsterDrone);
-
-            progress++;
-
-            OnProgressUpdated?.Invoke(progress, goal);
-
-            if (progress >= goal)
-            {
-                loop = false;
-                GameManager.Instance.ReportPlayerIsWinner();
-                return;
-            } 
-
-            // Switch a new drone to victim
-            var newVictims = MonsterSpawner.Instance.Monsters.Where(m=>m.InvertedBehaviour).OrderBy(m => Vector3.Distance(PlayerController.Instance.transform.position, m.transform.position)).Take(1).ToList();
-            if (newVictims.Count > 0)
-            {
-                var infectedList = MonsterSpawner.Instance.Monsters.Where(m => m.InvertedBehaviour && Vector3.Distance(newVictims[0].transform.position, m.transform.position) < infectionRange).ToList();
-                newVictims.AddRange(infectedList);    
-            }
-            
-            //var newVictims = MonsterSpawner.Instance.Monsters.Where(m => m.InvertedBehaviour && Vector3.Distance(m.transform.position, PlayerController.Instance.transform.position) < infectionRange).ToList();
-
-            var oldVictims = MonsterSpawner.Instance.Monsters.Where(m => !m.InvertedBehaviour && m != monsterDrone).ToList();
-
-            // if (newVictims.Count == 0 && oldVictims.Count == 0)
-            // {
-            //     hunterTimeExtra = GetTimeLeft();
-
-            //     SwitchToPreyMode();
-            // }
-            // else
-            // {
-                foreach (var v in newVictims)
-                    v.ForceToPrey();
-
-                hunterTimeExtra += extraTimeOnKill;
-
-                OnExtraTimeOnKillIncreased?.Invoke(extraTimeOnKill);
-            //}
-
-            
-
-            
-
-           
+            if (currentHealth > 0)
+                PlayerController.Instance.SetState(PlayerState.Hunter);
         }
+
+        // public override void ReportMonsterDroneHitByPlayer(MonsterController monsterDrone)
+        // {
+        //     base.ReportMonsterDroneHitByPlayer(monsterDrone);
+
+        //     progress++;
+
+        //     OnProgressUpdated?.Invoke(progress, goal);
+
+        //     if (progress >= goal)
+        //     {
+        //         loop = false;
+        //         GameManager.Instance.ReportPlayerIsWinner();
+        //         return;
+        //     } 
+
+        //     // Switch a new drone to victim
+        //     var newVictims = MonsterSpawner.Instance.Monsters.Where(m=>m.InvertedBehaviour).OrderBy(m => Vector3.Distance(PlayerController.Instance.transform.position, m.transform.position)).Take(1).ToList();
+        //     if (newVictims.Count > 0)
+        //     {
+        //         var infectedList = MonsterSpawner.Instance.Monsters.Where(m => m.InvertedBehaviour && Vector3.Distance(newVictims[0].transform.position, m.transform.position) < infectionRange).ToList();
+        //         newVictims.AddRange(infectedList);    
+        //     }
+            
+          
+        //     var oldVictims = MonsterSpawner.Instance.Monsters.Where(m => !m.InvertedBehaviour && m != monsterDrone).ToList();
+
+          
+        //         foreach (var v in newVictims)
+        //             v.ForceToPrey();
+
+        //         hunterTimeExtra += extraTimeOnKill;
+
+        //         OnExtraTimeOnKillIncreased?.Invoke(extraTimeOnKill);
+           
+        // }
 
         public override void ReportCustomDronePicked(CustomDroneController customDrone)
         {
@@ -199,19 +191,25 @@ namespace TMOT
                     IncreasePlayerChaseTime(hunterTimeClockAmount);
                     TimeUpSpawner.Instance.ReportTimeUpPicked();
                     break;
-                // case CustomDroneType.Medical:
-                //     PlayerController.Instance.Heal();
-                //     MedicalSpawner.Instance.ReportMedicalPicked();
-                //     break;
-                // case CustomDroneType.Pill:
-                //     SpeedPowerUp.Instance.BuffSpeed();
-                //     PillSpawner.Instance.ReportPicked();
-                //     break;
                 case CustomDroneType.Diamond:
                     DiamondSpawner.Instance.UnspawnDiamond(customDrone.gameObject);
-                    SwitchToHunterMode();
-                    
-                    break;  
+                    progress++;
+                    OnProgressUpdated?.Invoke(progress, goal);
+
+                    if (progress < goal)
+                    {
+                        SpawnDiamondDelayed(1f).Forget();
+                    }
+                    else
+                    {
+                        MonsterSpawner.Instance.StopSpawner();
+                        TimeUpSpawner.Instance.StopSpawner();
+                        GameManager.Instance.ReportPlayerIsWinner();
+                    }
+                        
+                    //SwitchToHunterMode();
+
+                        break;  
             }
         }
 
@@ -224,11 +222,13 @@ namespace TMOT
                     // hunterTimeExtra = hunterTimeLeft;
                     // hunterTimeLeft = 0;
                     // Spawn diamond
-                    SpawnDiamondDelayed(diamondDelay).Forget();
+                    //SpawnDiamondDelayed(diamondDelay).Forget();
+                    SpawnDiamonds().Forget();
                     TimeUpSpawner.Instance.StartSpawner().Forget();
                     break;
                 case PlayerState.Hunter:
                     TimeUpSpawner.Instance.StopSpawner();
+                    DiamondSpawner.Instance.UnspawnAllDiamonds();
                     break;
             }    
         }
@@ -236,50 +236,66 @@ namespace TMOT
         async UniTaskVoid SpawnDiamondDelayed(float delay)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(delay));
-            DiamondSpawner.Instance.SpawnDiamond();
+            if(PlayerController.Instance.State == PlayerState.Prey)
+                DiamondSpawner.Instance.SpawnDiamond();
         }
 
-        void SwitchToHunterMode()
+
+        async UniTaskVoid SpawnDiamonds()
         {
-            // How many bots we must transform
-            int count = MonsterSpawner.Instance.Monsters.Count / 4;// + (int)(hunterTimeExtra / hunterTimeClockAmount) * MonsterSpawner.Instance.Monsters.Count / 10;
 
-            // Clamp value 
-            count = Mathf.Min(count, MonsterSpawner.Instance.Monsters.Count);
-
-            //count = 1;
- 
-            var bots = MonsterSpawner.Instance.Monsters.OrderBy(m => Vector3.Distance(PlayerController.Instance.transform.position, m.transform.position)).Take(1).ToList();
-            if (bots.Count > 0)
+            for (int i = 0; i < 4; i++)
             {
-                var infectedList = MonsterSpawner.Instance.Monsters.Where(m =>Vector3.Distance(bots[0].transform.position, m.transform.position) < infectionRange).ToList();
-                bots.AddRange(infectedList);    
+                await UniTask.Delay(TimeSpan.FromSeconds(.25f));
+
+                if (PlayerController.Instance.State == PlayerState.Prey)
+                    DiamondSpawner.Instance.SpawnDiamond();
+                else
+                    break;
             }
-
-            // Choose bots
-            //var bots = MonsterSpawner.Instance.Monsters.ToList().OrderBy(x => Vector3.Distance(PlayerController.Instance.transform.position, x.transform.position)).Take(count).ToList();
-
-
-            // Change behaviour for all the bots in normal behaviour not int bot list we just took
-            foreach (var m in MonsterSpawner.Instance.Monsters)
-            {
-                if (bots.Contains(m)) continue;
-                m.InvertedBehaviour = true;
-            }
-
-            PlayerController.Instance.SetState(PlayerState.Hunter);
         }
 
-        void SwitchToPreyMode()
-        {
-            foreach (var m in MonsterSpawner.Instance.Monsters)
-            {
-               if (m.InvertedBehaviour)
-                    m.InvertedBehaviour = false;
-            }
+        // void SwitchToHunterMode()
+        // {
+        //     // How many bots we must transform
+        //     int count = MonsterSpawner.Instance.Monsters.Count / 4;// + (int)(hunterTimeExtra / hunterTimeClockAmount) * MonsterSpawner.Instance.Monsters.Count / 10;
 
-            PlayerController.Instance.SetState(PlayerState.Prey);
-        }
+        //     // Clamp value 
+        //     count = Mathf.Min(count, MonsterSpawner.Instance.Monsters.Count);
+
+        //     //count = 1;
+
+        //     var bots = MonsterSpawner.Instance.Monsters.OrderBy(m => Vector3.Distance(PlayerController.Instance.transform.position, m.transform.position)).Take(1).ToList();
+        //     if (bots.Count > 0)
+        //     {
+        //         var infectedList = MonsterSpawner.Instance.Monsters.Where(m =>Vector3.Distance(bots[0].transform.position, m.transform.position) < infectionRange).ToList();
+        //         bots.AddRange(infectedList);    
+        //     }
+
+        //     // Choose bots
+        //     //var bots = MonsterSpawner.Instance.Monsters.ToList().OrderBy(x => Vector3.Distance(PlayerController.Instance.transform.position, x.transform.position)).Take(count).ToList();
+
+
+        //     // Change behaviour for all the bots in normal behaviour not int bot list we just took
+        //     foreach (var m in MonsterSpawner.Instance.Monsters)
+        //     {
+        //         if (bots.Contains(m)) continue;
+        //         m.InvertedBehaviour = true;
+        //     }
+
+        //     PlayerController.Instance.SetState(PlayerState.Hunter);
+        // }
+
+        // void SwitchToPreyMode()
+        // {
+        //     foreach (var m in MonsterSpawner.Instance.Monsters)
+        //     {
+        //        if (m.InvertedBehaviour)
+        //             m.InvertedBehaviour = false;
+        //     }
+
+        //     PlayerController.Instance.SetState(PlayerState.Prey);
+        // }
 
         void IncreasePlayerChaseTime(float amount)
         {
@@ -301,7 +317,8 @@ namespace TMOT
                 spawnElapsed = 0;
 
                 // Switch
-                SwitchToPreyMode();
+                //SwitchToPreyMode();
+                PlayerController.Instance.SetState(PlayerState.Prey);
                 
                 
 

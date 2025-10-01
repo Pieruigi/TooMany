@@ -34,7 +34,7 @@ namespace TMOT
         int goalProgress = 0;
 
         int monsterInitialSpawnCount = 12;
-        int monsterRegularSpawnCount = 4;
+        int monsterRegularSpawnCount = 3;
 
         int monsterRegularSpawnTime = 20;
 
@@ -61,7 +61,7 @@ namespace TMOT
 
         float elapsed = 0;
 
-        float hunterTimeUpSpeed = 0.2f;
+        float hunterTimeUpSpeed = 0.1f;
         float hunterTimeUpElapsed = 0;
 
         int backFromHunterAmount = 6;

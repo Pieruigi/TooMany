@@ -50,14 +50,14 @@ namespace TMOT
         public GameModeType GameMode
         {
             get { return gameMode; }
-            set { gameMode = value; }
+            set { gameMode = value; UpdateStage(); }
         }
 
         int mapId = 0;
         public int MapId
         {
             get { return mapId; }
-            set { mapId = value; }
+            set { mapId = value; UpdateStage();}
         }
 
         int gameSceneOffset = 1;
@@ -78,7 +78,8 @@ namespace TMOT
         int gameStage = 0;
         public int GameStage
         {
-            get{ return gameStage; }
+            get { return gameStage; }
+            set { gameStage = value; }
         }
 
 
@@ -126,18 +127,25 @@ namespace TMOT
             if (scene.buildIndex == 0) // Menu
             {
                 gameSpeed = 1;
-                gameStage = 0;
+                gameStage = StageManager.GetLastStage(mapId, gameMode);
+                Debug.Log($"GameManager - GameStage:{gameStage}");
 
 #if UNITY_EDITOR
-                //gameStage = 1;
+                //gameStage = 12;
 #endif
                 SetState(GameState.None);
                 //SceneManager.LoadScene(1);
             }
             else // Game scene
             {
+
                 SetState(GameState.Starting);
             }
+        }
+
+        void UpdateStage()
+        {
+            gameStage = StageManager.GetLastStage(mapId, gameMode);
         }
 
         void SetState(GameState newState)
@@ -181,7 +189,7 @@ namespace TMOT
             
             await UniTask.Delay(TimeSpan.FromSeconds((restartTime+2f)*gameSpeed));
             gameSpeed = 1; // Reset game speed since you lose
-            gameStage = 0;
+            //gameStage = 0;
             PlayGame();
 
         }
@@ -190,7 +198,8 @@ namespace TMOT
         {
 #if !DEMO
             //if (gameSpeed == 1)
-            if(gameStage == 0)
+            Debug.Log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+            if (gameStage == 0)
             {
                 // Check if the player unlocked a new game mode
                 if (gameMode == (GameModeType)SaveManager.Instance.GameProgress)
@@ -199,6 +208,8 @@ namespace TMOT
             await UniTask.Delay(TimeSpan.FromSeconds(restartTime*gameSpeed));
             //gameSpeed += speedUpStep;
             gameStage++;
+
+            StageManager.UpdateLastStage(mapId, gameMode, gameStage);
             PlayGame();
 #else
             await UniTask.Delay(TimeSpan.FromSeconds(restartTime * gameSpeed));

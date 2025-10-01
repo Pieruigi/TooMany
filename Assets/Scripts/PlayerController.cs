@@ -365,7 +365,7 @@ namespace TMOT
 #endif
 
             killMonsterElapsed += Time.deltaTime;
-            if (killMonsterElapsed > killMonsterTime)
+            if (true || killMonsterElapsed > killMonsterTime)
             {
                 killMonsterElapsed -= killMonsterTime;
                 // Overlapp sphere

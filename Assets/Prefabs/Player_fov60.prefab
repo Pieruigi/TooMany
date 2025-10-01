@@ -270,7 +270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 4
   pushRadius: 5
-  pushForce: 220
+  pushForce: 200
   monsterKillRange: 2
   moveSpeed: 3
   rotationSpeed: 720
