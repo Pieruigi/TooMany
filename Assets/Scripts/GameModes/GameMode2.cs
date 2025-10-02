@@ -40,9 +40,9 @@ namespace TMOT
 
 
         int monsterInitialSpawnCount = 12;
-        int monsterRegularSpawnCount = 6;
+        int monsterRegularSpawnCount = 4;
 
-        int monsterRegularSpawnTime = 20;
+        float monsterRegularSpawnTime = 10f;
 
         float hunterTimeDefault = 20;
         float hunterTimeExtra = 0;

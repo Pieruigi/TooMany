@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 
 namespace TMOT.UI
 {
     public class GameMenuUI : MonoBehaviour
     {
+        public delegate void GameMenuVisibleDelegate(bool visible);
+        public static GameMenuVisibleDelegate OnGameMenuVisible;
+        
+
         [SerializeField]
         CanvasGroup panel;
 
@@ -68,7 +73,8 @@ namespace TMOT.UI
         {
             panel.DOFade(1, fadeTime).SetEase(Ease.InOutQuad).OnComplete(() => { GameManager.Instance.PauseGame(); });
             panel.blocksRaycasts = true;
-            
+
+            OnGameMenuVisible?.Invoke(true);
         }
 
         void HidPanel()
@@ -76,6 +82,8 @@ namespace TMOT.UI
             GameManager.Instance.ResumeGame();
             panel.DOFade(0, fadeTime).SetEase(Ease.InOutQuad);
             panel.blocksRaycasts = false;
+
+            OnGameMenuVisible?.Invoke(false);
         }
 
         public void BackToMenu()

@@ -64,15 +64,21 @@ namespace TMOT.UI
         {
             GameManager.OnStateChanged += HandleOnGameStateChanged;
             GameMode.OnProgressUpdated += HandleOnProgressUpdated;
-
+            GameMenuUI.OnGameMenuVisible += HandleOnGameMenuVisible;
         }
 
-        
+
 
         protected virtual void OnDisable()
         {
             GameManager.OnStateChanged -= HandleOnGameStateChanged;
             GameMode.OnProgressUpdated -= HandleOnProgressUpdated;
+            GameMenuUI.OnGameMenuVisible -= HandleOnGameMenuVisible;
+        }
+
+        private void HandleOnGameMenuVisible(bool visible)
+        {
+            GetComponent<CanvasGroup>().alpha = visible ? 0 : 1;
         }
 
         private void HandleOnProgressUpdated(int progress, int goal)

@@ -20,10 +20,16 @@ namespace TMOT.UI
         [SerializeField]
         TMP_Text mapField;
 
+        [SerializeField]
+        AudioSource ascendingSource;
+
+        [SerializeField]
+        AudioSource descendingSource;
+
         string modeStringFormat = "Mode: {0}";
         string mapStringFormat = "Map: {0}";
 
-        string[] modes = { "Classic", "Thief", "Joke", "Switch", "Revenge", "PacMan" };
+        string[] modes = { "Classic", "Switch", "Joke", "PacMan", "Revenge", "Thief" };
         string[] maps = { "Sewer", "Block", "Castle" };
 
         //bool skip = true;
@@ -93,7 +99,11 @@ namespace TMOT.UI
         {
             var index = GetChipIndex(chip);
 
+            var audioSource = index > GameManager.Instance.GameStage ? ascendingSource : descendingSource;
+
             GameManager.Instance.GameStage = index;
+
+
 
             for (int i = 0; i < chips.Count; i++)
             {
@@ -110,14 +120,15 @@ namespace TMOT.UI
                     else
                     {
                         if (chips[i].State == ChipFXState.Selected)
-                            chips[i].SetState(ChipFXState.Selectable);    
+                            chips[i].SetState(ChipFXState.Selectable);
                     }
-                    
-                    
-                             
+
+
+
                 }
             }
 
+            audioSource.Play();
         }
 
         public int GetChipIndex(ChipFX chip)
