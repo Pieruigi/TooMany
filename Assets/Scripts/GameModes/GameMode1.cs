@@ -45,9 +45,9 @@ namespace TMOT
 
         float monsterSpawnTime = 15;
 
-        int initialSpawnAmount = 10;
+        int initialSpawnAmount = 6;
 
-        int normalSpawnAmount = 5;
+        int normalSpawnAmount = 6;
 
         bool initialized = false;
 

@@ -35,7 +35,7 @@ namespace TMOT
         public static int GetLastStage(int mapId, GameModeType modeId)
         {
             
-            string param = string.Format(prefsParamFormat, mapId, modeId);
+            string param = string.Format(prefsParamFormat, 0, modeId);
             // I should probably change this with hidden achievement or stats on Steam
             int stage = PlayerPrefs.GetInt(param, 0);
 
@@ -47,7 +47,7 @@ namespace TMOT
         public static void UpdateLastStage(int mapId, GameModeType modeId, int stage)
         {
             Debug.Log("StageManager - UpdateLastStage");
-            string param = string.Format(prefsParamFormat, mapId, modeId);
+            string param = string.Format(prefsParamFormat, 0, modeId);
             
             // I should probably change this with hidden achievement or stats on Steam
             int savedStage = PlayerPrefs.GetInt(param, 0);

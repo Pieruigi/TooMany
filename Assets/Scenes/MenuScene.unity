@@ -1325,7 +1325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854acfca0a68e6b48a413a354716bd64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitButton: {fileID: 0}
 --- !u!1 &138143483
 GameObject:
   m_ObjectHideFlags: 0
@@ -2320,7 +2319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a472363e0057d4086553d05a14b2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Beat Switch Mode First
+  message: Beat Pac-Man Mode First
 --- !u!1 &294915153
 GameObject:
   m_ObjectHideFlags: 0
@@ -6843,7 +6842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a472363e0057d4086553d05a14b2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Beat Joke Mode First
+  message: Beat Classic Mode First
 --- !u!1001 &779312785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7560,7 +7559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a472363e0057d4086553d05a14b2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Beat Thief Mode First
+  message: Beat Switch Mode First
 --- !u!114 &824781504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12390,7 +12389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a472363e0057d4086553d05a14b2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Beat Infection Mode First
+  message: Beat Joke Mode First
 --- !u!1 &1309404595
 GameObject:
   m_ObjectHideFlags: 0
@@ -17210,7 +17209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a472363e0057d4086553d05a14b2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Beat Classic Mode First
+  message: Beat Revenge Mode First
 --- !u!1 &1742274980
 GameObject:
   m_ObjectHideFlags: 0
