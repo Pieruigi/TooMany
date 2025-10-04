@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.CompilerServices;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TMOT
 {
@@ -12,6 +13,9 @@ namespace TMOT
     {
         public delegate void HunterTimeIncreasedDelegate(float time);
         public static HunterTimeIncreasedDelegate OnHunterTimeIncreased;
+
+        public static UnityAction OnSwitchCooldownStarted;
+        public static UnityAction OnSwitchCooldownCompleted;
 
         [SerializeField]
         DiamondSpawner diamondSpawnerPrefab;
@@ -36,7 +40,7 @@ namespace TMOT
         int monsterInitialSpawnCount = 12;
         int monsterRegularSpawnCount = 3;
 
-        int monsterRegularSpawnTime = 20;
+        //int monsterRegularSpawnTime = 3;
 
         float hunterTimeDefault = 20;
         float hunterTimeExtra = 0;
@@ -47,15 +51,15 @@ namespace TMOT
 
         int diamondCount = 4;
 
-        float hunterTime = 10;
+        float hunterTime = 15;
         public float HunterTime
         {
             get{ return hunterTime; }
         }
 
-        float switchCooldown = 1;
+        float switchCooldown = 10;
 
-        float switchBackCooldown = 1;
+        float switchBackCooldown = 0;
 
         float switchCooldownTimer = 0;
 
@@ -64,13 +68,19 @@ namespace TMOT
         float hunterTimeUpSpeed = 0.1f;
         float hunterTimeUpElapsed = 0;
 
-        int backFromHunterAmount = 6;
+        int backFromHunterAmount = 0;
 
         bool firstSpawn = true;
 
          int initialSpawnAmount = 10;
+         
+         /// <summary>
+         /// Step1: 6.2
+         /// Step10: 3.5
+         /// </summary>
+         float monsterSpawnTime = 6.2f;
 
-
+        float spawnElapsed = 0;
 
         protected override void Awake()
         {
@@ -80,8 +90,12 @@ namespace TMOT
             Instantiate(diamondSpawnerPrefab);
             Instantiate(monsterSpawnerPrefab);
             MonsterSpawner.Instance.SpawnAmount = monsterRegularSpawnCount;
-            MonsterSpawner.Instance.SpawnTime = monsterRegularSpawnTime;
+            //MonsterSpawner.Instance.SpawnTime = monsterRegularSpawnTime;
             Instantiate(timeUpSpawnerPrefab);
+
+            float[] diffs = new float[] { 3.5f, 6f };
+            float step = (diffs[1] - diffs[0]) / 9f;
+            monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
 
         }
 
@@ -95,6 +109,9 @@ namespace TMOT
             if (switchCooldownTimer > 0)
             {
                 switchCooldownTimer -= Time.deltaTime;
+
+                if (switchCooldownTimer <= 0)
+                     OnSwitchCooldownCompleted?.Invoke();
             }
 
             if (goalProgress >= goalCount)
@@ -115,6 +132,8 @@ namespace TMOT
 
             if (Input.GetKeyDown(KeyCode.E))
                 Switch();
+
+            CheckMonsterSpawn();
         }
 
         protected override void OnEnable()
@@ -122,6 +141,7 @@ namespace TMOT
             base.OnEnable();
 
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+          
         }
 
         protected override void OnDisable()
@@ -129,6 +149,7 @@ namespace TMOT
             base.OnDisable();
 
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+      
         }
 
 
@@ -137,6 +158,19 @@ namespace TMOT
             PlayerController.Instance.SetState(PlayerState.Prey);
 
             //MonsterSpawner.Instance.SpawnRandomMonsters(monsterInitialSpawnCount);
+        }
+
+         void CheckMonsterSpawn()
+        {
+            if (PlayerController.Instance.State != PlayerState.Prey)
+                return;
+
+            spawnElapsed += Time.deltaTime;
+            if (spawnElapsed > monsterSpawnTime)
+            {
+                spawnElapsed -= monsterSpawnTime;
+                MonsterSpawner.Instance.SpawnRandomMonsters(1);
+            }
         }
 
         public override void ReportCustomDronePicked(CustomDroneController customDrone)
@@ -164,7 +198,7 @@ namespace TMOT
                     TimeUpSpawner.Instance.ReportTimeUpPicked();
                     OnHunterTimeIncreased?.Invoke(hunterTime);
                     break;
-              
+
             }
         }
 
@@ -187,6 +221,7 @@ namespace TMOT
                     hunterElapsed = 0;
                     isHunterMode = false;
                     hunterTimeUpElapsed = 0;
+                    spawnElapsed = 0;
                     break;
                 case PlayerState.Hunter:
                     MonsterSpawner.Instance.StopSpawner();
@@ -195,6 +230,7 @@ namespace TMOT
                     hunterElapsed = 0;
                     isHunterMode = true;
                     hunterTimeUpElapsed = 0;
+                    spawnElapsed = 0;
                     break;
             }
         }
@@ -270,6 +306,7 @@ namespace TMOT
 
                 // Set the cooldown
                 switchCooldownTimer = switchCooldown;
+                OnSwitchCooldownStarted?.Invoke();
             }
 
         }

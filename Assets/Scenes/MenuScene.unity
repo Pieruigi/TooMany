@@ -2319,7 +2319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a472363e0057d4086553d05a14b2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Beat Pac-Man Mode First
+  message: Beat Thief Mode First
 --- !u!1 &294915153
 GameObject:
   m_ObjectHideFlags: 0
@@ -3693,7 +3693,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Thief
+  m_text: 'Pac-Man
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1e4bb81ee515f04fab9f8da1b4a08f1, type: 2}
   m_sharedMaterial: {fileID: -2680850350597673258, guid: f1e4bb81ee515f04fab9f8da1b4a08f1,
@@ -11298,7 +11300,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pac-Man
+  m_text: 'Thief
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f1e4bb81ee515f04fab9f8da1b4a08f1, type: 2}
   m_sharedMaterial: {fileID: -2680850350597673258, guid: f1e4bb81ee515f04fab9f8da1b4a08f1,
@@ -12289,7 +12293,7 @@ GameObject:
   - component: {fileID: 1308803206}
   - component: {fileID: 1308803208}
   m_Layer: 5
-  m_Name: Pac-man
+  m_Name: Thief
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17109,7 +17113,7 @@ GameObject:
   - component: {fileID: 1709332834}
   - component: {fileID: 1709332835}
   m_Layer: 5
-  m_Name: Thief
+  m_Name: Pac-Man
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

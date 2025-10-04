@@ -35,22 +35,22 @@ namespace TMOT
 
 
         //[SerializeField]
-        float killerSpeed = 3.2f;
+        float killerSpeed = 4f;
 
         //[SerializeField]
-        float killerAcc = 9.6f;
+        float killerAcc = 12f;
 
         //[SerializeField]
-        float killerAngSpeed = 576f;
+        float killerAngSpeed = 720f;
 
         //[SerializeField]
-        float preySpeed = 2f;
+        float preySpeed = 2.5f;
 
         //[SerializeField]
-        float preyAcc = 6f;
+        float preyAcc = 7.5f;
 
         //[SerializeField]
-        float preyAngSpeed = 360;
+        float preyAngSpeed = 450;
 
         [SerializeField]
         float sightRange = 8f;
@@ -150,13 +150,13 @@ namespace TMOT
             patrolMaxDistance = LevelController.Instance.MapSize.x / 3f;
             patrolMinDistance = patrolMaxDistance / 3f;
 
-            killerSpeed *= StageManager.GetRedBotMul(GameManager.Instance.GameStage);
-            killerAcc *= StageManager.GetRedBotMul(GameManager.Instance.GameStage);
-            killerAngSpeed *= StageManager.GetRedBotMul(GameManager.Instance.GameStage);
+            // killerSpeed *= StageManager.GetRedBotMul(GameManager.Instance.GameStage);
+            // killerAcc *= StageManager.GetRedBotMul(GameManager.Instance.GameStage);
+            // killerAngSpeed *= StageManager.GetRedBotMul(GameManager.Instance.GameStage);
 
-            preySpeed *= StageManager.GetBlueBotMul(GameManager.Instance.GameStage);
-            preyAcc *= StageManager.GetBlueBotMul(GameManager.Instance.GameStage);
-            preyAngSpeed *= StageManager.GetBlueBotMul(GameManager.Instance.GameStage);
+            // preySpeed *= StageManager.GetBlueBotMul(GameManager.Instance.GameStage);
+            // preyAcc *= StageManager.GetBlueBotMul(GameManager.Instance.GameStage);
+            // preyAngSpeed *= StageManager.GetBlueBotMul(GameManager.Instance.GameStage);
 
             //speedRandomMul = UnityEngine.Random.Range(.9f, 1.1f);
             speedRandomMul = 1;

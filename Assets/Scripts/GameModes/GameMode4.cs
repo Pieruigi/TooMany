@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace TMOT
 {
@@ -10,6 +11,9 @@ namespace TMOT
     {
         public delegate void HunterTimeIncreasedDelegate(float time);
         public static HunterTimeIncreasedDelegate OnHunterTimeIncreased;
+
+        public static UnityAction OnSwitchCooldownStarted;
+        public static UnityAction OnSwitchCooldownCompleted;
 
 
         [SerializeField]
@@ -19,7 +23,7 @@ namespace TMOT
         GameObject monsterSpawnerPrefab;
 
         
-        float hunterTime = 10;
+        float hunterTime = 15;
         public float HunterTime
         {
             get { return hunterTime; }
@@ -33,26 +37,34 @@ namespace TMOT
 
         int progress = 0;
 
-        float switchCooldown = 1;
+        float switchCooldown = 10;
 
-        float switchBackCooldown = 1;
+        float switchBackCooldown = 0;//5;
 
         float switchCooldownTimer = 0;
 
         bool playing = false;
 
-        float monsterSpawnTime = 15;
+        /// <summary>
+        ////////// Step10: 2.5 with auto timeup
+        /// Step1: 4.625f no auto timeup
+        /// Step10: 3.5 no auto timeup - suggested
+        /// </summary>
+        float monsterSpawnTime = 4.625f;//15;
 
         int initialSpawnAmount = 10;
 
-        int normalSpawnAmount = 3;
+        int normalSpawnAmount = 1;
 
-        int backFromHunterAmount = 6;
+        int backFromHunterAmount = 0;//6;
 
         bool firstSpawn = true;
 
         float hunterTimeUpSpeed = 0.1f;
         float hunterTimeUpElapsed = 0;
+
+        float spawnElapsed = 0;
+
 
         protected override void Awake()
         {
@@ -64,7 +76,12 @@ namespace TMOT
             // Stop spawners
             MonsterSpawner.Instance.StopSpawner();
             TimeUpMultiSpawner.Instance.StopSpawner();
-         
+
+            //monsterSpawnTime /= .85f + (GameManager.Instance.GameStage * StageManager.StepMultiplier);
+            
+               float[] diffs = new float[] { 3.5f, 5f };
+            float step = (diffs[1] - diffs[0]) / 9f;
+            monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
         }
 
 
@@ -77,12 +94,15 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
-            
+
             if (!playing) return;
 
             if (switchCooldownTimer > 0)
             {
                 switchCooldownTimer -= Time.deltaTime;
+
+                 if (switchCooldownTimer <= 0)
+                     OnSwitchCooldownCompleted?.Invoke();
             }
 
             if (progress >= goal)
@@ -98,7 +118,7 @@ namespace TMOT
             }
 
             // Check hunter time up
-            CheckHunterTimeUp();
+            //CheckHunterTimeUp();
 
             // Check hunting time
             CheckHunterTime();
@@ -106,6 +126,7 @@ namespace TMOT
             if (Input.GetKeyDown(KeyCode.E))
                 Switch();
 
+            CheckMonsterSpawn();
 
         }
 
@@ -121,6 +142,19 @@ namespace TMOT
             base.OnDisable();
 
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
+
+        void CheckMonsterSpawn()
+        {
+            if (PlayerController.Instance.State != PlayerState.Prey)
+                return;
+
+            spawnElapsed += Time.deltaTime;
+            if (spawnElapsed > monsterSpawnTime)
+            {
+                spawnElapsed -= monsterSpawnTime;
+                MonsterSpawner.Instance.SpawnRandomMonsters(1);
+            }
         }
 
         protected override void HandleOnGameStateChanged(GameState oldState, GameState newState)
@@ -142,6 +176,7 @@ namespace TMOT
             switch (newState)
             {
                 case PlayerState.Prey:
+                    spawnElapsed = 0;
                     // Spawn the first bunch of monsters
                     var amount = backFromHunterAmount;
                     if (firstSpawn)
@@ -156,6 +191,7 @@ namespace TMOT
                     TimeUpMultiSpawner.Instance.StartSpawner().Forget();
                     break;
                 case PlayerState.Hunter:
+                    spawnElapsed = 0;
                     hunterTimeUpElapsed = 0;
                     // Stop spawners
                     MonsterSpawner.Instance.StopSpawner();
@@ -214,6 +250,7 @@ namespace TMOT
                 PlayerController.Instance.SetState(PlayerState.Hunter);
 
                 switchCooldownTimer = switchBackCooldown;
+                //OnSwitchCooldownStarted?.Invoke();
             }
             else if (PlayerController.Instance.State == PlayerState.Hunter)
             {
@@ -224,8 +261,10 @@ namespace TMOT
 
                 // Set the cooldown
                 switchCooldownTimer = switchCooldown;
+                OnSwitchCooldownStarted?.Invoke();
             }
 
+            
 
 
         }

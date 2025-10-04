@@ -84,6 +84,20 @@ namespace TMOT
 
 
         float restartTime = 5;
+
+
+    
+
+#if UNITY_EDITOR
+        bool noPowerUps = true;
+#else
+        bool noPowerUps = false;
+#endif
+
+        public bool NoPowerUps
+        {
+            get { return noPowerUps; }
+        }
         
 
         AsyncOperation loadingOperation;

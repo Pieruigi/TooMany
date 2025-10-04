@@ -39,7 +39,7 @@ namespace TMOT
         int progress = 0;
 
 
-        float hunterTime = 10;
+        float hunterTime = 15;
         public float HunterTime
         {
             get{ return hunterTime; }
@@ -57,7 +57,7 @@ namespace TMOT
 
         int initialSpawnCount = 10;
 
-        int normalSpawnCount = 2;
+        int normalSpawnCount = 1;
         float spawnElapsed = 0;
 
         float hunterTimeElapsed = 0;
@@ -66,8 +66,13 @@ namespace TMOT
 
         float infectionRange = 7.5f;
 
-     
+        /// <summary>
+        /// Step1: 6.7
+        /// Step10: 4
+        /// </summary>
+        float monsterSpawnTime = 4f;
 
+        //float spawnElapsed = 0;
 
 
         protected override void Awake()
@@ -89,7 +94,9 @@ namespace TMOT
             // Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
             // // Instantiate pills spawner
             // Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
-
+               float[] diffs = new float[] { 4f, 6.7f };
+            float step = (diffs[1] - diffs[0]) / 9f;
+            monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
         }
 
         // Start is called before the first frame update
@@ -102,12 +109,14 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
-            
+
             if (!loop) return;
 
             UpdateSwitchTime();
 
-            UpdateSpawnTime();
+            //UpdateSpawnTime();
+            
+             CheckMonsterSpawn();
         }
 
         protected override void OnEnable()
@@ -115,6 +124,7 @@ namespace TMOT
             base.OnEnable();
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
             PlayerController.OnPlayerDamaged += HandleOnPlayerDamaged;
+            //GameManager.OnStateChanged += HandleOnGameStateChanged;
         }
 
         protected override void OnDisable()
@@ -122,6 +132,7 @@ namespace TMOT
             base.OnDisable();
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
             PlayerController.OnPlayerDamaged -= HandleOnPlayerDamaged;
+            //GameManager.OnStateChanged -= HandleOnGameStateChanged;
         }
 
        
@@ -137,6 +148,34 @@ namespace TMOT
             
             loop = true;
             
+        }
+
+        void CheckMonsterSpawn()
+        {
+            if (PlayerController.Instance.State != PlayerState.Prey)
+                return;
+
+            spawnElapsed += Time.deltaTime;
+            if (spawnElapsed > monsterSpawnTime)
+            {
+                spawnElapsed -= monsterSpawnTime;
+                MonsterSpawner.Instance.SpawnRandomMonsters(1);
+            }
+        }
+
+        protected override void HandleOnGameStateChanged(GameState oldState, GameState newState)
+        {
+            base.HandleOnGameStateChanged(oldState, newState);
+
+            switch (newState)
+            {
+                case GameState.Winner:
+                case GameState.Loser:
+                    MonsterSpawner.Instance.StopSpawner();
+                    TimeUpSpawner.Instance.StopSpawner();
+                    DiamondSpawner.Instance.UnspawnAllDiamonds();
+                    break;
+            }
         }
 
         private void HandleOnPlayerDamaged(float previousHealth, float currentHealth)
@@ -225,10 +264,15 @@ namespace TMOT
                     //SpawnDiamondDelayed(diamondDelay).Forget();
                     SpawnDiamonds().Forget();
                     TimeUpSpawner.Instance.StartSpawner().Forget();
+                    spawnElapsed = 0;
+
+                    if (PlayerController.Instance.Health == 1)
+                        MedicalSpawner.Instance.ForceSpawnMedicalDrone();
                     break;
                 case PlayerState.Hunter:
                     TimeUpSpawner.Instance.StopSpawner();
                     DiamondSpawner.Instance.UnspawnAllDiamonds();
+                    spawnElapsed = 0;
                     break;
             }    
         }
@@ -325,19 +369,19 @@ namespace TMOT
             }
         }
 
-        void UpdateSpawnTime()
-        {
-            if (PlayerController.Instance.State != PlayerState.Prey) return;
+        // void UpdateSpawnTime()
+        // {
+        //     if (PlayerController.Instance.State != PlayerState.Prey) return;
 
-            spawnElapsed += Time.deltaTime;
+        //     spawnElapsed += Time.deltaTime;
 
-            if (spawnElapsed > spawnTime)
-            {
-                spawnElapsed -= spawnTime;
+        //     if (spawnElapsed > spawnTime)
+        //     {
+        //         spawnElapsed -= spawnTime;
 
-                MonsterSpawner.Instance.SpawnRandomMonsters(normalSpawnCount);
-            }
-        }
+        //         MonsterSpawner.Instance.SpawnRandomMonsters(normalSpawnCount);
+        //     }
+        // }
 
         
 

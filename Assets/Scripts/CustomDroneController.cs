@@ -27,9 +27,9 @@ namespace TMOT
             get{ return type; }
         }
 
-        float speed = 1.2f;
-        float acc = 3.6f;
-        float angSpeed = 216;
+        float speed = 1.5f;
+        float acc = 4.2f;
+        float angSpeed = 270;
 
         NavMeshAgent agent;
 
@@ -50,9 +50,9 @@ namespace TMOT
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
-            agent.speed = speed * StageManager.GetSupplyBotMul(GameManager.Instance.GameStage);
-            agent.acceleration = acc * StageManager.GetSupplyBotMul(GameManager.Instance.GameStage);
-            agent.angularSpeed = angSpeed * StageManager.GetSupplyBotMul(GameManager.Instance.GameStage);
+            agent.speed = speed;// * StageManager.GetSupplyBotMul(GameManager.Instance.GameStage);
+            agent.acceleration = acc;// * StageManager.GetSupplyBotMul(GameManager.Instance.GameStage);
+            agent.angularSpeed = angSpeed;// * StageManager.GetSupplyBotMul(GameManager.Instance.GameStage);
         }
 
         // Start is called before the first frame update

@@ -63,6 +63,7 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
+            return;
             if (spawnDisabled) return;
 
             spawnElapsed += Time.deltaTime;

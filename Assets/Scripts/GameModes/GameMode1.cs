@@ -43,13 +43,22 @@ namespace TMOT
 
         float extraChasingTime = 0;
 
-        float monsterSpawnTime = 15;
+        /// <summary>
+        /// Stage1: 4.05f    
+        /// Stage 10: 2.5f
+        /// </summary>
 
-        int initialSpawnAmount = 6;
+        float monsterSpawnTime = 2.5f;//15;
 
-        int normalSpawnAmount = 6;
+        int initialSpawnAmount = 10;
+
+        int normalSpawnAmount = 1;//6;
 
         bool initialized = false;
+
+        float spawnElapsed = 0;
+
+        //float[] diffs = new float[] { 2.5f, 4.1f };
 
 
         protected override void Awake()
@@ -61,8 +70,15 @@ namespace TMOT
             Instantiate(monsterSpawnerPrefab, Vector3.zero, Quaternion.identity);
             // Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
             // Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
-           
 
+            // Init spawn time
+            float[] diffs = new float[] { 2.5f, 4.1f };
+            float step = (diffs[1] - diffs[0]) / 9f;
+            monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
+
+
+            //monsterSpawnTime /= 1 + GameManager.Instance.GameStage * StageManager.StepMultiplier;
+            //monsterSpawnTime = 4.05f;
         }
 
         // Start is called before the first frame update
@@ -101,39 +117,64 @@ namespace TMOT
                         GameManager.Instance.ReportPlayerIsWinner();
                         MonsterSpawner.Instance.StopSpawner();
                     }
-                        
+
                 }
             }
 
-
+            CheckMonsterSpawn();
+            
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
             MonsterSpawner.OnSpawnCompleted += HandleOnMonsterSpawnCompleted;
+            PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
             MonsterSpawner.OnSpawnCompleted -= HandleOnMonsterSpawnCompleted;
+            PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+        }
+
+        private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
+        {
+            switch (newState)
+            {
+                case PlayerState.Prey:
+                case PlayerState.Hunter:
+                    spawnElapsed = 0;
+                    break;
+            }
         }
 
         private void HandleOnMonsterSpawnCompleted(int amount)
         {
-            if (amount == initialSpawnAmount)
-                MonsterSpawner.Instance.SpawnAmount = normalSpawnAmount;
+            // if (amount == initialSpawnAmount)
+            //     MonsterSpawner.Instance.SpawnAmount = normalSpawnAmount;
         }
 
         protected override void StartGameMode()
         {
             MonsterSpawner.Instance.SpawnRandomMonsters(initialSpawnAmount);
-            MonsterSpawner.Instance.SpawnAmount = normalSpawnAmount;
+            //MonsterSpawner.Instance.SpawnAmount = normalSpawnAmount;
             Init();
         }
 
+        void CheckMonsterSpawn()
+        {
+            if (PlayerController.Instance.State != PlayerState.Prey)
+                return;
 
+            spawnElapsed += Time.deltaTime;
+            if (spawnElapsed > monsterSpawnTime)
+            {
+                spawnElapsed -= monsterSpawnTime;
+                MonsterSpawner.Instance.SpawnRandomMonsters(1);
+            }
+        }
 
         bool GoalReached()
         {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6599394429878397801}
   - component: {fileID: 7242110116083440437}
   m_Layer: 0
-  m_Name: GameMode2_Thief
+  m_Name: GameMode2_Pac-Man
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

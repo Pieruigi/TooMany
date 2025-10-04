@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -78,9 +79,13 @@ namespace TMOT
 
         async UniTaskVoid SpawnDrone()
         {
+            if (GameManager.Instance.NoPowerUps) return;
+
             await UniTask.Delay(System.TimeSpan.FromSeconds(spawnDelay));
+
+            var candidates = LevelController.Instance.Waypoints.ToList().FindAll(w => Vector3.Distance(PlayerController.Instance.transform.position, w.position) > TimeUpSpawner.PlayerMinDistance);
             // Get a random waypoint
-            var waypoint = LevelController.Instance.Waypoints[UnityEngine.Random.Range(0, LevelController.Instance.Waypoints.Count)];
+            var waypoint = candidates[UnityEngine.Random.Range(0, LevelController.Instance.Waypoints.Count)];
 
             // Spawn medical
             drone = Instantiate(prefab, waypoint.position, Quaternion.Euler(0f, Random.Range(0f, 350f), 0f));

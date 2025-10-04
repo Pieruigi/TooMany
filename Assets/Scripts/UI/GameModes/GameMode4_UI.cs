@@ -17,6 +17,12 @@ namespace TMOT.UI
         [SerializeField]
         CountdownPlayer countdownPlayer;
 
+        [SerializeField]
+        GameObject switchText;
+
+        [SerializeField]
+        AudioSource switchAudioSource;
+
         TMP_Text hunterTimerField;
 
         Color activatedColor = new Color(1, 1, 1, 1);
@@ -32,6 +38,8 @@ namespace TMOT.UI
 
         Vector3 hunterLocalPositionDefault;
 
+        Vector3 switchTextOriginalPosition;
+
         protected override void Awake()
         {
             base.Awake();
@@ -43,11 +51,11 @@ namespace TMOT.UI
             hunterCanvasGroup.alpha = deactivatedAlpha;
             hunterLocalPositionDefault = hunterCanvasGroup.transform.localPosition;
 
-           
-            HandleOnHunterTimeIncreased((GameMode.Instance as GameMode4).HunterTime);
-            HandleOnProgressUpdated(0, (GameMode.Instance as GameMode4).Goal);    
-           
 
+            HandleOnHunterTimeIncreased((GameMode.Instance as GameMode4).HunterTime);
+            HandleOnProgressUpdated(0, (GameMode.Instance as GameMode4).Goal);
+
+            switchTextOriginalPosition = (switchText.transform as RectTransform).anchoredPosition;
 
         }
 
@@ -61,19 +69,47 @@ namespace TMOT.UI
             base.OnEnable();
 
             GameMode.OnProgressUpdated += HandleOnProgressUpdated;
-           
+
             GameMode4.OnHunterTimeIncreased += HandleOnHunterTimeIncreased;
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            GameMode4.OnSwitchCooldownStarted += HandleOnSwitchCooldownStarted;
+            GameMode4.OnSwitchCooldownCompleted += HandleOnSwitchCooldownCompleted;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
             GameMode.OnProgressUpdated -= HandleOnProgressUpdated;
-           
+
             GameMode4.OnHunterTimeIncreased -= HandleOnHunterTimeIncreased;
-            
+
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+            
+            GameMode4.OnSwitchCooldownStarted -= HandleOnSwitchCooldownStarted;
+            GameMode4.OnSwitchCooldownCompleted -= HandleOnSwitchCooldownCompleted;
+        }
+
+        private void HandleOnSwitchCooldownStarted()
+        {
+            switchText.transform.DOKill();
+            (switchText.transform as RectTransform).anchoredPosition = switchTextOriginalPosition;
+
+            var st = switchText.GetComponent<TMP_Text>();
+            var c = Color.grey;
+            c.a = 0.5f;
+            st.color = c;
+                     
+        }
+
+        private void HandleOnSwitchCooldownCompleted()
+        {
+            
+            var st = switchText.GetComponent<TMP_Text>();
+            var c = Color.white;
+            c.a = 1f;
+            st.color = c;
+            (switchText.transform as RectTransform).DOShakeAnchorPos(.2f, 10, 10).SetLoops(5, LoopType.Yoyo).OnComplete(()=> { (switchText.transform as RectTransform).anchoredPosition = switchTextOriginalPosition; });
+            switchAudioSource.Play();
         }
 
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)

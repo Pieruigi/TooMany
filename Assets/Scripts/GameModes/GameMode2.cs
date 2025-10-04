@@ -39,7 +39,7 @@ namespace TMOT
         int goalProgress = 0;
 
 
-        int monsterInitialSpawnCount = 12;
+        int monsterInitialSpawnCount = 10;
         int monsterRegularSpawnCount = 4;
 
         float monsterRegularSpawnTime = 10f;
@@ -53,7 +53,14 @@ namespace TMOT
 
         int diamonds = 0;
 
-        
+        /// <summary>
+        /// Step1: 5
+        /// Step10: 3.5
+        /// </summary>
+        float monsterSpawnTime = 3.5f;
+
+        float spawnElapsed = 0;
+
 
         protected override void Awake()
         {
@@ -67,6 +74,13 @@ namespace TMOT
             Instantiate(timeUpSpawnerPrefab);
             // Instantiate(medicalSpawnerPrefab);
             // Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
+
+            //monsterSpawnTime /= .85f + (GameManager.Instance.GameStage * StageManager.StepMultiplier);
+            //monsterSpawnTime = 5f;
+
+            float[] diffs = new float[] { 3.5f, 5f };
+            float step = (diffs[1] - diffs[0]) / 9f;
+            monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
         }
 
         void Start()
@@ -87,7 +101,8 @@ namespace TMOT
                     PlayerController.Instance.SetState(PlayerState.Prey);
                 }
             }
-           
+
+            CheckMonsterSpawn();
         }
 
         protected override void OnEnable()
@@ -104,23 +119,38 @@ namespace TMOT
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
         }
 
+        void CheckMonsterSpawn()
+        {
+            if (PlayerController.Instance.State != PlayerState.Prey)
+                return;
+
+            spawnElapsed += Time.deltaTime;
+            if (spawnElapsed > monsterSpawnTime)
+            {
+                spawnElapsed -= monsterSpawnTime;
+                MonsterSpawner.Instance.SpawnRandomMonsters(1);
+            }
+        }
+
         private void HandleOnPlayerStateChanged(PlayerState oldState, PlayerState newState)
         {
             switch (newState)
             {
                 case PlayerState.Prey:
                     SpawnDiamonds().Forget();
-                    MonsterSpawner.Instance.StartSpawner();   
-                    if(!IsLastStep()) TimeUpSpawner.Instance.StartSpawner().Forget();
+                    MonsterSpawner.Instance.StartSpawner();
+                    if (!IsLastStep()) TimeUpSpawner.Instance.StartSpawner().Forget();
                     hunterTimeExtra = 0;
                     hunterElapsed = 0;
                     isHunterMode = false;
+                    spawnElapsed = 0;
                     break;
                 case PlayerState.Hunter:
                     MonsterSpawner.Instance.StopSpawner();
                     TimeUpSpawner.Instance.StopSpawner();
                     hunterElapsed = 0;
                     isHunterMode = true;
+                    spawnElapsed = 0;
                     break;
             }
         }

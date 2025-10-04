@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4571118122647898734}
   - component: {fileID: 2181593121899921572}
   m_Layer: 0
-  m_Name: GameMode6_Unbeteable
+  m_Name: GameMode6_Joke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
