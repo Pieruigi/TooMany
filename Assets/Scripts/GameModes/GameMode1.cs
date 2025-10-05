@@ -27,7 +27,7 @@ namespace TMOT
 
   
 
-        float playerChasedTime = 50;
+        float playerChasedTime = 45;
 
         float playerChasingTime = 15;
 
@@ -72,7 +72,8 @@ namespace TMOT
             // Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
 
             // Init spawn time
-            float[] diffs = new float[] { 2.5f, 4.1f };
+            // 2.5 - 4.0
+            float[] diffs = new float[] { 2.5f, 4f };
             float step = (diffs[1] - diffs[0]) / 9f;
             monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
 
