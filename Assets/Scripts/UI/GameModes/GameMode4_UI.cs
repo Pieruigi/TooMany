@@ -23,6 +23,9 @@ namespace TMOT.UI
         [SerializeField]
         AudioSource switchAudioSource;
 
+        [SerializeField]
+        AudioSource switchNotReadyAudioSource;
+
         TMP_Text hunterTimerField;
 
         Color activatedColor = new Color(1, 1, 1, 1);
@@ -40,6 +43,8 @@ namespace TMOT.UI
 
         Vector3 switchTextOriginalPosition;
 
+        bool notReadySoundDisabled = false;
+
         protected override void Awake()
         {
             base.Awake();
@@ -53,7 +58,7 @@ namespace TMOT.UI
 
 
             HandleOnHunterTimeIncreased((GameMode.Instance as GameMode4).HunterTime);
-            
+
 
             switchTextOriginalPosition = (switchText.transform as RectTransform).anchoredPosition;
 
@@ -65,8 +70,34 @@ namespace TMOT.UI
             HandleOnProgressUpdated(0, (GameMode.Instance as GameMode4).Goal);
         }
 
+        protected override void Update()
+        {
+            base.Update();
+       
+            if(PlayerController.Instance.State == PlayerState.Prey)
+            {
+                if (notReadySoundDisabled)
+                {
+                    notReadySoundDisabled = false;
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.E) && (GameMode.Instance as GameMode4).SwitchCooldownTimer > 0)
+                    {
+                        switchNotReadyAudioSource.Play();  
+                        switchText.transform.DOKill();  
+                        (switchText.transform as RectTransform).DOShakeAnchorPos(.5f, 20, 10).OnComplete(() => { (switchText.transform as RectTransform).anchoredPosition = switchTextOriginalPosition; });
+                    }
+                        
+                }
+                
+            }
+        }
+
         void LateUpdate()
         {
+            
+
             UpdateHunterTimer();
         }
 
@@ -109,12 +140,12 @@ namespace TMOT.UI
 
         private void HandleOnSwitchCooldownCompleted()
         {
-            
+            switchText.transform.DOKill();
             var st = switchText.GetComponent<TMP_Text>();
             var c = Color.white;
             c.a = 1f;
             st.color = c;
-            (switchText.transform as RectTransform).DOShakeAnchorPos(.2f, 10, 10).SetLoops(5, LoopType.Yoyo).OnComplete(()=> { (switchText.transform as RectTransform).anchoredPosition = switchTextOriginalPosition; });
+            (switchText.transform as RectTransform).DOShakeAnchorPos(.5f, 10, 10).OnComplete(()=> { (switchText.transform as RectTransform).anchoredPosition = switchTextOriginalPosition; });
             switchAudioSource.Play();
         }
 
@@ -124,7 +155,7 @@ namespace TMOT.UI
             {
                 case PlayerState.Prey:
                     HunterToPrey();
-
+                    notReadySoundDisabled = true;
                     break;
 
                 case PlayerState.Hunter:

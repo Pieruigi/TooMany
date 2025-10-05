@@ -229,6 +229,7 @@ namespace TMOT
 
             moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             aimInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+
             var s = Input.GetKey(KeyCode.LeftShift) && stamina > 0;
             if (s)
             {

@@ -62,6 +62,10 @@ namespace TMOT
         float switchBackCooldown = 0;
 
         float switchCooldownTimer = 0;
+        public float SwitchCooldownTimer
+        {
+            get{ return switchCooldownTimer; }
+        }
 
         float elapsed = 0;
 

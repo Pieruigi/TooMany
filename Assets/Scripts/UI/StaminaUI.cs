@@ -11,6 +11,9 @@ namespace TMOT
         [SerializeField]
         Image staminaFill;
 
+        [SerializeField]
+        AudioSource audioSource;
+
         RectTransform panel;
 
         float shakeDuration = .5f;
@@ -48,6 +51,7 @@ namespace TMOT
                 {
                     // Shake        
                     panel.DOShakePosition(shakeDuration, shakeStrength);
+                    audioSource.Play();
                 }
             }
 
