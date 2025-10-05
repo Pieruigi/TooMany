@@ -21,7 +21,7 @@ namespace TMOT
 
         GameObject medicalDrone;
 
-        int spawnChance = 40;
+        //int spawnChance = 40;
 
         float spawnDelay = 1f;
 
@@ -73,7 +73,7 @@ namespace TMOT
                 if (!PlayerController.Instance.IsWounded()) return;
 
                 // If player is wounded there is a chance a medical drone is spawned
-                bool spawn = UnityEngine.Random.Range(0, 100) < spawnChance;
+                bool spawn = UnityEngine.Random.Range(0, 100) < GameManager.PowerUpSpawnChance + 10;
 
                 if (spawn)
                 {

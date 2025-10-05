@@ -8,7 +8,7 @@ namespace TMOT
     {
         public const int MaxStage = 9; 
         
-        static string prefsParamFormat = "MP_{0}_MD_{1}";
+        static string prefsParamFormat = "Stage_{0}";
 
         public const float StepMultiplier = 0.18f;// 0.18 x 9 = 1.62
 
@@ -44,7 +44,7 @@ namespace TMOT
         public static int GetLastStage(int mapId, GameModeType modeId)
         {
 
-            string param = string.Format(prefsParamFormat, 0, modeId);
+            string param = string.Format(prefsParamFormat, modeId);
             // I should probably change this with hidden achievement or stats on Steam
             int stage = PlayerPrefs.GetInt(param, 0);
 
@@ -56,7 +56,7 @@ namespace TMOT
         public static void UpdateLastStage(int mapId, GameModeType modeId, int stage)
         {
             Debug.Log("StageManager - UpdateLastStage");
-            string param = string.Format(prefsParamFormat, 0, modeId);
+            string param = string.Format(prefsParamFormat, modeId);
             
             // I should probably change this with hidden achievement or stats on Steam
             int savedStage = PlayerPrefs.GetInt(param, 0);

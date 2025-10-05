@@ -19,8 +19,7 @@ namespace TMOT
 
         GameObject drone;
 
-        int spawnChance = 30;
-
+        
         float spawnDelay = 1f;
 
 
@@ -64,7 +63,7 @@ namespace TMOT
             {
                 if (ShieldPowerUp.Instance.IsActive()) return;
                 
-                bool spawn = Random.Range(0, 100) < spawnChance;
+                bool spawn = Random.Range(0, 100) < GameManager.PowerUpSpawnChance;
 
                 if (spawn)
                 {

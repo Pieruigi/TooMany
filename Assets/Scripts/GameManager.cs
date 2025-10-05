@@ -31,6 +31,8 @@ namespace TMOT
         public static OnStateChangedDelegate OnStateChanged;
 
         public const float StartingDelay = 3f;
+
+        public const int PowerUpSpawnChance = 10;
        
 
         [SerializeField]
@@ -89,7 +91,7 @@ namespace TMOT
     
 
 #if UNITY_EDITOR
-        bool noPowerUps = true;
+        bool noPowerUps = false;
 #else
         bool noPowerUps = false;
 #endif

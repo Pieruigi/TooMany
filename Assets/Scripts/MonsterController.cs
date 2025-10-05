@@ -99,9 +99,6 @@ namespace TMOT
 
         float elapsed = 0;
 
-        
-        
-
         float time = 0;
 
         MonsterState state = MonsterState.None;
@@ -364,6 +361,12 @@ namespace TMOT
             time = UnityEngine.Random.Range(patrollingTime * .7f, patrollingTime * 1.3f);
             elapsed = 0;
             //onIdleExitNextState = MonsterState.Searching;
+            // if (ForcedDestination.HasValue)
+            // {
+            //     agent.SetDestination(ForcedDestination.Value);
+            //     ForcedDestination = null;
+            // }
+            // else
             agent.SetDestination(GetPatrolDestination());
             
             //animator.SetTrigger("Walk");
