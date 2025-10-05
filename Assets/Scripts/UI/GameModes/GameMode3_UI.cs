@@ -51,6 +51,13 @@ namespace TMOT.UI
 
             switchTimeText.text = Mathf.CeilToInt((GameMode.Instance as GameMode3).HunterTime).ToString();
 
+            //HandleOnProgressUpdated(0, (GameMode.Instance as GameMode3).Goal);
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+
             HandleOnProgressUpdated(0, (GameMode.Instance as GameMode3).Goal);
         }
 

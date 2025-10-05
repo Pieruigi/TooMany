@@ -94,9 +94,11 @@ namespace TMOT
             // Instantiate(medicalSpawnerPrefab, Vector3.zero, Quaternion.identity);
             // // Instantiate pills spawner
             // Instantiate(pillSpawnerPrefab, Vector3.zero, Quaternion.identity);
-               float[] diffs = new float[] { 4f, 6.7f };
+            float[] diffs = new float[] { 4f, 7f };
             float step = (diffs[1] - diffs[0]) / 9f;
             monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
+            
+           
         }
 
         // Start is called before the first frame update

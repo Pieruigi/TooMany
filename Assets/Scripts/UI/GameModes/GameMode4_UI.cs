@@ -53,10 +53,16 @@ namespace TMOT.UI
 
 
             HandleOnHunterTimeIncreased((GameMode.Instance as GameMode4).HunterTime);
-            HandleOnProgressUpdated(0, (GameMode.Instance as GameMode4).Goal);
+            
 
             switchTextOriginalPosition = (switchText.transform as RectTransform).anchoredPosition;
 
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            HandleOnProgressUpdated(0, (GameMode.Instance as GameMode4).Goal);
         }
 
         void LateUpdate()

@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Destroy 50 bots   !
+  m_text: Destroy bots   to win!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e2e1943a6033760418411bc19fe77422, type: 2}
   m_sharedMaterial: {fileID: -6664287709633108910, guid: e2e1943a6033760418411bc19fe77422,
@@ -2244,7 +2244,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 430, y: -621}
+  m_AnchoredPosition: {x: 430, y: -695}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &294177421
@@ -2467,7 +2467,7 @@ GameObject:
   - component: {fileID: 297005909}
   - component: {fileID: 297005910}
   m_Layer: 5
-  m_Name: Pac-Man
+  m_Name: Thief
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2749,9 +2749,9 @@ RectTransform:
   - {fileID: 1359987212}
   - {fileID: 764571456}
   - {fileID: 824781502}
+  - {fileID: 1709332832}
   - {fileID: 1308803205}
   - {fileID: 294177420}
-  - {fileID: 1709332832}
   - {fileID: 1827349634}
   m_Father: {fileID: 1656409965}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11240,9 +11240,9 @@ MonoBehaviour:
   - {fileID: 804564902}
   - {fileID: 1332578587}
   - {fileID: 609309825}
+  - {fileID: 1663571528}
   - {fileID: 297005908}
   - {fileID: 261491186}
-  - {fileID: 1663571528}
 --- !u!1 &1187986798
 GameObject:
   m_ObjectHideFlags: 0
@@ -12318,7 +12318,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 430, y: -547}
+  m_AnchoredPosition: {x: 430, y: -621}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1308803206
@@ -12393,7 +12393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a472363e0057d4086553d05a14b2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Beat Joke Mode First
+  message: Beat Pac-Man Mode First
 --- !u!1 &1309404595
 GameObject:
   m_ObjectHideFlags: 0
@@ -16403,9 +16403,9 @@ MonoBehaviour:
   - {fileID: 1359987213}
   - {fileID: 764571458}
   - {fileID: 824781505}
+  - {fileID: 1709332833}
   - {fileID: 1308803207}
   - {fileID: 294177422}
-  - {fileID: 1709332833}
   rules: {fileID: 1179250843}
 --- !u!224 &1656409965
 RectTransform:
@@ -16440,7 +16440,7 @@ GameObject:
   - component: {fileID: 1663571529}
   - component: {fileID: 1663571530}
   m_Layer: 5
-  m_Name: Thief
+  m_Name: Pac-Man
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17138,7 +17138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 430, y: -695}
+  m_AnchoredPosition: {x: 430, y: -547}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1709332833
@@ -17213,7 +17213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a472363e0057d4086553d05a14b2de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Beat Revenge Mode First
+  message: Beat Joke Mode First
 --- !u!1 &1742274980
 GameObject:
   m_ObjectHideFlags: 0
@@ -18404,9 +18404,9 @@ MonoBehaviour:
   - {fileID: 4715216348927760533, guid: 5ebe9600c1ca3584693f37aa352341bb, type: 3}
   - {fileID: 1839807880721645799, guid: c24f61baa3fea6647ba4684772d201fe, type: 3}
   - {fileID: 1839807880721645799, guid: cf5326f786d625f4aa2fca8337e22678, type: 3}
+  - {fileID: 1275647266828163555, guid: f269ba2304109ad4e934ca3f89f3b2f3, type: 3}
   - {fileID: 1275647266828163555, guid: 4c3c3c42ceb366241836bae68a16b51b, type: 3}
   - {fileID: 4844949972125618365, guid: b462f4f65026b49418d6b128aa0f02a6, type: 3}
-  - {fileID: 1275647266828163555, guid: f269ba2304109ad4e934ca3f89f3b2f3, type: 3}
 --- !u!4 &1848556018
 Transform:
   m_ObjectHideFlags: 0
@@ -19561,7 +19561,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Destroy 50 bots   !
+  m_text: Destroy bots   to win!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e2e1943a6033760418411bc19fe77422, type: 2}
   m_sharedMaterial: {fileID: -6664287709633108910, guid: e2e1943a6033760418411bc19fe77422,
@@ -19808,7 +19808,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -96, y: 0.3999939}
+  m_AnchoredPosition: {x: -135.7, y: 0.3999939}
   m_SizeDelta: {x: 8, y: 8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1927269928
@@ -20111,7 +20111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -96, y: 0.3999939}
+  m_AnchoredPosition: {x: -136.4, y: 0.3999939}
   m_SizeDelta: {x: 8, y: 8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1965439121

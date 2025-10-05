@@ -31,6 +31,7 @@ namespace TMOT
 
         //[SerializeField]
         int goalCount = 50;//20;
+      
 
 
         //[SerializeField]
@@ -78,9 +79,13 @@ namespace TMOT
             //monsterSpawnTime /= .85f + (GameManager.Instance.GameStage * StageManager.StepMultiplier);
             //monsterSpawnTime = 5f;
 
-            float[] diffs = new float[] { 3.5f, 5f };
+            float[] diffs = new float[] { 2f, 4.5f }; // 2.5
             float step = (diffs[1] - diffs[0]) / 9f;
             monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
+
+            int goalMax = 50;
+            int goalMin = (int)(goalMax * diffs[0] / diffs[1]);
+            goalCount = (int)Mathf.Lerp(goalMin, goalMax, GameManager.Instance.GameStage / 9);
         }
 
         void Start()

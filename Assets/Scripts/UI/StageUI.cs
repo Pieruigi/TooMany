@@ -29,7 +29,7 @@ namespace TMOT.UI
         string modeStringFormat = "Mode: {0}";
         string mapStringFormat = "Map: {0}";
 
-        string[] modes = { "Classic", "Switch", "Joke", "PacMan", "Revenge", "Thief" };
+        string[] modes = { "Classic", "Switch", "Joke", "PacMan", "Thief", "Revenge" };
         string[] maps = { "Sewer", "Block", "Castle" };
 
         //bool skip = true;

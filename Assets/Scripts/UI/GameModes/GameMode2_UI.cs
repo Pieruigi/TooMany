@@ -50,6 +50,13 @@ namespace TMOT.UI
             hunterMessageCanvasGroup.alpha = 0;
         }
 
+        protected override void Start()
+        {
+            base.Start();
+
+            //UpdateGoal($"0/{(GameMode.Instance as GameMode2).Goal}");
+        }
+
         protected override void Update()
         {
             base.Update();

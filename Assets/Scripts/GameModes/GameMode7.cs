@@ -93,10 +93,11 @@ namespace TMOT
             //MonsterSpawner.Instance.SpawnTime = monsterRegularSpawnTime;
             Instantiate(timeUpSpawnerPrefab);
 
-            float[] diffs = new float[] { 3.5f, 6f };
+            // 3 - 6
+            float[] diffs = new float[] { 3f, 6f };
             float step = (diffs[1] - diffs[0]) / 9f;
             monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
-
+  
         }
 
         void Update()
