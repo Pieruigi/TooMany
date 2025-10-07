@@ -30,6 +30,8 @@ namespace TMOT
         {
             if (PlayerController.Instance.State == PlayerState.Prey)
             {
+                if (!MonsterSpawner.Instance) return;
+
                 // Get current position
                 var pos = PlayerController.Instance.transform.position;
 
@@ -48,9 +50,12 @@ namespace TMOT
                 {
                     if (botsCalled) return;
 
+                   
+
                     botsCalled = true;
 
                     Debug.Log($"TEST - Player is campering to {pos}");
+
                     // Get closer bots
                     var availables = MonsterSpawner.Instance.Monsters.Where(m => m.State == MonsterState.Patrolling).OrderBy(m => Vector3.Distance(m.transform.position, PlayerController.Instance.transform.position)).ToList();
 

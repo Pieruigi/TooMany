@@ -1,12 +1,14 @@
 #if !UNITY_WEBGL
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Steamworks;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 namespace TMOT
 {
-    public enum SteamAchievementId { BEAT_GM_1 }
+    public enum SteamAchievementId { BEAT_GM_1, BEAT_GM_2, BEAT_GM_3, BEAT_GM_4, BEAT_GM_5, BEAT_GM_6 }
 
     public class SteamAchievementManager : SingletonPersistent<SteamAchievementManager>
     {
@@ -39,14 +41,57 @@ namespace TMOT
 
             }
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.T))
             {
-                ResetAchievement(SteamAchievementId.BEAT_GM_1.ToString());
+                HardResetAchievements();
             }
+
+          
 #endif
 
         }
-        
+
+        void OnEnable()
+        {
+            GameManager.OnStateChanged += HandleOnGameStateChanged;
+        }
+
+        void OnDisable()
+        {
+            GameManager.OnStateChanged -= HandleOnGameStateChanged;
+        }
+
+        private void HandleOnGameStateChanged(GameState oldState, GameState newState)
+        {
+            switch (newState)
+            {
+                case GameState.Winner:
+                    // Update achievement
+                    int gameMode = (int)GameManager.Instance.GameMode;
+                    string achId = $"BEAT_GM_{gameMode + 1}";
+
+                    Debug.Log($"TEST - Unlocking {achId}");
+                    if (!IsAchievementUnlocked(achId)) UnlockAchievement(achId);
+
+                    int gameStage = GameManager.Instance.GameStage;
+
+                    string stgId;
+                    if (gameStage >= 4)
+                    {
+                        stgId = $"GM_{gameMode + 1}_STG_5";
+                        if (!IsAchievementUnlocked(stgId)) UnlockAchievement(stgId);
+                    }
+                    if (gameStage >= 9)
+                    {
+                        stgId = $"GM_{gameMode + 1}_STG_10";
+                        if (!IsAchievementUnlocked(stgId)) UnlockAchievement(stgId);
+                    }
+                    
+                        
+                    break;
+            }
+        }
+
         public void DebugAllAchievements()
         {
             if (!SteamManager.Initialized)
@@ -62,11 +107,11 @@ namespace TMOT
             {
                 string achievementId = SteamUserStats.GetAchievementName(i);
                 bool achieved = SteamUserStats.GetAchievement(achievementId, out achieved);
-                
+
                 Debug.Log($"Achievement [{i}]: {achievementId} - Sbloccato: {achieved}");
             }
         }
-        
+
 
         public void UnlockAchievement(string achievementId)
         {
@@ -75,7 +120,6 @@ namespace TMOT
                 Debug.LogWarning("Steam non inizializzato - Achievement non sbloccato: " + achievementId);
                 return;
             }
-            achievementId = "NEW_ACHIEVEMENT_18_0";
             bool success = SteamUserStats.SetAchievement(achievementId);
 
             if (success)
@@ -87,10 +131,12 @@ namespace TMOT
             {
                 Debug.LogError($"Errore nello sbloccare achievement: {achievementId}");
             }
+
+            DebugAllAchievements();
         }
 
         // Verifica se un achievement è già sbloccato
-        public bool IsAchievementUnlocked(string achievementId)
+        bool IsAchievementUnlocked(string achievementId)
         {
             if (!SteamManager.Initialized) return false;
 
@@ -98,19 +144,38 @@ namespace TMOT
             {
                 return achieved;
             }
-            
+
             Debug.LogError($"Achievement non trovato: {achievementId}");
             return false;
         }
 
         // Reset achievement (per testing)
-        public void ResetAchievement(string achievementId)
+        void ResetAchievement(string achievementId)
         {
             if (!SteamManager.Initialized) return;
 
             SteamUserStats.ClearAchievement(achievementId);
             SteamUserStats.StoreStats();
             Debug.Log($"Achievement resettato: {achievementId}");
+        }
+        
+        void HardResetAchievements()
+        {
+            if (!SteamManager.Initialized) return;
+            
+            // Prima resetta normalmente
+            for (uint i = 0; i < SteamUserStats.GetNumAchievements(); i++)
+            {
+                string achievementId = SteamUserStats.GetAchievementName(i);
+                SteamUserStats.ClearAchievement(achievementId);
+            }
+            SteamUserStats.StoreStats();
+            
+            // Poi forza una ricaricata
+            SteamUserStats.ResetAllStats(true); // <-- il 'true' è importante!
+            SteamAPI.RunCallbacks();
+            
+            Debug.Log("Hard reset completato");
         }
         
     }

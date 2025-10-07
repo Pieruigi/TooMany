@@ -25,13 +25,14 @@ namespace TMOT
         {
             base.Awake();
 
-            progress = PlayerPrefs.GetInt(ProgressParam, 0);
+            
+            //progress = PlayerPrefs.GetInt(ProgressParam, 0);
         }
 
         // Start is called before the first frame update
         void Start()
         {
-
+            progress = SteamStatsManager.Instance.GetProgressStat();
         }
 
         // Update is called once per frame
@@ -44,8 +45,12 @@ namespace TMOT
         {
             if (progress == ProgressMax) return;
 
+
             progress++;
-            PlayerPrefs.SetInt(ProgressParam, progress);
+
+            //PlayerPrefs.SetInt(ProgressParam, progress);
+            SteamStatsManager.Instance.UpdateProgressStat();
+            progress = SteamStatsManager.Instance.GetProgressStat();
             PlayerPrefs.SetInt(NewGameModeUnlockedParam, 1);
             PlayerPrefs.Save();
         }
@@ -56,7 +61,8 @@ namespace TMOT
             PlayerPrefs.Save();
         }
 
-       
+
+
 
         public bool IsNewGameModeUnlocked()
         {

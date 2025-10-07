@@ -63,15 +63,15 @@ namespace TMOT
         // Update is called once per frame
         void Update()
         {
-            return;
-            if (spawnDisabled) return;
+            // return; // The following code is no longer used
+            // if (spawnDisabled) return;
 
-            spawnElapsed += Time.deltaTime;
-            if (spawnElapsed > spawnTime)
-            {
-                spawnElapsed -= spawnTime;
-                SpawnRandomMonsters(spawnAmount);
-            }
+            // spawnElapsed += Time.deltaTime;
+            // if (spawnElapsed > spawnTime)
+            // {
+            //     spawnElapsed -= spawnTime;
+            //     SpawnRandomMonsters(spawnAmount);
+            // }
 
         }
 

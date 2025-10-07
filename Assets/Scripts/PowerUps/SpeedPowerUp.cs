@@ -35,11 +35,6 @@ namespace TMOT
         void Update()
         {
 
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.T))
-                BuffSpeed();
-#endif
-
             if (!loop) return;
 
             elapsed += Time.deltaTime;

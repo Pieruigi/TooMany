@@ -46,7 +46,8 @@ namespace TMOT
 
             string param = string.Format(prefsParamFormat, modeId);
             // I should probably change this with hidden achievement or stats on Steam
-            int stage = PlayerPrefs.GetInt(param, 0);
+            //int stage = PlayerPrefs.GetInt(param, 0);
+            int stage = SteamStatsManager.Instance.GetStageStat((int)modeId);
 
             Debug.Log($"StageManager - Load - Param:{param}:{stage}");
 
@@ -57,15 +58,16 @@ namespace TMOT
         {
             Debug.Log("StageManager - UpdateLastStage");
             string param = string.Format(prefsParamFormat, modeId);
-            
+
             // I should probably change this with hidden achievement or stats on Steam
-            int savedStage = PlayerPrefs.GetInt(param, 0);
+            int savedStage = SteamStatsManager.Instance.GetStageStat((int)modeId);// PlayerPrefs.GetInt(param, 0);
             Debug.Log($"StageManager - Load - Param:{param}:{savedStage}");
             if (stage <= savedStage) return;
             if (stage > MaxStage) return;
 
             Debug.Log($"StageManager - Save - Param:{param}:{stage}");
-            PlayerPrefs.SetInt(param, stage);
+            SteamStatsManager.Instance.UpdateStageStat((int)modeId);
+            //PlayerPrefs.SetInt(param, stage);
             PlayerPrefs.Save();
         }
         

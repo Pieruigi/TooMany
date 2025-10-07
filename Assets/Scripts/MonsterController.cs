@@ -30,6 +30,9 @@ namespace TMOT
         public delegate void ForcedBehaviourDelegate(MonsterController monsterController);
         public static ForcedBehaviourDelegate OnForcedBehaviour;
 
+        public delegate void HitByPlayerDelegate(MonsterController monsterController);
+        public static HitByPlayerDelegate OnHitByPlayer;
+
 
         static Dictionary<Transform, DateTime> lastPatrolPoints = new Dictionary<Transform, DateTime>();
 
@@ -771,6 +774,8 @@ namespace TMOT
         {
             GameMode.Instance.ReportMonsterDroneHitByPlayer(this);
             SetState(MonsterState.Dying);
+
+            OnHitByPlayer?.Invoke(this);
         }
 
         /// <summary>

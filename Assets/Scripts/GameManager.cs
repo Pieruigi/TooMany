@@ -220,12 +220,18 @@ namespace TMOT
                 // Check if the player unlocked a new game mode
                 if (gameMode == (GameModeType)SaveManager.Instance.GameProgress)
                     SaveManager.Instance.UpdateGameProgress();
+
+                
             }
-            await UniTask.Delay(TimeSpan.FromSeconds(restartTime*gameSpeed));
+            // Try unlock achievement
+            //SteamAchievementManager.Instance.UnlockAchievement($"BEAT_GM_{(int)gameMode+1}");
+            StageManager.UpdateLastStage(mapId, gameMode, gameStage+1); 
+
+            await UniTask.Delay(TimeSpan.FromSeconds(restartTime * gameSpeed));
             //gameSpeed += speedUpStep;
             gameStage++;
-
-            StageManager.UpdateLastStage(mapId, gameMode, gameStage);
+            
+            
             PlayGame();
 #else
             await UniTask.Delay(TimeSpan.FromSeconds(restartTime * gameSpeed));

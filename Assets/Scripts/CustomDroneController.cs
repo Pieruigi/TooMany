@@ -17,7 +17,8 @@ namespace TMOT
         public delegate void ExplodedDelegate(CustomDroneController drone);
         public static ExplodedDelegate OnExploded;
 
-
+        public delegate void CustomDroneHitDelegate(CustomDroneController drone);
+        public static CustomDroneHitDelegate OnCustomDroneHit;
 
 
         [SerializeField]
@@ -121,7 +122,7 @@ namespace TMOT
         {
             GameMode.Instance.ReportCustomDronePicked(this);
 
-          
+            OnCustomDroneHit?.Invoke(this);
         }
 
         void Explode()

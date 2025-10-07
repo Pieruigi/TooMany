@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 namespace TMOT
 {
@@ -9,6 +11,8 @@ namespace TMOT
     {
         public delegate void OptionsChangedDelegate();
         public static OptionsChangedDelegate OnOptionsChanged;
+
+        public static UnityAction OnResolutionChanged;
 
         [SerializeField]
         AudioMixer mixer;
@@ -26,6 +30,8 @@ namespace TMOT
         public const int VolumeOptionMax = 100;
 
         public const int VolumeOptionDefault = 100;
+
+        //public const string ResolutionIdOptionParam = "ResolutionId";
 
         public float MouseSpeed
         {
@@ -45,6 +51,8 @@ namespace TMOT
                 return Mathf.Log10((float)v / 100f) * 20f;
             }
         }
+
+
 
         protected override void Awake()
         {
@@ -76,7 +84,8 @@ namespace TMOT
             UpdateMixerVolume();
             OnOptionsChanged?.Invoke();
         }
-        
-        
+
+
+
     }
 }
