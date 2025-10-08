@@ -56,14 +56,21 @@ namespace TMOT
 
         public static void UpdateLastStage(int mapId, GameModeType modeId, int stage)
         {
+            // Stage max first
+            
+
             Debug.Log("StageManager - UpdateLastStage");
             string param = string.Format(prefsParamFormat, modeId);
+
+            // int stageMax = SteamStatsManager.Instance.GetStageMaxStat((int)modeId);
+            // if (stageMax < stage)
+            //     SteamStatsManager.Instance.UpdateStageMaxStat((int)modeId);
 
             // I should probably change this with hidden achievement or stats on Steam
             int savedStage = SteamStatsManager.Instance.GetStageStat((int)modeId);// PlayerPrefs.GetInt(param, 0);
             Debug.Log($"StageManager - Load - Param:{param}:{savedStage}");
             if (stage <= savedStage) return;
-            if (stage > MaxStage) return;
+            //if (stage > MaxStage) return;
 
             Debug.Log($"StageManager - Save - Param:{param}:{stage}");
             SteamStatsManager.Instance.UpdateStageStat((int)modeId);

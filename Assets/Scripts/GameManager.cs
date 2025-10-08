@@ -143,7 +143,8 @@ namespace TMOT
             if (scene.buildIndex == 0) // Menu
             {
                 gameSpeed = 1;
-                gameStage = StageManager.GetLastStage(mapId, gameMode);
+                gameStage = Mathf.Min(StageManager.MaxStage, StageManager.GetLastStage(mapId, gameMode));
+                
                 Debug.Log($"GameManager - GameStage:{gameStage}");
 
 #if UNITY_EDITOR
@@ -161,7 +162,7 @@ namespace TMOT
 
         void UpdateStage()
         {
-            gameStage = StageManager.GetLastStage(mapId, gameMode);
+            gameStage = Mathf.Min(StageManager.MaxStage, StageManager.GetLastStage(mapId, gameMode));
         }
 
         void SetState(GameState newState)

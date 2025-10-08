@@ -56,18 +56,18 @@ namespace TMOT
             Debug.Log($"TEST - After dest bots:{dbg}");
 
             // Get bot destroyed stat
-            if (GetStatInt(name, out int count))
-            {
-                string format = "DESTROY_BOTS_{0}";
-                Debug.Log($"TEST - Destroyed {count} bot(s).");
-                if (count >= 100)
-                    SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 1));
-                if (count >= 250)
-                    SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 2));
-                if (count >= 500)
-                    SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 3));
+            // if (GetStatInt(name, out int count))
+            // {
+            //     string format = "DESTROY_BOTS_{0}";
+            //     Debug.Log($"TEST - Destroyed {count} bot(s).");
+            //     if (count >= 100)
+            //         SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 1));
+            //     if (count >= 250)
+            //         SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 2));
+            //     if (count >= 500)
+            //         SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 3));
 
-            }
+            // }
         }
 
         private void HandleOnCustomDroneHit(CustomDroneController drone)
@@ -75,30 +75,55 @@ namespace TMOT
             switch (drone.Type)
             {
                 case CustomDroneType.Diamond:
-                    HandleOnDiamondPicked();
+                    //HandleOnDiamondPicked();
+                    IncrementStat("STOLEN_DIAMONDS", 1);
                     break;
+                case CustomDroneType.TimeUp:
+                    IncrementStat("CLOCK_COUNT", 1);
+                    //HandleOnTimeUpPicked();
+                    break;
+                case CustomDroneType.Medical:
+                    IncrementStat("MEDKIT_COUNT", 1);
+                    break;
+                case CustomDroneType.Battery:
+                    IncrementStat("BATTERY_COUNT", 1);
+                    break;
+                case CustomDroneType.Pill:
+                    IncrementStat("PILL_COUNT", 1);
+                    break;
+                case CustomDroneType.Shield:
+                    IncrementStat("SHIELD_COUNT", 1);
+                    break;
+                
+                    
             }
         }
 
-        void HandleOnDiamondPicked()
-        {
-            string name = "STOLEN_DIAMONDS";
-            IncrementStat(name, 1);
+        // private void HandleOnTimeUpPicked()
+        // {
+        //     string name = "CLOCK_COUNT";
+        //     IncrementStat(name, 1);
+        // }
 
-            // Get bot destroyed stat
-            if (GetStatInt(name, out int count))
-            {
-                string format = "STEAL_DMD_{0}";
-                Debug.Log($"TEST - Stolen {count} bot(s).");
-                if (count >= 100)
-                    SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 1));
-                if (count >= 250)
-                    SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 2));
-                if (count >= 500)
-                    SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 3));
+        // void HandleOnDiamondPicked()
+        // {
+        //     string name = "STOLEN_DIAMONDS";
+        //     IncrementStat(name, 1);
 
-            }
-        }
+        //     // Get bot destroyed stat
+        //     // if (GetStatInt(name, out int count))
+        //     // {
+        //     //     string format = "STEAL_DMD_{0}";
+        //     //     Debug.Log($"TEST - Stolen {count} bot(s).");
+        //     //     if (count >= 100)
+        //     //         SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 1));
+        //     //     if (count >= 250)
+        //     //         SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 2));
+        //     //     if (count >= 500)
+        //     //         SteamAchievementManager.Instance.UnlockAchievement(string.Format(format, 3));
+
+        //     // }
+        // }
 
         private void InitializeSteamStats()
         {
@@ -138,6 +163,15 @@ namespace TMOT
 
             return stage;
         }
+        
+         public int GetStageMaxStat(int gameMode)
+        {
+            if (!SteamManager.Initialized) return 0;
+
+            GetStatInt($"STAGE_{gameMode + 1}_MAX", out int stage);
+
+            return stage;
+        }
 
         public void UpdateStageStat(int gameMode)
         {
@@ -150,7 +184,19 @@ namespace TMOT
 #if UNITY_EDITOR
             DebugAllStats();
 #endif
-            
+
+
+        }
+
+        public void UpdateStageMaxStat(int gameMode)
+        {
+            if (!SteamManager.Initialized) return;
+
+            SetStat($"STAGE_{gameMode + 1}_MAX", GetStageMaxStat((int)gameMode) + 1);
+
+#if UNITY_EDITOR
+            DebugAllStats();
+#endif
 
         }
 

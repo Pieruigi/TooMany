@@ -76,11 +76,11 @@ namespace TMOT
                     int gameStage = GameManager.Instance.GameStage;
 
                     string stgId;
-                    if (gameStage >= 4)
-                    {
-                        stgId = $"GM_{gameMode + 1}_STG_5";
-                        if (!IsAchievementUnlocked(stgId)) UnlockAchievement(stgId);
-                    }
+                    // if (gameStage >= 4)
+                    // {
+                    //     stgId = $"GM_{gameMode + 1}_STG_5";
+                    //     if (!IsAchievementUnlocked(stgId)) UnlockAchievement(stgId);
+                    // }
                     if (gameStage >= 9)
                     {
                         stgId = $"GM_{gameMode + 1}_STG_10";
