@@ -115,7 +115,7 @@ namespace TMOT
         public void SpawnRandomMonsters(int count, bool isBlue = false)
         {
 #if UNITY_EDITOR
-            //return;
+            return;
 #endif
 
             List<Transform> candidates = LevelController.Instance.Waypoints.ToList().FindAll(s => Vector3.Distance(PlayerController.Instance.transform.position, s.position) > spawnDistance);
