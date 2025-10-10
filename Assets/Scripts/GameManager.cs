@@ -305,5 +305,6 @@ namespace TMOT
             Time.timeScale = gameSpeed;
             PlayerController.Instance.InputDisabled = false;
         }
+
     }
 }
