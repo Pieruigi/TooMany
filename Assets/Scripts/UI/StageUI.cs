@@ -37,6 +37,7 @@ namespace TMOT.UI
         void Awake()
         {
 
+          
         }
 
         // Start is called before the first frame update
@@ -86,6 +87,7 @@ namespace TMOT.UI
         void InitChips()
         {
             int stage = GameManager.Instance.GameStage;
+            
             for (int i = 0; i < chips.Count; i++)
             {
                 if (i <= stage)
@@ -101,7 +103,12 @@ namespace TMOT.UI
 
             var audioSource = index > GameManager.Instance.GameStage ? ascendingSource : descendingSource;
 
-            GameManager.Instance.GameStage = index;
+
+            if (index == chips.Count - 1)
+                GameManager.Instance.GameStage = SteamStatsManager.Instance.GetStageStat((int)GameManager.Instance.GameMode);
+            else
+                GameManager.Instance.GameStage = index;
+            
 
 
 

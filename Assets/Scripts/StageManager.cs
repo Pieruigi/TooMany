@@ -49,6 +49,10 @@ namespace TMOT
             //int stage = PlayerPrefs.GetInt(param, 0);
             int stage = SteamStatsManager.Instance.GetStageStat((int)modeId);
 
+#if UNITY_EDITOR
+            stage = 24;
+#endif
+
             Debug.Log($"StageManager - Load - Param:{param}:{stage}");
 
             return stage;

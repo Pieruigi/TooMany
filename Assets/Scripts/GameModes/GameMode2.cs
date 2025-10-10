@@ -82,7 +82,7 @@ namespace TMOT
             float[] diffs = new float[] { 2f, 4.5f }; // 2.5
             float step = (diffs[1] - diffs[0]) / 9f;
             monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
-
+            while (monsterSpawnTime <= 0) monsterSpawnTime += step; // Be sure not less than zero
             int goalMax = 50;
             int goalMin = (int)(goalMax * diffs[0] / diffs[1]);
             goalCount = (int)Mathf.Lerp((float)goalMin, (float)goalMax, (float)GameManager.Instance.GameStage / 9f);

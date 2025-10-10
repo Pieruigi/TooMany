@@ -143,7 +143,7 @@ namespace TMOT
             if (scene.buildIndex == 0) // Menu
             {
                 gameSpeed = 1;
-                gameStage = Mathf.Min(StageManager.MaxStage, StageManager.GetLastStage(mapId, gameMode));
+                gameStage = StageManager.GetLastStage(mapId, gameMode);// Mathf.Min(StageManager.MaxStage, StageManager.GetLastStage(mapId, gameMode));
                 
                 Debug.Log($"GameManager - GameStage:{gameStage}");
 
@@ -162,7 +162,7 @@ namespace TMOT
 
         void UpdateStage()
         {
-            gameStage = Mathf.Min(StageManager.MaxStage, StageManager.GetLastStage(mapId, gameMode));
+            gameStage = StageManager.GetLastStage(mapId, gameMode); //Mathf.Min(StageManager.MaxStage, StageManager.GetLastStage(mapId, gameMode));
         }
 
         void SetState(GameState newState)

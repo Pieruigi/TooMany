@@ -76,10 +76,10 @@ namespace TMOT
             float[] diffs = new float[] { 2f, 4f };
             float step = (diffs[1] - diffs[0]) / 9f;
             monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
+            while (monsterSpawnTime <= 0) monsterSpawnTime += step; // Be sure not less than zero
 
 
-            //monsterSpawnTime /= 1 + GameManager.Instance.GameStage * StageManager.StepMultiplier;
-            //monsterSpawnTime = 4.05f;
+       
         }
 
         // Start is called before the first frame update

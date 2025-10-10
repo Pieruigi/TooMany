@@ -97,7 +97,7 @@ namespace TMOT
             float[] diffs = new float[] { 4f, 7f };
             float step = (diffs[1] - diffs[0]) / 9f;
             monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
-            
+            while (monsterSpawnTime <= 0) monsterSpawnTime += step; // Be sure not less than zero
            
         }
 
