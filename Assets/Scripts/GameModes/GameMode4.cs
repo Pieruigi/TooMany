@@ -88,7 +88,7 @@ namespace TMOT
             monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
             int goalMax = 50;
             int goalMin = (int)(goalMax * diffs[0] / diffs[1]);
-            goal = (int)Mathf.Lerp(goalMin, goalMax, GameManager.Instance.GameStage / 9);
+            goal = (int)Mathf.Lerp((float)goalMin, (float)goalMax, (float)GameManager.Instance.GameStage / 9f);
             
             
         }

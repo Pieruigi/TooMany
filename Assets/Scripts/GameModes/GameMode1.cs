@@ -73,7 +73,7 @@ namespace TMOT
 
             // Init spawn time
             // 2.5 - 4.0
-            float[] diffs = new float[] { 2.5f, 4f };
+            float[] diffs = new float[] { 2f, 4f };
             float step = (diffs[1] - diffs[0]) / 9f;
             monsterSpawnTime = diffs[1] - step * GameManager.Instance.GameStage;
 

@@ -20,6 +20,11 @@ namespace TMOT
         [SerializeField]
         AudioSource switchSource;
 
+        [SerializeField]
+        AudioSource winnerSource;
+
+        
+
 
         // bool playerHasBeenChasing = false;
 
@@ -58,11 +63,23 @@ namespace TMOT
         void OnEnable()
         {
             PlayerController.OnStateChanged += HandleOnPlayerStateChanged;
+            GameManager.OnStateChanged += HandleOnStateChanged;
         }
 
         void OnDisable()
         {
             PlayerController.OnStateChanged -= HandleOnPlayerStateChanged;
+            GameManager.OnStateChanged -= HandleOnStateChanged;
+        }
+
+        private void HandleOnStateChanged(GameState oldState, GameState newState)
+        {
+            switch (newState)
+            {
+                case GameState.Winner:
+                    winnerSource.PlayDelayed(.5f);
+                    break;
+            }
         }
 
         bool PlayerHasBeenChasing()

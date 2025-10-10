@@ -85,7 +85,7 @@ namespace TMOT
 
             int goalMax = 50;
             int goalMin = (int)(goalMax * diffs[0] / diffs[1]);
-            goalCount = (int)Mathf.Lerp(goalMin, goalMax, GameManager.Instance.GameStage / 9);
+            goalCount = (int)Mathf.Lerp((float)goalMin, (float)goalMax, (float)GameManager.Instance.GameStage / 9f);
         }
 
         void Start()
